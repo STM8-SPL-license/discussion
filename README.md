@@ -9,3 +9,15 @@ Please open the "[Issues](https://github.com/STM8-SPL-license/discussion/issues)
 
 Thanks and have a great day,
 Georg
+
+
+## Update 2019-01-27:
+
+I have just uploaded my proposal for such STM8 OS-headers under [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header/stm8). Simple blink example projects can be found under [Headers/examples](https://github.com/STM8-SPL-license/discussion/tree/master/Header/examples). Basically these are 3 variants of the blink-example with:
+- byte- and bitwise access to peripherals
+- with and without interrupts
+- with and without additional SPL calls
+
+Practically I combined my existing headers from [STM8_templates](https://github.com/gicking/STM8_templates) with a new Python script to extract device data from the STM8 product list from [STM Homepage](https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html). Of the 138 STM8 devices in the list, 34 are supported and 104 are pending. 
+
+For the discussion if this is a viable proposal, please see [here](https://github.com/STM8-SPL-license/discussion/issues/1)
