@@ -1,2 +1,12 @@
 /Header/ProductsList.xlsx
 /Header/stm8as_old.h
+*.cdb
+*.ihx
+*.lk
+*.map
+*.asm
+*.log
+*.lst
+*.rel
+*.rst
+*.sym
