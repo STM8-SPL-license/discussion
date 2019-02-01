@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  STM8S903K3.h - Register Declarations for STM STM8S903K3
+  STM8S003K3.h - Register Declarations for STM STM8S003K3
 
-  Mainstream Application specific line 8-bit MCU with 8 Kbytes Flash, 16 MHz CPU, integrated EEPROM
+  Mainstream Value line 8-bit MCU with 8 Kbytes Flash, 16 MHz CPU, integrated EEPROM
 
   Copyright (C) 2019, Georg Icking-Konert
 
@@ -28,17 +28,17 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef STM8S903K3_H
-#define STM8S903K3_H  1
+#ifndef STM8S003K3_H
+#define STM8S003K3_H  1
 
 // device specific memory sizes [B]
 #define STM8_PFLASH_SIZE 8*1024
 #define STM8_RAM_SIZE    1*1024
-#define STM8_EEPROM_SIZE 640
+#define STM8_EEPROM_SIZE 128
 
 // define device line
-#if !defined(STM8S903)
-  #define STM8S903
+#if !defined(STM8S003)
+  #define STM8S003
 #endif
 
 // device specific base addresses
@@ -61,18 +61,19 @@
 #define I2C_BaseAddress         0x5210
 #define UART1_BaseAddress       0x5230
 #define TIM1_BaseAddress        0x5250
-#define TIM5_BaseAddress        0x5300
-#define TIM6_BaseAddress        0x5340
+#define TIM2_BaseAddress        0x5300
+#define TIM4_BaseAddress        0x5340
 #define ADC1_BaseAddress        0x53E0
 #define CFG_BaseAddress         0x7F60
 #define ITC_BaseAddress         0x7F70
 
 // unique ID start address
-#define UID_BaseAddress         0x4865
+#define UID_BaseAddress         xxx
 
+// include generic header for series
 #include "STM8AF_STM8S.h"
 
 /*-----------------------------------------------------------------------------
 END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // _STM8S903K3_H
+#endif // _STM8S003K3_H

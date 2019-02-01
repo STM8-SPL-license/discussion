@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  STM8S903K3.h - Register Declarations for STM STM8S903K3
+  STM8S005K6.h - Register Declarations for STM STM8S005K6
 
-  Mainstream Application specific line 8-bit MCU with 8 Kbytes Flash, 16 MHz CPU, integrated EEPROM
+  Mainstream Value line 8-bit MCU with 32 Kbytes Flash, 16 MHz CPU, integrated EEPROM
 
   Copyright (C) 2019, Georg Icking-Konert
 
@@ -28,17 +28,17 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef STM8S903K3_H
-#define STM8S903K3_H  1
+#ifndef STM8S005K6_H
+#define STM8S005K6_H  1
 
 // device specific memory sizes [B]
-#define STM8_PFLASH_SIZE 8*1024
-#define STM8_RAM_SIZE    1*1024
-#define STM8_EEPROM_SIZE 640
+#define STM8_PFLASH_SIZE 32*1024
+#define STM8_RAM_SIZE    2*1024
+#define STM8_EEPROM_SIZE 128
 
 // define device line
-#if !defined(STM8S903)
-  #define STM8S903
+#if !defined(STM8S005)
+  #define STM8S005
 #endif
 
 // device specific base addresses
@@ -49,6 +49,7 @@
 #define PORTD_BaseAddress       0x500F
 #define PORTE_BaseAddress       0x5014
 #define PORTF_BaseAddress       0x5019
+#define PORTG_BaseAddress       0x501E
 #define FLASH_BaseAddress       0x505A
 #define EXTI_BaseAddress        0x50A0
 #define RST_BaseAddress         0x50B3
@@ -59,20 +60,22 @@
 #define BEEP_BaseAddress        0x50F3
 #define SPI_BaseAddress         0x5200
 #define I2C_BaseAddress         0x5210
-#define UART1_BaseAddress       0x5230
+#define UART2_BaseAddress       0x5240
 #define TIM1_BaseAddress        0x5250
-#define TIM5_BaseAddress        0x5300
-#define TIM6_BaseAddress        0x5340
+#define TIM2_BaseAddress        0x5300
+#define TIM3_BaseAddress        0x5320
+#define TIM4_BaseAddress        0x5340
 #define ADC1_BaseAddress        0x53E0
 #define CFG_BaseAddress         0x7F60
 #define ITC_BaseAddress         0x7F70
 
 // unique ID start address
-#define UID_BaseAddress         0x4865
+#define UID_BaseAddress         xxx
 
+// include generic header for series
 #include "STM8AF_STM8S.h"
 
 /*-----------------------------------------------------------------------------
 END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // _STM8S903K3_H
+#endif // _STM8S005K6_H

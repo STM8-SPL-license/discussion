@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  STM8S903K3.h - Register Declarations for STM STM8S903K3
+  STM8AF6223A.h - Register Declarations for STM STM8AF6223A
 
-  Mainstream Application specific line 8-bit MCU with 8 Kbytes Flash, 16 MHz CPU, integrated EEPROM
+  Automotive 8-bit MCU with 8 Kbytes Flash, LIN, 16 MHz CPU, integrated EEPROM
 
   Copyright (C) 2019, Georg Icking-Konert
 
@@ -28,8 +28,8 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef STM8S903K3_H
-#define STM8S903K3_H  1
+#ifndef STM8AF6223A_H
+#define STM8AF6223A_H  1
 
 // device specific memory sizes [B]
 #define STM8_PFLASH_SIZE 8*1024
@@ -37,8 +37,8 @@
 #define STM8_EEPROM_SIZE 640
 
 // define device line
-#if !defined(STM8S903)
-  #define STM8S903
+#if !defined(STM8AF622x)
+  #define STM8AF622x
 #endif
 
 // device specific base addresses
@@ -59,7 +59,7 @@
 #define BEEP_BaseAddress        0x50F3
 #define SPI_BaseAddress         0x5200
 #define I2C_BaseAddress         0x5210
-#define UART1_BaseAddress       0x5230
+#define UART4_BaseAddress       0x5230
 #define TIM1_BaseAddress        0x5250
 #define TIM5_BaseAddress        0x5300
 #define TIM6_BaseAddress        0x5340
@@ -70,9 +70,10 @@
 // unique ID start address
 #define UID_BaseAddress         0x4865
 
+// include generic header for series
 #include "STM8AF_STM8S.h"
 
 /*-----------------------------------------------------------------------------
 END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // _STM8S903K3_H
+#endif // _STM8AF6223A_H

@@ -28,13 +28,13 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef _STM8S105S4_H
-#define _STM8S105S4_H
+#ifndef STM8S105S4_H
+#define STM8S105S4_H  1
 
 // device specific memory sizes [B]
-#define PFLASH_SIZE 16*1024
-#define RAM_SIZE    2*1024
-#define EEPROM_SIZE 1024
+#define STM8_PFLASH_SIZE 16*1024
+#define STM8_RAM_SIZE    2*1024
+#define STM8_EEPROM_SIZE 1024
 
 // define device line
 #if !defined(STM8S105)
@@ -69,11 +69,11 @@
 #define CFG_BaseAddress         0x7F60
 #define ITC_BaseAddress         0x7F70
 
-// optional unique ID  start address
-#define UID_BaseAddress   0x48CD
+// unique ID start address
+#define UID_BaseAddress         0x48CD
 
 // include generic header for series
-#include "STM8AF_STM8S"
+#include "STM8AF_STM8S.h"
 
 /*-----------------------------------------------------------------------------
 END OF MODULE DEFINITION FOR MULTIPLE INLUSION
