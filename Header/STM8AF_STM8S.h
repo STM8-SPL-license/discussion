@@ -26,22 +26,59 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef _STM8AF_S_H
-#define _STM8AF_S_H
-
-#include <stdint.h>
-
+#ifndef STM8AF_STM8S_H
+#define STM8AF_STM8S_H   1
 
 /* Check the used compiler */
 #if defined(__CSMC__)
- #define _COSMIC_
+  #define _COSMIC_
+#elif defined(__RCST7__)
+  #define _RAISONANCE_
+#elif defined(__ICCSTM8__)
+  #define _IAR_
 #elif defined(__SDCC)
- #define _SDCC_
- #define SDCC_VERSION (__SDCC_VERSION_MAJOR * 10000 \
-                     + __SDCC_VERSION_MINOR * 100 \
-                     + __SDCC_VERSION_PATCH)
+  #define _SDCC_
+  #define SDCC_VERSION (__SDCC_VERSION_MAJOR * 10000 \
+                      + __SDCC_VERSION_MINOR * 100 \
+                      + __SDCC_VERSION_PATCH)
 #else
   #error in 'STM8AF_STM8S.h': compiler not supported
+#endif
+
+
+/*-----------------------------------------------------------------------------
+    MEMORY WIDTH
+-----------------------------------------------------------------------------*/
+
+// if memory sizes [B] are not given, assume smallest available in family
+#if !defined(STM8_PFLASH_SIZE)
+  #warning undefined STM8_PFLASH_SIZE, assume minimum
+  #define STM8_PFLASH_SIZE  2*1024
+#endif
+#if !defined(STM8_RAM_SIZE)
+  #warning undefined STM8_RAM_SIZE, assume minimum
+  #define STM8_RAM_SIZE     1*1024
+#endif
+#if !defined(STM8_EEPROM_SIZE)
+  #warning undefined STM8_EEPROM_SIZE, assume minimum
+  #define STM8_EEPROM_SIZE  128
+#endif
+
+// memory start / end addresses
+#define STM8_PFLASH_START 0x8000
+#define STM8_PFLASH_END   (STM8_PFLASH_START + STM8_PFLASH_SIZE - 1)
+#define STM8_RAM_START    0x0000
+#define STM8_RAM_END      (STM8_RAM_START + STM8_RAM_SIZE - 1)
+#define STM8_EEPROM_START 0x4000
+#define STM8_EEPROM_END   (STM8_EEPROM_START + STM8_EEPROM_SIZE - 1)
+
+// address space width (>32kB flash exceeds 16bit, as flash starts at 0x8000)
+#if (STM8_PFLASH_END <= 0xFFFF)
+  #define STM8_ADDR_WIDTH      16
+  #define STM8_MEM_POINTER_T   uint16_t
+#else
+  #define STM8_ADDR_WIDTH      32
+  #define STM8_MEM_POINTER_T   uint32_t
 #endif
 
 
@@ -50,28 +87,95 @@
 -----------------------------------------------------------------------------*/
 
 // Cosmic compiler
-#if defined(__CSMC__)
+#if defined(_COSMIC_)
   
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(a,b) @far @interrupt void a(void)
   #define ISR_HANDLER_TRAP(a) void @far @interrupt a(void)
 
-  #define reg(addr,type,name)    extern volatile type name @addr    ///< syntax for variables at absolute addresses
-  #define ASM(mnem)    _asm(mnem)                                   ///< single line inline assembler
-  #define ASM_START    _Pragma("asm")                               ///< start multi-line inline assembler
-  #define ASM_END      _Pragma("endasm")                            ///< end multi-line inline assembler
+  #define SFR(addr,type,name)  extern volatile type name @addr      ///< syntax for variables at absolute addresses
+  #define ASM(mnem)            _asm(mnem)                           ///< single line inline assembler
+  #define ASM_START            _Pragma("asm")                       ///< start multi-line inline assembler
+  #define ASM_END              _Pragma("endasm")                    ///< end multi-line inline assembler
   
-  #define FAR          @far
-  #define NEAR         @near
-  #define TINY         @tiny
-  #define EEPROM       @eeprom
-  #define CONST        const
+  #define FAR                  @far
+  #define NEAR                 @near
+  #define TINY                 @tiny
+  #define EEPROM               @eeprom
+  #define CONST                const
   
-  #define INLINE       @inline
+  #define INLINE               @inline
+  #define RAM_FUNC(func)       func
+
+  #if !defined(NULL)
+    #define NULL  0
+  #endif
+
+
+// Raisonance Compiler
+#elif defined(_RAISONANCE_)
+ 
+  // macros to unify ISR declaration and implementation
+  /*
+  #define ISR_HANDLER(a,b) @far @interrupt void a(void)
+  #define ISR_HANDLER_TRAP(a) void @far @interrupt a(void)
+
+  #define SFR(addr,type,name)  extern volatile type name @addr      ///< syntax for variables at absolute addresses
+  #define ASM(mnem)            _asm(mnem)                           ///< single line inline assembler
+  #define ASM_START            _Pragma("asm")                       ///< start multi-line inline assembler
+  #define ASM_END              _Pragma("endasm")                    ///< end multi-line inline assembler
+  */
+
+  #define FAR                  far
+  #define NEAR                 data
+  #define TINY                 page0
+  #define EEPROM               eeprom
+  #define CONST                code
+  
+  //#define INLINE               @inline
+  #define RAM_FUNC(func)       func inram
+
+  #if STM8_ADDR_WIDTH == 32
+    #define MEMCPY             fmemcpy
+  #else
+    #define MEMCPY             memcpy
+  #endif
+
+  #if !defined(NULL)
+    #define NULL  0
+  #endif
+
+
+// IAR Compiler
+#elif defined(_IAR_)
+ 
+  // macros to unify ISR declaration and implementation
+  /*
+  #define ISR_HANDLER(a,b) @far @interrupt void a(void)
+  #define ISR_HANDLER_TRAP(a) void @far @interrupt a(void)
+
+  #define SFR(addr,type,name)  extern volatile type name @addr      ///< syntax for variables at absolute addresses
+  #define ASM(mnem)            _asm(mnem)                           ///< single line inline assembler
+  #define ASM_START            _Pragma("asm")                       ///< start multi-line inline assembler
+  #define ASM_END              _Pragma("endasm")                    ///< end multi-line inline assembler
+  */
+
+  #define FAR                  __far
+  #define NEAR                 __near
+  #define TINY                 __tiny
+  #define EEPROM               __eeprom
+  #define CONST                const
+  
+  //#define INLINE               @inline
+  #define RAM_FUNC(func)       __ramfunc func
+
+  #if !defined(NULL)
+    #define NULL  0
+  #endif
 
 
 // SDCC compiler
-#elif defined(__SDCC)
+#elif defined(_SDCC_)
 
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(a,b) void a(void) __interrupt(b)
@@ -81,18 +185,19 @@
     #error traps require SDCC >=3.4.3. Please update!
   #endif 
 
-  #define reg(addr,type,name)    volatile __at(addr) type name      ///< syntax for variables at absolute addresses
-  #define ASM(mnem)    __asm__(mnem)                                ///< single line inline assembler
-  #define ASM_START    __asm                                        ///< start multi-line inline assembler
-  #define ASM_END      __endasm;                                    ///< end multi-line inline assembler
+  #define SFR(addr,type,name)  volatile __at(addr) type name        ///< syntax for variables at absolute addresses
+  #define ASM(mnem)            __asm__(mnem)                        ///< single line inline assembler
+  #define ASM_START            __asm                                ///< start multi-line inline assembler
+  #define ASM_END              __endasm;                            ///< end multi-line inline assembler
 
   #define FAR
   #define NEAR
   #define TINY
   #define EEPROM
-  #define CONST        const
+  #define CONST                const
   
-  #define INLINE       static inline
+  #define INLINE               static inline
+  #define RAM_FUNC(func)       error RAM execution not yet implemented
 
   #if !defined(NULL)
     #define NULL  0
@@ -118,35 +223,38 @@
 
 
 /*-----------------------------------------------------------------------------
-    MEMORY ACCESS
+    STANDARD DATA TYPES
 -----------------------------------------------------------------------------*/
+#if defined(_COSMIC_) || defined(_RAISONANCE_) || defined(_IAR_)
 
-// if memory sizes [B] are not given, assume smallest available in family
-#if !defined(PFLASH_SIZE)
-  #define PFLASH_SIZE  2*1024
-#endif
-#if !defined(RAM_SIZE)
-  #define RAM_SIZE     1*1024
-#endif
-#if !defined(EEPROM_SIZE)
-  #define EEPROM_SIZE  128
-#endif
+  // signed integer types
+  typedef   signed char     int8_t;
+  typedef   signed short    int16_t;
+  typedef   signed long     int32_t;
+  #define   INT8_MIN        (-128)
+  #define   INT8_MAX        (127)
+  #define   INT16_MIN       (-32767-1)
+  #define   INT16_MAX       (32767)
+  #define   INT32_MIN       (-2147483647L-1)
+  #define   INT32_MAX       (2147483647L)
 
-// memory start / end addresses
-#define PFLASH_START 0x8000
-#define PFLASH_END   (PFLASH_START + PFLASH_SIZE - 1)
-#define RAM_START    0x0000
-#define RAM_END      (RAM_START + RAM_SIZE - 1)
-#define EEPROM_START 0x4000
-#define EEPROM_END   (EEPROM_START + EEPROM_SIZE - 1)
+  // unsigned integer types
+  typedef   unsigned char   uint8_t;
+  typedef   unsigned short  uint16_t;
+  typedef   unsigned long   uint32_t;
+  #define   UINT8_MIN       (0)
+  #define   UINT8_MAX       (255)
+  #define   UINT16_MIN      (0)
+  #define   UINT16_MAX      (65535)
+  #define   UINT32_MIN      (0)
+  #define   UINT32_MAX      (4294967295UL)
 
-// address space width (>32kB flash exceeds 16bit, as flash starts at 0x8000)
-#if (PFLASH_END <= 0xFFFF)
-  #define ADDR_WIDTH      16
-  #define MEM_POINTER_T   uint16_t
-#else
-  #define ADDR_WIDTH      32
-  #define MEM_POINTER_T   uint32_t
+
+#elif defined(_SDCC_)
+
+  // use compiler header
+  #include <stdint.h>
+
 #endif
 
 
@@ -162,14 +270,14 @@ typedef union {
   
   /// for bitwise access
   struct {
-    uint8_t b0 : 1;     ///< bit 0 in byte
-    uint8_t b1 : 1;     ///< bit 1 in byte
-    uint8_t b2 : 1;     ///< bit 2 in byte
-    uint8_t b3 : 1;     ///< bit 3 in byte
-    uint8_t b4 : 1;     ///< bit 4 in byte
-    uint8_t b5 : 1;     ///< bit 5 in byte
-    uint8_t b6 : 1;     ///< bit 6 in byte
-    uint8_t b7 : 1;     ///< bit 7 in byte
+    int    b0 : 1;     ///< bit 0 in byte
+    int    b1 : 1;     ///< bit 1 in byte
+    int    b2 : 1;     ///< bit 2 in byte
+    int    b3 : 1;     ///< bit 3 in byte
+    int    b4 : 1;     ///< bit 4 in byte
+    int    b5 : 1;     ///< bit 5 in byte
+    int    b6 : 1;     ///< bit 6 in byte
+    int    b7 : 1;     ///< bit 7 in byte
   } bit;
   
 } byte_t;
@@ -188,7 +296,7 @@ typedef struct {
 
 
 /*-----------------------------------------------------------------------------
-    ISR Vector Table
+    ISR Vector Table (for SDCC only)
 -----------------------------------------------------------------------------*/
 
 /// irq0 - External Top Level interrupt (TLI) for pin PD7
@@ -329,33 +437,33 @@ typedef struct {
 
   // port A..F implemented on all devices
   #if defined(PORTA_BaseAddress)
-    reg(PORTA_BaseAddress, PORT_t, _GPIOA);   ///< registers for port A access
+    SFR(PORTA_BaseAddress, PORT_t, _GPIOA);   ///< registers for port A access
   #endif
   #if defined(PORTB_BaseAddress)
-    reg(PORTB_BaseAddress, PORT_t, _GPIOB);   ///< registers for port B access
+    SFR(PORTB_BaseAddress, PORT_t, _GPIOB);   ///< registers for port B access
   #endif
   #if defined(PORTC_BaseAddress)
-    reg(PORTC_BaseAddress, PORT_t, _GPIOC);   ///< registers for port C access
+    SFR(PORTC_BaseAddress, PORT_t, _GPIOC);   ///< registers for port C access
   #endif
   #if defined(PORTD_BaseAddress)
-    reg(PORTD_BaseAddress, PORT_t, _GPIOD);   ///< registers for port D access
+    SFR(PORTD_BaseAddress, PORT_t, _GPIOD);   ///< registers for port D access
   #endif
   #if defined(PORTE_BaseAddress)
-    reg(PORTE_BaseAddress, PORT_t, _GPIOE);   ///< registers for port E access
+    SFR(PORTE_BaseAddress, PORT_t, _GPIOE);   ///< registers for port E access
   #endif
   #if defined(PORTF_BaseAddress)
-    reg(PORTF_BaseAddress, PORT_t, _GPIOF);   ///< registers for port F access
+    SFR(PORTF_BaseAddress, PORT_t, _GPIOF);   ///< registers for port F access
   #endif
 
   // port G+H+I implemented on selected devices
   #if defined(PORTG_BaseAddress)
-    reg(PORTG_BaseAddress, PORT_t, _GPIOG);   ///< registers for port G access
+    SFR(PORTG_BaseAddress, PORT_t, _GPIOG);   ///< registers for port G access
   #endif
   #if defined(PORTH_BaseAddress)
-    reg(PORTH_BaseAddress, PORT_t, _GPIOH);   ///< registers for port H access
+    SFR(PORTH_BaseAddress, PORT_t, _GPIOH);   ///< registers for port H access
   #endif
   #if defined(PORTI_BaseAddress)
-    reg(PORTI_BaseAddress, PORT_t, _GPIOI);   ///< registers for port I access
+    SFR(PORTI_BaseAddress, PORT_t, _GPIOI);   ///< registers for port I access
   #endif
 
   /* macro for readability (all ports) */
@@ -394,13 +502,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t HSIEN   : 1;    ///< High speed internal RC oscillator enable
-        uint8_t HSIRDY  : 1;    ///< High speed internal oscillator ready flag
-        uint8_t FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
-        uint8_t LSIEN   : 1;    ///< Low speed internal RC oscillator enable
-        uint8_t LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
-        uint8_t REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
-        uint8_t res     : 2;    ///< Reserved, must be kept cleared
+        int    HSIEN   : 1;    ///< High speed internal RC oscillator enable
+        int    HSIRDY  : 1;    ///< High speed internal oscillator ready flag
+        int    FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
+        int    LSIEN   : 1;    ///< Low speed internal RC oscillator enable
+        int    LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
+        int    REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
+        int    res     : 2;    ///< Reserved, must be kept cleared
       } reg;
       
     } ICKR;
@@ -414,9 +522,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t HSEEN   : 1;    ///< High speed external crystal oscillator enable
-        uint8_t HSERDY  : 1;    ///< High speed external crystal oscillator ready
-        uint8_t res     : 6;    ///< Reserved, must be kept cleared
+        int    HSEEN   : 1;    ///< High speed external crystal oscillator enable
+        int    HSERDY  : 1;    ///< High speed external crystal oscillator ready
+        int    res     : 6;    ///< Reserved, must be kept cleared
       } reg;
       
     } ECKR;
@@ -434,7 +542,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CKM     : 8;    ///< Clock master status bits
+        int    CKM     : 8;    ///< Clock master status bits
       } reg;
       
     } CMSR;
@@ -448,7 +556,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SWI     : 8;    ///< Clock master selection bits
+        int    SWI     : 8;    ///< Clock master selection bits
       } reg;
       
     } SWR;
@@ -462,11 +570,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SWBSY   : 1;    ///< Switch busy flag
-        uint8_t SWEN    : 1;    ///< Switch start/stop enable
-        uint8_t SWIEN   : 1;    ///< Clock switch interrupt enable
-        uint8_t SWIF    : 1;    ///< Clock switch interrupt flag
-        uint8_t res     : 4;    ///< Reserved
+        int    SWBSY   : 1;    ///< Switch busy flag
+        int    SWEN    : 1;    ///< Switch start/stop enable
+        int    SWIEN   : 1;    ///< Clock switch interrupt enable
+        int    SWIF    : 1;    ///< Clock switch interrupt flag
+        int    res     : 4;    ///< Reserved
       } reg;
 
     } SWCR;
@@ -480,9 +588,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CPUDIV  : 3;    ///< CPU clock prescaler
-        uint8_t HSIDIV  : 2;    ///< High speed internal clock prescaler
-        uint8_t res     : 3;    ///< Reserved, must be kept cleared.
+        int    CPUDIV  : 3;    ///< CPU clock prescaler
+        int    HSIDIV  : 2;    ///< High speed internal clock prescaler
+        int    res     : 3;    ///< Reserved, must be kept cleared.
       } reg;
 
     } CKDIVR;
@@ -496,14 +604,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PCKEN_I2C       : 1;    ///< clock enable I2C
-        uint8_t PCKEN_SPI       : 1;    ///< clock enable SPI
-        uint8_t PCKEN_UART1     : 1;    ///< clock enable UART1
-        uint8_t PCKEN_UART2     : 1;    ///< clock enable UART2
-        uint8_t PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
-        uint8_t PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
-        uint8_t PCKEN_TIM3      : 1;    ///< clock enable TIM3
-        uint8_t PCKEN_TIM1      : 1;    ///< clock enable TIM1
+        int    PCKEN_I2C       : 1;    ///< clock enable I2C
+        int    PCKEN_SPI       : 1;    ///< clock enable SPI
+        int    PCKEN_UART1     : 1;    ///< clock enable UART1
+        int    PCKEN_UART2     : 1;    ///< clock enable UART2
+        int    PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
+        int    PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
+        int    PCKEN_TIM3      : 1;    ///< clock enable TIM3
+        int    PCKEN_TIM1      : 1;    ///< clock enable TIM1
       } reg;
       
     } PCKENR1;
@@ -517,11 +625,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CSSEN   : 1;    ///< Clock security system enable
-        uint8_t AUX     : 1;    ///< Auxiliary oscillator connected to master clock
-        uint8_t CSSDIE  : 1;    ///< Clock security system detection interrupt enable
-        uint8_t CSSD    : 1;    ///< Clock security system detection
-        uint8_t res     : 4;    ///< Reserved, must be kept cleared.
+        int    CSSEN   : 1;    ///< Clock security system enable
+        int    AUX     : 1;    ///< Auxiliary oscillator connected to master clock
+        int    CSSDIE  : 1;    ///< Clock security system detection interrupt enable
+        int    CSSD    : 1;    ///< Clock security system detection
+        int    res     : 4;    ///< Reserved, must be kept cleared.
       } reg;
       
     } CSSR;
@@ -535,11 +643,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CCOEN   : 1;    ///< Configurable clock output enable
-        uint8_t CCOSEL  : 4;    ///< Configurable clock output selection.
-        uint8_t CCORDY  : 1;    ///< Configurable clock output ready
-        uint8_t CCOBSY  : 1;    ///< Configurable clock output busy
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared.
+        int    CCOEN   : 1;    ///< Configurable clock output enable
+        int    CCOSEL  : 4;    ///< Configurable clock output selection.
+        int    CCORDY  : 1;    ///< Configurable clock output ready
+        int    CCOBSY  : 1;    ///< Configurable clock output busy
+        int    res     : 1;    ///< Reserved, must be kept cleared.
       } reg;
 
     } CCOR;
@@ -553,11 +661,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res         : 2;    ///< Reserved
-        uint8_t PCKEN_AWU   : 1;    ///< clock enable AWU
-        uint8_t PCKEN_ADC   : 1;    ///< clock enable ADC
-        uint8_t res2        : 3;    ///< Reserved
-        uint8_t PCKEN_CAN   : 1;    ///< clock enable CAN
+        int    res       : 2;   ///< Reserved
+        int    PCKEN_AWU : 1;   ///< clock enable AWU
+        int    PCKEN_ADC : 1;   ///< clock enable ADC
+        int    res2      : 3;   ///< Reserved
+        int    PCKEN_CAN : 1;   ///< clock enable CAN
       } reg;
 
     } PCKENR2;
@@ -569,8 +677,8 @@ typedef struct {
     union {
       uint8_t  byte;
       struct {
-        uint8_t CANDIV  : 3;
-        uint8_t res     : 5;
+        int    CANDIV  : 3;
+        int    res     : 5;
       } reg;
     } CANCCR;
     */
@@ -584,8 +692,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
-        uint8_t res     : 4;    ///< Reserved, must be kept cleared.
+        int    HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
+        int    res     : 4;    ///< Reserved, must be kept cleared.
       } reg;
       
     } HSITRIMR;
@@ -599,8 +707,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SWIMCLK : 1;    ///< SWIM clock divider
-        uint8_t res     : 7;    ///< Reserved.
+        int    SWIMCLK : 1;    ///< SWIM clock divider
+        int    res     : 7;    ///< Reserved.
       } reg;
       
     } SWIMCCR;
@@ -609,7 +717,7 @@ typedef struct {
 
   /// pointer to all CLK registers (all devices)
   #if defined(CLK_BaseAddress)
-    reg(CLK_BaseAddress, CLK_t, _CLK);
+    SFR(CLK_BaseAddress, CLK_t, _CLK);
   #endif
   
   /* CLK Module Reset Values */
@@ -646,8 +754,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t T       : 7;    ///< 7-bit WWDG counter (MSB to LSB)
-        uint8_t WDGA    : 1;    ///< WWDG activation bit (not used if WWDG is enabled by option byte)
+        int    T       : 7;    ///< 7-bit WWDG counter (MSB to LSB)
+        int    WDGA    : 1;    ///< WWDG activation bit (not used if WWDG is enabled by option byte)
       } reg;
       
     } CR;
@@ -661,8 +769,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t W       : 7;    ///< 7-bit window value
-        uint8_t res     : 1;    ///< Reserved
+        int    W       : 7;    ///< 7-bit window value
+        int    res     : 1;    ///< Reserved
       } reg;
       
     } WR;
@@ -671,7 +779,7 @@ typedef struct {
 
   /// pointer to all WWDG Window Watchdog registers (all devices)
   #if defined(WWDG_BaseAddress)
-    reg(WWDG_BaseAddress, WWDG_t, _WWDG);
+    SFR(WWDG_BaseAddress, WWDG_t, _WWDG);
   #endif
 
   /* WWDG Module Reset Values */
@@ -698,7 +806,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t KEY     : 8;    ///< IWDG key value
+        int    KEY     : 8;    ///< IWDG key value
       } reg;
       
     } KR;
@@ -712,8 +820,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PR      : 3;    ///< Prescaler divider
-        uint8_t res     : 5;    ///< Reserved
+        int    PR      : 3;    ///< Prescaler divider
+        int    res     : 5;    ///< Reserved
       } reg;
       
     } PR;
@@ -727,7 +835,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t RL      : 8;    ///< Watchdog counter reload value
+        int    RL      : 8;    ///< Watchdog counter reload value
       } reg;
       
     } RLR;
@@ -736,7 +844,7 @@ typedef struct {
 
   /// pointer to all IWDG independent timeout watchdog registers (all devices)
   #if defined(IWDG_BaseAddress)
-    reg(IWDG_BaseAddress, IWDG_t, _IWDG);
+    SFR(IWDG_BaseAddress, IWDG_t, _IWDG);
   #endif
 
   /* IWDG Module Reset Values */
@@ -763,11 +871,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t FIX     : 1;    ///< Fixed Byte programming time
-        uint8_t IE      : 1;    ///< Flash Interrupt enable
-        uint8_t AHALT   : 1;    ///< Power-down in Active-halt mode
-        uint8_t HALT    : 1;    ///< Power-down in Halt mode
-        uint8_t res     : 4;    ///< Reserved
+        int    FIX     : 1;    ///< Fixed Byte programming time
+        int    IE      : 1;    ///< Flash Interrupt enable
+        int    AHALT   : 1;    ///< Power-down in Active-halt mode
+        int    HALT    : 1;    ///< Power-down in Halt mode
+        int    res     : 4;    ///< Reserved
       } reg;
     } CR1;
 
@@ -780,12 +888,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PRG     : 1;    ///< Standard block programming
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t FPRG    : 1;    ///< Fast block programming
-        uint8_t ERASE   : 1;    ///< Block erasing
-        uint8_t WPRG    : 1;    ///< Word programming
-        uint8_t OPT     : 1;    ///< Write option bytes
+        int    PRG     : 1;    ///< Standard block programming
+        int    res     : 3;    ///< Reserved
+        int    FPRG    : 1;    ///< Fast block programming
+        int    ERASE   : 1;    ///< Block erasing
+        int    WPRG    : 1;    ///< Word programming
+        int    OPT     : 1;    ///< Write option bytes
       } reg;
 
     } CR2;
@@ -799,12 +907,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PRG     : 1;    ///< Standard block programming
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t FPRG    : 1;    ///< Fast block programming
-        uint8_t ERASE   : 1;    ///< Block erasing
-        uint8_t WPRG    : 1;    ///< Word programming
-        uint8_t OPT     : 1;    ///< Write option bytes
+        int    PRG     : 1;    ///< Standard block programming
+        int    res     : 3;    ///< Reserved
+        int    FPRG    : 1;    ///< Fast block programming
+        int    ERASE   : 1;    ///< Block erasing
+        int    WPRG    : 1;    ///< Word programming
+        int    OPT     : 1;    ///< Write option bytes
       } reg;
 
     } NCR2;
@@ -818,8 +926,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t WPB     : 6;    ///< User boot code area protection bits
-        uint8_t res     : 2;    ///< Reserved
+        int    WPB     : 6;    ///< User boot code area protection bits
+        int    res     : 2;    ///< Reserved
       } reg;
 
     } FPR;
@@ -833,8 +941,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t WPB     : 6;    ///< User boot code area protection bits
-        uint8_t res     : 2;    ///< Reserved
+        int    WPB     : 6;    ///< User boot code area protection bits
+        int    res     : 2;    ///< Reserved
       } reg;
 
     } NFPR;
@@ -848,13 +956,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t WR_PG_DIS : 1;    ///< Write attempted to protected page flag
-        uint8_t PUL       : 1;    ///< Flash Program memory unlocked flag
-        uint8_t EOP       : 1;    ///< End of programming (write or erase operation) flag
-        uint8_t DUL       : 1;    ///< Data EEPROM area unlocked flag
-        uint8_t res       : 2;    ///< Reserved, forced by hardware to 0
-        uint8_t HVOFF     : 1;    ///< End of high voltage flag
-        uint8_t res2      : 1;    ///< Reserved
+        int    WR_PG_DIS : 1;  ///< Write attempted to protected page flag
+        int    PUL       : 1;  ///< Flash Program memory unlocked flag
+        int    EOP       : 1;  ///< End of programming (write or erase operation) flag
+        int    DUL       : 1;  ///< Data EEPROM area unlocked flag
+        int    res       : 2;  ///< Reserved, forced by hardware to 0
+        int    HVOFF     : 1;  ///< End of high voltage flag
+        int    res2      : 1;  ///< Reserved
       } reg;
 
     } IAPSR;
@@ -872,7 +980,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PUK     : 8;    ///< Main program memory unlock keys
+        int    PUK     : 8;    ///< Main program memory unlock keys
       } reg;
       
     } PUKR;
@@ -890,7 +998,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t DUK     : 8;    ///< Data EEPROM write unlock keys
+        int    DUK     : 8;    ///< Data EEPROM write unlock keys
       } reg;
       
     } DUKR;
@@ -899,7 +1007,7 @@ typedef struct {
 
   /// pointer to all Flash registers (all devices, but differet sizes)
   #if defined(FLASH_BaseAddress)
-    reg(FLASH_BaseAddress, FLASH_t, _FLASH);
+    SFR(FLASH_BaseAddress, FLASH_t, _FLASH);
   #endif
 
   /* FLASH Module Reset Values */
@@ -930,11 +1038,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t MSR     : 1;    ///< LSI measurement enable
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t AWUEN   : 1;    ///< Auto-wakeup enable
-        uint8_t AWUF    : 1;    ///< Auto-wakeup flag
-        uint8_t res2    : 2;    ///< Reserved
+        int    MSR     : 1;    ///< LSI measurement enable
+        int    res     : 3;    ///< Reserved
+        int    AWUEN   : 1;    ///< Auto-wakeup enable
+        int    AWUF    : 1;    ///< Auto-wakeup flag
+        int    res2    : 2;    ///< Reserved
       } reg;
 
     } CSR;
@@ -948,8 +1056,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t APR     : 6;    ///< Asynchronous prescaler divider
-        uint8_t res     : 2;    ///< Reserved
+        int    APR     : 6;    ///< Asynchronous prescaler divider
+        int    res     : 2;    ///< Reserved
       } reg;
       
     } APR;
@@ -963,8 +1071,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t AWUTB   : 4;    ///< Auto-wakeup timebase selection
-        uint8_t res     : 4;    ///< Reserved
+        int    AWUTB   : 4;    ///< Auto-wakeup timebase selection
+        int    res     : 4;    ///< Reserved
       } reg;
 
     } TBR;
@@ -973,7 +1081,7 @@ typedef struct {
 
   /// pointer to all AWU registers (all devices)
   #if defined(AWU_BaseAddress)
-    reg(AWU_BaseAddress, AWU_t, _AWU);
+    SFR(AWU_BaseAddress, AWU_t, _AWU);
   #endif
 
   /* AWU Module Reset Values */
@@ -1001,9 +1109,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t BEEPDIV : 5;    ///< Beep clock prescaler divider
-        uint8_t BEEPEN  : 1;    ///< Beep enable
-        uint8_t BEEPSEL : 2;    ///< Beeper frequency selection
+        int    BEEPDIV : 5;    ///< Beep clock prescaler divider
+        int    BEEPEN  : 1;    ///< Beep enable
+        int    BEEPSEL : 2;    ///< Beeper frequency selection
       } reg;
       
     } CSR;
@@ -1012,7 +1120,7 @@ typedef struct {
 
   /// register for beeper control (all devices)
   #if defined(BEEP_BaseAddress)
-    reg(BEEP_BaseAddress, BEEP_t, _BEEP);
+    SFR(BEEP_BaseAddress, BEEP_t, _BEEP);
   #endif
 
   /* BEEP Module Reset Values */
@@ -1038,12 +1146,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t WWDGF   : 1;    ///< Window Watchdog reset flag
-        uint8_t IWDGF   : 1;    ///< Independent Watchdog reset flag
-        uint8_t ILLOPF  : 1;    ///< Illegal opcode reset flag
-        uint8_t SWIMF   : 1;    ///< SWIM reset flag
-        uint8_t EMCF    : 1;    ///< EMC reset flag
-        uint8_t res     : 3;    ///< Reserved
+        int    WWDGF   : 1;    ///< Window Watchdog reset flag
+        int    IWDGF   : 1;    ///< Independent Watchdog reset flag
+        int    ILLOPF  : 1;    ///< Illegal opcode reset flag
+        int    SWIMF   : 1;    ///< SWIM reset flag
+        int    EMCF    : 1;    ///< EMC reset flag
+        int    res     : 3;    ///< Reserved
       } reg;
 
     } SR;
@@ -1052,7 +1160,7 @@ typedef struct {
 
   /// register for reset status module (all devices)
   #if defined(RST_BaseAddress)
-    reg(RST_BaseAddress, RST_t, _RST);
+    SFR(RST_BaseAddress, RST_t, _RST);
   #endif
 
 #endif // (1)
@@ -1075,9 +1183,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SWD     : 1;    ///< SWIM disable
-        uint8_t AL      : 1;    ///< Activation level
-        uint8_t res     : 6;    ///< Reserved
+        int    SWD     : 1;    ///< SWIM disable
+        int    AL      : 1;    ///< Activation level
+        int    res     : 6;    ///< Reserved
       } reg;
       
     } GCR;
@@ -1086,7 +1194,7 @@ typedef struct {
 
   /// register for CFG module (all devices)
   #if defined(CFG_BaseAddress)
-    reg(CFG_BaseAddress, CFG_t, _CFG);
+    SFR(CFG_BaseAddress, CFG_t, _CFG);
   #endif
 
   /* CFG Module Reset Values */
@@ -1112,10 +1220,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PAIS    : 2;    ///< Port A external interrupt sensitivity bits
-        uint8_t PBIS    : 2;    ///< Port B external interrupt sensitivity bits
-        uint8_t PCIS    : 2;    ///< Port C external interrupt sensitivity bits
-        uint8_t PDIS    : 2;    ///< Port D external interrupt sensitivity bits
+        int    PAIS    : 2;    ///< Port A external interrupt sensitivity bits
+        int    PBIS    : 2;    ///< Port B external interrupt sensitivity bits
+        int    PCIS    : 2;    ///< Port C external interrupt sensitivity bits
+        int    PDIS    : 2;    ///< Port D external interrupt sensitivity bits
       } reg;
 
     } CR1;
@@ -1129,9 +1237,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PEIS    : 2;    ///< Port E external interrupt sensitivity bits
-        uint8_t TLIS    : 1;    ///< Top level interrupt sensitivity
-        uint8_t res     : 5;    ///< Reserved
+        int    PEIS    : 2;    ///< Port E external interrupt sensitivity bits
+        int    TLIS    : 1;    ///< Top level interrupt sensitivity
+        int    res     : 5;    ///< Reserved
       } reg;
 
     } CR2;
@@ -1140,7 +1248,7 @@ typedef struct {
 
   /// pointer to all EXTI registers (all devices)
   #if defined(EXTI_BaseAddress)
-    reg(EXTI_BaseAddress, EXTI_t, _EXTI);
+    SFR(EXTI_BaseAddress, EXTI_t, _EXTI);
   #endif
 
   /* EXTI Module Reset Values */
@@ -1167,10 +1275,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   res       : 2;    ///< Reserved
-        uint8_t   AWU       : 2;    ///< AWU (=irq1) interrupt priority 
-        uint8_t   CLK       : 2;    ///< CLK (=irq2) interrupt priority 
-        uint8_t   EXTI_A    : 2;    ///< EXINT on port A (=irq3) interrupt priority
+        int    res       : 2;    ///< Reserved
+        int    AWU       : 2;    ///< AWU (=irq1) interrupt priority 
+        int    CLK       : 2;    ///< CLK (=irq2) interrupt priority 
+        int    EXTI_A    : 2;    ///< EXINT on port A (=irq3) interrupt priority
       } reg;
 
     } SPR1;
@@ -1184,10 +1292,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   EXTI_B    : 2;    ///< EXINT on port B (=irq4) interrupt priority
-        uint8_t   EXTI_C    : 2;    ///< EXINT on port C (=irq5) interrupt priority
-        uint8_t   EXTI_D    : 2;    ///< EXINT on port D (=irq6) interrupt priority
-        uint8_t   EXTI_E    : 2;    ///< EXINT on port E (=irq7) interrupt priority
+        int    EXTI_B    : 2;    ///< EXINT on port B (=irq4) interrupt priority
+        int    EXTI_C    : 2;    ///< EXINT on port C (=irq5) interrupt priority
+        int    EXTI_D    : 2;    ///< EXINT on port D (=irq6) interrupt priority
+        int    EXTI_E    : 2;    ///< EXINT on port E (=irq7) interrupt priority
       } reg;
 
     } SPR2;
@@ -1201,10 +1309,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   CAN_RX    : 2;    ///< CAN Rx (=irq8) interrupt priority 
-        uint8_t   CAN_TX    : 2;    ///< CAN Tx (=irq9) interrupt priority 
-        uint8_t   SPI       : 2;    ///< SPI (=irq10) interrupt priority 
-        uint8_t   TIM1_UPD  : 2;    ///< TIM1 Update (=irq11) interrupt priority 
+        int    CAN_RX    : 2;    ///< CAN Rx (=irq8) interrupt priority 
+        int    CAN_TX    : 2;    ///< CAN Tx (=irq9) interrupt priority 
+        int    SPI       : 2;    ///< SPI (=irq10) interrupt priority 
+        int    TIM1_UPD  : 2;    ///< TIM1 Update (=irq11) interrupt priority 
       } reg;
 
     } SPR3;
@@ -1218,10 +1326,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   TIM1_CAP  : 2;    ///< TIM1 Capture/Compare (=irq12) interrupt priority 
-        uint8_t   TIM2_UPD  : 2;    ///< TIM2 Update (=irq13) interrupt priority 
-        uint8_t   TIM2_CAP  : 2;    ///< TIM2 Capture/Compare (=irq14) interrupt priority 
-        uint8_t   TIM3_UPD  : 2;    ///< TIM3 Update (=irq15) interrupt priority (Reserved)
+        int    TIM1_CAP  : 2;    ///< TIM1 Capture/Compare (=irq12) interrupt priority 
+        int    TIM2_UPD  : 2;    ///< TIM2 Update (=irq13) interrupt priority 
+        int    TIM2_CAP  : 2;    ///< TIM2 Capture/Compare (=irq14) interrupt priority 
+        int    TIM3_UPD  : 2;    ///< TIM3 Update (=irq15) interrupt priority (Reserved)
       } reg;
 
     } SPR4;
@@ -1235,10 +1343,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   TIM3_CAP  : 2;    ///< TIM3 Capture/Compare (=irq16) interrupt priority (Reserved)
-        uint8_t   UART1_TX : 2;     ///< UART1/USART Tx complete (=irq17) interrupt priority 
-        uint8_t   UART1_RX : 2;     ///< UART1/USART Rx full (=irq18) interrupt priority 
-        uint8_t   I2C       : 2;    ///< I2C (=irq19) interrupt priority 
+        int    TIM3_CAP  : 2;    ///< TIM3 Capture/Compare (=irq16) interrupt priority (Reserved)
+        int    UART1_TX  : 2;    ///< UART1/USART Tx complete (=irq17) interrupt priority 
+        int    UART1_RX  : 2;    ///< UART1/USART Rx full (=irq18) interrupt priority 
+        int    I2C       : 2;    ///< I2C (=irq19) interrupt priority 
       } reg;
 
     } SPR5;
@@ -1252,10 +1360,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   UART234_TX : 2;    ///< UART234/LINUART Tx complete (=irq20) interrupt priority 
-        uint8_t   UART234_RX  : 2;    ///< UART234/LINUART Rx full (=irq21) interrupt priority 
-        uint8_t   ADC       : 2;    ///< ADC (=irq22) interrupt priority 
-        uint8_t   TIM4_UPD  : 2;    ///< TIM4 Update (=irq23) interrupt priority (Reserved)
+        int    UART234_TX : 2;    ///< UART234/LINUART Tx complete (=irq20) interrupt priority 
+        int    UART234_RX : 2;    ///< UART234/LINUART Rx full (=irq21) interrupt priority 
+        int    ADC        : 2;    ///< ADC (=irq22) interrupt priority 
+        int    TIM4_UPD   : 2;    ///< TIM4 Update (=irq23) interrupt priority (Reserved)
       } reg;
 
     } SPR6;
@@ -1269,10 +1377,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   FLASH     : 2;    ///< flash (=irq24) interrupt priority 
-        uint8_t   VECT25    : 2;    ///< irq25 interrupt priority (not documented)
-        uint8_t   VECT26    : 2;    ///< irq26 interrupt priority (not documented)
-        uint8_t   VECT27    : 2;    ///< irq27 interrupt priority (not documented)
+        int    FLASH     : 2;    ///< flash (=irq24) interrupt priority 
+        int    VECT25    : 2;    ///< irq25 interrupt priority (not documented)
+        int    VECT26    : 2;    ///< irq26 interrupt priority (not documented)
+        int    VECT27    : 2;    ///< irq27 interrupt priority (not documented)
       } reg;
 
     } SPR7;
@@ -1286,8 +1394,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t   VECT28    : 2;    ///< irq28 interrupt priority (not documented)
-        uint8_t   res       : 6;    ///< Reserved
+        int    VECT28    : 2;    ///< irq28 interrupt priority (not documented)
+        int    res       : 6;    ///< Reserved
       } reg;
 
     } SPR8;
@@ -1296,7 +1404,7 @@ typedef struct {
 
   /// register for ITC control (all devices)
   #if defined(ITC_BaseAddress)
-    reg(ITC_BaseAddress, ITC_t, _ITC);
+    SFR(ITC_BaseAddress, ITC_t, _ITC);
   #endif
 
   /* ITC Module Reset Values (all registers) */
@@ -1322,12 +1430,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CPHA     : 1;    ///< Clock phase
-        uint8_t CPOL     : 1;    ///< Clock polarity
-        uint8_t MSTR     : 1;    ///< Master/slave selection
-        uint8_t BR       : 3;    ///< Baudrate control
-        uint8_t SPE      : 1;    ///< SPI enable
-        uint8_t xLSBFIRST : 1;    ///< Frame format. Add x to avoid conflict with misc.h
+        int    CPHA     : 1;    ///< Clock phase
+        int    CPOL     : 1;    ///< Clock polarity
+        int    MSTR     : 1;    ///< Master/slave selection
+        int    BR       : 3;    ///< Baudrate control
+        int    SPE      : 1;    ///< SPI enable
+        int    xLSBFIRST : 1;    ///< Frame format. Add x to avoid conflict with misc.h
       } reg;
 
     } CR1;
@@ -1341,14 +1449,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SSI     : 1;    ///< Internal slave select
-        uint8_t SSM     : 1;    ///< Software slave management
-        uint8_t RXONLY  : 1;    ///< Receive only
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t CRCNEXT : 1;    ///< Transmit CRC next
-        uint8_t CRCEN   : 1;    ///< Hardware CRC calculation enable
-        uint8_t BDOE    : 1;    ///< Input/Output enable in bidirectional mode
-        uint8_t BDM     : 1;    ///< Bidirectional data mode enable
+        int    SSI     : 1;    ///< Internal slave select
+        int    SSM     : 1;    ///< Software slave management
+        int    RXONLY  : 1;    ///< Receive only
+        int    res     : 1;    ///< Reserved
+        int    CRCNEXT : 1;    ///< Transmit CRC next
+        int    CRCEN   : 1;    ///< Hardware CRC calculation enable
+        int    BDOE    : 1;    ///< Input/Output enable in bidirectional mode
+        int    BDM     : 1;    ///< Bidirectional data mode enable
       } reg;
 
     } CR2;
@@ -1362,11 +1470,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 4;    ///< Reserved
-        uint8_t WKIE    : 1;    ///< Wakeup interrupt enable
-        uint8_t ERRIE   : 1;    ///< Error interrupt enable
-        uint8_t RXIE    : 1;    ///< Rx buffer not empty interrupt enable
-        uint8_t TXIE    : 1;    ///< Tx buffer empty interrupt enable
+        int    res     : 4;    ///< Reserved
+        int    WKIE    : 1;    ///< Wakeup interrupt enable
+        int    ERRIE   : 1;    ///< Error interrupt enable
+        int    RXIE    : 1;    ///< Rx buffer not empty interrupt enable
+        int    TXIE    : 1;    ///< Tx buffer empty interrupt enable
       } reg;
 
     } ICR;
@@ -1380,14 +1488,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t RXNE    : 1;    ///< Receive buffer not empty
-        uint8_t TXE     : 1;    ///< Transmit buffer empty
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t WKUP    : 1;    ///< Wakeup flag
-        uint8_t CRCERR  : 1;    ///< CRC error flag
-        uint8_t MODF    : 1;    ///< Mode fault
-        uint8_t OVR     : 1;    ///< Overrun flag
-        uint8_t BSY     : 1;    ///< Busy flag
+        int    RXNE    : 1;    ///< Receive buffer not empty
+        int    TXE     : 1;    ///< Transmit buffer empty
+        int    res     : 1;    ///< Reserved
+        int    WKUP    : 1;    ///< Wakeup flag
+        int    CRCERR  : 1;    ///< CRC error flag
+        int    MODF    : 1;    ///< Mode fault
+        int    OVR     : 1;    ///< Overrun flag
+        int    BSY     : 1;    ///< Busy flag
       } reg;
 
     } SR;
@@ -1405,7 +1513,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CRCPOLY : 8;    ///< CRC polynomial register
+        int    CRCPOLY : 8;    ///< CRC polynomial register
       } reg;
       
     } CRCPR;
@@ -1419,7 +1527,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t RxCRC   : 8;    ///< Rx CRC Register
+        int    RxCRC   : 8;    ///< Rx CRC Register
       } reg;
       
     } RXCRCR;
@@ -1433,7 +1541,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t TxCRC   : 8;    ///< Tx CRC register
+        int    TxCRC   : 8;    ///< Tx CRC register
       } reg;
       
     } TXCRCR;
@@ -1442,7 +1550,7 @@ typedef struct {
 
   /// register for SPI control
   #if defined(SPI_BaseAddress)
-    reg(SPI_BaseAddress, SPI_t, _SPI);
+    SFR(SPI_BaseAddress, SPI_t, _SPI);
   #endif
 
   /* SPI Module Reset Values */
@@ -1475,10 +1583,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PE        : 1;    ///< Peripheral enable
-        uint8_t res       : 5;    ///< Reserved
-        uint8_t ENGC      : 1;    ///< General call enable
-        uint8_t NOSTRETCH : 1;    ///< Clock stretching disable (Slave mode)
+        int    PE        : 1;    ///< Peripheral enable
+        int    res       : 5;    ///< Reserved
+        int    ENGC      : 1;    ///< General call enable
+        int    NOSTRETCH : 1;    ///< Clock stretching disable (Slave mode)
       } reg;
 
     } CR1;
@@ -1492,12 +1600,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t START     : 1;    ///< Start generation
-        uint8_t STOP      : 1;    ///< Stop generation
-        uint8_t ACK       : 1;    ///< Acknowledge enable
-        uint8_t POS       : 1;    ///< Acknowledge position (for data reception)
-        uint8_t res       : 3;    ///< Reserved
-        uint8_t SWRST     : 1;    ///< Software reset
+        int    START     : 1;    ///< Start generation
+        int    STOP      : 1;    ///< Stop generation
+        int    ACK       : 1;    ///< Acknowledge enable
+        int    POS       : 1;    ///< Acknowledge position (for data reception)
+        int    res       : 3;    ///< Reserved
+        int    SWRST     : 1;    ///< Software reset
       } reg;
 
     } CR2;
@@ -1511,8 +1619,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t FREQ      : 6;    ///< Peripheral clock frequency
-        uint8_t res       : 2;    ///< Reserved
+        int    FREQ      : 6;    ///< Peripheral clock frequency
+        int    res       : 2;    ///< Reserved
       } reg;
 
     } FREQR;
@@ -1526,8 +1634,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ADD0      : 1;    ///< Interface address [10] (in 10-bit address mode)
-        uint8_t ADD       : 7;    ///< Interface address [7:1]
+        int    ADD0      : 1;    ///< Interface address [10] (in 10-bit address mode)
+        int    ADD       : 7;    ///< Interface address [7:1]
       } reg;
 
     } OARL;
@@ -1541,11 +1649,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t ADD       : 2;    ///< Interface address [9:8] (in 10-bit address mode)
-        uint8_t res2      : 3;    ///< Reserved
-        uint8_t ADDCONF   : 1;    ///< Address mode configuration (must always be written as ‘1’)
-        uint8_t ADDMODE   : 1;    ///< 7-/10-bit addressing mode (Slave mode)
+        int    res       : 1;    ///< Reserved
+        int    ADD       : 2;    ///< Interface address [9:8] (in 10-bit address mode)
+        int    res2      : 3;    ///< Reserved
+        int    ADDCONF   : 1;    ///< Address mode configuration (must always be written as ‘1’)
+        int    ADDMODE   : 1;    ///< 7-/10-bit addressing mode (Slave mode)
       } reg;
       
     } OARH;
@@ -1567,14 +1675,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SB        : 1;    ///< Start bit (Mastermode)
-        uint8_t ADDR      : 1;    ///< Address sent (master mode) / matched (slave mode)
-        uint8_t BTF       : 1;    ///< Byte transfer finished
-        uint8_t ADD10     : 1;    ///< 10-bit header sent (Master mode)
-        uint8_t STOPF     : 1;    ///< Stop detection (Slave mode)
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t RXNE      : 1;    ///< Data register not empty (receivers)
-        uint8_t TXE       : 1;    ///< Data register empty (transmitters)
+        int    SB        : 1;    ///< Start bit (Mastermode)
+        int    ADDR      : 1;    ///< Address sent (master mode) / matched (slave mode)
+        int    BTF       : 1;    ///< Byte transfer finished
+        int    ADD10     : 1;    ///< 10-bit header sent (Master mode)
+        int    STOPF     : 1;    ///< Stop detection (Slave mode)
+        int    res       : 1;    ///< Reserved
+        int    RXNE      : 1;    ///< Data register not empty (receivers)
+        int    TXE       : 1;    ///< Data register empty (transmitters)
       } reg;
       
     } SR1;
@@ -1588,13 +1696,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t BERR      : 1;    ///< Bus error
-        uint8_t ARLO      : 1;    ///< Arbitration lost (master mode)
-        uint8_t AF        : 1;    ///< Acknowledge failure
-        uint8_t OVR       : 1;    ///< Overrun/underrun
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t WUFH      : 1;    ///< Wakeup from Halt
-        uint8_t res2      : 2;    ///< Reserved
+        int    BERR      : 1;    ///< Bus error
+        int    ARLO      : 1;    ///< Arbitration lost (master mode)
+        int    AF        : 1;    ///< Acknowledge failure
+        int    OVR       : 1;    ///< Overrun/underrun
+        int    res       : 1;    ///< Reserved
+        int    WUFH      : 1;    ///< Wakeup from Halt
+        int    res2      : 2;    ///< Reserved
       } reg;
       
     } SR2;
@@ -1608,12 +1716,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t MSL       : 1;    ///< Master/Slave
-        uint8_t BUSY      : 1;    ///< Bus busy
-        uint8_t TRA       : 1;    ///< Transmitter/Receiver
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t GENCALL   : 1;    ///< General call header (Slavemode)
-        uint8_t res2      : 3;    ///< Reserved
+        int    MSL       : 1;    ///< Master/Slave
+        int    BUSY      : 1;    ///< Bus busy
+        int    TRA       : 1;    ///< Transmitter/Receiver
+        int    res       : 1;    ///< Reserved
+        int    GENCALL   : 1;    ///< General call header (Slavemode)
+        int    res2      : 3;    ///< Reserved
       } reg;
       
     } SR3;
@@ -1627,10 +1735,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ITERREN   : 1;    ///< Error interrupt enable
-        uint8_t ITEVTEN   : 1;    ///< Event interrupt enable
-        uint8_t ITBUFEN   : 1;    ///< Buffer interrupt enable
-        uint8_t res       : 5;    ///< Reserved
+        int    ITERREN   : 1;    ///< Error interrupt enable
+        int    ITEVTEN   : 1;    ///< Event interrupt enable
+        int    ITBUFEN   : 1;    ///< Buffer interrupt enable
+        int    res       : 5;    ///< Reserved
       } reg;
       
     } ITR;
@@ -1644,7 +1752,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CCR       : 8;    ///< Clock control register (Master mode)
+        int    CCR       : 8;    ///< Clock control register (Master mode)
       } reg;
       
     } CCRL;
@@ -1658,10 +1766,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CCR       : 4;    ///< Clock control register in Fast/Standard mode (Master mode)
-        uint8_t res       : 2;    ///< Reserved
-        uint8_t DUTY      : 1;    ///< Fast mode duty cycle
-        uint8_t FS        : 1;    ///< I2C master mode selection
+        int    CCR       : 4;    ///< Clock control register in Fast/Standard mode (Master mode)
+        int    res       : 2;    ///< Reserved
+        int    DUTY      : 1;    ///< Fast mode duty cycle
+        int    FS        : 1;    ///< I2C master mode selection
       } reg;
       
     } CCRH;
@@ -1675,8 +1783,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t TRISE     : 6;    ///< Maximum rise time in Fast/Standard mode (Master mode)
-        uint8_t res       : 2;    ///< Reserved
+        int    TRISE     : 6;    ///< Maximum rise time in Fast/Standard mode (Master mode)
+        int    res       : 2;    ///< Reserved
       } reg;
       
     } TRISER;
@@ -1688,7 +1796,7 @@ typedef struct {
     union {
       uint8_t  byte;
       struct {
-        uint8_t res       : 8;
+        int    res       : 8;
       } reg;
     } PECR;
     */
@@ -1697,7 +1805,7 @@ typedef struct {
 
   /// pointer to all I2C registers (all devices)
   #if defined(I2C_BaseAddress)
-    reg(I2C_BaseAddress, I2C_t, _I2C);
+    SFR(I2C_BaseAddress, I2C_t, _I2C);
   #endif
 
   /* I2C Module Reset Values */
@@ -1734,14 +1842,14 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t INRQ      : 1;    ///< Initialization Request
-        uint8_t SLEEP     : 1;    ///< Sleep Mode Request
-        uint8_t TXFP      : 1;    ///< Transmit FIFO Priority
-        uint8_t RFLM      : 1;    ///< Receive FIFO Locked Mode
-        uint8_t NART      : 1;    ///< No Automatic Retransmission
-        uint8_t AWUM      : 1;    ///< Automatic Wakeup Mode
-        uint8_t ABOM      : 1;    ///< Automatic Bus-Off Management
-        uint8_t TTCM      : 1;    ///< Time Triggered Communication Mode
+        int    INRQ      : 1;    ///< Initialization Request
+        int    SLEEP     : 1;    ///< Sleep Mode Request
+        int    TXFP      : 1;    ///< Transmit FIFO Priority
+        int    RFLM      : 1;    ///< Receive FIFO Locked Mode
+        int    NART      : 1;    ///< No Automatic Retransmission
+        int    AWUM      : 1;    ///< Automatic Wakeup Mode
+        int    ABOM      : 1;    ///< Automatic Bus-Off Management
+        int    TTCM      : 1;    ///< Time Triggered Communication Mode
       } reg;
   
     } MCR;
@@ -1755,13 +1863,13 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t INAK      : 1;    ///< Initialization Acknowledge
-        uint8_t SLAK      : 1;    ///< Sleep Acknowledge
-        uint8_t ERRI      : 1;    ///< Error Interrupt
-        uint8_t WKUI      : 1;    ///< Wakeup Interrupt
-        uint8_t TX        : 1;    ///< Transmit
-        uint8_t RX        : 1;    ///< Receive
-        uint8_t res       : 2;    ///< Reserved
+        int    INAK      : 1;    ///< Initialization Acknowledge
+        int    SLAK      : 1;    ///< Sleep Acknowledge
+        int    ERRI      : 1;    ///< Error Interrupt
+        int    WKUI      : 1;    ///< Wakeup Interrupt
+        int    TX        : 1;    ///< Transmit
+        int    RX        : 1;    ///< Receive
+        int    res       : 2;    ///< Reserved
       } reg;
   
     } MSR;
@@ -1775,14 +1883,14 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t RQCP0     : 1;    ///< Request Completed for Mailbox 0 
-        uint8_t RQCP1     : 1;    ///< Request Completed for Mailbox 1
-        uint8_t RQCP2     : 1;    ///< Request Completed for Mailbox 2
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t TXOK0     : 1;    ///< Transmission ok for Mailbox 0
-        uint8_t TXOK1     : 1;    ///< Transmission ok for Mailbox 1
-        uint8_t TXOK2     : 1;    ///< Transmission ok for Mailbox 2
-        uint8_t res2      : 1;    ///< Reserved
+        int    RQCP0     : 1;    ///< Request Completed for Mailbox 0 
+        int    RQCP1     : 1;    ///< Request Completed for Mailbox 1
+        int    RQCP2     : 1;    ///< Request Completed for Mailbox 2
+        int    res       : 1;    ///< Reserved
+        int    TXOK0     : 1;    ///< Transmission ok for Mailbox 0
+        int    TXOK1     : 1;    ///< Transmission ok for Mailbox 1
+        int    TXOK2     : 1;    ///< Transmission ok for Mailbox 2
+        int    res2      : 1;    ///< Reserved
       } reg;
   
     } TSR;
@@ -1796,13 +1904,13 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t CODE      : 2;    ///< Mailbox Code
-        uint8_t TME0      : 1;    ///< Transmit Mailbox 0 Empty
-        uint8_t TME1      : 1;    ///< Transmit Mailbox 1 Empty
-        uint8_t TME2      : 1;    ///< Transmit Mailbox 2 Empty
-        uint8_t LOW0      : 1;    ///< Lowest Priority Flag for Mailbox 0
-        uint8_t LOW1      : 1;    ///< Lowest Priority Flag for Mailbox 1
-        uint8_t LOW2      : 1;    ///< Lowest Priority Flag for Mailbox 2
+        int    CODE      : 2;    ///< Mailbox Code
+        int    TME0      : 1;    ///< Transmit Mailbox 0 Empty
+        int    TME1      : 1;    ///< Transmit Mailbox 1 Empty
+        int    TME2      : 1;    ///< Transmit Mailbox 2 Empty
+        int    LOW0      : 1;    ///< Lowest Priority Flag for Mailbox 0
+        int    LOW1      : 1;    ///< Lowest Priority Flag for Mailbox 1
+        int    LOW2      : 1;    ///< Lowest Priority Flag for Mailbox 2
       } reg;
   
     } TPR;
@@ -1816,12 +1924,12 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t FMP       : 2;    ///< FIFO Message Pending
-        uint8_t res       : 1;    ///< Reserved
-        uint8_t FULL      : 1;    ///< FIFO Full
-        uint8_t FOVR      : 1;    ///< FIFO Overrun
-        uint8_t RFOM      : 1;    ///< Release FIFO Output Mailbox
-        uint8_t res2      : 2;    ///< Reserved    
+        int    FMP       : 2;    ///< FIFO Message Pending
+        int    res       : 1;    ///< Reserved
+        int    FULL      : 1;    ///< FIFO Full
+        int    FOVR      : 1;    ///< FIFO Overrun
+        int    RFOM      : 1;    ///< Release FIFO Output Mailbox
+        int    res2      : 2;    ///< Reserved    
       } reg;
 
     } RFR;
@@ -1835,12 +1943,12 @@ typedef struct {
   
       /// bitwise access to register
       struct {
-        uint8_t TMEIE     : 1;    ///< Transmit Mailbox Empty Interrupt Enable
-        uint8_t FMPIE     : 1;    ///< FIFO Message Pending Interrupt Enable
-        uint8_t FFIE      : 1;    ///< FIFO Full Interrupt Enable
-        uint8_t FOVIE     : 1;    ///< FIFO Overrun Interrupt Enable
-        uint8_t res       : 3;    ///< Reserved
-        uint8_t WKUIE     : 1;    ///< Wakeup Interrupt Enable
+        int    TMEIE     : 1;    ///< Transmit Mailbox Empty Interrupt Enable
+        int    FMPIE     : 1;    ///< FIFO Message Pending Interrupt Enable
+        int    FFIE      : 1;    ///< FIFO Full Interrupt Enable
+        int    FOVIE     : 1;    ///< FIFO Overrun Interrupt Enable
+        int    res       : 3;    ///< Reserved
+        int    WKUIE     : 1;    ///< Wakeup Interrupt Enable
       } reg;
 
     } IER;
@@ -1854,12 +1962,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LBKM      : 1;    ///< Loop back mode
-        uint8_t SILM      : 1;    ///< Silent mode
-        uint8_t SAMP      : 1;    ///< Last sample point
-        uint8_t RX        : 1;    ///< CAN Rx Signal
-        uint8_t TXM2E     : 1;    ///< TX Mailbox 2 enable
-        uint8_t res       : 3;    ///< Reserved
+        int    LBKM      : 1;    ///< Loop back mode
+        int    SILM      : 1;    ///< Silent mode
+        int    SAMP      : 1;    ///< Last sample point
+        int    RX        : 1;    ///< CAN Rx Signal
+        int    TXM2E     : 1;    ///< TX Mailbox 2 enable
+        int    res       : 3;    ///< Reserved
       } reg;
       
     } DGR;
@@ -1873,8 +1981,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PS        : 3;    ///< Page select
-        uint8_t res       : 5;    ///< Reserved
+        int    PS        : 3;    ///< Page select
+        int    res       : 5;    ///< Reserved
       } reg;
       
     } PSR;
@@ -1895,13 +2003,13 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t TXRQ      : 1;    ///< Transmission mailbox request
-            uint8_t ABRQ      : 1;    ///< Abort request for mailbox
-            uint8_t RQCP      : 1;    ///< Request completed
-            uint8_t TXOK      : 1;    ///< Transmission OK
-            uint8_t ALST      : 1;    ///< Arbitration lost
-            uint8_t TERR      : 1;    ///< Transmission error
-            uint8_t res       : 2;    ///< Reserved
+            int    TXRQ      : 1;    ///< Transmission mailbox request
+            int    ABRQ      : 1;    ///< Abort request for mailbox
+            int    RQCP      : 1;    ///< Request completed
+            int    TXOK      : 1;    ///< Transmission OK
+            int    ALST      : 1;    ///< Arbitration lost
+            int    TERR      : 1;    ///< Transmission error
+            int    res       : 2;    ///< Reserved
           } reg;
           
         } MCSR;
@@ -1915,9 +2023,9 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t DLC       : 4;    ///< Data length code
-            uint8_t res       : 3;    ///< Reserved
-            uint8_t TGT       : 1;    ///< Transmit global time
+            int    DLC       : 4;    ///< Data length code
+            int    res       : 3;    ///< Reserved
+            int    TGT       : 1;    ///< Transmit global time
           } reg;
           
         } MDLCR;
@@ -1931,10 +2039,10 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t ID        : 5;    ///< STID[10:6] or EXID[28:24]
-            uint8_t RTR       : 1;    ///< Remote transmission request
-            uint8_t IDE       : 1;    ///< Extended identifier
-            uint8_t res       : 1;    ///< Reserved
+            int    ID        : 5;    ///< STID[10:6] or EXID[28:24]
+            int    RTR       : 1;    ///< Remote transmission request
+            int    IDE       : 1;    ///< Extended identifier
+            int    res       : 1;    ///< Reserved
           } reg;
           
         } MIDR1;
@@ -1948,8 +2056,8 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EXID      : 2;    ///< EXID[17:16]
-            uint8_t ID        : 6;    ///< STID[5:0] or EXID[23:18]
+            int    EXID      : 2;    ///< EXID[17:16]
+            int    ID        : 6;    ///< STID[5:0] or EXID[23:18]
           } reg;
         } MIDR2;
 
@@ -1962,7 +2070,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EXID      : 8;    ///< EXID[15:8]
+            int    EXID      : 8;    ///< EXID[15:8]
           } reg;
           
         } MIDR3;
@@ -1976,7 +2084,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EXID      : 8;    ///< EXID[7:0]
+            int    EXID      : 8;    ///< EXID[7:0]
           } reg;
           
         } MIDR4;
@@ -2113,12 +2221,12 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EWGF      : 1;    ///< Error warning flag
-            uint8_t EPVF      : 1;    ///< Error passive flag
-            uint8_t BOFF      : 1;    ///< Bus off flag
-            uint8_t res       : 1;    ///< Reserved
-            uint8_t LEC       : 3;    ///< Last error code
-            uint8_t res2      : 1;    ///< Reserved
+            int    EWGF      : 1;    ///< Error warning flag
+            int    EPVF      : 1;    ///< Error passive flag
+            int    BOFF      : 1;    ///< Bus off flag
+            int    res       : 1;    ///< Reserved
+            int    LEC       : 3;    ///< Last error code
+            int    res2      : 1;    ///< Reserved
           } reg;
           
         } ESR;
@@ -2132,13 +2240,13 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EWGIE     : 1;    ///< Error warning interrupt enable
-            uint8_t EPVIE     : 1;    ///< Error passive  interrupt enable
-            uint8_t BOFIE     : 1;    ///< Bus-Off  interrupt enable
-            uint8_t res       : 1;    ///< Reserved
-            uint8_t LECIE     : 1;    ///< Last error code interrupt enable
-            uint8_t res2      : 2;    ///< Reserved
-            uint8_t ERRIE     : 1;    ///< Error interrupt enable
+            int    EWGIE     : 1;    ///< Error warning interrupt enable
+            int    EPVIE     : 1;    ///< Error passive  interrupt enable
+            int    BOFIE     : 1;    ///< Bus-Off  interrupt enable
+            int    res       : 1;    ///< Reserved
+            int    LECIE     : 1;    ///< Last error code interrupt enable
+            int    res2      : 2;    ///< Reserved
+            int    ERRIE     : 1;    ///< Error interrupt enable
           } reg;
           
         } EIER;
@@ -2152,7 +2260,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t TEC       : 8;    ///< Transmit error counter
+            int    TEC       : 8;    ///< Transmit error counter
           } reg;
           
         } TECR;
@@ -2166,7 +2274,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t REC       : 8;    ///< Receive error counter
+            int    REC       : 8;    ///< Receive error counter
           } reg;
           
         } RECR;
@@ -2180,8 +2288,8 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t BRP       : 6;    ///< Baud rate prescaler
-            uint8_t SJW       : 2;    ///< Resynchronization jump width
+            int    BRP       : 6;    ///< Baud rate prescaler
+            int    SJW       : 2;    ///< Resynchronization jump width
           } reg;
           
         } BTR1;
@@ -2195,9 +2303,9 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t BS1       : 4;    ///< Bit segment 1
-            uint8_t BS2       : 3;    ///< Bit segment 2
-            uint8_t res       : 1;    ///< Reserved, must be kept cleared
+            int    BS1       : 4;    ///< Bit segment 1
+            int    BS2       : 3;    ///< Bit segment 2
+            int    res       : 1;    ///< Reserved, must be kept cleared
           } reg;
           
         } BTR2;
@@ -2215,14 +2323,14 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FML0      : 1;    ///< Filter 0 mode low
-            uint8_t FMH0      : 1;    ///< Filter 0 mode high
-            uint8_t FML1      : 1;    ///< Filter 1 mode low
-            uint8_t FMH1      : 1;    ///< Filter 1 mode high
-            uint8_t FML2      : 1;    ///< Filter 2 mode low
-            uint8_t FMH2      : 1;    ///< Filter 2 mode high
-            uint8_t FML3      : 1;    ///< Filter 3 mode low
-            uint8_t FMH3      : 1;    ///< Filter 3 mode high
+            int    FML0      : 1;    ///< Filter 0 mode low
+            int    FMH0      : 1;    ///< Filter 0 mode high
+            int    FML1      : 1;    ///< Filter 1 mode low
+            int    FMH1      : 1;    ///< Filter 1 mode high
+            int    FML2      : 1;    ///< Filter 2 mode low
+            int    FMH2      : 1;    ///< Filter 2 mode high
+            int    FML3      : 1;    ///< Filter 3 mode low
+            int    FMH3      : 1;    ///< Filter 3 mode high
           } reg;
           
         } FMR1;
@@ -2236,11 +2344,11 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FML4      : 1;    ///< Filter 4 mode low
-            uint8_t FMH4      : 1;    ///< Filter 4 mode high
-            uint8_t FML5      : 1;    ///< Filter 5 mode low
-            uint8_t FMH5      : 1;    ///< Filter 5 mode high
-            uint8_t res       : 4;    ///< Reserved
+            int    FML4      : 1;    ///< Filter 4 mode low
+            int    FMH4      : 1;    ///< Filter 4 mode high
+            int    FML5      : 1;    ///< Filter 5 mode low
+            int    FMH5      : 1;    ///< Filter 5 mode high
+            int    res       : 4;    ///< Reserved
           } reg;
           
         } FMR2;
@@ -2254,12 +2362,12 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FACT0     : 1;    ///< Filter 0 active
-            uint8_t FSC0      : 2;    ///< Filter 0 scale configuration
-            uint8_t res       : 1;    ///< Reserved
-            uint8_t FACT1     : 1;    ///< Filter 1 active
-            uint8_t FSC1      : 2;    ///< Filter 1 scale configuration
-            uint8_t res2      : 1;    ///< Reserved
+            int    FACT0     : 1;    ///< Filter 0 active
+            int    FSC0      : 2;    ///< Filter 0 scale configuration
+            int    res       : 1;    ///< Reserved
+            int    FACT1     : 1;    ///< Filter 1 active
+            int    FSC1      : 2;    ///< Filter 1 scale configuration
+            int    res2      : 1;    ///< Reserved
           } reg;
           
         } FCR1;
@@ -2273,12 +2381,12 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FACT2     : 1;    ///< Filter 2 active
-            uint8_t FSC2      : 2;    ///< Filter 2 scale configuration
-            uint8_t res       : 1;    ///< Reserved
-            uint8_t FACT3     : 1;    ///< Filter 3 active
-            uint8_t FSC3      : 2;    ///< Filter 3 scale configuration
-            uint8_t res2      : 1;    ///< Reserve
+            int    FACT2     : 1;    ///< Filter 2 active
+            int    FSC2      : 2;    ///< Filter 2 scale configuration
+            int    res       : 1;    ///< Reserved
+            int    FACT3     : 1;    ///< Filter 3 active
+            int    FSC3      : 2;    ///< Filter 3 scale configuration
+            int    res2      : 1;    ///< Reserve
           } reg;
           
         } FCR2;
@@ -2294,12 +2402,12 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FACT4     : 1;    ///< Filter 4 active
-            uint8_t FSC4      : 2;    ///< Filter 4 scale configuration
-            uint8_t res       : 1;    ///< Reserved
-            uint8_t FACT5     : 1;    ///< Filter 5 active
-            uint8_t FSC5      : 2;    ///< Filter 5 scale configuration
-            uint8_t res2      : 1;    ///< Reserve
+            int    FACT4     : 1;    ///< Filter 4 active
+            int    FSC4      : 2;    ///< Filter 4 scale configuration
+            int    res       : 1;    ///< Reserved
+            int    FACT5     : 1;    ///< Filter 5 active
+            int    FSC5      : 2;    ///< Filter 5 scale configuration
+            int    res2      : 1;    ///< Reserve
           } reg;
           
         } FCR3;
@@ -2323,7 +2431,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t FMI     : 8;    ///< Filter match index  
+            int    FMI     : 8;    ///< Filter match index  
           } reg;
           
         } MFMIR;
@@ -2337,9 +2445,9 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t DLC       : 4;    ///< Data length code
-            uint8_t res       : 3;    ///< Reserved
-            uint8_t TGT       : 1;    ///< Transmit global time
+            int    DLC       : 4;    ///< Data length code
+            int    res       : 3;    ///< Reserved
+            int    TGT       : 1;    ///< Transmit global time
           } reg;
           
         } MDLCR;
@@ -2353,10 +2461,10 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t ID        : 5;    ///< STID[10:6] or EXID[28:24]
-            uint8_t RTR       : 1;    ///< Remote transmission request
-            uint8_t IDE       : 1;    ///< Extended identifier
-            uint8_t res       : 1;    ///< Reserved
+            int    ID        : 5;    ///< STID[10:6] or EXID[28:24]
+            int    RTR       : 1;    ///< Remote transmission request
+            int    IDE       : 1;    ///< Extended identifier
+            int    res       : 1;    ///< Reserved
           } reg;
           
         } MIDR1;
@@ -2370,8 +2478,8 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EXID      : 2;    ///< EXID[17:16]
-            uint8_t ID        : 6;    ///< STID[5:0] or EXID[23:18]
+            int    EXID      : 2;    ///< EXID[17:16]
+            int    ID        : 6;    ///< STID[5:0] or EXID[23:18]
           } reg;
         } MIDR2;
 
@@ -2384,7 +2492,7 @@ typedef struct {
           
           /// bitwise access to register
           struct {
-            uint8_t EXID      : 8;    ///< EXID[15:8]
+            int    EXID      : 8;    ///< EXID[15:8]
           } reg;
           
         } MIDR3;
@@ -2447,32 +2555,32 @@ typedef struct {
 
   /// pointer to all CAN registers (all devices)
   #if defined(CAN_BaseAddress)
-    reg(CAN_BaseAddress, CAN_t, _CAN);
+    SFR(CAN_BaseAddress, CAN_t, _CAN);
   #endif
 
   /* CAN Module Reset Values */
-  #define  	CAN_MCR_RESET_VALUE			((uint8_t)0x02)
-  #define  	CAN_MSR_RESET_VALUE			((uint8_t)0x02)
-  #define  	CAN_TSR_RESET_VALUE			((uint8_t)0x00)
-  #define  	CAN_TPR_RESET_VALUE			((uint8_t)0x0C)
-  #define  	CAN_RFR_RESET_VALUE			((uint8_t)0x00)
-  #define  	CAN_IER_RESET_VALUE			((uint8_t)0x00)
-  #define  	CAN_DGR_RESET_VALUE			((uint8_t)0x0C)
-  #define  	CAN_PSR_RESET_VALUE			((uint8_t)0x00)
+  #define   CAN_MCR_RESET_VALUE   ((uint8_t)0x02)
+  #define   CAN_MSR_RESET_VALUE   ((uint8_t)0x02)
+  #define   CAN_TSR_RESET_VALUE   ((uint8_t)0x00)
+  #define   CAN_TPR_RESET_VALUE   ((uint8_t)0x0C)
+  #define   CAN_RFR_RESET_VALUE   ((uint8_t)0x00)
+  #define   CAN_IER_RESET_VALUE   ((uint8_t)0x00)
+  #define   CAN_DGR_RESET_VALUE   ((uint8_t)0x0C)
+  #define   CAN_PSR_RESET_VALUE   ((uint8_t)0x00)
 
-  #define  	CAN_ESR_RESET_VALUE			((uint8_t)0x00)
-  #define  	CAN_EIER_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_TECR_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_RECR_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_BTR1_RESET_VALUE		((uint8_t)0x40)
-  #define  	CAN_BTR2_RESET_VALUE		((uint8_t)0x23)
-  #define  	CAN_FMR1_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_FMR2_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_FCR_RESET_VALUE			((uint8_t)0x00)
+  #define   CAN_ESR_RESET_VALUE   ((uint8_t)0x00)
+  #define   CAN_EIER_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_TECR_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_RECR_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_BTR1_RESET_VALUE  ((uint8_t)0x40)
+  #define   CAN_BTR2_RESET_VALUE  ((uint8_t)0x23)
+  #define   CAN_FMR1_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_FMR2_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_FCR_RESET_VALUE   ((uint8_t)0x00)
 
-  #define  	CAN_MFMI_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_MDLC_RESET_VALUE		((uint8_t)0x00)
-  #define  	CAN_MCSR_RESET_VALUE		((uint8_t)0x00)
+  #define   CAN_MFMI_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_MDLC_RESET_VALUE  ((uint8_t)0x00)
+  #define   CAN_MCSR_RESET_VALUE  ((uint8_t)0x00)
 
 #endif // (1)
 
@@ -2499,14 +2607,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PE      : 1;    ///< Parity error
-        uint8_t FE      : 1;    ///< Framing error
-        uint8_t NF      : 1;    ///< Noise flag
-        uint8_t OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
-        uint8_t IDLE    : 1;    ///< IDLE line detected
-        uint8_t RXNE    : 1;    ///< Read data register not empty
-        uint8_t TC      : 1;    ///< Transmission complete
-        uint8_t TXE     : 1;    ///< Transmit data register empty
+        int    PE      : 1;    ///< Parity error
+        int    FE      : 1;    ///< Framing error
+        int    NF      : 1;    ///< Noise flag
+        int    OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+        int    IDLE    : 1;    ///< IDLE line detected
+        int    RXNE    : 1;    ///< Read data register not empty
+        int    TC      : 1;    ///< Transmission complete
+        int    TXE     : 1;    ///< Transmit data register empty
       } reg;
       
     } SR;
@@ -2524,7 +2632,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
+        int    UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
       } reg;
       
     } BRR1;
@@ -2538,8 +2646,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
-        uint8_t UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
+        int    UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
+        int    UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
       } reg;
       
     } BRR2;
@@ -2553,14 +2661,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PIEN    : 1;    ///< Parity interrupt enable
-        uint8_t PS      : 1;    ///< Parity selection
-        uint8_t PCEN    : 1;    ///< Parity control enable
-        uint8_t WAKE    : 1;    ///< Wakeup method
-        uint8_t M       : 1;    ///< word length
-        uint8_t UARTD   : 1;    ///< UART Disable (for low power consumption)
-        uint8_t T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
-        uint8_t R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
+        int    PIEN    : 1;    ///< Parity interrupt enable
+        int    PS      : 1;    ///< Parity selection
+        int    PCEN    : 1;    ///< Parity control enable
+        int    WAKE    : 1;    ///< Wakeup method
+        int    M       : 1;    ///< word length
+        int    UARTD   : 1;    ///< UART Disable (for low power consumption)
+        int    T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
+        int    R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
       } reg;
       
     } CR1;
@@ -2574,14 +2682,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SBK     : 1;    ///< Send break
-        uint8_t RWU     : 1;    ///< Receiver wakeup
-        uint8_t REN     : 1;    ///< Receiver enable
-        uint8_t TEN     : 1;    ///< Transmitter enable
-        uint8_t ILIEN   : 1;    ///< IDLE Line interrupt enable
-        uint8_t RIEN    : 1;    ///< Receiver interrupt enable
-        uint8_t TCIEN   : 1;    ///< Transmission complete interrupt enable
-        uint8_t TIEN    : 1;    ///< Transmitter interrupt enable
+        int    SBK     : 1;    ///< Send break
+        int    RWU     : 1;    ///< Receiver wakeup
+        int    REN     : 1;    ///< Receiver enable
+        int    TEN     : 1;    ///< Transmitter enable
+        int    ILIEN   : 1;    ///< IDLE Line interrupt enable
+        int    RIEN    : 1;    ///< Receiver interrupt enable
+        int    TCIEN   : 1;    ///< Transmission complete interrupt enable
+        int    TIEN    : 1;    ///< Transmitter interrupt enable
       } reg;
       
     } CR2;
@@ -2595,13 +2703,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LBCL    : 1;    ///< Last bit clock pulse
-        uint8_t CPHA    : 1;    ///< Clock phase
-        uint8_t CPOL    : 1;    ///< Clock polarity
-        uint8_t CKEN    : 1;    ///< Clock enable
-        uint8_t STOP    : 2;    ///< STOP bits
-        uint8_t LINEN   : 1;    ///< LIN mode enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    LBCL    : 1;    ///< Last bit clock pulse
+        int    CPHA    : 1;    ///< Clock phase
+        int    CPOL    : 1;    ///< Clock polarity
+        int    CKEN    : 1;    ///< Clock enable
+        int    STOP    : 2;    ///< STOP bits
+        int    LINEN   : 1;    ///< LIN mode enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR3;
@@ -2615,11 +2723,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ADD     : 4;    ///< Address of the UART node
-        uint8_t LBDF    : 1;    ///< LIN Break Detection Flag
-        uint8_t LBDL    : 1;    ///< LIN Break Detection Length
-        uint8_t LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    ADD     : 4;    ///< Address of the UART node
+        int    LBDF    : 1;    ///< LIN Break Detection Flag
+        int    LBDL    : 1;    ///< LIN Break Detection Length
+        int    LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR4;
@@ -2633,13 +2741,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
-        uint8_t IREN    : 1;    ///< IrDA mode Enable
-        uint8_t IRLP    : 1;    ///< IrDA Low Power
-        uint8_t HDSEL   : 1;    ///< Half-Duplex Selection
-        uint8_t NACK    : 1;    ///< Smartcard NACK enable
-        uint8_t SCEN    : 1;    ///< Smartcard mode enable
-        uint8_t res2    : 2;    ///< Reserved, must be kept cleared
+        int    res     : 1;    ///< Reserved, must be kept cleared
+        int    IREN    : 1;    ///< IrDA mode Enable
+        int    IRLP    : 1;    ///< IrDA Low Power
+        int    HDSEL   : 1;    ///< Half-Duplex Selection
+        int    NACK    : 1;    ///< Smartcard NACK enable
+        int    SCEN    : 1;    ///< Smartcard mode enable
+        int    res2    : 2;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR5;
@@ -2656,7 +2764,7 @@ typedef struct {
     
   /// pointer to UART1 registers
   #if defined(UART1_BaseAddress)
-    reg(UART1_BaseAddress, UART1_t, _UART1);
+    SFR(UART1_BaseAddress, UART1_t, _UART1);
   #endif
 
   /* UART1 Module Reset Values */
@@ -2695,14 +2803,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PE      : 1;    ///< Parity error
-        uint8_t FE      : 1;    ///< Framing error
-        uint8_t NF      : 1;    ///< Noise flag
-        uint8_t OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
-        uint8_t IDLE    : 1;    ///< IDLE line detected
-        uint8_t RXNE    : 1;    ///< Read data register not empty
-        uint8_t TC      : 1;    ///< Transmission complete
-        uint8_t TXE     : 1;    ///< Transmit data register empty
+        int    PE      : 1;    ///< Parity error
+        int    FE      : 1;    ///< Framing error
+        int    NF      : 1;    ///< Noise flag
+        int    OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+        int    IDLE    : 1;    ///< IDLE line detected
+        int    RXNE    : 1;    ///< Read data register not empty
+        int    TC      : 1;    ///< Transmission complete
+        int    TXE     : 1;    ///< Transmit data register empty
       } reg;
       
     } SR;
@@ -2720,7 +2828,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
+        int    UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
       } reg;
       
     } BRR1;
@@ -2734,8 +2842,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
-        uint8_t UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
+        int    UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
+        int    UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
       } reg;
       
     } BRR2;
@@ -2749,14 +2857,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PIEN    : 1;    ///< Parity interrupt enable
-        uint8_t PS      : 1;    ///< Parity selection
-        uint8_t PCEN    : 1;    ///< Parity control enable
-        uint8_t WAKE    : 1;    ///< Wakeup method
-        uint8_t M       : 1;    ///< word length
-        uint8_t UARTD   : 1;    ///< UART Disable (for low power consumption)
-        uint8_t T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
-        uint8_t R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
+        int    PIEN    : 1;    ///< Parity interrupt enable
+        int    PS      : 1;    ///< Parity selection
+        int    PCEN    : 1;    ///< Parity control enable
+        int    WAKE    : 1;    ///< Wakeup method
+        int    M       : 1;    ///< word length
+        int    UARTD   : 1;    ///< UART Disable (for low power consumption)
+        int    T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
+        int    R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
       } reg;
       
     } CR1;
@@ -2770,14 +2878,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SBK     : 1;    ///< Send break
-        uint8_t RWU     : 1;    ///< Receiver wakeup
-        uint8_t REN     : 1;    ///< Receiver enable
-        uint8_t TEN     : 1;    ///< Transmitter enable
-        uint8_t ILIEN   : 1;    ///< IDLE Line interrupt enable
-        uint8_t RIEN    : 1;    ///< Receiver interrupt enable
-        uint8_t TCIEN   : 1;    ///< Transmission complete interrupt enable
-        uint8_t TIEN    : 1;    ///< Transmitter interrupt enable
+        int    SBK     : 1;    ///< Send break
+        int    RWU     : 1;    ///< Receiver wakeup
+        int    REN     : 1;    ///< Receiver enable
+        int    TEN     : 1;    ///< Transmitter enable
+        int    ILIEN   : 1;    ///< IDLE Line interrupt enable
+        int    RIEN    : 1;    ///< Receiver interrupt enable
+        int    TCIEN   : 1;    ///< Transmission complete interrupt enable
+        int    TIEN    : 1;    ///< Transmitter interrupt enable
       } reg;
       
     } CR2;
@@ -2791,13 +2899,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LBCL    : 1;    ///< Last bit clock pulse
-        uint8_t CPHA    : 1;    ///< Clock phase
-        uint8_t CPOL    : 1;    ///< Clock polarity
-        uint8_t CKEN    : 1;    ///< Clock enable
-        uint8_t STOP    : 2;    ///< STOP bits
-        uint8_t LINEN   : 1;    ///< LIN mode enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    LBCL    : 1;    ///< Last bit clock pulse
+        int    CPHA    : 1;    ///< Clock phase
+        int    CPOL    : 1;    ///< Clock polarity
+        int    CKEN    : 1;    ///< Clock enable
+        int    STOP    : 2;    ///< STOP bits
+        int    LINEN   : 1;    ///< LIN mode enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR3;
@@ -2811,11 +2919,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ADD     : 4;    ///< Address of the UART node
-        uint8_t LBDF    : 1;    ///< LIN Break Detection Flag
-        uint8_t LBDL    : 1;    ///< LIN Break Detection Length
-        uint8_t LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    ADD     : 4;    ///< Address of the UART node
+        int    LBDF    : 1;    ///< LIN Break Detection Flag
+        int    LBDL    : 1;    ///< LIN Break Detection Length
+        int    LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR4;
@@ -2829,13 +2937,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
-        uint8_t IREN    : 1;    ///< IrDA mode Enable
-        uint8_t IRLP    : 1;    ///< IrDA Low Power
-        uint8_t res2    : 1;    ///< Reserved, must be kept cleared
-        uint8_t NACK    : 1;    ///< Smartcard NACK enable
-        uint8_t SCEN    : 1;    ///< Smartcard mode enable
-        uint8_t res3    : 2;    ///< Reserved, must be kept cleared
+        int    res     : 1;    ///< Reserved, must be kept cleared
+        int    IREN    : 1;    ///< IrDA mode Enable
+        int    IRLP    : 1;    ///< IrDA Low Power
+        int    res2    : 1;    ///< Reserved, must be kept cleared
+        int    NACK    : 1;    ///< Smartcard NACK enable
+        int    SCEN    : 1;    ///< Smartcard mode enable
+        int    res3    : 2;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR5;
@@ -2849,14 +2957,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LSF     : 1;    ///< LIN Sync Field
-        uint8_t LHDF    : 1;    ///< LIN Header Detection Flag
-        uint8_t LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t LASE    : 1;    ///< LIN automatic resynchronisation enable
-        uint8_t LSLV    : 1;    ///< LIN Slave Enable
-        uint8_t res2    : 1;    ///< Reserved
-        uint8_t LDUM    : 1;    ///< LIN Divider Update Method
+        int    LSF     : 1;    ///< LIN Sync Field
+        int    LHDF    : 1;    ///< LIN Header Detection Flag
+        int    LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved
+        int    LASE    : 1;    ///< LIN automatic resynchronisation enable
+        int    LSLV    : 1;    ///< LIN Slave Enable
+        int    res2    : 1;    ///< Reserved
+        int    LDUM    : 1;    ///< LIN Divider Update Method
       } reg;
       
     } CR6;
@@ -2873,7 +2981,7 @@ typedef struct {
 
   /// pointer to UART2 registers
   #if defined(UART2_BaseAddress)
-    reg(UART2_BaseAddress, UART2_t, _UART2);
+    SFR(UART2_BaseAddress, UART2_t, _UART2);
   #endif
 
   /* UART2 Module Reset Values */
@@ -2912,14 +3020,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PE      : 1;    ///< Parity error
-        uint8_t FE      : 1;    ///< Framing error
-        uint8_t NF      : 1;    ///< Noise flag
-        uint8_t OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
-        uint8_t IDLE    : 1;    ///< IDLE line detected
-        uint8_t RXNE    : 1;    ///< Read data register not empty
-        uint8_t TC      : 1;    ///< Transmission complete
-        uint8_t TXE     : 1;    ///< Transmit data register empty
+        int    PE      : 1;    ///< Parity error
+        int    FE      : 1;    ///< Framing error
+        int    NF      : 1;    ///< Noise flag
+        int    OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+        int    IDLE    : 1;    ///< IDLE line detected
+        int    RXNE    : 1;    ///< Read data register not empty
+        int    TC      : 1;    ///< Transmission complete
+        int    TXE     : 1;    ///< Transmit data register empty
       } reg;
       
     } SR;
@@ -2937,7 +3045,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
+        int    UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
       } reg;
       
     } BRR1;
@@ -2951,8 +3059,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
-        uint8_t UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
+        int    UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
+        int    UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
       } reg;
       
     } BRR2;
@@ -2966,14 +3074,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PIEN    : 1;    ///< Parity interrupt enable
-        uint8_t PS      : 1;    ///< Parity selection
-        uint8_t PCEN    : 1;    ///< Parity control enable
-        uint8_t WAKE    : 1;    ///< Wakeup method
-        uint8_t M       : 1;    ///< word length
-        uint8_t UARTD   : 1;    ///< UART Disable (for low power consumption)
-        uint8_t T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
-        uint8_t R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
+        int    PIEN    : 1;    ///< Parity interrupt enable
+        int    PS      : 1;    ///< Parity selection
+        int    PCEN    : 1;    ///< Parity control enable
+        int    WAKE    : 1;    ///< Wakeup method
+        int    M       : 1;    ///< word length
+        int    UARTD   : 1;    ///< UART Disable (for low power consumption)
+        int    T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
+        int    R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
       } reg;
       
     } CR1;
@@ -2987,14 +3095,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SBK     : 1;    ///< Send break
-        uint8_t RWU     : 1;    ///< Receiver wakeup
-        uint8_t REN     : 1;    ///< Receiver enable
-        uint8_t TEN     : 1;    ///< Transmitter enable
-        uint8_t ILIEN   : 1;    ///< IDLE Line interrupt enable
-        uint8_t RIEN    : 1;    ///< Receiver interrupt enable
-        uint8_t TCIEN   : 1;    ///< Transmission complete interrupt enable
-        uint8_t TIEN    : 1;    ///< Transmitter interrupt enable
+        int    SBK     : 1;    ///< Send break
+        int    RWU     : 1;    ///< Receiver wakeup
+        int    REN     : 1;    ///< Receiver enable
+        int    TEN     : 1;    ///< Transmitter enable
+        int    ILIEN   : 1;    ///< IDLE Line interrupt enable
+        int    RIEN    : 1;    ///< Receiver interrupt enable
+        int    TCIEN   : 1;    ///< Transmission complete interrupt enable
+        int    TIEN    : 1;    ///< Transmitter interrupt enable
       } reg;
       
     } CR2;
@@ -3008,10 +3116,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 4;    ///< Reserved, must be kept cleared
-        uint8_t STOP    : 2;    ///< STOP bits
-        uint8_t LINEN   : 1;    ///< LIN mode enable
-        uint8_t res2    : 1;    ///< Reserved, must be kept cleared
+        int    res     : 4;    ///< Reserved, must be kept cleared
+        int    STOP    : 2;    ///< STOP bits
+        int    LINEN   : 1;    ///< LIN mode enable
+        int    res2    : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR3;
@@ -3025,11 +3133,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ADD     : 4;    ///< Address of the UART node
-        uint8_t LBDF    : 1;    ///< LIN Break Detection Flag
-        uint8_t LBDL    : 1;    ///< LIN Break Detection Length
-        uint8_t LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    ADD     : 4;    ///< Address of the UART node
+        int    LBDF    : 1;    ///< LIN Break Detection Flag
+        int    LBDL    : 1;    ///< LIN Break Detection Length
+        int    LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR4;
@@ -3047,14 +3155,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LSF     : 1;    ///< LIN Sync Field
-        uint8_t LHDF    : 1;    ///< LIN Header Detection Flag
-        uint8_t LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t LASE    : 1;    ///< LIN automatic resynchronisation enable
-        uint8_t LSLV    : 1;    ///< LIN Slave Enable
-        uint8_t res2    : 1;    ///< Reserved
-        uint8_t LDUM    : 1;    ///< LIN Divider Update Method
+        int    LSF     : 1;    ///< LIN Sync Field
+        int    LHDF    : 1;    ///< LIN Header Detection Flag
+        int    LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved
+        int    LASE    : 1;    ///< LIN automatic resynchronisation enable
+        int    LSLV    : 1;    ///< LIN Slave Enable
+        int    res2    : 1;    ///< Reserved
+        int    LDUM    : 1;    ///< LIN Divider Update Method
       } reg;
       
     } CR6;
@@ -3063,7 +3171,7 @@ typedef struct {
 
   /// pointer to UART3 registers
   #if defined(UART3_BaseAddress)
-    reg(UART3_BaseAddress, UART3_t, _UART3);
+    SFR(UART3_BaseAddress, UART3_t, _UART3);
   #endif
 
   /* UART3 Module Reset Values */
@@ -3101,14 +3209,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PE      : 1;    ///< Parity error
-        uint8_t FE      : 1;    ///< Framing error
-        uint8_t NF      : 1;    ///< Noise flag
-        uint8_t OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
-        uint8_t IDLE    : 1;    ///< IDLE line detected
-        uint8_t RXNE    : 1;    ///< Read data register not empty
-        uint8_t TC      : 1;    ///< Transmission complete
-        uint8_t TXE     : 1;    ///< Transmit data register empty
+        int    PE      : 1;    ///< Parity error
+        int    FE      : 1;    ///< Framing error
+        int    NF      : 1;    ///< Noise flag
+        int    OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+        int    IDLE    : 1;    ///< IDLE line detected
+        int    RXNE    : 1;    ///< Read data register not empty
+        int    TC      : 1;    ///< Transmission complete
+        int    TXE     : 1;    ///< Transmit data register empty
       } reg;
       
     } SR;
@@ -3126,7 +3234,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
+        int    UART_DIV_4_11 : 8;    ///< UART_DIV bits [11:4]
       } reg;
       
     } BRR1;
@@ -3140,8 +3248,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
-        uint8_t UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
+        int    UART_DIV_0_3   : 4;    ///< UART_DIV bits [3:0]
+        int    UART_DIV_12_15 : 4;    ///< UART_DIV bits [15:12]
       } reg;
       
     } BRR2;
@@ -3155,14 +3263,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PIEN    : 1;    ///< Parity interrupt enable
-        uint8_t PS      : 1;    ///< Parity selection
-        uint8_t PCEN    : 1;    ///< Parity control enable
-        uint8_t WAKE    : 1;    ///< Wakeup method
-        uint8_t M       : 1;    ///< word length
-        uint8_t UARTD   : 1;    ///< UART Disable (for low power consumption)
-        uint8_t T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
-        uint8_t R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
+        int    PIEN    : 1;    ///< Parity interrupt enable
+        int    PS      : 1;    ///< Parity selection
+        int    PCEN    : 1;    ///< Parity control enable
+        int    WAKE    : 1;    ///< Wakeup method
+        int    M       : 1;    ///< word length
+        int    UARTD   : 1;    ///< UART Disable (for low power consumption)
+        int    T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
+        int    R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
       } reg;
       
     } CR1;
@@ -3176,14 +3284,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SBK     : 1;    ///< Send break
-        uint8_t RWU     : 1;    ///< Receiver wakeup
-        uint8_t REN     : 1;    ///< Receiver enable
-        uint8_t TEN     : 1;    ///< Transmitter enable
-        uint8_t ILIEN   : 1;    ///< IDLE Line interrupt enable
-        uint8_t RIEN    : 1;    ///< Receiver interrupt enable
-        uint8_t TCIEN   : 1;    ///< Transmission complete interrupt enable
-        uint8_t TIEN    : 1;    ///< Transmitter interrupt enable
+        int    SBK     : 1;    ///< Send break
+        int    RWU     : 1;    ///< Receiver wakeup
+        int    REN     : 1;    ///< Receiver enable
+        int    TEN     : 1;    ///< Transmitter enable
+        int    ILIEN   : 1;    ///< IDLE Line interrupt enable
+        int    RIEN    : 1;    ///< Receiver interrupt enable
+        int    TCIEN   : 1;    ///< Transmission complete interrupt enable
+        int    TIEN    : 1;    ///< Transmitter interrupt enable
       } reg;
       
     } CR2;
@@ -3197,13 +3305,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LBCL    : 1;    ///< Last bit clock pulse
-        uint8_t CPHA    : 1;    ///< Clock phase
-        uint8_t CPOL    : 1;    ///< Clock polarity
-        uint8_t CKEN    : 1;    ///< Clock enable
-        uint8_t STOP    : 2;    ///< STOP bits
-        uint8_t LINEN   : 1;    ///< LIN mode enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    LBCL    : 1;    ///< Last bit clock pulse
+        int    CPHA    : 1;    ///< Clock phase
+        int    CPOL    : 1;    ///< Clock polarity
+        int    CKEN    : 1;    ///< Clock enable
+        int    STOP    : 2;    ///< STOP bits
+        int    LINEN   : 1;    ///< LIN mode enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR3;
@@ -3217,11 +3325,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ADD     : 4;    ///< Address of the UART node
-        uint8_t LBDF    : 1;    ///< LIN Break Detection Flag
-        uint8_t LBDL    : 1;    ///< LIN Break Detection Length
-        uint8_t LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
+        int    ADD     : 4;    ///< Address of the UART node
+        int    LBDF    : 1;    ///< LIN Break Detection Flag
+        int    LBDL    : 1;    ///< LIN Break Detection Length
+        int    LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR4;
@@ -3235,13 +3343,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
-        uint8_t IREN    : 1;    ///< IrDA mode Enable
-        uint8_t IRLP    : 1;    ///< IrDA Low Power
-        uint8_t HDSEL   : 1;    ///< Half-Duplex Selection
-        uint8_t NACK    : 1;    ///< Smartcard NACK enable
-        uint8_t SCEN    : 1;    ///< Smartcard mode enable
-        uint8_t res2    : 2;    ///< Reserved, must be kept cleared
+        int    res     : 1;    ///< Reserved, must be kept cleared
+        int    IREN    : 1;    ///< IrDA mode Enable
+        int    IRLP    : 1;    ///< IrDA Low Power
+        int    HDSEL   : 1;    ///< Half-Duplex Selection
+        int    NACK    : 1;    ///< Smartcard NACK enable
+        int    SCEN    : 1;    ///< Smartcard mode enable
+        int    res2    : 2;    ///< Reserved, must be kept cleared
       } reg;
       
     } CR5;
@@ -3255,14 +3363,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LSF     : 1;    ///< LIN Sync Field
-        uint8_t LHDF    : 1;    ///< LIN Header Detection Flag
-        uint8_t LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t LASE    : 1;    ///< LIN automatic resynchronisation enable
-        uint8_t LSLV    : 1;    ///< LIN Slave Enable
-        uint8_t res2    : 1;    ///< Reserved
-        uint8_t LDUM    : 1;    ///< LIN Divider Update Method
+        int    LSF     : 1;    ///< LIN Sync Field
+        int    LHDF    : 1;    ///< LIN Header Detection Flag
+        int    LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
+        int    res     : 1;    ///< Reserved
+        int    LASE    : 1;    ///< LIN automatic resynchronisation enable
+        int    LSLV    : 1;    ///< LIN Slave Enable
+        int    res2    : 1;    ///< Reserved
+        int    LDUM    : 1;    ///< LIN Divider Update Method
       } reg;
       
     } CR6;
@@ -3279,7 +3387,7 @@ typedef struct {
     
   /// pointer to UART4 registers
   #if defined(UART4_BaseAddress)
-    reg(UART4_BaseAddress, UART4_t, _UART4);
+    SFR(UART4_BaseAddress, UART4_t, _UART4);
   #endif
 
   /* UART4 Module Reset Values */
@@ -3346,15 +3454,15 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t CH			: 4;		///< Channel selection bits
-        uint8_t AWDIE		: 1;		///< Analog watchdog interrupt enable
-        uint8_t EOCIE		: 1;		///< Interrupt enable for EOC
-        uint8_t AWD			: 1;		///< Analog Watchdog flag
-        uint8_t EOC			: 1;		///< End of conversion
+        int    CH     : 4;  ///< Channel selection bits
+        int    AWDIE  : 1;  ///< Analog watchdog interrupt enable
+        int    EOCIE  : 1;  ///< Interrupt enable for EOC
+        int    AWD    : 1;  ///< Analog Watchdog flag
+        int    EOC    : 1;  ///< End of conversion
       } reg;
 
     } CSR;
@@ -3364,15 +3472,15 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t ADON		: 1;		///< A/D Converter on/off
-        uint8_t CONT		: 1;		///< Continuous conversion
-        uint8_t res			: 2;		///< Reserved, always read as 0
-        uint8_t SPSEL		: 3;		///< Clock prescaler selection
-        uint8_t res2		: 1;		///< Reserved, always read as 0
+        int    ADON   : 1;  ///< A/D Converter on/off
+        int    CONT   : 1;  ///< Continuous conversion
+        int    res    : 2;  ///< Reserved, always read as 0
+        int    SPSEL  : 3;  ///< Clock prescaler selection
+        int    res2   : 1;  ///< Reserved, always read as 0
       } reg;
 
     } CR1;
@@ -3382,17 +3490,17 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t res			: 1;		///< Reserved, must be kept cleared
-        uint8_t SCAN		: 1;		///< Scan mode enable
-        uint8_t res2		: 1;		///< Reserved, must be kept cleared
-        uint8_t ALIGN		: 1;		///< Data alignment
-        uint8_t EXTSEL	: 2;		///< External event selection
-        uint8_t EXTTRIG : 1;		///< External trigger enable
-        uint8_t res3		: 1;		///< Reserved, must be kept cleared
+        int    res     : 1;  ///< Reserved, must be kept cleared
+        int    SCAN    : 1;  ///< Scan mode enable
+        int    res2    : 1;  ///< Reserved, must be kept cleared
+        int    ALIGN   : 1;  ///< Data alignment
+        int    EXTSEL  : 2;  ///< External event selection
+        int    EXTTRIG : 1;  ///< External trigger enable
+        int    res3    : 1;  ///< Reserved, must be kept cleared
       } reg;
 
     } CR2;
@@ -3402,13 +3510,13 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t res			: 6;		///< Reserved, must be kept cleared
-        uint8_t OVR			: 1;		///< Overrun flag
-        uint8_t DBUF		: 1;		///< Data buffer enable
+        int    res   : 6;  ///< Reserved, must be kept cleared
+        int    OVR   : 1;  ///< Overrun flag
+        int    DBUF  : 1;  ///< Data buffer enable
       } reg;
 
     } CR3;
@@ -3436,7 +3544,7 @@ typedef struct {
     
   /// pointer to ADC1 registers
   #if defined(ADC1_BaseAddress)
-    reg(ADC1_BaseAddress, ADC1_t, _ADC1);
+    SFR(ADC1_BaseAddress, ADC1_t, _ADC1);
   #endif
 
   /* ADC1 Module Reset Values */
@@ -3469,15 +3577,15 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t CH      : 4;    ///< Channel selection bits
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t EOCIE   : 1;    ///< Interrupt enable for EOC
-        uint8_t res2    : 1;    ///< Reserved
-        uint8_t EOC     : 1;    ///< End of conversion flag
+        int    CH      : 4;    ///< Channel selection bits
+        int    res     : 1;    ///< Reserved
+        int    EOCIE   : 1;    ///< Interrupt enable for EOC
+        int    res2    : 1;    ///< Reserved
+        int    EOC     : 1;    ///< End of conversion flag
       } reg;
 
     } CSR;
@@ -3487,15 +3595,15 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t ADON		: 1;		///< A/D Converter on/off
-        uint8_t CONT		: 1;		///< Continuous conversion
-        uint8_t res			: 2;		///< Reserved, always read as 0
-        uint8_t SPSEL		: 3;		///< Clock prescaler selection
-        uint8_t res2		: 1;		///< Reserved, always read as 0
+        int    ADON   : 1;  ///< A/D Converter on/off
+        int    CONT   : 1;  ///< Continuous conversion
+        int    res    : 2;  ///< Reserved, always read as 0
+        int    SPSEL  : 3;  ///< Clock prescaler selection
+        int    res2   : 1;  ///< Reserved, always read as 0
       } reg;
 
     } CR1;
@@ -3505,15 +3613,15 @@ typedef struct {
     union {
 
       /// bytewise access to register
-      uint8_t	 byte;
+      uint8_t  byte;
 
       /// bitwise access to register
       struct {
-        uint8_t res			: 3;		///< Reserved, must be kept cleared
-        uint8_t ALIGN		: 1;		///< Data alignment
-        uint8_t EXTSEL	: 2;		///< External event selection
-        uint8_t EXTTRIG : 1;		///< External trigger enable
-        uint8_t res2		: 1;		///< Reserved, must be kept cleared
+        int    res     : 3;  ///< Reserved, must be kept cleared
+        int    ALIGN   : 1;  ///< Data alignment
+        int    EXTSEL  : 2;  ///< External event selection
+        int    EXTTRIG : 1;  ///< External trigger enable
+        int    res2    : 1;  ///< Reserved, must be kept cleared
       } reg;
 
     } CR2;
@@ -3533,7 +3641,7 @@ typedef struct {
     
   /// pointer to all ADC2 registers
   #if defined(ADC2_BaseAddress)
-    reg(ADC2_BaseAddress, ADC2_t, _ADC2);
+    SFR(ADC2_BaseAddress, ADC2_t, _ADC2);
   #endif
 
   /* ADC2 Module Reset Values */
@@ -3563,13 +3671,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t DIR     : 1;    ///< Direction
-        uint8_t CMS     : 2;    ///< Center-aligned mode selection
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    DIR     : 1;    ///< Direction
+        int    CMS     : 2;    ///< Center-aligned mode selection
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
       
     } CR1;
@@ -3583,12 +3691,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CCPC    : 1;    ///< Capture/compare preloaded control
-        uint8_t res     : 1;    ///< Reserved, forced by hardware to 0
-        uint8_t COMS    : 1;    ///< Capture/compare control update selection
-        uint8_t res2    : 1;    ///< Reserved, must be kept cleared
-        uint8_t MMS     : 3;    ///< Master mode selection
-        uint8_t res3    : 1;    ///< Reserved
+        int    CCPC    : 1;    ///< Capture/compare preloaded control
+        int    res     : 1;    ///< Reserved, forced by hardware to 0
+        int    COMS    : 1;    ///< Capture/compare control update selection
+        int    res2    : 1;    ///< Reserved, must be kept cleared
+        int    MMS     : 3;    ///< Master mode selection
+        int    res3    : 1;    ///< Reserved
       } reg;
       
     } CR2;
@@ -3602,10 +3710,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SMS     : 3;    ///< Clock/trigger/slave mode selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t TS      : 3;    ///< Trigger selection
-        uint8_t MSM     : 1;    ///< Master/slave mode
+        int    SMS     : 3;    ///< Clock/trigger/slave mode selection
+        int    res     : 1;    ///< Reserved
+        int    TS      : 3;    ///< Trigger selection
+        int    MSM     : 1;    ///< Master/slave mode
       } reg;
       
     } SMCR;
@@ -3619,10 +3727,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t ETF     : 4;    ///< External trigger filter
-        uint8_t ETPS    : 2;    ///< External trigger prescaler
-        uint8_t ECE     : 1;    ///< External clock enable
-        uint8_t ETP     : 1;    ///< External trigger polarity
+        int    ETF     : 4;    ///< External trigger filter
+        int    ETPS    : 2;    ///< External trigger prescaler
+        int    ECE     : 1;    ///< External clock enable
+        int    ETP     : 1;    ///< External trigger polarity
       } reg;
       
     } ETR;
@@ -3636,14 +3744,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
-        uint8_t CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
-        uint8_t CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
-        uint8_t CC4IE   : 1;    ///< Capture/compare 4 interrupt enable
-        uint8_t COMIE   : 1;    ///< Commutation interrupt enable
-        uint8_t TIE     : 1;    ///< Trigger interrupt enable
-        uint8_t BIE     : 1;    ///< Break interrupt enable
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
+        int    CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
+        int    CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
+        int    CC4IE   : 1;    ///< Capture/compare 4 interrupt enable
+        int    COMIE   : 1;    ///< Commutation interrupt enable
+        int    TIE     : 1;    ///< Trigger interrupt enable
+        int    BIE     : 1;    ///< Break interrupt enable
       } reg;
       
     } IER;
@@ -3657,14 +3765,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
-        uint8_t CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
-        uint8_t CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
-        uint8_t CC4IF   : 1;    ///< Capture/compare 4 interrupt flag
-        uint8_t COMIF   : 1;    ///< Commutation interrupt flag
-        uint8_t TIF     : 1;    ///< Trigger interrupt flag
-        uint8_t BIF     : 1;    ///< Break interrupt flag
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
+        int    CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
+        int    CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
+        int    CC4IF   : 1;    ///< Capture/compare 4 interrupt flag
+        int    COMIF   : 1;    ///< Commutation interrupt flag
+        int    TIF     : 1;    ///< Trigger interrupt flag
+        int    BIF     : 1;    ///< Break interrupt flag
       } reg;
       
     } SR1;
@@ -3678,12 +3786,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved, must be kept cleared
-        uint8_t CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
-        uint8_t CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
-        uint8_t CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
-        uint8_t CC4OF   : 1;    ///< Capture/compare 4 overcapture flag
-        uint8_t res2    : 3;    ///< Reserved, must be kept cleared
+        int    res     : 1;    ///< Reserved, must be kept cleared
+        int    CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
+        int    CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
+        int    CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
+        int    CC4OF   : 1;    ///< Capture/compare 4 overcapture flag
+        int    res2    : 3;    ///< Reserved, must be kept cleared
       } reg;
       
     } SR2;
@@ -3697,14 +3805,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t CC1G    : 1;    ///< Capture/compare 1 generation
-        uint8_t CC2G    : 1;    ///< Capture/compare 2 generation
-        uint8_t CC3G    : 1;    ///< Capture/compare 3 generation
-        uint8_t CC4G    : 1;    ///< Capture/compare 4 generation
-        uint8_t COMG    : 1;    ///< Capture/compare control update generation
-        uint8_t TG      : 1;    ///< Trigger generation
-        uint8_t BG      : 1;    ///< Break generation
+        int    UG      : 1;    ///< Update generation
+        int    CC1G    : 1;    ///< Capture/compare 1 generation
+        int    CC2G    : 1;    ///< Capture/compare 2 generation
+        int    CC3G    : 1;    ///< Capture/compare 3 generation
+        int    CC4G    : 1;    ///< Capture/compare 4 generation
+        int    COMG    : 1;    ///< Capture/compare control update generation
+        int    TG      : 1;    ///< Trigger generation
+        int    BG      : 1;    ///< Break generation
       } reg;
       
     } EGR;
@@ -3718,18 +3826,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t OC1FE   : 1;    ///< Output compare 1 fast enable
-        uint8_t OC1PE   : 1;    ///< Output compare 1 preload enable
-        uint8_t OC1M    : 3;    ///< Output compare 1 mode
-        uint8_t OC1CE   : 1;    ///< Output compare 1 clear enable
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    OC1FE   : 1;    ///< Output compare 1 fast enable
+        int    OC1PE   : 1;    ///< Output compare 1 preload enable
+        int    OC1M    : 3;    ///< Output compare 1 mode
+        int    OC1CE   : 1;    ///< Output compare 1 clear enable
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t IC1PSC  : 2;    ///< Input capture 1 prescaler
-        uint8_t IC1F    : 4;    ///< Input capture 1 filter
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    IC1PSC  : 2;    ///< Input capture 1 prescaler
+        int    IC1F    : 4;    ///< Input capture 1 filter
       } regIn;
       
     } CCMR1;
@@ -3743,18 +3851,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t OC2FE   : 1;    ///< Output compare 2 fast enable
-        uint8_t OC2PE   : 1;    ///< Output compare 2 preload enable
-        uint8_t OC2M    : 3;    ///< Output compare 2 mode
-        uint8_t OC2CE   : 1;    ///< Output compare 2 clear enable
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    OC2FE   : 1;    ///< Output compare 2 fast enable
+        int    OC2PE   : 1;    ///< Output compare 2 preload enable
+        int    OC2M    : 3;    ///< Output compare 2 mode
+        int    OC2CE   : 1;    ///< Output compare 2 clear enable
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t IC2PSC  : 2;    ///< Input capture 2 prescaler
-        uint8_t IC2F    : 4;    ///< Input capture 2 filter
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    IC2PSC  : 2;    ///< Input capture 2 prescaler
+        int    IC2F    : 4;    ///< Input capture 2 filter
       } regIn;
       
     } CCMR2;
@@ -3768,18 +3876,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t OC3FE   : 1;    ///< Output compare 3 fast enable
-        uint8_t OC3PE   : 1;    ///< Output compare 3 preload enable
-        uint8_t OC3M    : 3;    ///< Output compare 3 mode
-        uint8_t OC3CE   : 1;    ///< Output compare 3 clear enable
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    OC3FE   : 1;    ///< Output compare 3 fast enable
+        int    OC3PE   : 1;    ///< Output compare 3 preload enable
+        int    OC3M    : 3;    ///< Output compare 3 mode
+        int    OC3CE   : 1;    ///< Output compare 3 clear enable
       } regOut;
         
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t IC3PSC  : 2;    ///< Input capture 3 prescaler
-        uint8_t IC3F    : 4;    ///< Input capture 3 filter
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    IC3PSC  : 2;    ///< Input capture 3 prescaler
+        int    IC3F    : 4;    ///< Input capture 3 filter
       } regIn;
 
     } CCMR3;
@@ -3793,18 +3901,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC4S    : 2;    ///< Capture/compare 4 selection
-        uint8_t OC4FE   : 1;    ///< Output compare 4 fast enable
-        uint8_t OC4PE   : 1;    ///< Output compare 4 preload enable
-        uint8_t OC4M    : 3;    ///< Output compare 4 mode
-        uint8_t OC4CE   : 1;    ///< Output compare 4 clear enable
+        int    CC4S    : 2;    ///< Capture/compare 4 selection
+        int    OC4FE   : 1;    ///< Output compare 4 fast enable
+        int    OC4PE   : 1;    ///< Output compare 4 preload enable
+        int    OC4M    : 3;    ///< Output compare 4 mode
+        int    OC4CE   : 1;    ///< Output compare 4 clear enable
       } regOut;
         
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC4S    : 2;    ///< Capture/compare 4 selection
-        uint8_t IC4PSC  : 2;    ///< Input capture 4 prescaler
-        uint8_t IC4F    : 4;    ///< Input capture 4 filter
+        int    CC4S    : 2;    ///< Capture/compare 4 selection
+        int    IC4PSC  : 2;    ///< Input capture 4 prescaler
+        int    IC4F    : 4;    ///< Input capture 4 filter
       } regIn;
       
     } CCMR4;
@@ -3818,14 +3926,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC1E    : 1;    ///< Capture/compare 1 output enable
-        uint8_t CC1P    : 1;    ///< Capture/compare 1 output polarity
-        uint8_t CC1NE   : 1;    ///< Capture/compare 1 complementary output enable
-        uint8_t CC1NP   : 1;    ///< Capture/compare 1 complementary output polarity
-        uint8_t CC2E    : 1;    ///< Capture/compare 2 output enable
-        uint8_t CC2P    : 1;    ///< Capture/compare 2 output polarity
-        uint8_t CC2NE   : 1;    ///< Capture/compare 2 complementary output enable
-        uint8_t CC2NP   : 1;    ///< Capture/compare 2 complementary output polarity
+        int    CC1E    : 1;    ///< Capture/compare 1 output enable
+        int    CC1P    : 1;    ///< Capture/compare 1 output polarity
+        int    CC1NE   : 1;    ///< Capture/compare 1 complementary output enable
+        int    CC1NP   : 1;    ///< Capture/compare 1 complementary output polarity
+        int    CC2E    : 1;    ///< Capture/compare 2 output enable
+        int    CC2P    : 1;    ///< Capture/compare 2 output polarity
+        int    CC2NE   : 1;    ///< Capture/compare 2 complementary output enable
+        int    CC2NP   : 1;    ///< Capture/compare 2 complementary output polarity
       } reg;
       
     } CCER1;
@@ -3839,13 +3947,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC3E    : 1;    ///< Capture/compare 3 output enable
-        uint8_t CC3P    : 1;    ///< Capture/compare 3 output polarity
-        uint8_t CC3NE   : 1;    ///< Capture/compare 3 complementary output enable
-        uint8_t CC3NP   : 1;    ///< Capture/compare 3 complementary output polarity
-        uint8_t CC4E    : 1;    ///< Capture/compare 4 output enable
-        uint8_t CC4P    : 1;    ///< Capture/compare 4 output polarity
-        uint8_t res     : 2;    ///< Reserved
+        int    CC3E    : 1;    ///< Capture/compare 3 output enable
+        int    CC3P    : 1;    ///< Capture/compare 3 output polarity
+        int    CC3NE   : 1;    ///< Capture/compare 3 complementary output enable
+        int    CC3NP   : 1;    ///< Capture/compare 3 complementary output polarity
+        int    CC4E    : 1;    ///< Capture/compare 4 output enable
+        int    CC4P    : 1;    ///< Capture/compare 4 output polarity
+        int    res     : 2;    ///< Reserved
       } reg;
       
     } CCER2;
@@ -3871,7 +3979,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t REP     : 8;    ///< Repetition counter value
+        int    REP     : 8;    ///< Repetition counter value
       } reg;
       
     } RCR;
@@ -3901,13 +4009,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t LOCK    : 2;    ///< Lock configuration
-        uint8_t OSSI    : 1;    ///< Off state selection for idle mode
-        uint8_t OSSR    : 1;    ///< Off state selection for Run mode
-        uint8_t BKE     : 1;    ///< Break enable
-        uint8_t BKP     : 1;    ///< Break polarity
-        uint8_t AOE     : 1;    ///< Automatic output enable
-        uint8_t MOE     : 1;    ///< Main output enable
+        int    LOCK    : 2;    ///< Lock configuration
+        int    OSSI    : 1;    ///< Off state selection for idle mode
+        int    OSSR    : 1;    ///< Off state selection for Run mode
+        int    BKE     : 1;    ///< Break enable
+        int    BKP     : 1;    ///< Break polarity
+        int    AOE     : 1;    ///< Automatic output enable
+        int    MOE     : 1;    ///< Main output enable
       } reg;
       
     } BKR;
@@ -3921,7 +4029,7 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t DTG     : 8;    ///< Deadtime generator set-up
+        int    DTG     : 8;    ///< Deadtime generator set-up
       } reg;
       
     } DTR;
@@ -3935,14 +4043,14 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t OIS1    : 1;    ///< Output idle state 1 (OC1 output)
-        uint8_t OIS1N   : 1;    ///< Output idle state 1 (OC1N output)
-        uint8_t OIS2    : 1;    ///< Output idle state 2 (OC2 output)
-        uint8_t OIS2N   : 1;    ///< Output idle state 2 (OC2N output)
-        uint8_t OIS3    : 1;    ///< Output idle state 3 (OC3 output)
-        uint8_t OIS3N   : 1;    ///< Output idle state 3 (OC3N output)
-        uint8_t OIS4    : 1;    ///< Output idle state 4 (OC4 output)
-        uint8_t res     : 1;    ///< Reserved, forced by hardware to 0
+        int    OIS1    : 1;    ///< Output idle state 1 (OC1 output)
+        int    OIS1N   : 1;    ///< Output idle state 1 (OC1N output)
+        int    OIS2    : 1;    ///< Output idle state 2 (OC2 output)
+        int    OIS2N   : 1;    ///< Output idle state 2 (OC2N output)
+        int    OIS3    : 1;    ///< Output idle state 3 (OC3 output)
+        int    OIS3N   : 1;    ///< Output idle state 3 (OC3N output)
+        int    OIS4    : 1;    ///< Output idle state 4 (OC4 output)
+        int    res     : 1;    ///< Reserved, forced by hardware to 0
       } reg;
       
     } OISR;
@@ -3951,7 +4059,7 @@ typedef struct {
 
   /// pointer to all TIM1 registers
   #if defined(TIM1_BaseAddress)
-    reg(TIM1_BaseAddress, TIM1_t, _TIM1);
+    SFR(TIM1_BaseAddress, TIM1_t, _TIM1);
   #endif
 
   /* TIM1 Module Reset Values */
@@ -4008,12 +4116,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    res     : 3;    ///< Reserved
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
       
     } CR1;
@@ -4033,11 +4141,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
-        uint8_t CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
-        uint8_t CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
-        uint8_t res     : 4;    ///< Reserved 
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
+        int    CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
+        int    CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
+        int    res     : 4;    ///< Reserved 
       } reg;
       
     } IER;
@@ -4051,11 +4159,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
-        uint8_t CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
-        uint8_t CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
-        uint8_t res     : 4;    ///< Reserved
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
+        int    CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
+        int    CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
+        int    res     : 4;    ///< Reserved
       } reg;
       
     } SR1;
@@ -4069,11 +4177,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
-        uint8_t CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
-        uint8_t CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
-        uint8_t res2    : 4;    ///< Reserved
+        int    res     : 1;    ///< Reserved
+        int    CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
+        int    CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
+        int    CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
+        int    res2    : 4;    ///< Reserved
       } reg;
       
     } SR2;
@@ -4087,11 +4195,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t CC1G    : 1;    ///< Capture/compare 1 generation
-        uint8_t CC2G    : 1;    ///< Capture/compare 2 generation
-        uint8_t CC3G    : 1;    ///< Capture/compare 3 generation
-        uint8_t res     : 4;    ///< Reserved
+        int    UG      : 1;    ///< Update generation
+        int    CC1G    : 1;    ///< Capture/compare 1 generation
+        int    CC2G    : 1;    ///< Capture/compare 2 generation
+        int    CC3G    : 1;    ///< Capture/compare 3 generation
+        int    res     : 4;    ///< Reserved
       } reg;
       
     } EGR;
@@ -4105,18 +4213,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC1PE   : 1;    ///< Output compare 1 preload enable
-        uint8_t OC1M    : 3;    ///< Output compare 1 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    res     : 1;    ///< Reserved
+        int    OC1PE   : 1;    ///< Output compare 1 preload enable
+        int    OC1M    : 3;    ///< Output compare 1 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t IC1PSC  : 2;    ///< Input capture 1 prescaler
-        uint8_t IC1F    : 4;    ///< Input capture 1 filter
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    IC1PSC  : 2;    ///< Input capture 1 prescaler
+        int    IC1F    : 4;    ///< Input capture 1 filter
       } regIn;
       
     } CCMR1;
@@ -4130,18 +4238,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC2PE   : 1;    ///< Output compare 2 preload enable
-        uint8_t OC2M    : 3;    ///< Output compare 2 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    res     : 1;    ///< Reserved
+        int    OC2PE   : 1;    ///< Output compare 2 preload enable
+        int    OC2M    : 3;    ///< Output compare 2 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t IC2PSC  : 2;    ///< Input capture 2 prescaler
-        uint8_t IC2F    : 4;    ///< Input capture 2 filter
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    IC2PSC  : 2;    ///< Input capture 2 prescaler
+        int    IC2F    : 4;    ///< Input capture 2 filter
       } regIn;
       
     } CCMR2;
@@ -4155,18 +4263,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC3PE   : 1;    ///< Output compare 3 preload enable
-        uint8_t OC3M    : 3;    ///< Output compare 3 mode
-        uint8_t OC3CE   : 1;    ///< Reserved
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    res     : 1;    ///< Reserved
+        int    OC3PE   : 1;    ///< Output compare 3 preload enable
+        int    OC3M    : 3;    ///< Output compare 3 mode
+        int    OC3CE   : 1;    ///< Reserved
       } regOut;
         
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t IC3PSC  : 2;    ///< Input capture 3 prescaler
-        uint8_t IC3F    : 4;    ///< Input capture 3 filter
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    IC3PSC  : 2;    ///< Input capture 3 prescaler
+        int    IC3F    : 4;    ///< Input capture 3 filter
       } regIn;
 
     } CCMR3;
@@ -4180,12 +4288,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC1E    : 1;    ///< Capture/compare 1 output enable
-        uint8_t CC1P    : 1;    ///< Capture/compare 1 output polarity
-        uint8_t res     : 2;    ///< Reserved
-        uint8_t CC2E    : 1;    ///< Capture/compare 2 output enable
-        uint8_t CC2P    : 1;    ///< Capture/compare 2 output polarity
-        uint8_t res2    : 2;    ///< Reserved
+        int    CC1E    : 1;    ///< Capture/compare 1 output enable
+        int    CC1P    : 1;    ///< Capture/compare 1 output polarity
+        int    res     : 2;    ///< Reserved
+        int    CC2E    : 1;    ///< Capture/compare 2 output enable
+        int    CC2P    : 1;    ///< Capture/compare 2 output polarity
+        int    res2    : 2;    ///< Reserved
       } reg;
       
     } CCER1;
@@ -4199,9 +4307,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC3E    : 1;    ///< Capture/compare 3 output enable
-        uint8_t CC3P    : 1;    ///< Capture/compare 3 output polarity
-        uint8_t res     : 6;    ///< Reserved
+        int    CC3E    : 1;    ///< Capture/compare 3 output enable
+        int    CC3P    : 1;    ///< Capture/compare 3 output polarity
+        int    res     : 6;    ///< Reserved
       } reg;
       
     } CCER2;
@@ -4219,8 +4327,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PSC     : 4;    ///< clock prescaler
-        uint8_t res     : 4;    ///< Reserved
+        int    PSC     : 4;    ///< clock prescaler
+        int    res     : 4;    ///< Reserved
       } reg;
       
     } PSCR;
@@ -4245,7 +4353,7 @@ typedef struct {
 
   /// pointer to all TIM2 registers (selected devices)
   #if defined(TIM2_BaseAddress)
-    reg(TIM2_BaseAddress, TIM2_t, _TIM2);
+    SFR(TIM2_BaseAddress, TIM2_t, _TIM2);
   #endif
 
   /* TIM2 Module Reset Values */
@@ -4291,12 +4399,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    res     : 3;    ///< Reserved
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
       
     } CR1;
@@ -4310,10 +4418,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
-        uint8_t CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
-        uint8_t res     : 5;    ///< Reserved 
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
+        int    CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
+        int    res     : 5;    ///< Reserved 
       } reg;
       
     } IER;
@@ -4327,10 +4435,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
-        uint8_t CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
-        uint8_t res     : 5;    ///< Reserved
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
+        int    CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
+        int    res     : 5;    ///< Reserved
       } reg;
       
     } SR1;
@@ -4344,10 +4452,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
-        uint8_t CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
-        uint8_t res2    : 5;    ///< Reserved
+        int    res     : 1;    ///< Reserved
+        int    CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
+        int    CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
+        int    res2    : 5;    ///< Reserved
       } reg;
       
     } SR2;
@@ -4361,10 +4469,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t CC1G    : 1;    ///< Capture/compare 1 generation
-        uint8_t CC2G    : 1;    ///< Capture/compare 2 generation
-        uint8_t res     : 5;    ///< Reserved
+        int    UG      : 1;    ///< Update generation
+        int    CC1G    : 1;    ///< Capture/compare 1 generation
+        int    CC2G    : 1;    ///< Capture/compare 2 generation
+        int    res     : 5;    ///< Reserved
       } reg;
       
     } EGR;
@@ -4378,18 +4486,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC1PE   : 1;    ///< Output compare 1 preload enable
-        uint8_t OC1M    : 3;    ///< Output compare 1 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    res     : 1;    ///< Reserved
+        int    OC1PE   : 1;    ///< Output compare 1 preload enable
+        int    OC1M    : 3;    ///< Output compare 1 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t IC1PSC  : 2;    ///< Input capture 1 prescaler
-        uint8_t IC1F    : 4;    ///< Input capture 1 filter
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    IC1PSC  : 2;    ///< Input capture 1 prescaler
+        int    IC1F    : 4;    ///< Input capture 1 filter
       } regIn;
       
     } CCMR1;
@@ -4403,18 +4511,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC2PE   : 1;    ///< Output compare 2 preload enable
-        uint8_t OC2M    : 3;    ///< Output compare 2 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    res     : 1;    ///< Reserved
+        int    OC2PE   : 1;    ///< Output compare 2 preload enable
+        int    OC2M    : 3;    ///< Output compare 2 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t IC2PSC  : 2;    ///< Input capture 2 prescaler
-        uint8_t IC2F    : 4;    ///< Input capture 2 filter
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    IC2PSC  : 2;    ///< Input capture 2 prescaler
+        int    IC2F    : 4;    ///< Input capture 2 filter
       } regIn;
       
     } CCMR2;
@@ -4428,12 +4536,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC1E    : 1;    ///< Capture/compare 1 output enable
-        uint8_t CC1P    : 1;    ///< Capture/compare 1 output polarity
-        uint8_t res     : 2;    ///< Reserved
-        uint8_t CC2E    : 1;    ///< Capture/compare 2 output enable
-        uint8_t CC2P    : 1;    ///< Capture/compare 2 output polarity
-        uint8_t res2    : 2;    ///< Reserved
+        int    CC1E    : 1;    ///< Capture/compare 1 output enable
+        int    CC1P    : 1;    ///< Capture/compare 1 output polarity
+        int    res     : 2;    ///< Reserved
+        int    CC2E    : 1;    ///< Capture/compare 2 output enable
+        int    CC2P    : 1;    ///< Capture/compare 2 output polarity
+        int    res2    : 2;    ///< Reserved
       } reg;
       
     } CCER1;
@@ -4451,8 +4559,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PSC     : 4;    ///< clock prescaler
-        uint8_t res     : 4;    ///< Reserved
+        int    PSC     : 4;    ///< clock prescaler
+        int    res     : 4;    ///< Reserved
       } reg;
       
     } PSCR;
@@ -4473,7 +4581,7 @@ typedef struct {
 
   /// pointer to all TIM3 registers (selected devices)
   #if defined(TIM3_BaseAddress)
-    reg(TIM3_BaseAddress, TIM3_t, _TIM3);
+    SFR(TIM3_BaseAddress, TIM3_t, _TIM3);
   #endif
 
   /* TIM3 Module Reset Values */
@@ -4515,12 +4623,12 @@ typedef struct {
     
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    res     : 3;    ///< Reserved
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
     
     } CR1;
@@ -4540,8 +4648,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t res     : 7;    ///< Reserved
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } IER;
@@ -4555,8 +4663,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t res     : 7;    ///< Reserved
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } SR1;
@@ -4570,8 +4678,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t res     : 7;    ///< Reserved
+        int    UG      : 1;    ///< Update generation
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } EGR;
@@ -4589,8 +4697,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PSC     : 3;    ///< clock prescaler
-        uint8_t res     : 5;    ///< Reserved
+        int    PSC     : 3;    ///< clock prescaler
+        int    res     : 5;    ///< Reserved
       } reg;
       
     } PSCR;
@@ -4603,7 +4711,7 @@ typedef struct {
   
   /// pointer to TIM4 registers
   #if defined(TIM4_BaseAddress)
-    reg(TIM4_BaseAddress, TIM4_t, _TIM4);
+    SFR(TIM4_BaseAddress, TIM4_t, _TIM4);
   #endif
 
   /* TIM4 Module Reset Values */
@@ -4635,12 +4743,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    res     : 3;    ///< Reserved
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
       
     } CR1;
@@ -4654,12 +4762,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CCPC    : 1;    ///< Capture/compare preloaded control
-        uint8_t res     : 1;    ///< Reserved, forced by hardware to 0
-        uint8_t COMS    : 1;    ///< Capture/compare control update selection
-        uint8_t res2    : 1;    ///< Reserved, must be kept cleared
-        uint8_t MMS     : 3;    ///< Master mode selection
-        uint8_t res3    : 1;    ///< Reserved
+        int    CCPC    : 1;    ///< Capture/compare preloaded control
+        int    res     : 1;    ///< Reserved, forced by hardware to 0
+        int    COMS    : 1;    ///< Capture/compare control update selection
+        int    res2    : 1;    ///< Reserved, must be kept cleared
+        int    MMS     : 3;    ///< Master mode selection
+        int    res3    : 1;    ///< Reserved
       } reg;
       
     } CR2;
@@ -4673,10 +4781,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SMS     : 3;    ///< Clock/trigger/slave mode selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t TS      : 3;    ///< Trigger selection
-        uint8_t MSM     : 1;    ///< Master/slave mode
+        int    SMS     : 3;    ///< Clock/trigger/slave mode selection
+        int    res     : 1;    ///< Reserved
+        int    TS      : 3;    ///< Trigger selection
+        int    MSM     : 1;    ///< Master/slave mode
       } reg;
       
     } SMCR;
@@ -4690,13 +4798,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
-        uint8_t CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
-        uint8_t CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
-        uint8_t res     : 2;    ///< Reserved 
-        uint8_t TIE     : 1;    ///< Trigger interrupt enable
-        uint8_t res2    : 1;    ///< Reserved
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
+        int    CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
+        int    CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
+        int    res     : 2;    ///< Reserved 
+        int    TIE     : 1;    ///< Trigger interrupt enable
+        int    res2    : 1;    ///< Reserved
       } reg;
       
     } IER;
@@ -4710,13 +4818,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
-        uint8_t CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
-        uint8_t CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
-        uint8_t res     : 2;    ///< Reserved
-        uint8_t TIF     : 1;    ///< Trigger interrupt flag
-        uint8_t res2    : 1;    ///< Reserved
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
+        int    CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
+        int    CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
+        int    res     : 2;    ///< Reserved
+        int    TIF     : 1;    ///< Trigger interrupt flag
+        int    res2    : 1;    ///< Reserved
       } reg;
       
     } SR1;
@@ -4730,11 +4838,11 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
-        uint8_t CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
-        uint8_t CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
-        uint8_t res2    : 4;    ///< Reserved
+        int    res     : 1;    ///< Reserved
+        int    CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
+        int    CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
+        int    CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
+        int    res2    : 4;    ///< Reserved
       } reg;
       
     } SR2;
@@ -4748,13 +4856,13 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t CC1G    : 1;    ///< Capture/compare 1 generation
-        uint8_t CC2G    : 1;    ///< Capture/compare 2 generation
-        uint8_t CC3G    : 1;    ///< Capture/compare 3 generation
-        uint8_t res     : 2;    ///< Reserved
-        uint8_t TG      : 1;    ///< Trigger generation
-        uint8_t res2    : 1;    ///< Reserved
+        int    UG      : 1;    ///< Update generation
+        int    CC1G    : 1;    ///< Capture/compare 1 generation
+        int    CC2G    : 1;    ///< Capture/compare 2 generation
+        int    CC3G    : 1;    ///< Capture/compare 3 generation
+        int    res     : 2;    ///< Reserved
+        int    TG      : 1;    ///< Trigger generation
+        int    res2    : 1;    ///< Reserved
       } reg;
       
     } EGR;
@@ -4768,18 +4876,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC1PE   : 1;    ///< Output compare 1 preload enable
-        uint8_t OC1M    : 3;    ///< Output compare 1 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    res     : 1;    ///< Reserved
+        int    OC1PE   : 1;    ///< Output compare 1 preload enable
+        int    OC1M    : 3;    ///< Output compare 1 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC1S    : 2;    ///< Capture/compare 1 selection
-        uint8_t IC1PSC  : 2;    ///< Input capture 1 prescaler
-        uint8_t IC1F    : 4;    ///< Input capture 1 filter
+        int    CC1S    : 2;    ///< Capture/compare 1 selection
+        int    IC1PSC  : 2;    ///< Input capture 1 prescaler
+        int    IC1F    : 4;    ///< Input capture 1 filter
       } regIn;
       
     } CCMR1;
@@ -4793,18 +4901,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC2PE   : 1;    ///< Output compare 2 preload enable
-        uint8_t OC2M    : 3;    ///< Output compare 2 mode
-        uint8_t res2    : 1;    ///< Reserved
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    res     : 1;    ///< Reserved
+        int    OC2PE   : 1;    ///< Output compare 2 preload enable
+        int    OC2M    : 3;    ///< Output compare 2 mode
+        int    res2    : 1;    ///< Reserved
       } regOut;
       
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC2S    : 2;    ///< Capture/compare 2 selection
-        uint8_t IC2PSC  : 2;    ///< Input capture 2 prescaler
-        uint8_t IC2F    : 4;    ///< Input capture 2 filter
+        int    CC2S    : 2;    ///< Capture/compare 2 selection
+        int    IC2PSC  : 2;    ///< Input capture 2 prescaler
+        int    IC2F    : 4;    ///< Input capture 2 filter
       } regIn;
       
     } CCMR2;
@@ -4818,18 +4926,18 @@ typedef struct {
       
       /// bitwise access to register (output mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t OC3PE   : 1;    ///< Output compare 3 preload enable
-        uint8_t OC3M    : 3;    ///< Output compare 3 mode
-        uint8_t OC3CE   : 1;    ///< Reserved
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    res     : 1;    ///< Reserved
+        int    OC3PE   : 1;    ///< Output compare 3 preload enable
+        int    OC3M    : 3;    ///< Output compare 3 mode
+        int    OC3CE   : 1;    ///< Reserved
       } regOut;
         
       /// bitwise access to register (input mode)
       struct {
-        uint8_t CC3S    : 2;    ///< Capture/compare 3 selection
-        uint8_t IC3PSC  : 2;    ///< Input capture 3 prescaler
-        uint8_t IC3F    : 4;    ///< Input capture 3 filter
+        int    CC3S    : 2;    ///< Capture/compare 3 selection
+        int    IC3PSC  : 2;    ///< Input capture 3 prescaler
+        int    IC3F    : 4;    ///< Input capture 3 filter
       } regIn;
 
     } CCMR3;
@@ -4843,12 +4951,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC1E    : 1;    ///< Capture/compare 1 output enable
-        uint8_t CC1P    : 1;    ///< Capture/compare 1 output polarity
-        uint8_t res     : 2;    ///< Reserved
-        uint8_t CC2E    : 1;    ///< Capture/compare 2 output enable
-        uint8_t CC2P    : 1;    ///< Capture/compare 2 output polarity
-        uint8_t res2    : 2;    ///< Reserved
+        int    CC1E    : 1;    ///< Capture/compare 1 output enable
+        int    CC1P    : 1;    ///< Capture/compare 1 output polarity
+        int    res     : 2;    ///< Reserved
+        int    CC2E    : 1;    ///< Capture/compare 2 output enable
+        int    CC2P    : 1;    ///< Capture/compare 2 output polarity
+        int    res2    : 2;    ///< Reserved
       } reg;
       
     } CCER1;
@@ -4862,9 +4970,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CC3E    : 1;    ///< Capture/compare 3 output enable
-        uint8_t CC3P    : 1;    ///< Capture/compare 3 output polarity
-        uint8_t res     : 6;    ///< Reserved
+        int    CC3E    : 1;    ///< Capture/compare 3 output enable
+        int    CC3P    : 1;    ///< Capture/compare 3 output polarity
+        int    res     : 6;    ///< Reserved
       } reg;
       
     } CCER2;
@@ -4882,8 +4990,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t PSC     : 4;    ///< clock prescaler
-        uint8_t res     : 4;    ///< Reserved
+        int    PSC     : 4;    ///< clock prescaler
+        int    res     : 4;    ///< Reserved
       } reg;
       
     } PSCR;
@@ -4908,13 +5016,13 @@ typedef struct {
 
   /// pointer to all TIM5 registers (selected devices)
   #if defined(TIM5_BaseAddress)
-    reg(TIM5_BaseAddress, TIM5_t, _TIM5);
+    SFR(TIM5_BaseAddress, TIM5_t, _TIM5);
   #endif
 
   /* TIM5 Module Reset Values */
   #define TIM5_CR1_RESET_VALUE   ((uint8_t)0x00)
-  #define TIM5_CR2_RESET_VALUE 	 ((uint8_t)0x00)
-  #define TIM5_SMCR_RESET_VALUE	 ((uint8_t)0x00)
+  #define TIM5_CR2_RESET_VALUE   ((uint8_t)0x00)
+  #define TIM5_SMCR_RESET_VALUE  ((uint8_t)0x00)
   #define TIM5_IER_RESET_VALUE   ((uint8_t)0x00)
   #define TIM5_SR1_RESET_VALUE   ((uint8_t)0x00)
   #define TIM5_SR2_RESET_VALUE   ((uint8_t)0x00)
@@ -4956,12 +5064,12 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t CEN     : 1;    ///< Counter enable
-        uint8_t UDIS    : 1;    ///< Update disable
-        uint8_t URS     : 1;    ///< Update request source
-        uint8_t OPM     : 1;    ///< One-pulse mode
-        uint8_t res     : 3;    ///< Reserved
-        uint8_t ARPE    : 1;    ///< Auto-reload preload enable
+        int    CEN     : 1;    ///< Counter enable
+        int    UDIS    : 1;    ///< Update disable
+        int    URS     : 1;    ///< Update request source
+        int    OPM     : 1;    ///< One-pulse mode
+        int    res     : 3;    ///< Reserved
+        int    ARPE    : 1;    ///< Auto-reload preload enable
       } reg;
       
     } CR1;
@@ -4975,9 +5083,9 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t res     : 4;    ///< Reserved
-        uint8_t MMS     : 3;    ///< Master mode selection
-        uint8_t res3    : 1;    ///< Reserved
+        int    res     : 4;    ///< Reserved
+        int    MMS     : 3;    ///< Master mode selection
+        int    res3    : 1;    ///< Reserved
       } reg;
       
     } CR2;
@@ -4991,10 +5099,10 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t SMS     : 3;    ///< Clock/trigger/slave mode selection
-        uint8_t res     : 1;    ///< Reserved
-        uint8_t TS      : 3;    ///< Trigger selection
-        uint8_t MSM     : 1;    ///< Master/slave mode
+        int    SMS     : 3;    ///< Clock/trigger/slave mode selection
+        int    res     : 1;    ///< Reserved
+        int    TS      : 3;    ///< Trigger selection
+        int    MSM     : 1;    ///< Master/slave mode
       } reg;
       
     } SMCR;
@@ -5008,8 +5116,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIE     : 1;    ///< Update interrupt enable
-        uint8_t res     : 7;    ///< Reserved
+        int    UIE     : 1;    ///< Update interrupt enable
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } IER;
@@ -5023,8 +5131,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UIF     : 1;    ///< Update interrupt flag
-        uint8_t res     : 7;    ///< Reserved
+        int    UIF     : 1;    ///< Update interrupt flag
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } SR1;
@@ -5038,8 +5146,8 @@ typedef struct {
       
       /// bitwise access to register
       struct {
-        uint8_t UG      : 1;    ///< Update generation
-        uint8_t res     : 7;    ///< Reserved
+        int    UG      : 1;    ///< Update generation
+        int    res     : 7;    ///< Reserved
       } reg;
       
     } EGR;
@@ -5071,7 +5179,7 @@ typedef struct {
 
   /// pointer to all TIM6 registers (selected devices)
   #if defined(TIM6_BaseAddress)
-    reg(TIM6_BaseAddress, TIM6_t, _TIM6);
+    SFR(TIM6_BaseAddress, TIM6_t, _TIM6);
   #endif
   
   /* TIM6 Module Reset Values */
@@ -5087,8 +5195,10 @@ typedef struct {
 
 #endif // (1) 
 
+// undefine temporary SFR 
+#undef SFR
 
 /*-----------------------------------------------------------------------------
     END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // _STM8AF_S_H
+#endif // _STM8AF_STM8S_H_
