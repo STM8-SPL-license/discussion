@@ -52,6 +52,7 @@ start_line = 5
 part        = ProductList.iloc[start_line:, 0]  # device name for header file name 
 num_parts   = len(part.iloc[:])                 # number of devices
 description = ProductList.iloc[start_line:, 1]  # comment in header
+status      = ProductList.iloc[start_line:, 2]  # status = Active, Proposal
 flash_size  = ProductList.iloc[start_line:, 5]  # for flash memory size 
 RAM_size    = ProductList.iloc[start_line:, 6]  # for RAM memory size 
 EEPROM_size = ProductList.iloc[start_line:, 7]  # for EEPROM memory size 
@@ -70,7 +71,7 @@ except OSError:
     print('cannot create folder \'' + directory + '\', exit!')
     exit(1);
 try:
-    shutil.copyfile('STM8AF_STM8S.h', directory+'/STM8AF_STM8S')
+    shutil.copyfile('STM8AF_STM8S.h', directory+'/STM8AF_STM8S.h')
 except OSError:
     print('cannot copy family headers to \'' + directory + '\', exit!')
     exit(1);
@@ -81,29 +82,61 @@ except OSError:
 '''
 def check_device( idx ):
 
+    # check if device is active
+    if status.iloc[idx].find('Active') != 0:
+        return 'inactive'
+
     # STM8S103     standard line low density device
     if part.iloc[idx].find('STM8S103') == 0:     
-        return True
+        return 'supported'
 
     # STM8S903     standard line low density device
     elif part.iloc[idx].find('STM8S903') == 0:
-        return True
+        return 'supported'
     
     # STM8S105     standard line medium density device
     elif part.iloc[idx].find('STM8S105') == 0:
-        return True
+        return 'supported'
     
     # STM8S208     standard line high density device with CAN
     elif part.iloc[idx].find('STM8S208') == 0:
-        return True
+        return 'supported'
     
     # STM8S207     standard line high density device without CAN
     elif part.iloc[idx].find('STM8S207') == 0:
-        return True
+        return 'supported'
+    
+    # STM8AF622x / STM8AF621x   automotive low density devices without CAN
+    elif part.iloc[idx].find('STM8AF622') == 0  or  part.iloc[idx].find('STM8AF621') == 0:
+        return 'supported'
+    
+    # STM8AF626x   automotive medium density devices without CAN
+    elif part.iloc[idx].find('STM8AF626') == 0:
+        return 'supported'
+    
+    # STM8AF52Ax   automotive high density devices with CAN
+    elif part.iloc[idx].find('STM8AF52A') == 0:
+        return 'supported'
+    
+    # STM8AF62Ax   automotive high density devices without CAN
+    elif part.iloc[idx].find('STM8AF62A') == 0:
+        return 'supported'
+    
+    # STM8S003x    value line low density device
+    elif part.iloc[idx].find('STM8S003') == 0:
+        return 'supported'
+    
+    # STM8S005x    value line medium density device
+    elif part.iloc[idx].find('STM8S005') == 0:
+        return 'supported'
+    
+    # STM8S007x    value line high density device
+    elif part.iloc[idx].find('STM8S007') == 0:
+        return 'supported'
 
     # device not yet supported
     else:
-        return False
+        return 'pending'
 
     # check_device
 
@@ -154,14 +187,14 @@ def save_header( idx ):
     f.write('/*-----------------------------------------------------------------------------\n')
     f.write('    MODULE DEFINITION FOR MULTIPLE INCLUSION\n')
     f.write('-----------------------------------------------------------------------------*/\n')
-    f.write('#ifndef _' + part.iloc[idx] + '_H\n')
-    f.write('#define _' + part.iloc[idx] + '_H\n')
+    f.write('#ifndef ' + part.iloc[idx] + '_H\n')
+    f.write('#define ' + part.iloc[idx] + '_H  1\n')
     f.write('\n')
 
     f.write('// device specific memory sizes [B]\n')
-    f.write('#define PFLASH_SIZE ' + flash_size.iloc[idx] + '*1024\n')
-    f.write('#define RAM_SIZE    ' + RAM_size.iloc[idx] + '*1024\n')
-    f.write('#define EEPROM_SIZE ' + EEPROM_size.iloc[idx] + '\n')
+    f.write('#define STM8_PFLASH_SIZE ' + flash_size.iloc[idx] + '*1024\n')
+    f.write('#define STM8_RAM_SIZE    ' + RAM_size.iloc[idx] + '*1024\n')
+    f.write('#define STM8_EEPROM_SIZE ' + EEPROM_size.iloc[idx] + '\n')
     f.write('\n')
 
 
@@ -212,10 +245,10 @@ def save_header( idx ):
         f.write('#define ITC_BaseAddress         0x7F70\n')
         #f.write('#define DM_BaseAddress          0x7F90\n')
         f.write('\n')
-        f.write('// optional unique ID  start address\n')
-        f.write('#define UID_BaseAddress   0x4865\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x4865\n')
         f.write('\n')
-        f.write('#include \"STM8AF_STM8S\"\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
         # STM8S103
 
 
@@ -266,11 +299,10 @@ def save_header( idx ):
         f.write('#define ITC_BaseAddress         0x7F70\n')
         #f.write('#define DM_BaseAddress          0x7F90\n')
         f.write('\n')
-        f.write('// optional unique ID  start address\n')
-        f.write('#define UID_BaseAddress   0x4865\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x4865\n')
         f.write('\n')
-        f.write('// include generic header for series\n')
-        f.write('#include \"STM8AF_STM8S\"\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
         # STM8S903
 
 
@@ -321,11 +353,11 @@ def save_header( idx ):
         f.write('#define ITC_BaseAddress         0x7F70\n')
         #f.write('#define DM_BaseAddress          0x7F90\n')
         f.write('\n')
-        f.write('// optional unique ID  start address\n')
-        f.write('#define UID_BaseAddress   0x48CD\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x48CD\n')
         f.write('\n')
         f.write('// include generic header for series\n')
-        f.write('#include \"STM8AF_STM8S\"\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
         # STM8S105
 
 
@@ -376,11 +408,11 @@ def save_header( idx ):
         f.write('#define ITC_BaseAddress         0x7F70\n')
         #f.write('#define DM_BaseAddress          0x7F90\n')
         f.write('\n')
-        f.write('// optional unique ID  start address\n')
-        f.write('#define UID_BaseAddress   0x48CD\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x48CD\n')
         f.write('\n')
         f.write('// include generic header for series\n')
-        f.write('#include \"STM8AF_STM8S\"\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
         # STM8S208
 
 
@@ -431,12 +463,398 @@ def save_header( idx ):
         f.write('#define ITC_BaseAddress         0x7F70\n')
         #f.write('#define DM_BaseAddress          0x7F90\n')
         f.write('\n')
-        f.write('// optional unique ID  start address\n')
-        f.write('#define UID_BaseAddress   0x48CD\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x48CD\n')
         f.write('\n')
         f.write('// include generic header for series\n')
-        f.write('#include \"STM8AF_STM8S\"\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
         # STM8S207
+
+
+    # STM8AF622x / STM8AF621x   automotive low density devices without CAN
+    # datasheet number: DS9884
+    # reference manual number: RM0016
+    elif device.find('STM8AF622') == 0  or  device.find('STM8AF621') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8AF622x)\n')
+        f.write('  #define STM8AF622x\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        #f.write('#define PORTG_BaseAddress       0x501E\n')
+        #f.write('#define PORTH_BaseAddress       0x5023\n')
+        #f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        #f.write('#define UART1_BaseAddress       0x5230\n')
+        #f.write('#define UART2_BaseAddress       0x5240\n')
+        #f.write('#define UART3_BaseAddress       0x5240\n')
+        f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        #f.write('#define TIM2_BaseAddress        0x5300\n')
+        #f.write('#define TIM3_BaseAddress        0x5320\n')
+        #f.write('#define TIM4_BaseAddress        0x5340\n')
+        f.write('#define TIM5_BaseAddress        0x5300\n')
+        f.write('#define TIM6_BaseAddress        0x5340\n')
+        f.write('#define ADC1_BaseAddress        0x53E0\n')
+        #f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         0x4865\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8AF622x
+
+
+    # STM8AF626x   automotive medium density devices without CAN
+    # datasheet number: DS5913
+    # reference manual number: RM0016
+    elif device.find('STM8AF626') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8AF626x)\n')
+        f.write('  #define STM8AF626x\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        f.write('#define PORTG_BaseAddress       0x501E\n')
+        #f.write('#define PORTH_BaseAddress       0x5023\n')
+        #f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        #f.write('#define UART1_BaseAddress       0x5230\n')
+        f.write('#define UART2_BaseAddress       0x5240\n')
+        #f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        f.write('#define ADC1_BaseAddress        0x53E0\n')
+        #f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8AF626x
+
+
+    # STM8AF52Ax   automotive high density devices with CAN
+    # datasheet number: xxx
+    # reference manual number: RM0016
+    elif device.find('STM8AF52A') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8AF52Ax)\n')
+        f.write('  #define STM8AF52Ax\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        f.write('#define PORTG_BaseAddress       0x501E\n')
+        f.write('#define PORTH_BaseAddress       0x5023\n')
+        f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        f.write('#define UART1_BaseAddress       0x5230\n')
+        #f.write('#define UART2_BaseAddress       0x5240\n')
+        f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        #f.write('#define ADC1_BaseAddress        0x53E0\n')
+        f.write('#define ADC2_BaseAddress        0x5400\n')
+        f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8AF52Ax
+
+
+    # STM8AF62Ax   automotive high density devices without CAN
+    # datasheet number: xxx
+    # reference manual number: RM0016
+    elif device.find('STM8AF62A') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8AF62Ax)\n')
+        f.write('  #define STM8AF62Ax\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        f.write('#define PORTG_BaseAddress       0x501E\n')
+        f.write('#define PORTH_BaseAddress       0x5023\n')
+        f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        f.write('#define UART1_BaseAddress       0x5230\n')
+        #f.write('#define UART2_BaseAddress       0x5240\n')
+        f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        #f.write('#define ADC1_BaseAddress        0x53E0\n')
+        f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8AF62Ax
+
+
+    # STM8S003x    value line low density device
+    # datasheet number: xxx
+    # reference manual number: xxx
+    elif device.find('STM8S003') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8S003)\n')
+        f.write('  #define STM8S003\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        #f.write('#define PORTG_BaseAddress       0x501E\n')
+        #f.write('#define PORTH_BaseAddress       0x5023\n')
+        #f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        f.write('#define UART1_BaseAddress       0x5230\n')
+        #f.write('#define UART2_BaseAddress       0x5240\n')
+        #f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        #f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        f.write('#define ADC1_BaseAddress        0x53E0\n')
+        #f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8S003x
+
+
+    # STM8S005x    value line medium density device
+    # datasheet number: xxx
+    # reference manual number: xxx
+    elif device.find('STM8S005') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8S005)\n')
+        f.write('  #define STM8S005\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        f.write('#define PORTG_BaseAddress       0x501E\n')
+        #f.write('#define PORTH_BaseAddress       0x5023\n')
+        #f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        #f.write('#define UART1_BaseAddress       0x5230\n')
+        f.write('#define UART2_BaseAddress       0x5240\n')
+        #f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        f.write('#define ADC1_BaseAddress        0x53E0\n')
+        #f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8S005x
+
+
+    # STM8S007x    value line high density device
+    # datasheet number: xxx
+    # reference manual number: xxx
+    elif device.find('STM8S007') == 0:
+        f.write('// define device line\n')
+        f.write('#if !defined(STM8S007)\n')
+        f.write('  #define STM8S007\n')
+        f.write('#endif\n')
+        f.write('\n')
+        f.write('// device specific base addresses\n')
+        f.write('#define OPT_BaseAddress         0x4800\n')
+        f.write('#define PORTA_BaseAddress       0x5000\n')
+        f.write('#define PORTB_BaseAddress       0x5005\n')
+        f.write('#define PORTC_BaseAddress       0x500A\n')
+        f.write('#define PORTD_BaseAddress       0x500F\n')
+        f.write('#define PORTE_BaseAddress       0x5014\n')
+        f.write('#define PORTF_BaseAddress       0x5019\n')
+        f.write('#define PORTG_BaseAddress       0x501E\n')
+        f.write('#define PORTH_BaseAddress       0x5023\n')
+        f.write('#define PORTI_BaseAddress       0x5028\n')
+        f.write('#define FLASH_BaseAddress       0x505A\n')
+        f.write('#define EXTI_BaseAddress        0x50A0\n')
+        f.write('#define RST_BaseAddress         0x50B3\n')
+        f.write('#define CLK_BaseAddress         0x50C0\n')
+        f.write('#define WWDG_BaseAddress        0x50D1\n')
+        f.write('#define IWDG_BaseAddress        0x50E0\n')
+        f.write('#define AWU_BaseAddress         0x50F0\n')
+        f.write('#define BEEP_BaseAddress        0x50F3\n')
+        f.write('#define SPI_BaseAddress         0x5200\n')
+        f.write('#define I2C_BaseAddress         0x5210\n')
+        f.write('#define UART1_BaseAddress       0x5230\n')
+        #f.write('#define UART2_BaseAddress       0x5240\n')
+        f.write('#define UART3_BaseAddress       0x5240\n')
+        #f.write('#define UART4_BaseAddress       0x5230\n')
+        f.write('#define TIM1_BaseAddress        0x5250\n')
+        f.write('#define TIM2_BaseAddress        0x5300\n')
+        f.write('#define TIM3_BaseAddress        0x5320\n')
+        f.write('#define TIM4_BaseAddress        0x5340\n')
+        #f.write('#define TIM5_BaseAddress        0x5300\n')
+        #f.write('#define TIM6_BaseAddress        0x5340\n')
+        #f.write('#define ADC1_BaseAddress        0x53E0\n')
+        f.write('#define ADC2_BaseAddress        0x5400\n')
+        #f.write('#define CAN_BaseAddress         0x5420\n')
+        f.write('#define CFG_BaseAddress         0x7F60\n')
+        f.write('#define ITC_BaseAddress         0x7F70\n')
+        #f.write('#define DM_BaseAddress          0x7F90\n')
+        f.write('\n')
+        f.write('// unique ID start address\n')
+        f.write('#define UID_BaseAddress         xxx\n')
+        f.write('\n')
+        f.write('// include generic header for series\n')
+        f.write('#include \"STM8AF_STM8S.h\"\n')
+        # STM8S007x
+
 
     # device not yet supported
     else:
@@ -458,26 +876,41 @@ def save_header( idx ):
 
 
 # set verbosity level for output (CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET)
-logging.basicConfig(level=logging.INFO)
-
+logger = logging.getLogger()
+hdlr = logging.FileHandler('./export.log')
+logger.addHandler(hdlr) 
+logger.setLevel(logging.INFO)
 
 # for each device create header file with same name with (some) properties  
-num_ok    = 0
-num_error = 0
+num_ok       = 0
+num_inactive = 0
+num_error    = 0
 for idx in range(num_parts):
 
-    # if device already in list export header file
-    if check_device( idx ) == True:
+    # check status of support
+    state = check_device( idx )
+
+    # device in list is not active -> skip
+    if state == 'inactive':
+        num_inactive = num_inactive + 1
+        logging.debug(part.iloc[idx] + ' not active, skip')
+
+    # device already supported -> export header file
+    elif state == 'supported':
         num_ok = num_ok + 1
         logging.info('export ' + part.iloc[idx])
         save_header(idx)
+    
+    # device not yet supported -> skip
     else:
         num_error = num_error + 1
         logging.debug(part.iloc[idx] + ' not yet supported, skip')
+        #if part.iloc[idx].find('STM8AF') ==0:
+        #    logging.debug(part.iloc[idx] + ' not yet supported, skip')
 
 
 # print message
-print('export finished: ' + str(num_ok) + ' ok, ' + str(num_error) + ' failed, exit\n\n')
+print('export finished: ' + str(num_ok) + ' ok, ' + str(num_inactive) + ' inactive, ' + str(num_error) + ' failed\n\n')
 
 
 
