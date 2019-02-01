@@ -29,12 +29,19 @@
 /*----------------------------------------------------------
     GLOBAL FUNCTIONS
 ----------------------------------------------------------*/
+  
+__at(PORTD_BaseAddress) uint8_t   portD_ODR;
+__at(PORTD_BaseAddress+1) uint8_t   portD_IDR;
+__at(PORTD_BaseAddress+2) uint8_t   portD_DDR;
+__at(PORTD_BaseAddress+3) uint8_t   portD_CR1;
+__at(PORTD_BaseAddress+4) uint8_t   portD_CR2;
+
 
 ////////
 // main routine
 ////////
 void main(void) {
-  
+
   ////
   // initialization
   ////
@@ -55,6 +62,8 @@ void main(void) {
     
     // blink LED (bitwise access)
     LED_PIN ^= 1;
+    //LED_PORT.ODR.byte ^= LED_MASK;
+    //portD_ODR ^= 0x01;
 
     // wait a bit
     for (uint32_t i=0; i<200000L; i++)

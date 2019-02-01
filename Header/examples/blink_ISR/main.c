@@ -11,8 +11,8 @@
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-#include "STM8S208MB.h"   // muBoard
-//#include "STM8S105C6.h"   // STM8S-Discovery
+//#include "STM8S208MB.h"   // muBoard
+#include "STM8S105C6.h"   // STM8S-Discovery
 
 // define access to LED pin 
 #if defined(STM8S208)               // muBoard -> PH2

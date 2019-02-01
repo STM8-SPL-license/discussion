@@ -3,8 +3,8 @@ COMMONDIR = ../../stm8
 
 ## Compiler settings
 CC = sdcc
-DEFINES=-DSTM8S208
-#DEFINES=-DSTM8S105
+#DEFINES=-DSTM8S208
+DEFINES=-DSTM8S105
 CPPFLAGS = -I$(COMMONDIR)
 CFLAGS = --std-sdcc99 -mstm8 $(DEFINES)
 LDFLAGS = -lstm8 -mstm8 --out-fmt-ihx
