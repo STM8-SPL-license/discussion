@@ -6,23 +6,31 @@
   - configure LED pin as output
   - use TIM4 interrupt
   - blink pin every 500ms
+
+  Boards:
+  - STM8SDiscovery   https://www.st.com/en/evaluation-tools/stm8s-discovery.html
+  - sduino-UNO       https://github.com/roybaer/sduino_uno
 **********************/
 
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-//#include "STM8S208MB.h"   // muBoard
 #include "STM8S105C6.h"   // STM8S-Discovery
+//#include "STM8S105K6.h"   // sduino-UNO
+
 
 // define access to LED pin 
-#if defined(STM8S208)               // muBoard -> PH2
-  #define LED_PORT  _GPIOH
-  #define LED_MASK  (0x01 << 2)
-  #define LED_PIN   _GPIOH.ODR.bit.b2
-#else                               // STM8S-Discovery -> PD0
+#if defined(STM8S105K6)               // sduino-UNO -> PC5
+  #define LED_PORT  _GPIOC
+  #define LED_MASK  (0x01 << 5)
+  #define LED_PIN   _GPIOC.ODR.bit.b5
+#elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
   #define LED_PORT  _GPIOD
   #define LED_MASK  (0x01 << 0)
   #define LED_PIN   _GPIOD.ODR.bit.b0
+#else
+  #error please select supported device or adapt pinning
+  #include <stophere>
 #endif
 
 
@@ -57,10 +65,10 @@ void main(void) {
   // switch to 16MHz clock (reset is 2MHz)
   _CLK.CKDIVR.byte = 0x00;
 
-  // set LED pin to output (bytewise access)
-  LED_PORT.DDR.byte |= LED_MASK;     // input(=0) or output(=1)
-  LED_PORT.CR1.byte |= LED_MASK;     // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  LED_PORT.CR2.byte |= LED_MASK;     // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  // set LED pin to output push-pull (bytewise access)
+  LED_PORT.DDR.byte |= LED_MASK;    // input(=0) or output(=1)
+  LED_PORT.CR1.byte |= LED_MASK;    // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+  LED_PORT.CR2.byte |= LED_MASK;    // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
 
   // init TIM4 for 1ms interrupt
   _TIM4.CR1.reg.ARPE = 1;    // auto-reload value buffered

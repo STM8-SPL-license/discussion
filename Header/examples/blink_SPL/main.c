@@ -7,17 +7,21 @@
   - configure LED pin as output using SPL
   - use TIM4 interrupt using SPL
   - blink pin every 500ms using direct access
-**********************/
+*
+  Boards:
+  - STM8SDiscovery   https://www.st.com/en/evaluation-tools/stm8s-discovery.html
+  - sduino-UNO       https://github.com/roybaer/sduino_uno
+*********************/
 
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
 
 // select in Makefile 
-#if defined(STM8S208)               // muBoard
-  #include "STM8S208MB.h"
+#if defined(STM8S105C6)
+  #include "STM8S105C6.h"      // STM8S-Discovery
 #else
-  #include "STM8S105C6.h"           // STM8S-Discovery
+  #include "STM8S105K6.h"      // sduino-UNO
 #endif
 
 // SPL headers
@@ -26,14 +30,17 @@
 #include "stm8s_tim4.h"
 
 // define access to LED pin 
-#if defined(STM8S208)               // muBoard -> PH2
-  #define LED_PORT  (GPIOH)             // SPL
-  #define LED_MASK  (GPIO_PIN_2)        // SPL
-  #define LED_PIN   _GPIOH.ODR.bit.b2   // direct
-#else                               // STM8S-Discovery -> PD0
+#if defined(STM8S105K6)               // sduino-UNO -> PC5
+  #define LED_PORT  (GPIOC)             // SPL
+  #define LED_MASK  (GPIO_PIN_5)        // SPL
+  #define LED_PIN   _GPIOC.ODR.bit.b5   // direct
+#elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
   #define LED_PORT  (GPIOD)             // SPL
   #define LED_MASK  (GPIO_PIN_0)        // SPL
   #define LED_PIN   _GPIOD.ODR.bit.b0   // direct
+#else
+  #error please select supported device or adapt pinning
+  #include <stophere>
 #endif
 
 

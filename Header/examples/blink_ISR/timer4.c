@@ -22,8 +22,10 @@ uint32_t   g_millis = 0;
    
   \brief ISR for TIM4 update
    
-  interrupt service routine for timer TIM4.
-  Increase global ms counter
+  Timer TIM4 ISR, increase global ms counter.
+  
+  Notes:
+    - for Cosmic compiler, add TIM4_UPD_ISR also to 'stm8_interrupt_vector.c'
 */
 ISR_HANDLER(TIM4_UPD_ISR, __TIM4_UPD_OVF_VECTOR__)
 {

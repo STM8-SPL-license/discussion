@@ -36,8 +36,8 @@ $(PROGRAM).ihx: $(OBJECTS)
 clean:
 	rm -f $(PROGRAM).ihx $(PROGRAM).cdb $(PROGRAM).lk $(PROGRAM).map $(CCOMPILEDFILES)
 
-flash: $(PROGRAM).ihx
+swim: $(PROGRAM).ihx
 	$(STM8FLASH) -c $(STM8FLASH_PROGRAMMER) -p $(STM8FLASH_DEVICE) -w $(PROGRAM).ihx
 
 serial: $(PROGRAM).ihx
-	$(STM8GAL) -p $(STM8GAL_PORT) -w $(PROGRAM).ihx
+	$(STM8GAL) -p $(STM8GAL_PORT) -w $(PROGRAM).ihx -R 2

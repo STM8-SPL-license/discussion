@@ -225,24 +225,29 @@
 /* SDCC patch: define standard data types */
 #if defined(_COSMIC_) || defined(_RAISONANCE_) || defined(_IAR_)
 
-  /*!< Signed integer types  */
-  typedef   signed char     int8_t;
-  typedef   signed short    int16_t;
-  typedef   signed long     int32_t;
+  // skip if already defined
+  #ifndef INT8_MAX
 
-  /*!< Unsigned integer types  */
-  typedef unsigned char     uint8_t;
-  typedef unsigned short    uint16_t;
-  typedef unsigned long     uint32_t;
+    /*!< Signed integer types  */
+    typedef   signed char     int8_t;
+    typedef   signed short    int16_t;
+    typedef   signed long     int32_t;
 
-  /*!< STM8 Standard Peripheral Library old types (maintained for legacy purpose) */
-  typedef int32_t  s32;
-  typedef int16_t s16;
-  typedef int8_t  s8;
+    /*!< Unsigned integer types  */
+    typedef unsigned char     uint8_t;
+    typedef unsigned short    uint16_t;
+    typedef unsigned long     uint32_t;
 
-  typedef uint32_t  u32;
-  typedef uint16_t u16;
-  typedef uint8_t  u8;
+    /*!< STM8 Standard Peripheral Library old types (maintained for legacy purpose) */
+    typedef int32_t  s32;
+    typedef int16_t s16;
+    typedef int8_t  s8;
+
+    typedef uint32_t  u32;
+    typedef uint16_t u16;
+    typedef uint8_t  u8;
+
+  #endif // INT8_MAX
 
 #elif defined(_SDCC_)
 

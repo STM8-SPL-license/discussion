@@ -6,35 +6,35 @@
   - configure LED pin as output
   - no interrupts
   - blink pin with delay
+
+  Boards:
+  - STM8SDiscovery   https://www.st.com/en/evaluation-tools/stm8s-discovery.html
+  - sduino-UNO       https://github.com/roybaer/sduino_uno
 **********************/
 
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-//#include "STM8S208MB.h"   // muBoard
 #include "STM8S105C6.h"   // STM8S-Discovery
+//#include "STM8S105K6.h"   // sduino-UNO
+
+
+// Select access method. Comment out for bytewise access
+#define BIT_ACCESS
 
 // define access to LED pin 
-#if defined(STM8S208)               // muBoard -> PH2
-  #define LED_PORT  _GPIOH
-  #define LED_MASK  (0x01 << 2)
-  #define LED_PIN   _GPIOH.ODR.bit.b2
-#else                               // STM8S-Discovery -> PD0
+#if defined(STM8S105K6)               // sduino-UNO -> PC5
+  #define LED_PORT  _GPIOC
+  #define LED_MASK  (0x01 << 5)
+  #define LED_PIN   _GPIOC.ODR.bit.b5
+#elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
   #define LED_PORT  _GPIOD
   #define LED_MASK  (0x01 << 0)
   #define LED_PIN   _GPIOD.ODR.bit.b0
+#else
+  #error please select supported device or adapt pinning
+  #include <stophere>
 #endif
-
-
-/*----------------------------------------------------------
-    GLOBAL FUNCTIONS
-----------------------------------------------------------*/
-  
-__at(PORTD_BaseAddress) uint8_t   portD_ODR;
-__at(PORTD_BaseAddress+1) uint8_t   portD_IDR;
-__at(PORTD_BaseAddress+2) uint8_t   portD_DDR;
-__at(PORTD_BaseAddress+3) uint8_t   portD_CR1;
-__at(PORTD_BaseAddress+4) uint8_t   portD_CR2;
 
 
 ////////
@@ -42,6 +42,10 @@ __at(PORTD_BaseAddress+4) uint8_t   portD_CR2;
 ////////
 void main(void) {
 
+  // local variables
+  uint32_t  i;
+  
+  
   ////
   // initialization
   ////
@@ -49,10 +53,10 @@ void main(void) {
   // switch to 16MHz clock (reset is 2MHz)
   _CLK.CKDIVR.byte = 0x00;
 
-  // set LED pin to output (bytewise access)
-  LED_PORT.DDR.byte |= LED_MASK;     // input(=0) or output(=1)
-  LED_PORT.CR1.byte |= LED_MASK;     // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  LED_PORT.CR2.byte |= LED_MASK;     // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  // set LED pin to output push-pull (bytewise access)
+  LED_PORT.DDR.byte |= LED_MASK;    // input(=0) or output(=1)
+  LED_PORT.CR1.byte |= LED_MASK;    // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+  LED_PORT.CR2.byte |= LED_MASK;    // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
 
 
   ////
@@ -60,13 +64,15 @@ void main(void) {
   ////
   while (1) {
     
-    // blink LED (bitwise access)
-    LED_PIN ^= 1;
-    //LED_PORT.ODR.byte ^= LED_MASK;
-    //portD_ODR ^= 0x01;
-
+    // blink LED (bit- or bytewise access)
+    #ifdef BIT_ACCESS
+      LED_PIN ^= 1;
+    #else
+      LED_PORT.ODR.byte ^= LED_MASK;
+    #endif
+    
     // wait a bit
-    for (uint32_t i=0; i<200000L; i++)
+    for (i=200000L; i; i--)
       NOP;
 
   } // main loop

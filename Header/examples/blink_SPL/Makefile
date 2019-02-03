@@ -3,8 +3,8 @@ COMMONDIR = ../../stm8
 
 ## Compiler settings
 CC = sdcc
-#DEFINES=-DSTM8S208
-DEFINES=-DSTM8S105
+DEFINES=-DSTM8S105 -DSTM8S105C6
+#DEFINES=-DSTM8S105 -DSTM8S105K6
 CPPFLAGS = -I$(COMMONDIR)
 CFLAGS = --std-sdcc99 -mstm8 $(DEFINES)
 LDFLAGS = -lstm8 -mstm8 --out-fmt-ihx
@@ -37,8 +37,8 @@ $(PROGRAM).ihx: $(OBJECTS)
 clean:
 	rm -f $(PROGRAM).ihx $(PROGRAM).cdb $(PROGRAM).lk $(PROGRAM).map $(CCOMPILEDFILES)
 
-flash: $(PROGRAM).ihx
+swim: $(PROGRAM).ihx
 	$(STM8FLASH) -c $(STM8FLASH_PROGRAMMER) -p $(STM8FLASH_DEVICE) -w $(PROGRAM).ihx
 
 serial: $(PROGRAM).ihx
-	$(STM8GAL) -p $(STM8GAL_PORT) -w $(PROGRAM).ihx
+	$(STM8GAL) -p $(STM8GAL_PORT) -w $(PROGRAM).ihx -R 2
