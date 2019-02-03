@@ -8,5 +8,5 @@ Filename=blink.stp
 Dependencies=
 [Options]
 ActiveProject=blink
-ActiveConfig=Release
+ActiveConfig=Debug
 AddSortedElements=1
