@@ -36,6 +36,11 @@
 #define STM8_RAM_SIZE    6*1024
 #define STM8_EEPROM_SIZE 128
 
+// define device
+#if !defined(STM8S007C8)
+  #define STM8S007C8
+#endif
+
 // define device line
 #if !defined(STM8S007)
   #define STM8S007

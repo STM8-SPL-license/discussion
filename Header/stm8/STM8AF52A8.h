@@ -36,6 +36,11 @@
 #define STM8_RAM_SIZE    6*1024
 #define STM8_EEPROM_SIZE 2048
 
+// define device
+#if !defined(STM8AF52A8)
+  #define STM8AF52A8
+#endif
+
 // define device line
 #if !defined(STM8AF52Ax)
   #define STM8AF52Ax

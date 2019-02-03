@@ -36,6 +36,11 @@
 #define STM8_RAM_SIZE    2*1024
 #define STM8_EEPROM_SIZE 640
 
+// define device
+#if !defined(STM8AF6226)
+  #define STM8AF6226
+#endif
+
 // define device line
 #if !defined(STM8AF622x)
   #define STM8AF622x
