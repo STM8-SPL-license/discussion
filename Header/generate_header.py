@@ -197,6 +197,12 @@ def save_header( idx ):
     f.write('#define STM8_EEPROM_SIZE ' + EEPROM_size.iloc[idx] + '\n')
     f.write('\n')
 
+    f.write('// define device\n')
+    f.write('#if !defined(' + part.iloc[idx] + ')\n')
+    f.write('  #define ' + part.iloc[idx] + '\n')
+    f.write('#endif\n')
+    f.write('\n')
+
 
     # STM8S103: standard line low density device
     # datasheet number: DS6120
