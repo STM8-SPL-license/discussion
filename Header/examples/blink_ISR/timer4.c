@@ -1,8 +1,7 @@
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-//#include "STM8S208MB.h"   // muBoard
-#include "STM8S105C6.h"   // STM8S-Discovery
+#include "main.h"    // defines device / board
 
 
 /*----------------------------------------------------------
@@ -10,7 +9,7 @@
 ----------------------------------------------------------*/
 
 // global ms counter (increased in TIM4_UPD_ISR)
-uint32_t   g_millis = 0;
+extern uint32_t   g_millis;
 
 
 /*----------------------------------------------------------
@@ -26,12 +25,16 @@ uint32_t   g_millis = 0;
   
   Notes:
     - for Cosmic compiler, add TIM4_UPD_ISR also to 'stm8_interrupt_vector.c'
+    - IAR compiler has an IRQ offset of +2 compared to STM8 datasheet (see below)
 */
+#if defined(_IAR_)
+   #pragma vector = 2+__TIM4_UPD_OVF_VECTOR__    // IAR with +2 IRQ offset!
+#endif
 ISR_HANDLER(TIM4_UPD_ISR, __TIM4_UPD_OVF_VECTOR__)
 {
   // reset ISR flag
-  _TIM4.SR1.reg.UIF = 0;
-
+  _TIM4.SR  &= ~_TIM4_UIF;
+  
   // set/increase global variables
   g_millis++;
     

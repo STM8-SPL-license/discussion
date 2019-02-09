@@ -160,7 +160,6 @@
 /* For FLASH routines, select whether pointer will be declared as near (2 bytes,
    to handle code smaller than 64KB) or far (3 bytes, to handle code larger 
    than 64K) */
-
 #if defined(STM8S105) || defined(STM8S005) || defined(STM8S103) || defined(STM8S003) || \
     defined(STM8S001) || defined(STM8S903) || defined(STM8AF626x) || defined(STM8AF622x)
 /*!< Used with memory Models for code smaller than 64K */

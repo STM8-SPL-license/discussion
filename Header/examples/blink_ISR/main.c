@@ -1,10 +1,10 @@
 /**********************
-  STM8 blink project with timer interrupt for STM8S-Discovery board
+  STM8 blink LED with TIM4 interrupt
 
   Functionality:
   - init FCPU to 16MHz
   - configure LED pin as output
-  - use TIM4 interrupt
+  - set up TIM4 interrupt for time-keeping
   - blink pin every 500ms
 
   Boards:
@@ -15,31 +15,20 @@
 /*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-#include "STM8S105C6.h"   // STM8S-Discovery
-//#include "STM8S105K6.h"   // sduino-UNO
+#include "main.h"    // defines device / board
 
 
-// define access to LED pin 
+// define LED pin 
 #if defined(STM8S105K6)               // sduino-UNO -> PC5
   #define LED_PORT  _GPIOC
-  #define LED_MASK  (0x01 << 5)
-  #define LED_PIN   _GPIOC.ODR.bit.b5
+  #define LED_PIN   PIN5
 #elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
   #define LED_PORT  _GPIOD
-  #define LED_MASK  (0x01 << 0)
-  #define LED_PIN   _GPIOD.ODR.bit.b0
+  #define LED_PIN   PIN0
 #else
   #error please select supported device or adapt pinning
   #include <stophere>
 #endif
-
-
-/*----------------------------------------------------------
-    GLOBAL VARIABLES
-----------------------------------------------------------*/
-
-// global ms counter (increased in TIM4_UPD_ISR)
-extern uint32_t   g_millis;
 
 
 /*----------------------------------------------------------
@@ -48,6 +37,14 @@ extern uint32_t   g_millis;
 
 // SDCC requires ISR declaration in main file!!!
 ISR_HANDLER(TIM4_UPD_ISR, __TIM4_UPD_OVF_VECTOR__);
+
+
+/*----------------------------------------------------------
+    GLOBAL VARIABLES
+----------------------------------------------------------*/
+
+// global ms counter (increased in TIM4_UPD_ISR)
+uint32_t   g_millis = 0;
 
 
 ////////
@@ -60,25 +57,25 @@ void main(void) {
   ////
 
   // disable interrupts for initialization
-  DISABLE_INTERRUPTS;
+  DISABLE_INTERRUPTS();
   
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK.CKDIVR.byte = 0x00;
+  _CLK.CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);
 
-  // set LED pin to output push-pull (bytewise access)
-  LED_PORT.DDR.byte |= LED_MASK;    // input(=0) or output(=1)
-  LED_PORT.CR1.byte |= LED_MASK;    // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  LED_PORT.CR2.byte |= LED_MASK;    // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  // set LED pin to output push-pull
+  LED_PORT.DDR |= LED_PIN;    // input(=0) or output(=1)
+  LED_PORT.CR1 |= LED_PIN;    // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+  LED_PORT.CR2 |= LED_PIN;    // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
 
   // init TIM4 for 1ms interrupt
-  _TIM4.CR1.reg.ARPE = 1;    // auto-reload value buffered
-  _TIM4.PSCR.reg.PSC = 6;    // set clock to 16Mhz/2^6 = 250kHz -> 4us resolution
-  _TIM4.ARR.byte  = 250;     // set autoreload period to 1ms (=250*4us)
-  _TIM4.IER.reg.UIE = 1;     // enable timer 4 interrupt
-  _TIM4.CR1.reg.CEN = 1;     // start timer
+  _TIM4.CR1  |= _TIM4_ARPE;                    // auto-reload value buffered
+  _TIM4.PSCR |= (_TIM4_PSC1 | _TIM4_PSC2);     // set clock prescaler to 6 -> 16Mhz/2^6 = 250kHz -> 4us resolution
+  _TIM4.ARR   = 250;                           // set autoreload period to 1ms (=250*4us)
+  _TIM4.IER  |= _TIM4_UIE;                     // enable timer 4 interrupt
+  _TIM4.CR1  |= _TIM4_CEN;                     // start timer
 
   // enable interrupts after initialization
-  ENABLE_INTERRUPTS;
+  ENABLE_INTERRUPTS();
 
 
   ////
@@ -89,7 +86,9 @@ void main(void) {
     // blink LED every 500ms (bitwise access)
     if (g_millis > 500) {
       g_millis = 0;
-      LED_PIN ^= 1;
+    
+      // blink LED
+      LED_PORT.ODR ^= LED_PIN;
     }
 
   } // main loop

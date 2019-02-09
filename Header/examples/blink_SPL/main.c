@@ -1,13 +1,12 @@
 /**********************
-  STM8 blink project with timer interrupt for STM8S-Discovery board
-  Mix STM8S-SPL routines and direct access. 
+  STM8 blink LED using both SPL and direct access and interrupt
 
   Functionality:
-  - init FCPU to 16MHz using SPL
+  - init FCPU to 16MHz using direct access
   - configure LED pin as output using SPL
   - use TIM4 interrupt using SPL
   - blink pin every 500ms using direct access
-*
+
   Boards:
   - STM8SDiscovery   https://www.st.com/en/evaluation-tools/stm8s-discovery.html
   - sduino-UNO       https://github.com/roybaer/sduino_uno
@@ -17,11 +16,11 @@
     INCLUDE FILES
 ----------------------------------------------------------*/
 
-// select in Makefile 
+// select board in Makefile 
 #if defined(STM8S105C6)
-  #include "STM8S105C6.h"      // STM8S-Discovery
+  #include "../../stm8/STM8S105C6.h"   // STM8S-Discovery
 #else
-  #include "STM8S105K6.h"      // sduino-UNO
+  #include "../../stm8/STM8S105K6.h"   // sduino-UNO
 #endif
 
 // SPL headers
@@ -29,15 +28,19 @@
 #include "stm8s_gpio.h"
 #include "stm8s_tim4.h"
 
-// define access to LED pin 
+// define LED pin 
 #if defined(STM8S105K6)               // sduino-UNO -> PC5
-  #define LED_PORT  (GPIOC)             // SPL
-  #define LED_MASK  (GPIO_PIN_5)        // SPL
-  #define LED_PIN   _GPIOC.ODR.bit.b5   // direct
+  #warning sduino-UNO
+  #define LED_PORT_SPL  (GPIOC)
+  #define LED_PIN_SPL   (GPIO_PIN_5)
+  #define LED_PORT      _GPIOC
+  #define LED_PIN       PIN5
 #elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
-  #define LED_PORT  (GPIOD)             // SPL
-  #define LED_MASK  (GPIO_PIN_0)        // SPL
-  #define LED_PIN   _GPIOD.ODR.bit.b0   // direct
+  #warning STM8S-Discovery
+  #define LED_PORT_SPL  (GPIOD)
+  #define LED_PIN_SPL   (GPIO_PIN_0)
+  #define LED_PORT      _GPIOD
+  #define LED_PIN       PIN0
 #else
   #error please select supported device or adapt pinning
   #include <stophere>
@@ -69,13 +72,13 @@ void main(void) {
   ////
 
   // disable interrupts for initialization
-  DISABLE_INTERRUPTS;
+  DISABLE_INTERRUPTS();
   
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK.CKDIVR.byte = 0x00;
+  _CLK.CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);
 
   // Initialize LED pin to output
-  GPIO_Init(LED_PORT, (GPIO_Pin_TypeDef)LED_MASK, GPIO_MODE_OUT_PP_LOW_FAST);
+  GPIO_Init(LED_PORT_SPL, (GPIO_Pin_TypeDef) LED_PIN_SPL, GPIO_MODE_OUT_PP_LOW_FAST);
 
   // init TIM4 for 1ms interrupt
   TIM4_TimeBaseInit(TIM4_PRESCALER_128, 124);
@@ -83,7 +86,7 @@ void main(void) {
   TIM4_Cmd(ENABLE);
 
   // enable interrupts after initialization
-  ENABLE_INTERRUPTS;
+  ENABLE_INTERRUPTS();
 
 
   ////
@@ -94,7 +97,9 @@ void main(void) {
     // blink LED every 500ms (direct bitwise access)
     if (g_millis > 500) {
       g_millis = 0;
-      LED_PIN ^= 1;
+
+      // blink LED
+      LED_PORT.ODR ^= LED_PIN;
 
     } // 500ms 
 

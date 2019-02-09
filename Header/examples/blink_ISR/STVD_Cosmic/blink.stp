@@ -82,7 +82,7 @@ String.100.0=STM8S105C6
 
 [Root.Config.0.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,43,5
@@ -164,7 +164,7 @@ String.100.0=STM8S105C6
 
 [Root.Config.1.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,48,34
@@ -244,7 +244,7 @@ Int.1=0
 
 [Root.Source Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,43,5
@@ -271,7 +271,7 @@ Int.1=0
 
 [Root.Source Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,48,34
@@ -293,6 +293,11 @@ String.6.0=2019,2,1,7,41,25
 [Root.Source Files...\main.c]
 ElemType=File
 PathName=..\main.c
+Next=Root.Source Files...\main.h
+
+[Root.Source Files...\main.h]
+ElemType=File
+PathName=..\main.h
 Next=Root.Source Files...\timer4.c
 
 [Root.Source Files...\timer4.c]
@@ -331,7 +336,7 @@ Int.1=0
 
 [Root.Include Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,43,5
@@ -358,7 +363,7 @@ Int.1=0
 
 [Root.Include Files.Config.1.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 -i..  +mods0 -customC-pp -i..\..\..\stm8 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
 String.6.0=2019,2,1,7,48,34
