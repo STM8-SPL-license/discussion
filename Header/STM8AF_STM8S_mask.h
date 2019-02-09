@@ -126,26 +126,21 @@
 // IAR Compiler
 #elif defined(_IAR_)
  
-  // macros to unify ISR declaration and implementation
-  //#define ISR_HANDLER(a,b) @far @interrupt void a(void)
-  //#define ISR_HANDLER_TRAP(a) void @far @interrupt a(void)
-
-  #define ASM(mnem)            #pragma ASM mnem)                           ///< single line inline assembler
-  #define ASM_START            #pragma ASM                          ///< start multi-line inline assembler
-  #define ASM_END              #pragma ENDASM                       ///< end multi-line inline assembler
-
-  #define FAR                  __far
-  #define NEAR                 __near
-  #define TINY                 __tiny
-  #define EEPROM               __eeprom
-  #define CONST                const
+  // include intrinsic functions
+  #include <intrinsics.h>
   
-  //#define INLINE               @inline
-  #define RAM_FUNC(func)       __ramfunc func
+  // macros to unify ISR declaration and implementation
+  #define ISR_HANDLER(func,irq)  __interrupt void func(void)
+  //#define ISR_HANDLER_TRAP(func) void func(void) trap
 
-  #if !defined(NULL)
-    #define NULL  0
-  #endif
+  // common assembler instructions
+  #define NOP()                __no_operation()                     ///< perform a nop() operation (=minimum delay)
+  #define DISABLE_INTERRUPTS() __disable_interrupt()                ///< disable interrupt handling
+  #define ENABLE_INTERRUPTS()  __enable_interrupt()                 ///< enable interrupt handling
+  #define TRIGGER_TRAP         __trap()                             ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
+  #define WAIT_FOR_INTERRUPT() __wait_for_interrupt()               ///< stop code execution and wait for interrupt
+  #define ENTER_HALT()         __halt()                             ///< put controller to HALT mode
+  #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
 
 // SDCC compiler
@@ -227,7 +222,8 @@
 
 
 /*-----------------------------------------------------------------------------
-    ISR Vector Table (SDCC & Raisonance)
+    ISR Vector Table (SDCC, Raisonance, IAR)
+    Note: IAR has an IRQ offset of +2 compared to STM8 datasheet (see below)
 -----------------------------------------------------------------------------*/
 
 /// irq0 - External Top Level interrupt (TLI) for pin PD7
