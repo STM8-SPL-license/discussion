@@ -27,7 +27,7 @@
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
 #ifndef STM8AF_STM8S_H
-#define STM8AF_STM8S_H   1
+#define STM8AF_STM8S_H
 
 /* Check the used compiler */
 #if defined(__CSMC__)
@@ -722,4 +722,4 @@
 /*-----------------------------------------------------------------------------
     END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // _STM8AF_STM8S_H_
+#endif // STM8AF_STM8S_H_
