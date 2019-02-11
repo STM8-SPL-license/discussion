@@ -351,7 +351,7 @@ def saveDeviceHeader(device):
 
   f.write('/* define device base addresses */\n')
   for idx in range(len(address)):
-    line_new = '#define  {:>6}  {:>8}'.format(module[idx], address[idx])
+    line_new = '#define  {:>6}_BaseAddress  {:>8}'.format(module[idx], address[idx])
     f.write(line_new + '\n')
 
   f.write('\n')

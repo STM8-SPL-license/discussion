@@ -45,36 +45,36 @@
 #define STM8_EEPROM_SIZE 2048
 
 /* define device base addresses */
-#define     OPT    0x4800
-#define   PORTA    0x5000
-#define   PORTB    0x5005
-#define   PORTC    0x500A
-#define   PORTD    0x500F
-#define   PORTE    0x5014
-#define   PORTF    0x5019
-#define   PORTG    0x501E
-#define   PORTH    0x5023
-#define   PORTI    0x5028
-#define   FLASH    0x505A
-#define    EXTI    0x50A0
-#define     RST    0x50B3
-#define     CLK    0x50C0
-#define    WWDG    0x50D1
-#define    IWDG    0x50E0
-#define     AWU    0x50F0
-#define    BEEP    0x50F3
-#define     SPI    0x5200
-#define     I2C    0x5210
-#define   UART1    0x5230
-#define   UART3    0x5240
-#define    TIM1    0x5250
-#define    TIM2    0x5300
-#define    TIM3    0x5320
-#define    TIM4    0x5340
-#define    ADC2    0x5400
-#define     CFG    0x7F60
-#define     ITC    0x7F70
-#define      DM    0x7F90
+#define     OPT_BaseAddress    0x4800
+#define   PORTA_BaseAddress    0x5000
+#define   PORTB_BaseAddress    0x5005
+#define   PORTC_BaseAddress    0x500A
+#define   PORTD_BaseAddress    0x500F
+#define   PORTE_BaseAddress    0x5014
+#define   PORTF_BaseAddress    0x5019
+#define   PORTG_BaseAddress    0x501E
+#define   PORTH_BaseAddress    0x5023
+#define   PORTI_BaseAddress    0x5028
+#define   FLASH_BaseAddress    0x505A
+#define    EXTI_BaseAddress    0x50A0
+#define     RST_BaseAddress    0x50B3
+#define     CLK_BaseAddress    0x50C0
+#define    WWDG_BaseAddress    0x50D1
+#define    IWDG_BaseAddress    0x50E0
+#define     AWU_BaseAddress    0x50F0
+#define    BEEP_BaseAddress    0x50F3
+#define     SPI_BaseAddress    0x5200
+#define     I2C_BaseAddress    0x5210
+#define   UART1_BaseAddress    0x5230
+#define   UART3_BaseAddress    0x5240
+#define    TIM1_BaseAddress    0x5250
+#define    TIM2_BaseAddress    0x5300
+#define    TIM3_BaseAddress    0x5320
+#define    TIM4_BaseAddress    0x5340
+#define    ADC2_BaseAddress    0x5400
+#define     CFG_BaseAddress    0x7F60
+#define     ITC_BaseAddress    0x7F70
+#define      DM_BaseAddress    0x7F90
 
 /* include generic header for series */
 #include "STM8AF_STM8S.h"
