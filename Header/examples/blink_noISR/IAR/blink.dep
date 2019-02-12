@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
     <fileVersion>2</fileVersion>
-    <fileChecksum>1511262658</fileChecksum>
+    <fileChecksum>753378953</fileChecksum>
     <configuration>
         <name>Debug</name>
         <outputs>
@@ -14,18 +14,20 @@
             <file>$TOOLKIT_DIR$\config\lnkstm8s105c6.icf</file>
             <file>$TOOLKIT_DIR$\lib\dlstm8smn.a</file>
             <file>$PROJ_DIR$\Debug\Obj\main.__cstat.et</file>
-            <file>$PROJ_DIR$\..\..\..\stm8\STM8S105K6.h</file>
             <file>$PROJ_DIR$\Debug\Exe\blink.hex</file>
             <file>$PROJ_DIR$\Debug\List\blink.map</file>
             <file>$TOOLKIT_DIR$\lib\dbgstm8smd.a</file>
             <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+            <file>$PROJ_DIR$\..\..\..\stm8\STM8S105C6.h</file>
+            <file>$PROJ_DIR$\Debug\Obj\blink.pbd</file>
+            <file>$PROJ_DIR$\Debug\List\main.lst</file>
         </outputs>
         <file>
             <name>[ROOT_NODE]</name>
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 2 11</file>
+                    <file> 2 10</file>
                 </tool>
             </outputs>
         </file>
@@ -38,7 +40,7 @@
                 </tool>
                 <tool>
                     <name>ICCSTM8</name>
-                    <file> 1</file>
+                    <file> 15 1</file>
                 </tool>
                 <tool>
                     <name>__cstat</name>
@@ -48,11 +50,11 @@
             <inputs>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 13 9 5</file>
+                    <file> 12 13 5</file>
                 </tool>
                 <tool>
                     <name>ICCSTM8</name>
-                    <file> 9 5 13</file>
+                    <file> 13 5 12</file>
                 </tool>
             </inputs>
         </file>
@@ -61,17 +63,17 @@
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 11</file>
+                    <file> 10</file>
                 </tool>
                 <tool>
                     <name>OBJCOPY</name>
-                    <file> 10</file>
+                    <file> 9</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 6 1 7 12</file>
+                    <file> 6 1 7 11</file>
                 </tool>
             </inputs>
         </file>
@@ -97,22 +99,23 @@
             <file>$PROJ_DIR$\..\..\..\stm8\STM8AF_STM8S.h</file>
             <file>$TOOLKIT_DIR$\config\lnkstm8s105c6.icf</file>
             <file>$TOOLKIT_DIR$\lib\dlstm8smn.a</file>
-            <file>$PROJ_DIR$\..\..\..\stm8\STM8S105K6.h</file>
             <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
-            <file>$PROJ_DIR$\Release\Obj\blink.pbd</file>
+            <file>$PROJ_DIR$\..\..\..\stm8\STM8S105C6.h</file>
             <file>$PROJ_DIR$\Release\Exe\blink.out</file>
-            <file>$TOOLKIT_DIR$\lib\dbgstm8smn.a</file>
             <file>$PROJ_DIR$\Release\List\blink.map</file>
+            <file>$TOOLKIT_DIR$\lib\dbgstm8smn.a</file>
             <file>$PROJ_DIR$\Release\Obj\main.__cstat.et</file>
             <file>$PROJ_DIR$\Release\Exe\blink.hex</file>
             <file>$PROJ_DIR$\Release\Obj\main.o</file>
+            <file>$PROJ_DIR$\Release\Obj\blink.pbd</file>
+            <file>$PROJ_DIR$\Release\List\main.lst</file>
         </outputs>
         <file>
             <name>[ROOT_NODE]</name>
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 8 10</file>
+                    <file> 7 8</file>
                 </tool>
             </outputs>
         </file>
@@ -125,21 +128,21 @@
                 </tool>
                 <tool>
                     <name>ICCSTM8</name>
-                    <file> 13</file>
+                    <file> 14 12</file>
                 </tool>
                 <tool>
                     <name>__cstat</name>
-                    <file> 11</file>
+                    <file> 10</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>BICOMP</name>
-                    <file> 6 5 2</file>
+                    <file> 5 6 2</file>
                 </tool>
                 <tool>
                     <name>ICCSTM8</name>
-                    <file> 5 2 6</file>
+                    <file> 6 2 5</file>
                 </tool>
             </inputs>
         </file>
@@ -148,22 +151,19 @@
             <outputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 10</file>
+                    <file> 8</file>
                 </tool>
                 <tool>
                     <name>OBJCOPY</name>
-                    <file> 12</file>
+                    <file> 11</file>
                 </tool>
             </outputs>
             <inputs>
                 <tool>
                     <name>ILINK</name>
-                    <file> 3 13 4 9</file>
+                    <file> 3 12 4 9</file>
                 </tool>
             </inputs>
         </file>
-        <forcedrebuild>
-            <name>[REBUILD_ALL]</name>
-        </forcedrebuild>
     </configuration>
 </project>

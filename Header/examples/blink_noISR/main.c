@@ -1,5 +1,6 @@
 /**********************
-  STM8 blink LED w/o interrupts
+  STM8 blink LED w/o interrupts. 
+  Demonstrate byte and bit access to registers
 
   Functionality:
   - init FCPU to 16MHz
@@ -13,26 +14,27 @@
 **********************/
 
 /*----------------------------------------------------------
+    BOARD SELECTION
+----------------------------------------------------------*/
+#define STM8S_DISCOVERY 1
+#define SDUINO_UNO      2
+#define BOARD           STM8S_DISCOVERY
+
+
+/*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-#include "../../stm8/STM8S105C6.h"   // STM8S-Discovery
-//#include "../../stm8/STM8S105K6.h"   // sduino-UNO
-    
-
-// define LED pin 
-#if defined(STM8S105K6)               // sduino-UNO -> PC5
-  #warning sduino-UNO
-  #define LED_PORT  _GPIOC
-  #define LED_PIN   PIN5
-#elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
+#if BOARD == STM8S_DISCOVERY
   #warning STM8S-Discovery
-  #define LED_PORT  _GPIOD
-  #define LED_PIN   PIN0
+  #include "../../stm8/STM8S105C6.h"
+#elif BOARD == SDUINO_UNO
+  #warning sduino-UNO
+  #include "../../stm8/STM8S105K6.h"
 #else
   #error please select supported device or adapt pinning
   #include <stophere>
 #endif
-
+    
 
 ////////
 // main routine
@@ -47,21 +49,37 @@ void main(void) {
   ////
   
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK.CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);
+  _CLK_CKDIVR = 0x00;                              // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);     // using bitmasks
+  //_CLK.CKDIVR.CPUDIV  = 0;                         // direct access 1
+  //_CLK.CKDIVR.HSIDIV  = 0;                         // direct access 2
 
-  // set LED pin to output push-pull
-  LED_PORT.DDR |= LED_PIN;    // input(=0) or output(=1)
-  LED_PORT.CR1 |= LED_PIN;    // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  LED_PORT.CR2 |= LED_PIN;    // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
-
+  // configure LED pin to output push-pull (byte access)
+  #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
+    _GPIOD_DDR |= _GPIO_PIN0;        // input(=0) or output(=1)
+    _GPIOD_CR1 |= _GPIO_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _GPIOD_CR2 |= _GPIO_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  #else                            // sduino-UNO -> PC5
+    _GPIOC_DDR |= _GPIO_PIN5;        // input(=0) or output(=1)
+    _GPIOC_CR1 |= _GPIO_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _GPIOC_CR2 |= _GPIO_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  #endif
+  
+  
   ////
   // main loop
   ////
   while (1) {
     
-    // blink LED
-    LED_PORT.ODR ^= LED_PIN;
-    
+    // toggle LED
+    #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
+      //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
+      _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
+    #else                            // sduino-UNO -> PC5
+      _GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
+      //_GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+    #endif
+
     // wait a bit
     for (i=200000L; i; i--)
       NOP();

@@ -392,8 +392,8 @@ except OSError:
     print('cannot create folder \'' + directory + '\', exit!')
     exit(1);
 try:
-    #shutil.copyfile('STM8AF_STM8S_bitfield.h', directory+'/STM8AF_STM8S.h')
-    shutil.copyfile('STM8AF_STM8S_mask.h', directory+'/STM8AF_STM8S.h')
+    shutil.copyfile('STM8AF_STM8S_bitfield.h', directory+'/STM8AF_STM8S.h')
+    #shutil.copyfile('STM8AF_STM8S_mask.h', directory+'/STM8AF_STM8S.h')
 except OSError:
     print('cannot copy family headers to \'' + directory + '\', exit!')
     exit(1);
