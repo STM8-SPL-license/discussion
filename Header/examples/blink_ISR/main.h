@@ -1,6 +1,21 @@
 /*----------------------------------------------------------
+    BOARD SELECTION
+----------------------------------------------------------*/
+#define STM8S_DISCOVERY 1
+#define SDUINO_UNO      2
+#define BOARD           STM8S_DISCOVERY
+
+
+/*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-#include "../../stm8/STM8S105C6.h"   // STM8S-Discovery
-//#include "../../stm8/STM8S105K6.h"   // sduino-UNO
-
+#if BOARD == STM8S_DISCOVERY
+  #warning STM8S-Discovery
+  #include "../../stm8/STM8S105C6.h"
+#elif BOARD == SDUINO_UNO
+  #warning sduino-UNO
+  #include "../../stm8/STM8S105K6.h"
+#else
+  #error please select supported device or adapt pinning
+  #include <stophere>
+#endif

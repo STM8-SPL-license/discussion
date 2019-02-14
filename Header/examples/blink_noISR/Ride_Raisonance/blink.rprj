@@ -1,4 +1,4 @@
 
 <Project Header="Project 'blink'" Path=".\blink.rprj" Project="Yes" OutputFile="" ActiveApp="blink" sate="96" >
-	<ApplicationBuild Header="blink" Extern=".\blink.rapp" Path=".\blink.rapp" OutputFile=".\blink.aof" Config="Standard" sate="98" />
+	<ApplicationBuild Header="blink" Extern=".\blink.rapp" Path=".\blink.rapp" OutputFile=".\blink.aof" Config="Standard" sate="96" />
 </Project>

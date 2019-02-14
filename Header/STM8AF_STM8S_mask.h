@@ -610,7 +610,6 @@
   #define _UART2_TCIEN            ((uint8_t) (0x01 << 6))        ///< Transmission complete interrupt enable [0]
   #define _UART2_TIEN             ((uint8_t) (0x01 << 7))        ///< Transmitter interrupt enable [0]
 
-
   /* UART2 Control register 3 (UART2_CR3) bits */
   #define _UART2_LBCL             ((uint8_t) (0x01 << 0))        ///< Last bit clock pulse [0]
   #define _UART2_CPHA             ((uint8_t) (0x01 << 1))        ///< Clock phase [0]

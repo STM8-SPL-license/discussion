@@ -1,5 +1,6 @@
 /**********************
-  STM8 blink LED using both SPL and direct access and interrupt
+  STM8 blink LED with interrupts using SPL and register access.
+  Demonstrate byte and bit access to registers
 
   Functionality:
   - init FCPU to 16MHz using direct access
@@ -13,38 +14,31 @@
 *********************/
 
 /*----------------------------------------------------------
+    BOARD SELECTION
+----------------------------------------------------------*/
+#define STM8S_DISCOVERY 1
+#define SDUINO_UNO      2
+#define BOARD           STM8S_DISCOVERY
+
+
+/*----------------------------------------------------------
     INCLUDE FILES
 ----------------------------------------------------------*/
-
-// select board in Makefile 
-#if defined(STM8S105C6)
-  #include "../../stm8/STM8S105C6.h"   // STM8S-Discovery
-#else
-  #include "../../stm8/STM8S105K6.h"   // sduino-UNO
-#endif
-
-// SPL headers
-#include "stm8s_it.h"
-#include "stm8s_gpio.h"
-#include "stm8s_tim4.h"
-
-// define LED pin 
-#if defined(STM8S105K6)               // sduino-UNO -> PC5
-  #warning sduino-UNO
-  #define LED_PORT_SPL  (GPIOC)
-  #define LED_PIN_SPL   (GPIO_PIN_5)
-  #define LED_PORT      _GPIOC
-  #define LED_PIN       PIN5
-#elif defined(STM8S105C6)             // STM8S-Discovery -> PD0
+#if BOARD == STM8S_DISCOVERY
   #warning STM8S-Discovery
-  #define LED_PORT_SPL  (GPIOD)
-  #define LED_PIN_SPL   (GPIO_PIN_0)
-  #define LED_PORT      _GPIOD
-  #define LED_PIN       PIN0
+  #include "../../stm8/STM8S105C6.h"
+#elif BOARD == SDUINO_UNO
+  #warning sduino-UNO
+  #include "../../stm8/STM8S105K6.h"
 #else
   #error please select supported device or adapt pinning
   #include <stophere>
 #endif
+    
+// SPL headers
+#include "stm8s_it.h"
+#include "stm8s_gpio.h"
+#include "stm8s_tim4.h"
 
 
 /*----------------------------------------------------------
@@ -75,11 +69,17 @@ void main(void) {
   DISABLE_INTERRUPTS();
   
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK.CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);
+  //_CLK_CKDIVR = 0x00;                                 // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
+  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access 
 
-  // Initialize LED pin to output
-  GPIO_Init(LED_PORT_SPL, (GPIO_Pin_TypeDef) LED_PIN_SPL, GPIO_MODE_OUT_PP_LOW_FAST);
-
+  // configure LED pin to output push-pull (SPL)
+  #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
+    GPIO_Init(GPIOD, (GPIO_Pin_TypeDef) GPIO_PIN_0, GPIO_MODE_OUT_PP_LOW_FAST);
+  #else                            // sduino-UNO -> PC5
+    GPIO_Init(GPIOC, (GPIO_Pin_TypeDef) GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);
+  #endif
+  
   // init TIM4 for 1ms interrupt
   TIM4_TimeBaseInit(TIM4_PRESCALER_128, 124);
   TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
@@ -98,10 +98,16 @@ void main(void) {
     if (g_millis > 500) {
       g_millis = 0;
 
-      // blink LED
-      LED_PORT.ODR ^= LED_PIN;
-
-    } // 500ms 
+      // toggle LED
+      #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
+        //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
+        _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
+      #else                            // sduino-UNO -> PC5
+        //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
+        _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+      #endif
+      
+    } // 500ms loop
 
   } // main loop
 

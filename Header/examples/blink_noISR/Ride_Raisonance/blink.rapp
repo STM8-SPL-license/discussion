@@ -1,7 +1,7 @@
 
-<ApplicationBuild Header="blink" Extern=".\blink.rapp" Path=".\blink.rapp" OutputFile=".\blink.aof" Config="Standard" sate="98" >
+<ApplicationBuild Header="blink" Extern=".\blink.rapp" Path=".\blink.rapp" OutputFile=".\blink.aof" Config="Standard" sate="96" >
 	<NodeH Path="..\..\..\stm8\STM8AF_STM8S.h" Header="STM8AF_STM8S.h" Marker="-1" OutputFile="" sate="0" />
-	<NodeC Path="..\main.c" Header="main.c" Marker="0" OutputFile=".\main.obj" sate="0" >
+	<NodeC Path="..\main.c" Header="main.c" Marker="0" OutputFile=".\main.obj" sate="2" >
 		<Options>
 			<Config Header="Standard" >
 				<Set Header="RCST7" >

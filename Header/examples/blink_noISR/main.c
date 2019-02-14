@@ -5,7 +5,6 @@
   Functionality:
   - init FCPU to 16MHz
   - configure LED pin as output
-  - no interrupts
   - blink pin with blocking delay
 
   Boards:
@@ -49,12 +48,11 @@ void main(void) {
   ////
   
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK_CKDIVR = 0x00;                              // clear complete register
-  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);     // using bitmasks
-  //_CLK.CKDIVR.CPUDIV  = 0;                         // direct access 1
-  //_CLK.CKDIVR.HSIDIV  = 0;                         // direct access 2
+  //_CLK_CKDIVR = 0x00;                                 // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
+  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access 
 
-  // configure LED pin to output push-pull (byte access)
+  // configure LED pin to output push-pull (bitmasks)
   #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
     _GPIOD_DDR |= _GPIO_PIN0;        // input(=0) or output(=1)
     _GPIOD_CR1 |= _GPIO_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
@@ -76,8 +74,8 @@ void main(void) {
       //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
       _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
     #else                            // sduino-UNO -> PC5
-      _GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
-      //_GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+      //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
+      _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
     #endif
 
     // wait a bit

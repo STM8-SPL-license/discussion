@@ -16,6 +16,7 @@ STM8FLASH_PROGRAMMER = stlink
 ## Settings for stm8gal UART upload tool
 STM8GAL      = stm8gal
 STM8GAL_PORT = /dev/ttyUSB0
+#STM8GAL_PORT = COM17
 
 ## Get program name from enclosing directory name
 PROGRAM = $(lastword $(subst /, ,$(CURDIR)))

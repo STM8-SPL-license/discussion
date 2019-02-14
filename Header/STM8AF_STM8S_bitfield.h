@@ -94,15 +94,17 @@
   #define ISR_HANDLER_TRAP(func) void @far @interrupt func(void)
 
   // common assembler instructions
-  #define NOP()                _asm("nop")                          ///< perform a nop() operation (=minimum delay)
-  #define DISABLE_INTERRUPTS() _asm("sim")                          ///< disable interrupt handling
-  #define ENABLE_INTERRUPTS()  _asm("rim")                          ///< enable interrupt handling
-  #define TRIGGER_TRAP         _asm("trap")                         ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
-  #define WAIT_FOR_INTERRUPT() _asm("wfi")                          ///< stop code execution and wait for interrupt
-  #define ENTER_HALT()         _asm("halt")                         ///< put controller to HALT mode
-  #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+  #define NOP()                  _asm("nop")                          ///< perform a nop() operation (=minimum delay)
+  #define DISABLE_INTERRUPTS()   _asm("sim")                          ///< disable interrupt handling
+  #define ENABLE_INTERRUPTS()    _asm("rim")                          ///< enable interrupt handling
+  #define TRIGGER_TRAP           _asm("trap")                         ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
+  #define WAIT_FOR_INTERRUPT()   _asm("wfi")                          ///< stop code execution and wait for interrupt
+  #define ENTER_HALT()           _asm("halt")                         ///< put controller to HALT mode
+  #define SW_RESET()             _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
-
+  // data type in bit fields
+  #define _BITS                  unsigned int                         ///< follow C90 standard
+  
 // Raisonance Compiler
 #elif defined(_RAISONANCE_)
  
@@ -121,6 +123,9 @@
   #define WAIT_FOR_INTERRUPT() _wfi_()                              ///< stop code execution and wait for interrupt
   #define ENTER_HALT()         _halt_()                             ///< put controller to HALT mode
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+
+  // data type in bit fields
+  #define _BITS                  unsigned int                         ///< follow C90 standard
 
 
 // IAR Compiler
@@ -141,6 +146,9 @@
   #define WAIT_FOR_INTERRUPT() __wait_for_interrupt()               ///< stop code execution and wait for interrupt
   #define ENTER_HALT()         __halt()                             ///< put controller to HALT mode
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+
+  // data type in bit fields
+  #define _BITS                  unsigned char                      ///< unsigned int fails for unknown reason
 
 
 // SDCC compiler
@@ -163,6 +171,9 @@
   #define ENTER_HALT()         __asm__("halt")                      ///< put controller to HALT mode
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
+  // data type in bit fields
+  #define _BITS                  unsigned int                         ///< follow C90 standard
+
 #endif
 
 
@@ -171,7 +182,7 @@
 -----------------------------------------------------------------------------*/
 
 // general macros
-#define SFR(type, addr)         (*((type*) (addr)))              ///< peripheral register
+#define _SFR(type, addr)       (*((volatile type*) (addr)))              ///< peripheral register
 
 
 /*-----------------------------------------------------------------------------
@@ -193,23 +204,23 @@
   
   
     // define min/max values
-    #define 	INT8_MAX   0x7f
-    #define 	INT8_MIN   (-INT8_MAX - 1)
+    #define   INT8_MAX   0x7f
+    #define   INT8_MIN   (-INT8_MAX - 1)
   
-    #define 	UINT8_MAX   0xFF
-    #define 	UINT8_MIN   0
+    #define   UINT8_MAX   0xFF
+    #define   UINT8_MIN   0
   
-    #define 	INT16_MAX   0x7fff
-    #define 	INT16_MIN   (-INT16_MAX - 1)
+    #define   INT16_MAX   0x7fff
+    #define   INT16_MIN   (-INT16_MAX - 1)
   
-    #define 	UINT16_MAX  0xFFFF
-    #define 	UINT16_MIN  0
+    #define   UINT16_MAX  0xFFFF
+    #define   UINT16_MIN  0
   
-    #define 	INT32_MAX   0x7fffffffL
-    #define 	INT32_MIN   (-INT32_MAX - 1L)
+    #define   INT32_MAX   0x7fffffffL
+    #define   INT32_MIN   (-INT32_MAX - 1L)
 
-    #define 	UINT32_MAX  0xFFFFFFFF
-    #define 	UINT32_MIN  0
+    #define   UINT32_MAX  0xFFFFFFFF
+    #define   UINT32_MIN  0
 
   #endif // INT8_MAX
 
@@ -360,154 +371,154 @@
 
     /** Port x output data register (Px_ODR) */
     struct {
-      unsigned int    PIN0    : 1;    ///< pin 0 output control
-      unsigned int    PIN1    : 1;    ///< pin 1 output control
-      unsigned int    PIN2    : 1;    ///< pin 2 output control
-      unsigned int    PIN3    : 1;    ///< pin 3 output control
-      unsigned int    PIN4    : 1;    ///< pin 4 output control
-      unsigned int    PIN5    : 1;    ///< pin 5 output control
-      unsigned int    PIN6    : 1;    ///< pin 6 output control
-      unsigned int    PIN7    : 1;    ///< pin 7 output control
+      _BITS    PIN0    : 1;    ///< pin 0 output control
+      _BITS    PIN1    : 1;    ///< pin 1 output control
+      _BITS    PIN2    : 1;    ///< pin 2 output control
+      _BITS    PIN3    : 1;    ///< pin 3 output control
+      _BITS    PIN4    : 1;    ///< pin 4 output control
+      _BITS    PIN5    : 1;    ///< pin 5 output control
+      _BITS    PIN6    : 1;    ///< pin 6 output control
+      _BITS    PIN7    : 1;    ///< pin 7 output control
     } ODR;
 
     /** Port x input data register (Px_IDR) */
     struct {
-      unsigned int    PIN0    : 1;    ///< pin 0 input control
-      unsigned int    PIN1    : 1;    ///< pin 1 input control
-      unsigned int    PIN2    : 1;    ///< pin 2 input control
-      unsigned int    PIN3    : 1;    ///< pin 3 input control
-      unsigned int    PIN4    : 1;    ///< pin 4 input control
-      unsigned int    PIN5    : 1;    ///< pin 5 input control
-      unsigned int    PIN6    : 1;    ///< pin 6 input control
-      unsigned int    PIN7    : 1;    ///< pin 7 input control
+      _BITS    PIN0    : 1;    ///< pin 0 input control
+      _BITS    PIN1    : 1;    ///< pin 1 input control
+      _BITS    PIN2    : 1;    ///< pin 2 input control
+      _BITS    PIN3    : 1;    ///< pin 3 input control
+      _BITS    PIN4    : 1;    ///< pin 4 input control
+      _BITS    PIN5    : 1;    ///< pin 5 input control
+      _BITS    PIN6    : 1;    ///< pin 6 input control
+      _BITS    PIN7    : 1;    ///< pin 7 input control
     } IDR;
 
     /** Port x data direction data register (Px_DDR) */
     struct {
-      unsigned int    PIN0    : 1;    ///< pin 0 direction control
-      unsigned int    PIN1    : 1;    ///< pin 1 direction control
-      unsigned int    PIN2    : 1;    ///< pin 2 direction control
-      unsigned int    PIN3    : 1;    ///< pin 3 direction control
-      unsigned int    PIN4    : 1;    ///< pin 4 direction control
-      unsigned int    PIN5    : 1;    ///< pin 5 direction control
-      unsigned int    PIN6    : 1;    ///< pin 6 direction control
-      unsigned int    PIN7    : 1;    ///< pin 7 direction control
+      _BITS    PIN0    : 1;    ///< pin 0 direction control
+      _BITS    PIN1    : 1;    ///< pin 1 direction control
+      _BITS    PIN2    : 1;    ///< pin 2 direction control
+      _BITS    PIN3    : 1;    ///< pin 3 direction control
+      _BITS    PIN4    : 1;    ///< pin 4 direction control
+      _BITS    PIN5    : 1;    ///< pin 5 direction control
+      _BITS    PIN6    : 1;    ///< pin 6 direction control
+      _BITS    PIN7    : 1;    ///< pin 7 direction control
     } DDR;
 
     /** Port x control register 1 (Px_CR1) */
     struct {
-      unsigned int    PIN0    : 1;    ///< pin 0 control register 1
-      unsigned int    PIN1    : 1;    ///< pin 1 control register 1
-      unsigned int    PIN2    : 1;    ///< pin 2 control register 1
-      unsigned int    PIN3    : 1;    ///< pin 3 control register 1
-      unsigned int    PIN4    : 1;    ///< pin 4 control register 1
-      unsigned int    PIN5    : 1;    ///< pin 5 control register 1
-      unsigned int    PIN6    : 1;    ///< pin 6 control register 1
-      unsigned int    PIN7    : 1;    ///< pin 7 control register 1
+      _BITS    PIN0    : 1;    ///< pin 0 control register 1
+      _BITS    PIN1    : 1;    ///< pin 1 control register 1
+      _BITS    PIN2    : 1;    ///< pin 2 control register 1
+      _BITS    PIN3    : 1;    ///< pin 3 control register 1
+      _BITS    PIN4    : 1;    ///< pin 4 control register 1
+      _BITS    PIN5    : 1;    ///< pin 5 control register 1
+      _BITS    PIN6    : 1;    ///< pin 6 control register 1
+      _BITS    PIN7    : 1;    ///< pin 7 control register 1
     } CR1;
 
     /** Port x control register 1 (Px_CR2) */
     struct {
-      unsigned int    PIN0    : 1;    ///< pin 0 control register 2
-      unsigned int    PIN1    : 1;    ///< pin 1 control register 2
-      unsigned int    PIN2    : 1;    ///< pin 2 control register 2
-      unsigned int    PIN3    : 1;    ///< pin 3 control register 2
-      unsigned int    PIN4    : 1;    ///< pin 4 control register 2
-      unsigned int    PIN5    : 1;    ///< pin 5 control register 2
-      unsigned int    PIN6    : 1;    ///< pin 6 control register 2
-      unsigned int    PIN7    : 1;    ///< pin 7 control register 2
+      _BITS    PIN0    : 1;    ///< pin 0 control register 2
+      _BITS    PIN1    : 1;    ///< pin 1 control register 2
+      _BITS    PIN2    : 1;    ///< pin 2 control register 2
+      _BITS    PIN3    : 1;    ///< pin 3 control register 2
+      _BITS    PIN4    : 1;    ///< pin 4 control register 2
+      _BITS    PIN5    : 1;    ///< pin 5 control register 2
+      _BITS    PIN6    : 1;    ///< pin 6 control register 2
+      _BITS    PIN7    : 1;    ///< pin 7 control register 2
     } CR2;
 
   } PORT_t;
 
   /* pointer to port A registers */
   #if defined(PORTA_BaseAddress)
-    #define _GPIOA      SFR(PORT_t,  PORTA_BaseAddress)    ///< direct port A access
-    #define _GPIOA_ODR  SFR(uint8_t, PORTA_BaseAddress+0)  ///< port A output register
-    #define _GPIOA_IDR  SFR(uint8_t, PORTA_BaseAddress+1)  ///< port A input register
-    #define _GPIOA_DDR  SFR(uint8_t, PORTA_BaseAddress+2)  ///< port A direction register
-    #define _GPIOA_CR1  SFR(uint8_t, PORTA_BaseAddress+3)  ///< port A control register 1
-    #define _GPIOA_CR2  SFR(uint8_t, PORTA_BaseAddress+4)  ///< port A control register 2
+    #define _GPIOA      _SFR(PORT_t,  PORTA_BaseAddress)    ///< direct port A access
+    #define _GPIOA_ODR  _SFR(uint8_t, PORTA_BaseAddress+0)  ///< port A output register
+    #define _GPIOA_IDR  _SFR(uint8_t, PORTA_BaseAddress+1)  ///< port A input register
+    #define _GPIOA_DDR  _SFR(uint8_t, PORTA_BaseAddress+2)  ///< port A direction register
+    #define _GPIOA_CR1  _SFR(uint8_t, PORTA_BaseAddress+3)  ///< port A control register 1
+    #define _GPIOA_CR2  _SFR(uint8_t, PORTA_BaseAddress+4)  ///< port A control register 2
   #endif
   
   /* pointer to port B registers */
   #if defined(PORTB_BaseAddress)
-    #define _GPIOB      SFR(PORT_t,  PORTB_BaseAddress)    ///< direct port B access
-    #define _GPIOB_ODR  SFR(uint8_t, PORTB_BaseAddress+0)  ///< port B output register
-    #define _GPIOB_IDR  SFR(uint8_t, PORTB_BaseAddress+1)  ///< port B input register
-    #define _GPIOB_DDR  SFR(uint8_t, PORTB_BaseAddress+2)  ///< port B direction register
-    #define _GPIOB_CR1  SFR(uint8_t, PORTB_BaseAddress+3)  ///< port B control register 1
-    #define _GPIOB_CR2  SFR(uint8_t, PORTB_BaseAddress+4)  ///< port B control register 2
+    #define _GPIOB      _SFR(PORT_t,  PORTB_BaseAddress)    ///< direct port B access
+    #define _GPIOB_ODR  _SFR(uint8_t, PORTB_BaseAddress+0)  ///< port B output register
+    #define _GPIOB_IDR  _SFR(uint8_t, PORTB_BaseAddress+1)  ///< port B input register
+    #define _GPIOB_DDR  _SFR(uint8_t, PORTB_BaseAddress+2)  ///< port B direction register
+    #define _GPIOB_CR1  _SFR(uint8_t, PORTB_BaseAddress+3)  ///< port B control register 1
+    #define _GPIOB_CR2  _SFR(uint8_t, PORTB_BaseAddress+4)  ///< port B control register 2
   #endif
   
   /* pointer to port C registers */
   #if defined(PORTC_BaseAddress)
-    #define _GPIOC      SFR(PORT_t,  PORTC_BaseAddress)    ///< direct port C access
-    #define _GPIOC_ODR  SFR(uint8_t, PORTC_BaseAddress+0)  ///< port C output register
-    #define _GPIOC_IDR  SFR(uint8_t, PORTC_BaseAddress+1)  ///< port C input register
-    #define _GPIOC_DDR  SFR(uint8_t, PORTC_BaseAddress+2)  ///< port C direction register
-    #define _GPIOC_CR1  SFR(uint8_t, PORTC_BaseAddress+3)  ///< port C control register 1
-    #define _GPIOC_CR2  SFR(uint8_t, PORTC_BaseAddress+4)  ///< port C control register 2
+    #define _GPIOC      _SFR(PORT_t,  PORTC_BaseAddress)    ///< direct port C access
+    #define _GPIOC_ODR  _SFR(uint8_t, PORTC_BaseAddress+0)  ///< port C output register
+    #define _GPIOC_IDR  _SFR(uint8_t, PORTC_BaseAddress+1)  ///< port C input register
+    #define _GPIOC_DDR  _SFR(uint8_t, PORTC_BaseAddress+2)  ///< port C direction register
+    #define _GPIOC_CR1  _SFR(uint8_t, PORTC_BaseAddress+3)  ///< port C control register 1
+    #define _GPIOC_CR2  _SFR(uint8_t, PORTC_BaseAddress+4)  ///< port C control register 2
   #endif
   
   /* pointer to port D registers */
   #if defined(PORTD_BaseAddress)
-    #define _GPIOD      SFR(PORT_t,  PORTD_BaseAddress)    ///< direct port D access
-    #define _GPIOD_ODR  SFR(uint8_t, PORTD_BaseAddress+0)  ///< port D output register
-    #define _GPIOD_IDR  SFR(uint8_t, PORTD_BaseAddress+1)  ///< port D input register
-    #define _GPIOD_DDR  SFR(uint8_t, PORTD_BaseAddress+2)  ///< port D direction register
-    #define _GPIOD_CR1  SFR(uint8_t, PORTD_BaseAddress+3)  ///< port D control register 1
-    #define _GPIOD_CR2  SFR(uint8_t, PORTD_BaseAddress+4)  ///< port D control register 2
+    #define _GPIOD      _SFR(PORT_t,  PORTD_BaseAddress)    ///< direct port D access
+    #define _GPIOD_ODR  _SFR(uint8_t, PORTD_BaseAddress+0)  ///< port D output register
+    #define _GPIOD_IDR  _SFR(uint8_t, PORTD_BaseAddress+1)  ///< port D input register
+    #define _GPIOD_DDR  _SFR(uint8_t, PORTD_BaseAddress+2)  ///< port D direction register
+    #define _GPIOD_CR1  _SFR(uint8_t, PORTD_BaseAddress+3)  ///< port D control register 1
+    #define _GPIOD_CR2  _SFR(uint8_t, PORTD_BaseAddress+4)  ///< port D control register 2
   #endif
   
   /* pointer to port E registers */
   #if defined(PORTE_BaseAddress)
-    #define _GPIOE      SFR(PORT_t,  PORTE_BaseAddress)    ///< direct port E access
-    #define _GPIOE_ODR  SFR(uint8_t, PORTE_BaseAddress+0)  ///< port E output register
-    #define _GPIOE_IDR  SFR(uint8_t, PORTE_BaseAddress+1)  ///< port E input register
-    #define _GPIOE_DDR  SFR(uint8_t, PORTE_BaseAddress+2)  ///< port E direction register
-    #define _GPIOE_CR1  SFR(uint8_t, PORTE_BaseAddress+3)  ///< port E control register 1
-    #define _GPIOE_CR2  SFR(uint8_t, PORTE_BaseAddress+4)  ///< port E control register 2
+    #define _GPIOE      _SFR(PORT_t,  PORTE_BaseAddress)    ///< direct port E access
+    #define _GPIOE_ODR  _SFR(uint8_t, PORTE_BaseAddress+0)  ///< port E output register
+    #define _GPIOE_IDR  _SFR(uint8_t, PORTE_BaseAddress+1)  ///< port E input register
+    #define _GPIOE_DDR  _SFR(uint8_t, PORTE_BaseAddress+2)  ///< port E direction register
+    #define _GPIOE_CR1  _SFR(uint8_t, PORTE_BaseAddress+3)  ///< port E control register 1
+    #define _GPIOE_CR2  _SFR(uint8_t, PORTE_BaseAddress+4)  ///< port E control register 2
   #endif
   
   /* pointer to port F registers */
   #if defined(PORTF_BaseAddress)
-    #define _GPIOF      SFR(PORT_t,  PORTF_BaseAddress)    ///< direct port F access
-    #define _GPIOF_ODR  SFR(uint8_t, PORTF_BaseAddress+0)  ///< port F output register
-    #define _GPIOF_IDR  SFR(uint8_t, PORTF_BaseAddress+1)  ///< port F input register
-    #define _GPIOF_DDR  SFR(uint8_t, PORTF_BaseAddress+2)  ///< port F direction register
-    #define _GPIOF_CR1  SFR(uint8_t, PORTF_BaseAddress+3)  ///< port F control register 1
-    #define _GPIOF_CR2  SFR(uint8_t, PORTF_BaseAddress+4)  ///< port F control register 2
+    #define _GPIOF      _SFR(PORT_t,  PORTF_BaseAddress)    ///< direct port F access
+    #define _GPIOF_ODR  _SFR(uint8_t, PORTF_BaseAddress+0)  ///< port F output register
+    #define _GPIOF_IDR  _SFR(uint8_t, PORTF_BaseAddress+1)  ///< port F input register
+    #define _GPIOF_DDR  _SFR(uint8_t, PORTF_BaseAddress+2)  ///< port F direction register
+    #define _GPIOF_CR1  _SFR(uint8_t, PORTF_BaseAddress+3)  ///< port F control register 1
+    #define _GPIOF_CR2  _SFR(uint8_t, PORTF_BaseAddress+4)  ///< port F control register 2
   #endif
   
   /* pointer to port G registers */
   #if defined(PORTG_BaseAddress)
-    #define _GPIOG      SFR(PORT_t,  PORTG_BaseAddress)    ///< direct port G access
-    #define _GPIOG_ODR  SFR(uint8_t, PORTG_BaseAddress+0)  ///< port G output register
-    #define _GPIOG_IDR  SFR(uint8_t, PORTG_BaseAddress+1)  ///< port G input register
-    #define _GPIOG_DDR  SFR(uint8_t, PORTG_BaseAddress+2)  ///< port G direction register
-    #define _GPIOG_CR1  SFR(uint8_t, PORTG_BaseAddress+3)  ///< port G control register 1
-    #define _GPIOG_CR2  SFR(uint8_t, PORTG_BaseAddress+4)  ///< port G control register 2
+    #define _GPIOG      _SFR(PORT_t,  PORTG_BaseAddress)    ///< direct port G access
+    #define _GPIOG_ODR  _SFR(uint8_t, PORTG_BaseAddress+0)  ///< port G output register
+    #define _GPIOG_IDR  _SFR(uint8_t, PORTG_BaseAddress+1)  ///< port G input register
+    #define _GPIOG_DDR  _SFR(uint8_t, PORTG_BaseAddress+2)  ///< port G direction register
+    #define _GPIOG_CR1  _SFR(uint8_t, PORTG_BaseAddress+3)  ///< port G control register 1
+    #define _GPIOG_CR2  _SFR(uint8_t, PORTG_BaseAddress+4)  ///< port G control register 2
   #endif
   
   /* pointer to port H registers */
   #if defined(PORTH_BaseAddress)
-    #define _GPIOH      SFR(PORT_t,  PORTH_BaseAddress)    ///< direct port H access
-    #define _GPIOH_ODR  SFR(uint8_t, PORTH_BaseAddress+0)  ///< port H output register
-    #define _GPIOH_IDR  SFR(uint8_t, PORTH_BaseAddress+1)  ///< port H input register
-    #define _GPIOH_DDR  SFR(uint8_t, PORTH_BaseAddress+2)  ///< port H direction register
-    #define _GPIOH_CR1  SFR(uint8_t, PORTH_BaseAddress+3)  ///< port H control register 1
-    #define _GPIOH_CR2  SFR(uint8_t, PORTH_BaseAddress+4)  ///< port H control register 2
+    #define _GPIOH      _SFR(PORT_t,  PORTH_BaseAddress)    ///< direct port H access
+    #define _GPIOH_ODR  _SFR(uint8_t, PORTH_BaseAddress+0)  ///< port H output register
+    #define _GPIOH_IDR  _SFR(uint8_t, PORTH_BaseAddress+1)  ///< port H input register
+    #define _GPIOH_DDR  _SFR(uint8_t, PORTH_BaseAddress+2)  ///< port H direction register
+    #define _GPIOH_CR1  _SFR(uint8_t, PORTH_BaseAddress+3)  ///< port H control register 1
+    #define _GPIOH_CR2  _SFR(uint8_t, PORTH_BaseAddress+4)  ///< port H control register 2
   #endif
   
   /* pointer to port I registers */
   #if defined(PORTI_BaseAddress)
-    #define _GPIOI      SFR(PORT_t,  PORTI_BaseAddress)    ///< direct port I access
-    #define _GPIOI_ODR  SFR(uint8_t, PORTI_BaseAddress+0)  ///< port I output register
-    #define _GPIOI_IDR  SFR(uint8_t, PORTI_BaseAddress+1)  ///< port I input register
-    #define _GPIOI_DDR  SFR(uint8_t, PORTI_BaseAddress+2)  ///< port I direction register
-    #define _GPIOI_CR1  SFR(uint8_t, PORTI_BaseAddress+3)  ///< port I control register 1
-    #define _GPIOI_CR2  SFR(uint8_t, PORTI_BaseAddress+4)  ///< port I control register 2
+    #define _GPIOI      _SFR(PORT_t,  PORTI_BaseAddress)    ///< direct port I access
+    #define _GPIOI_ODR  _SFR(uint8_t, PORTI_BaseAddress+0)  ///< port I output register
+    #define _GPIOI_IDR  _SFR(uint8_t, PORTI_BaseAddress+1)  ///< port I input register
+    #define _GPIOI_DDR  _SFR(uint8_t, PORTI_BaseAddress+2)  ///< port I direction register
+    #define _GPIOI_CR1  _SFR(uint8_t, PORTI_BaseAddress+3)  ///< port I control register 1
+    #define _GPIOI_CR2  _SFR(uint8_t, PORTI_BaseAddress+4)  ///< port I control register 2
   #endif
 
   /* PORT Module Reset Values (all ports) */
@@ -540,21 +551,21 @@
 
     /** Internal clock register (CLK_ICKR) */
     struct {
-      unsigned int    HSIEN   : 1;    ///< High speed internal RC oscillator enable
-      unsigned int    HSIRDY  : 1;    ///< High speed internal oscillator ready flag
-      unsigned int    FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
-      unsigned int    LSIEN   : 1;    ///< Low speed internal RC oscillator enable
-      unsigned int    LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
-      unsigned int    REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
-      unsigned int    res     : 2;    ///< Reserved, must be kept cleared
+      _BITS    HSIEN   : 1;    ///< High speed internal RC oscillator enable
+      _BITS    HSIRDY  : 1;    ///< High speed internal oscillator ready flag
+      _BITS    FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
+      _BITS    LSIEN   : 1;    ///< Low speed internal RC oscillator enable
+      _BITS    LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
+      _BITS    REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
+      _BITS    res     : 2;    ///< Reserved, must be kept cleared
     } ICKR;
 
 
     /** External clock register (CLK_ECKR) */
     struct {
-      unsigned int    HSEEN   : 1;    ///< High speed external crystal oscillator enable
-      unsigned int    HSERDY  : 1;    ///< High speed external crystal oscillator ready
-      unsigned int    res     : 6;    ///< Reserved, must be kept cleared
+      _BITS    HSEEN   : 1;    ///< High speed external crystal oscillator enable
+      _BITS    HSERDY  : 1;    ///< High speed external crystal oscillator ready
+      _BITS    res     : 6;    ///< Reserved, must be kept cleared
     } ECKR;
 
 
@@ -564,74 +575,74 @@
 
     /** Clock master status register (CLK_CMSR) */
     struct {
-      unsigned int    CKM     : 8;    ///< Clock master status bits
+      _BITS    CKM     : 8;    ///< Clock master status bits
     } CMSR;
 
 
     /** Clock master switch register (CLK_SWR) */
     struct {
-      unsigned int    SWI     : 8;    ///< Clock master selection bits
+      _BITS    SWI     : 8;    ///< Clock master selection bits
     } SWR;
 
 
     /** Switch control register (CLK_SWCR) */
     struct {
-      unsigned int    SWBSY   : 1;    ///< Switch busy flag
-      unsigned int    SWEN    : 1;    ///< Switch start/stop enable
-      unsigned int    SWIEN   : 1;    ///< Clock switch interrupt enable
-      unsigned int    SWIF    : 1;    ///< Clock switch interrupt flag
-      unsigned int    res     : 4;    ///< Reserved
+      _BITS    SWBSY   : 1;    ///< Switch busy flag
+      _BITS    SWEN    : 1;    ///< Switch start/stop enable
+      _BITS    SWIEN   : 1;    ///< Clock switch interrupt enable
+      _BITS    SWIF    : 1;    ///< Clock switch interrupt flag
+      _BITS    res     : 4;    ///< Reserved
     } SWCR;
 
 
     /** Clock divider register (CLK_CKDIVR) */
     struct {
-      unsigned int    CPUDIV  : 3;    ///< CPU clock prescaler
-      unsigned int    HSIDIV  : 2;    ///< High speed internal clock prescaler
-      unsigned int    res     : 3;    ///< Reserved, must be kept cleared.
+      _BITS    CPUDIV  : 3;    ///< CPU clock prescaler
+      _BITS    HSIDIV  : 2;    ///< High speed internal clock prescaler
+      _BITS    res     : 3;    ///< Reserved, must be kept cleared.
     } CKDIVR;
 
 
     /** Peripheral clock gating register 1 (CLK_PCKENR1) */
     struct {
-      unsigned int    PCKEN_I2C       : 1;    ///< clock enable I2C
-      unsigned int    PCKEN_SPI       : 1;    ///< clock enable SPI
-      unsigned int    PCKEN_UART1     : 1;    ///< clock enable UART1
-      unsigned int    PCKEN_UART2     : 1;    ///< clock enable UART2
-      unsigned int    PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
-      unsigned int    PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
-      unsigned int    PCKEN_TIM3      : 1;    ///< clock enable TIM3
-      unsigned int    PCKEN_TIM1      : 1;    ///< clock enable TIM1
+      _BITS    PCKEN_I2C       : 1;    ///< clock enable I2C
+      _BITS    PCKEN_SPI       : 1;    ///< clock enable SPI
+      _BITS    PCKEN_UART1     : 1;    ///< clock enable UART1
+      _BITS    PCKEN_UART2     : 1;    ///< clock enable UART2
+      _BITS    PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
+      _BITS    PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
+      _BITS    PCKEN_TIM3      : 1;    ///< clock enable TIM3
+      _BITS    PCKEN_TIM1      : 1;    ///< clock enable TIM1
     } PCKENR1;
 
 
     /** Clock security system register (CLK_CSSR) */
     struct {
-      unsigned int    CSSEN   : 1;    ///< Clock security system enable
-      unsigned int    AUX     : 1;    ///< Auxiliary oscillator connected to master clock
-      unsigned int    CSSDIE  : 1;    ///< Clock security system detection interrupt enable
-      unsigned int    CSSD    : 1;    ///< Clock security system detection
-      unsigned int    res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS    CSSEN   : 1;    ///< Clock security system enable
+      _BITS    AUX     : 1;    ///< Auxiliary oscillator connected to master clock
+      _BITS    CSSDIE  : 1;    ///< Clock security system detection interrupt enable
+      _BITS    CSSD    : 1;    ///< Clock security system detection
+      _BITS    res     : 4;    ///< Reserved, must be kept cleared.
     } CSSR;
 
 
     /** Configurable clock output register (CLK_CCOR) */
     struct {
-      unsigned int    CCOEN   : 1;    ///< Configurable clock output enable
-      unsigned int    CCOSEL  : 4;    ///< Configurable clock output selection.
-      unsigned int    CCORDY  : 1;    ///< Configurable clock output ready
-      unsigned int    CCOBSY  : 1;    ///< Configurable clock output busy
-      unsigned int    res     : 1;    ///< Reserved, must be kept cleared.
+      _BITS    CCOEN   : 1;    ///< Configurable clock output enable
+      _BITS    CCOSEL  : 4;    ///< Configurable clock output selection.
+      _BITS    CCORDY  : 1;    ///< Configurable clock output ready
+      _BITS    CCOBSY  : 1;    ///< Configurable clock output busy
+      _BITS    res     : 1;    ///< Reserved, must be kept cleared.
     } CCOR;
 
 
     /** Peripheral clock gating register 2 (CLK_PCKENR2) */
     struct {
-      unsigned int    res       : 2;   ///< Reserved
-      unsigned int    PCKEN_AWU : 1;   ///< clock enable AWU
-      unsigned int    PCKEN_ADC : 1;   ///< clock enable ADC
-      unsigned int    res2      : 3;   ///< Reserved
-      unsigned int    PCKEN_CAN : 1;   ///< clock enable CAN
+      _BITS    res       : 2;   ///< Reserved
+      _BITS    PCKEN_AWU : 1;   ///< clock enable AWU
+      _BITS    PCKEN_ADC : 1;   ///< clock enable ADC
+      _BITS    res2      : 3;   ///< Reserved
+      _BITS    PCKEN_CAN : 1;   ///< clock enable CAN
     } PCKENR2;
 
 
@@ -641,35 +652,35 @@
 
     /** HSI clock calibration trimming register (CLK_HSITRIMR) */
     struct {
-      unsigned int    HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
-      unsigned int    res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS    HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
+      _BITS    res     : 4;    ///< Reserved, must be kept cleared.
     } HSITRIMR;
 
 
     /** SWIM clock control register (CLK_SWIMCCR) */
     struct {
-      unsigned int    SWIMCLK : 1;    ///< SWIM clock divider
-      unsigned int    res     : 7;    ///< Reserved.
+      _BITS    SWIMCLK : 1;    ///< SWIM clock divider
+      _BITS    res     : 7;    ///< Reserved.
     } SWIMCCR;
 
   } CLK_t;
 
   /// pointer to CLK registers
-  #define _CLK        	SFR(CLK_t, CLK_BaseAddress)
-  #define _CLK_ICKR     SFR(uint8_t, CLK_BaseAddress+0)      ///< Internal clock register
-  #define _CLK_ECKR     SFR(uint8_t, CLK_BaseAddress+1)      ///< External clock register
-                                                             ///< Reserved (1B)
-  #define _CLK_CMSR  	SFR(uint8_t, CLK_BaseAddress+3)      ///< Clock master status register
-  #define _CLK_SWR  	SFR(uint8_t, CLK_BaseAddress+4)      ///< Clock master switch register
-  #define _CLK_SWCR     SFR(uint8_t, CLK_BaseAddress+5)      ///< Switch control register
-  #define _CLK_CKDIVR   SFR(uint8_t, CLK_BaseAddress+6)      ///< Clock divider register
-  #define _CLK_PCKENR1  SFR(uint8_t, CLK_BaseAddress+7)      ///< Peripheral clock gating register 1
-  #define _CLK_CSSR     SFR(uint8_t, CLK_BaseAddress+8)      ///< Clock security system register
-  #define _CLK_CCOR     SFR(uint8_t, CLK_BaseAddress+9)     ///< Configurable clock output register
-  #define _CLK_PCKENR2  SFR(uint8_t, CLK_BaseAddress+10)     ///< Peripheral clock gating register 2
-                                                             ///< Reserved (1B)
-  #define _CLK_HSITRIMR SFR(uint8_t, CLK_BaseAddress+12)     ///< HSI clock calibration trimming register
-  #define _CLK_SWIMCCR  SFR(uint8_t, CLK_BaseAddress+13)     ///< SWIM clock control register
+  #define _CLK          _SFR(CLK_t, CLK_BaseAddress)
+  #define _CLK_ICKR     _SFR(uint8_t, CLK_BaseAddress+0)      ///< Internal clock register
+  #define _CLK_ECKR     _SFR(uint8_t, CLK_BaseAddress+1)      ///< External clock register
+                                                              ///< Reserved (1B)
+  #define _CLK_CMSR     _SFR(uint8_t, CLK_BaseAddress+3)      ///< Clock master status register
+  #define _CLK_SWR      _SFR(uint8_t, CLK_BaseAddress+4)      ///< Clock master switch register
+  #define _CLK_SWCR     _SFR(uint8_t, CLK_BaseAddress+5)      ///< Switch control register
+  #define _CLK_CKDIVR   _SFR(uint8_t, CLK_BaseAddress+6)      ///< Clock divider register
+  #define _CLK_PCKENR1  _SFR(uint8_t, CLK_BaseAddress+7)      ///< Peripheral clock gating register 1
+  #define _CLK_CSSR     _SFR(uint8_t, CLK_BaseAddress+8)      ///< Clock security system register
+  #define _CLK_CCOR     _SFR(uint8_t, CLK_BaseAddress+9)      ///< Configurable clock output register
+  #define _CLK_PCKENR2  _SFR(uint8_t, CLK_BaseAddress+10)     ///< Peripheral clock gating register 2
+                                                              ///< Reserved (1B)
+  #define _CLK_HSITRIMR _SFR(uint8_t, CLK_BaseAddress+12)     ///< HSI clock calibration trimming register
+  #define _CLK_SWIMCCR  _SFR(uint8_t, CLK_BaseAddress+13)     ///< SWIM clock control register
 
   /* CLK Module Reset Values */
   #define _CLK_ICKR_RESET_VALUE     ((uint8_t)0x01)
@@ -764,6 +775,10 @@
   // reserved [7:2]
 
 #endif // CLK_BaseAddress
+
+
+// undefine local macros
+#undef _BITS
 
 
 /*-----------------------------------------------------------------------------
