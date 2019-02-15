@@ -17,6 +17,7 @@
 ----------------------------------------------------------*/
 #define STM8S_DISCOVERY 1
 #define SDUINO_UNO      2
+#define MUBOARD         3
 #define BOARD           STM8S_DISCOVERY
 
 
@@ -29,6 +30,9 @@
 #elif BOARD == SDUINO_UNO
   #warning sduino-UNO
   #include "../../stm8/STM8S105K6.h"
+#elif BOARD == MUBOARD
+  #warning muBoard
+  #include "../../stm8/STM8S207MB.h"
 #else
   #error please select supported device or adapt pinning
   #include <stophere>
@@ -57,10 +61,14 @@ void main(void) {
     _GPIOD_DDR |= _GPIO_PIN0;        // input(=0) or output(=1)
     _GPIOD_CR1 |= _GPIO_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
     _GPIOD_CR2 |= _GPIO_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
-  #else                            // sduino-UNO -> PC5
+  #elif BOARD == SDUINO_UNO        // sduino-UNO -> PC5
     _GPIOC_DDR |= _GPIO_PIN5;        // input(=0) or output(=1)
     _GPIOC_CR1 |= _GPIO_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
     _GPIOC_CR2 |= _GPIO_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  #elif BOARD == MUBOARD           // muBoard -> PH3 (red)
+    _GPIOH_DDR |= _GPIO_PIN3;        // input(=0) or output(=1)
+    _GPIOH_CR1 |= _GPIO_PIN3;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _GPIOH_CR2 |= _GPIO_PIN3;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #endif
   
   
@@ -73,16 +81,18 @@ void main(void) {
     #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
       //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
       _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
-    #else                            // sduino-UNO -> PC5
+    #elif BOARD == SDUINO_UNO        // sduino-UNO -> PC5
       //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
       _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+    #elif BOARD == MUBOARD           // muBoard -> PH3 (red)
+      //_GPIOH_ODR ^= _GPIO_PIN3;        // byte access (smaller)
+      _GPIOH.ODR.PIN3 ^= 1;            // bit access (more convenient)
     #endif
 
     // wait a bit
     for (i=200000L; i; i--)
       NOP();
       
-
   } // main loop
 
 } // main()
