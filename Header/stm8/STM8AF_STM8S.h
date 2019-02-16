@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------------------
-  STM8AF_STM8S.h - Register Declarations for STMAF and STM8S families 
+  STM8AF_STM8S.h - Register Declarations for STMAF and STM8S families
 
   Copyright (C) 2019, Georg Icking-Konert
 
@@ -88,7 +88,7 @@
 
 // Cosmic compiler
 #if defined(_COSMIC_)
-  
+
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(func,irq)  @far @interrupt void func(void)
   #define ISR_HANDLER_TRAP(func) void @far @interrupt func(void)
@@ -104,13 +104,13 @@
 
   // data type in bit fields
   #define _BITS                  unsigned int                         ///< follow C90 standard
-  
+
 // Raisonance Compiler
 #elif defined(_RAISONANCE_)
- 
+
   // include intrinsic functions
   #include <intrins.h>
-  
+
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(func,irq)  void func(void) interrupt irq
   #define ISR_HANDLER_TRAP(func) void func(void) trap
@@ -125,15 +125,15 @@
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
   // data type in bit fields
-  #define _BITS                  unsigned int                         ///< follow C90 standard
+  #define _BITS                 unsigned int                        ///< follow C90 standard
 
 
 // IAR Compiler
 #elif defined(_IAR_)
- 
+
   // include intrinsic functions
   #include <intrinsics.h>
-  
+
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(func,irq)  __interrupt void func(void)
   //#define ISR_HANDLER_TRAP(func) void func(void) trap
@@ -148,7 +148,7 @@
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
   // data type in bit fields
-  #define _BITS                  unsigned char                      ///< unsigned int fails for unknown reason
+  #define _BITS                 unsigned char                       ///< unsigned int fails for unknown reason
 
 
 // SDCC compiler
@@ -157,10 +157,10 @@
   // macros to unify ISR declaration and implementation
   #define ISR_HANDLER(func,irq)   void func(void) __interrupt(irq)
   #if SDCC_VERSION >= 30403  // traps require >=v3.4.3
-    #define ISR_HANDLER_TRAP(func)  void func() __trap 
+    #define ISR_HANDLER_TRAP(func)  void func() __trap
   #else
     #error traps require SDCC >=3.4.3. Please update!
-  #endif 
+  #endif
 
   // common assembler instructions
   #define NOP()                __asm__("nop")                       ///< perform a nop() operation (=minimum delay)
@@ -172,7 +172,7 @@
   #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
 
   // data type in bit fields
-  #define _BITS                  unsigned int                         ///< follow C90 standard
+  #define _BITS                 unsigned int                        ///< follow C90 standard
 
 #endif
 
@@ -182,7 +182,7 @@
 -----------------------------------------------------------------------------*/
 
 // general macros
-#define _SFR(type, addr)       (*((volatile type*) (addr)))              ///< peripheral register
+#define _SFR(type, addr)       (*((volatile type*) (addr)))         ///< peripheral register
 
 
 /*-----------------------------------------------------------------------------
@@ -196,26 +196,26 @@
     // compiler specific --> If possible, use <stdint.h> from compiler
     typedef signed long     int32_t;
     typedef signed short    int16_t;
-    typedef signed char     int8_t; 
-  
+    typedef signed char     int8_t;
+
     typedef unsigned long   uint32_t;
     typedef unsigned short  uint16_t;
-    typedef unsigned char   uint8_t; 
-  
-  
+    typedef unsigned char   uint8_t;
+
+
     // define min/max values
     #define   INT8_MAX   0x7f
     #define   INT8_MIN   (-INT8_MAX - 1)
-  
+
     #define   UINT8_MAX   0xFF
     #define   UINT8_MIN   0
-  
+
     #define   INT16_MAX   0x7fff
     #define   INT16_MIN   (-INT16_MAX - 1)
-  
+
     #define   UINT16_MAX  0xFFFF
     #define   UINT16_MIN  0
-  
+
     #define   INT32_MAX   0x7fffffffL
     #define   INT32_MIN   (-INT32_MAX - 1L)
 
@@ -371,62 +371,62 @@
 
     /** Port x output data register (Px_ODR) */
     struct {
-      _BITS    PIN0    : 1;    ///< pin 0 output control
-      _BITS    PIN1    : 1;    ///< pin 1 output control
-      _BITS    PIN2    : 1;    ///< pin 2 output control
-      _BITS    PIN3    : 1;    ///< pin 3 output control
-      _BITS    PIN4    : 1;    ///< pin 4 output control
-      _BITS    PIN5    : 1;    ///< pin 5 output control
-      _BITS    PIN6    : 1;    ///< pin 6 output control
-      _BITS    PIN7    : 1;    ///< pin 7 output control
+      _BITS   PIN0    : 1;    ///< pin 0 output control
+      _BITS   PIN1    : 1;    ///< pin 1 output control
+      _BITS   PIN2    : 1;    ///< pin 2 output control
+      _BITS   PIN3    : 1;    ///< pPORTA_BaseAddressin 3 output control
+      _BITS   PIN4    : 1;    ///< pin 4 output control
+      _BITS   PIN5    : 1;    ///< pin 5 output control
+      _BITS   PIN6    : 1;    ///< pin 6 output control
+      _BITS   PIN7    : 1;    ///< pin 7 output control
     } ODR;
 
     /** Port x input data register (Px_IDR) */
     struct {
-      _BITS    PIN0    : 1;    ///< pin 0 input control
-      _BITS    PIN1    : 1;    ///< pin 1 input control
-      _BITS    PIN2    : 1;    ///< pin 2 input control
-      _BITS    PIN3    : 1;    ///< pin 3 input control
-      _BITS    PIN4    : 1;    ///< pin 4 input control
-      _BITS    PIN5    : 1;    ///< pin 5 input control
-      _BITS    PIN6    : 1;    ///< pin 6 input control
-      _BITS    PIN7    : 1;    ///< pin 7 input control
+      _BITS   PIN0    : 1;    ///< pin 0 input control
+      _BITS   PIN1    : 1;    ///< pin 1 input control
+      _BITS   PIN2    : 1;    ///< pin 2 input control
+      _BITS   PIN3    : 1;    ///< pin 3 input control
+      _BITS   PIN4    : 1;    ///< pin 4 input control
+      _BITS   PIN5    : 1;    ///< pin 5 input control
+      _BITS   PIN6    : 1;    ///< pin 6 input control
+      _BITS   PIN7    : 1;    ///< pin 7 input control
     } IDR;
 
     /** Port x data direction data register (Px_DDR) */
     struct {
-      _BITS    PIN0    : 1;    ///< pin 0 direction control
-      _BITS    PIN1    : 1;    ///< pin 1 direction control
-      _BITS    PIN2    : 1;    ///< pin 2 direction control
-      _BITS    PIN3    : 1;    ///< pin 3 direction control
-      _BITS    PIN4    : 1;    ///< pin 4 direction control
-      _BITS    PIN5    : 1;    ///< pin 5 direction control
-      _BITS    PIN6    : 1;    ///< pin 6 direction control
-      _BITS    PIN7    : 1;    ///< pin 7 direction control
+      _BITS   PIN0    : 1;    ///< pin 0 direction control
+      _BITS   PIN1    : 1;    ///< pin 1 direction control
+      _BITS   PIN2    : 1;    ///< pin 2 direction control
+      _BITS   PIN3    : 1;    ///< pin 3 direction control
+      _BITS   PIN4    : 1;    ///< pin 4 direction control
+      _BITS   PIN5    : 1;    ///< pin 5 direction control
+      _BITS   PIN6    : 1;    ///< pin 6 direction control
+      _BITS   PIN7    : 1;    ///< pin 7 direction control
     } DDR;
 
     /** Port x control register 1 (Px_CR1) */
     struct {
-      _BITS    PIN0    : 1;    ///< pin 0 control register 1
-      _BITS    PIN1    : 1;    ///< pin 1 control register 1
-      _BITS    PIN2    : 1;    ///< pin 2 control register 1
-      _BITS    PIN3    : 1;    ///< pin 3 control register 1
-      _BITS    PIN4    : 1;    ///< pin 4 control register 1
-      _BITS    PIN5    : 1;    ///< pin 5 control register 1
-      _BITS    PIN6    : 1;    ///< pin 6 control register 1
-      _BITS    PIN7    : 1;    ///< pin 7 control register 1
+      _BITS   PIN0    : 1;    ///< pin 0 control register 1
+      _BITS   PIN1    : 1;    ///< pin 1 control register 1
+      _BITS   PIN2    : 1;    ///< pin 2 control register 1
+      _BITS   PIN3    : 1;    ///< pin 3 control register 1
+      _BITS   PIN4    : 1;    ///< pin 4 control register 1
+      _BITS   PIN5    : 1;    ///< pin 5 control register 1
+      _BITS   PIN6    : 1;    ///< pin 6 control register 1
+      _BITS   PIN7    : 1;    ///< pin 7 control register 1
     } CR1;
 
     /** Port x control register 1 (Px_CR2) */
     struct {
-      _BITS    PIN0    : 1;    ///< pin 0 control register 2
-      _BITS    PIN1    : 1;    ///< pin 1 control register 2
-      _BITS    PIN2    : 1;    ///< pin 2 control register 2
-      _BITS    PIN3    : 1;    ///< pin 3 control register 2
-      _BITS    PIN4    : 1;    ///< pin 4 control register 2
-      _BITS    PIN5    : 1;    ///< pin 5 control register 2
-      _BITS    PIN6    : 1;    ///< pin 6 control register 2
-      _BITS    PIN7    : 1;    ///< pin 7 control register 2
+      _BITS   PIN0    : 1;    ///< pin 0 control register 2
+      _BITS   PIN1    : 1;    ///< pin 1 control register 2
+      _BITS   PIN2    : 1;    ///< pin 2 control register 2
+      _BITS   PIN3    : 1;    ///< pin 3 control register 2
+      _BITS   PIN4    : 1;    ///< pin 4 control register 2
+      _BITS   PIN5    : 1;    ///< pin 5 control register 2
+      _BITS   PIN6    : 1;    ///< pin 6 control register 2
+      _BITS   PIN7    : 1;    ///< pin 7 control register 2
     } CR2;
 
   } PORT_t;
@@ -440,7 +440,7 @@
     #define _GPIOA_CR1  _SFR(uint8_t, PORTA_BaseAddress+3)  ///< port A control register 1
     #define _GPIOA_CR2  _SFR(uint8_t, PORTA_BaseAddress+4)  ///< port A control register 2
   #endif
-  
+
   /* pointer to port B registers */
   #if defined(PORTB_BaseAddress)
     #define _GPIOB      _SFR(PORT_t,  PORTB_BaseAddress)    ///< bitfield access to port B
@@ -450,7 +450,7 @@
     #define _GPIOB_CR1  _SFR(uint8_t, PORTB_BaseAddress+3)  ///< port B control register 1
     #define _GPIOB_CR2  _SFR(uint8_t, PORTB_BaseAddress+4)  ///< port B control register 2
   #endif
-  
+
   /* pointer to port C registers */
   #if defined(PORTC_BaseAddress)
     #define _GPIOC      _SFR(PORT_t,  PORTC_BaseAddress)    ///< bitfield access to port C
@@ -460,7 +460,7 @@
     #define _GPIOC_CR1  _SFR(uint8_t, PORTC_BaseAddress+3)  ///< port C control register 1
     #define _GPIOC_CR2  _SFR(uint8_t, PORTC_BaseAddress+4)  ///< port C control register 2
   #endif
-  
+
   /* pointer to port D registers */
   #if defined(PORTD_BaseAddress)
     #define _GPIOD      _SFR(PORT_t,  PORTD_BaseAddress)    ///< bitfield access to port D
@@ -470,7 +470,7 @@
     #define _GPIOD_CR1  _SFR(uint8_t, PORTD_BaseAddress+3)  ///< port D control register 1
     #define _GPIOD_CR2  _SFR(uint8_t, PORTD_BaseAddress+4)  ///< port D control register 2
   #endif
-  
+
   /* pointer to port E registers */
   #if defined(PORTE_BaseAddress)
     #define _GPIOE      _SFR(PORT_t,  PORTE_BaseAddress)    ///< bitfield access to port E
@@ -480,7 +480,7 @@
     #define _GPIOE_CR1  _SFR(uint8_t, PORTE_BaseAddress+3)  ///< port E control register 1
     #define _GPIOE_CR2  _SFR(uint8_t, PORTE_BaseAddress+4)  ///< port E control register 2
   #endif
-  
+
   /* pointer to port F registers */
   #if defined(PORTF_BaseAddress)
     #define _GPIOF      _SFR(PORT_t,  PORTF_BaseAddress)    ///< bitfield access to port F
@@ -490,7 +490,7 @@
     #define _GPIOF_CR1  _SFR(uint8_t, PORTF_BaseAddress+3)  ///< port F control register 1
     #define _GPIOF_CR2  _SFR(uint8_t, PORTF_BaseAddress+4)  ///< port F control register 2
   #endif
-  
+
   /* pointer to port G registers */
   #if defined(PORTG_BaseAddress)
     #define _GPIOG      _SFR(PORT_t,  PORTG_BaseAddress)    ///< bitfield access to port G
@@ -500,7 +500,7 @@
     #define _GPIOG_CR1  _SFR(uint8_t, PORTG_BaseAddress+3)  ///< port G control register 1
     #define _GPIOG_CR2  _SFR(uint8_t, PORTG_BaseAddress+4)  ///< port G control register 2
   #endif
-  
+
   /* pointer to port H registers */
   #if defined(PORTH_BaseAddress)
     #define _GPIOH      _SFR(PORT_t,  PORTH_BaseAddress)    ///< bitfield access to port H
@@ -510,7 +510,7 @@
     #define _GPIOH_CR1  _SFR(uint8_t, PORTH_BaseAddress+3)  ///< port H control register 1
     #define _GPIOH_CR2  _SFR(uint8_t, PORTH_BaseAddress+4)  ///< port H control register 2
   #endif
-  
+
   /* pointer to port I registers */
   #if defined(PORTI_BaseAddress)
     #define _GPIOI      _SFR(PORT_t,  PORTI_BaseAddress)    ///< bitfield access to port I
@@ -537,7 +537,143 @@
   #define _GPIO_PIN6   ((uint8_t) (0x01 << 6))
   #define _GPIO_PIN7   ((uint8_t) (0x01 << 7))
 
-#endif // (1)
+#endif // PORTx_BaseAddress
+
+
+
+//------------------------
+// NVM Module FLASH (all devices, but differet sizes)
+//------------------------
+#if (FLASH_BaseAddress)
+
+  /** struct containing FLASH memory registers */
+  typedef struct {
+
+    /** Flash control register 1 (FLASH_CR1) */
+    struct {
+      _BITS   FIX   : 1;    ///< Fixed Byte programming time
+      _BITS   IE    : 1;    ///< Flash Interrupt enable
+      _BITS   AHALT : 1;    ///< Power-down in Active-halt mode
+      _BITS   HALT  : 1;    ///< Power-down in Halt mode
+      _BITS   res   : 4;    ///< Reserved
+    } CR1;
+
+
+    /** Flash control register 2 (FLASH_CR2) */
+    struct {
+      _BITS   PRG   : 1;    ///< Standard block programming
+      _BITS   res   : 3;    ///< Reserved
+      _BITS   FPRG  : 1;    ///< Fast block programming
+      _BITS   ERASE : 1;    ///< Block erasing
+      _BITS   WPRG  : 1;    ///< Word programming
+      _BITS   OPT   : 1;    ///< Write option bytes
+    } CR2;
+
+
+    /** complementary Flash control register 2 (FLASH_NCR2) */
+    struct {
+      _BITS PRG     : 1;    ///< Standard block programming
+      _BITS res     : 3;    ///< Reserved
+      _BITS FPRG    : 1;    ///< Fast block programming
+      _BITS ERASE   : 1;    ///< Block erasing
+      _BITS WPRG    : 1;    ///< Word programming
+      _BITS OPT     : 1;    ///< Write option bytes
+    } NCR2;
+
+
+    /** Flash protection register (FLASH_FPR) */
+    struct {
+      _BITS WPB     : 6;    ///< User boot code area protection bits
+      _BITS res     : 2;    ///< Reserved
+    } FPR;
+
+
+    /** complementary Flash protection register (FLASH_NFPR) */
+    struct {
+      _BITS WPB     : 6;    ///< User boot code area protection bits
+      _BITS res     : 2;    ///< Reserved
+    } NFPR;
+
+
+    /** Flash status register (FLASH_IAPSR) */
+    struct {
+      _BITS WR_PG_DIS : 1;  ///< Write attempted to protected page flag
+      _BITS PUL       : 1;  ///< Flash Program memory unlocked flag
+      _BITS EOP       : 1;  ///< End of programming (write or erase operation) flag
+      _BITS DUL       : 1;  ///< Data EEPROM area unlocked flag
+      _BITS res       : 2;  ///< Reserved, forced by hardware to 0
+      _BITS HVOFF     : 1;  ///< End of high voltage flag
+      _BITS res2      : 1;  ///< Reserved
+    } IAPSR;
+
+
+    /** Reserved registers (2B) */
+    uint8_t   res[2];
+
+
+    /** Flash program memory unprotecting key register (FLASH_PUKR). No bit access */
+    uint8_t   PUKR;
+
+
+    /** Reserved register (1B) */
+    uint8_t   res2[1];
+
+
+    /** Data EEPROM unprotection key register (FLASH_DUKR). No bit access */
+    uint8_t   DUKR;
+
+  } FLASH_t;
+
+  /// pointer to all flash registers (all devices, but differet sizes)
+  #define _FLASH        _SFR(FLASH_t,  FLASH_BaseAddress)     ///< bitfield access to TIM4
+  #define _FLASH_CR1    _SFR(uint8_t,  FLASH_BaseAddress+0)   ///< Flash control register 1 (FLASH_CR1)
+  #define _FLASH_CR2    _SFR(uint8_t,  FLASH_BaseAddress+1)   ///< Flash control register 2 (FLASH_CR2)
+  #define _FLASH_NCR2   _SFR(uint8_t,  FLASH_BaseAddress+2)   ///< complementary Flash control register 2 (FLASH_NCR2)
+  #define _FLASH_FPR    _SFR(uint8_t,  FLASH_BaseAddress+3)   ///< Flash protection register (FLASH_FPR)
+  #define _FLASH_NFPR   _SFR(uint8_t,  FLASH_BaseAddress+4)   ///< complementary Flash protection register (FLASH_NFPR)
+  #define _FLASH_IAPSR  _SFR(uint8_t,  FLASH_BaseAddress+5)   ///< Flash status register (FLASH_IAPSR)
+  // reserved (2B)
+  #define _FLASH_PUKR   _SFR(uint8_t,  FLASH_BaseAddress+8)   ///< Flash program memory unprotecting key register (FLASH_PUKR)
+  // reserved (1B)
+  #define _FLASH_DUKR   _SFR(uint8_t,  FLASH_BaseAddress+10)  ///< Data EEPROM unprotection key register (FLASH_DUKR)
+
+  /* FLASH Module Reset Values */
+  #define _FLASH_CR1_RESET_VALUE    ((uint8_t)0x00)
+  #define _FLASH_CR2_RESET_VALUE    ((uint8_t)0x00)
+  #define _FLASH_NCR2_RESET_VALUE   ((uint8_t)0xFF)
+  #define _FLASH_IAPSR_RESET_VALUE  ((uint8_t)0x40)
+  #define _FLASH_PUKR_RESET_VALUE   ((uint8_t)0x00)
+  #define _FLASH_DUKR_RESET_VALUE   ((uint8_t)0x00)
+
+  /* Flash control register 1 (FLASH_CR1) */
+  #define _FLASH_FIX              ((uint8_t) (0x01 << 0))        ///< Fixed Byte programming time [0]
+  #define _FLASH_IE               ((uint8_t) (0x01 << 1))        ///< Flash Interrupt enable [0]
+  #define _FLASH_AHALT            ((uint8_t) (0x01 << 2))        ///< Power-down in Active-halt mode [0]
+  #define _FLASH_HALT             ((uint8_t) (0x01 << 3))        ///< Power-down in Halt mode [0]
+  // reserved [7:4]
+
+  /* Flash control register 2 and complement (FLASH_CR2 and FLASH_NCR2) */
+  #define _FLASH_PRG              ((uint8_t) (0x01 << 0))        ///< Standard block programming [0]
+  // reserved [3:1]
+  #define _FLASH_FPRG             ((uint8_t) (0x01 << 4))        ///< Fast block programming [0]
+  #define _FLASH_ERASE            ((uint8_t) (0x01 << 5))        ///< Block erasing [0]
+  #define _FLASH_WPRG             ((uint8_t) (0x01 << 6))        ///< Word programming [0]
+  #define _FLASH_OPT              ((uint8_t) (0x01 << 7))        ///< Write option bytes [0]
+
+  /* Flash protection register and complement (FLASH_FPR and FLASH_NFPR) */
+  #define _FLASH_WPB              ((uint8_t) (0x01 << 0))        ///< User boot code area protection bits [0]
+  // reserved [7:1]
+
+  /* Flash status register (FLASH_IAPSR) */
+  #define _FLASH_WR_PG_DIS        ((uint8_t) (0x01 << 0))        ///< Write attempted to protected page flag [0]
+  #define _FLASH_PUL              ((uint8_t) (0x01 << 1))        ///< Flash Program memory unlocked flag [0]
+  #define _FLASH_EOP              ((uint8_t) (0x01 << 2))        ///< End of programming (write or erase operation) flag [0]
+  #define _FLASH_DUL              ((uint8_t) (0x01 << 3))        ///< Data EEPROM area unlocked flag [0]
+  // reserved [4]
+  #define _FLASH_HVOFF            ((uint8_t) (0x01 << 5))        ///< End of high voltage flag [0]
+  // reserved [7:6]
+
+#endif // FLASH_BaseAddress
 
 
 
@@ -551,116 +687,116 @@
 
     /** Internal clock register (CLK_ICKR) */
     struct {
-      _BITS    HSIEN   : 1;    ///< High speed internal RC oscillator enable
-      _BITS    HSIRDY  : 1;    ///< High speed internal oscillator ready flag
-      _BITS    FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
-      _BITS    LSIEN   : 1;    ///< Low speed internal RC oscillator enable
-      _BITS    LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
-      _BITS    REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
-      _BITS    res     : 2;    ///< Reserved, must be kept cleared
+      _BITS   HSIEN   : 1;    ///< High speed internal RC oscillator enable
+      _BITS   HSIRDY  : 1;    ///< High speed internal oscillator ready flag
+      _BITS   FHW     : 1;    ///< Fast wakeup from Halt/Active-halt modes enable
+      _BITS   LSIEN   : 1;    ///< Low speed internal RC oscillator enable
+      _BITS   LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
+      _BITS   REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
+      _BITS   res     : 2;    ///< Reserved, must be kept cleared
     } ICKR;
 
 
     /** External clock register (CLK_ECKR) */
     struct {
-      _BITS    HSEEN   : 1;    ///< High speed external crystal oscillator enable
-      _BITS    HSERDY  : 1;    ///< High speed external crystal oscillator ready
-      _BITS    res     : 6;    ///< Reserved, must be kept cleared
+      _BITS   HSEEN   : 1;    ///< High speed external crystal oscillator enable
+      _BITS   HSERDY  : 1;    ///< High speed external crystal oscillator ready
+      _BITS   res     : 6;    ///< Reserved, must be kept cleared
     } ECKR;
 
 
     /** Reserved register (1B) */
-    uint8_t    res[1]; 
+    uint8_t   res[1];
 
 
     /** Clock master status register (CLK_CMSR) */
     struct {
-      _BITS    CKM     : 8;    ///< Clock master status bits
+      _BITS   CKM     : 8;    ///< Clock master status bits
     } CMSR;
 
 
     /** Clock master switch register (CLK_SWR) */
     struct {
-      _BITS    SWI     : 8;    ///< Clock master selection bits
+      _BITS   SWI     : 8;    ///< Clock master selection bits
     } SWR;
 
 
     /** Switch control register (CLK_SWCR) */
     struct {
-      _BITS    SWBSY   : 1;    ///< Switch busy flag
-      _BITS    SWEN    : 1;    ///< Switch start/stop enable
-      _BITS    SWIEN   : 1;    ///< Clock switch interrupt enable
-      _BITS    SWIF    : 1;    ///< Clock switch interrupt flag
-      _BITS    res     : 4;    ///< Reserved
+      _BITS   SWBSY   : 1;    ///< Switch busy flag
+      _BITS   SWEN    : 1;    ///< Switch start/stop enable
+      _BITS   SWIEN   : 1;    ///< Clock switch interrupt enable
+      _BITS   SWIF    : 1;    ///< Clock switch interrupt flag
+      _BITS   res     : 4;    ///< Reserved
     } SWCR;
 
 
     /** Clock divider register (CLK_CKDIVR) */
     struct {
-      _BITS    CPUDIV  : 3;    ///< CPU clock prescaler
-      _BITS    HSIDIV  : 2;    ///< High speed internal clock prescaler
-      _BITS    res     : 3;    ///< Reserved, must be kept cleared.
+      _BITS   CPUDIV  : 3;    ///< CPU clock prescaler
+      _BITS   HSIDIV  : 2;    ///< High speed internal clock prescaler
+      _BITS   res     : 3;    ///< Reserved, must be kept cleared.
     } CKDIVR;
 
 
     /** Peripheral clock gating register 1 (CLK_PCKENR1) */
     struct {
-      _BITS    PCKEN_I2C       : 1;    ///< clock enable I2C
-      _BITS    PCKEN_SPI       : 1;    ///< clock enable SPI
-      _BITS    PCKEN_UART1     : 1;    ///< clock enable UART1
-      _BITS    PCKEN_UART2     : 1;    ///< clock enable UART2
-      _BITS    PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
-      _BITS    PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
-      _BITS    PCKEN_TIM3      : 1;    ///< clock enable TIM3
-      _BITS    PCKEN_TIM1      : 1;    ///< clock enable TIM1
+      _BITS   PCKEN_I2C       : 1;    ///< clock enable I2C
+      _BITS   PCKEN_SPI       : 1;    ///< clock enable SPI
+      _BITS   PCKEN_UART1     : 1;    ///< clock enable UART1
+      _BITS   PCKEN_UART2     : 1;    ///< clock enable UART2
+      _BITS   PCKEN_TIM4_TIM6 : 1;    ///< clock enable TIM4/TIM6
+      _BITS   PCKEN_TIM2_TIM5 : 1;    ///< clock enable TIM4/TIM6
+      _BITS   PCKEN_TIM3      : 1;    ///< clock enable TIM3
+      _BITS   PCKEN_TIM1      : 1;    ///< clock enable TIM1
     } PCKENR1;
 
 
     /** Clock security system register (CLK_CSSR) */
     struct {
-      _BITS    CSSEN   : 1;    ///< Clock security system enable
-      _BITS    AUX     : 1;    ///< Auxiliary oscillator connected to master clock
-      _BITS    CSSDIE  : 1;    ///< Clock security system detection interrupt enable
-      _BITS    CSSD    : 1;    ///< Clock security system detection
-      _BITS    res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS   CSSEN   : 1;    ///< Clock security system enable
+      _BITS   AUX     : 1;    ///< Auxiliary oscillator connected to master clock
+      _BITS   CSSDIE  : 1;    ///< Clock security system detection interrupt enable
+      _BITS   CSSD    : 1;    ///< Clock security system detection
+      _BITS   res     : 4;    ///< Reserved, must be kept cleared.
     } CSSR;
 
 
     /** Configurable clock output register (CLK_CCOR) */
     struct {
-      _BITS    CCOEN   : 1;    ///< Configurable clock output enable
-      _BITS    CCOSEL  : 4;    ///< Configurable clock output selection.
-      _BITS    CCORDY  : 1;    ///< Configurable clock output ready
-      _BITS    CCOBSY  : 1;    ///< Configurable clock output busy
-      _BITS    res     : 1;    ///< Reserved, must be kept cleared.
+      _BITS   CCOEN   : 1;    ///< Configurable clock output enable
+      _BITS   CCOSEL  : 4;    ///< Configurable clock output selection.
+      _BITS   CCORDY  : 1;    ///< Configurable clock output ready
+      _BITS   CCOBSY  : 1;    ///< Configurable clock output busy
+      _BITS   res     : 1;    ///< Reserved, must be kept cleared.
     } CCOR;
 
 
     /** Peripheral clock gating register 2 (CLK_PCKENR2) */
     struct {
-      _BITS    res       : 2;   ///< Reserved
-      _BITS    PCKEN_AWU : 1;   ///< clock enable AWU
-      _BITS    PCKEN_ADC : 1;   ///< clock enable ADC
-      _BITS    res2      : 3;   ///< Reserved
-      _BITS    PCKEN_CAN : 1;   ///< clock enable CAN
+      _BITS   res       : 2;    ///< Reserved
+      _BITS   PCKEN_AWU : 1;    ///< clock enable AWU
+      _BITS   PCKEN_ADC : 1;    ///< clock enable ADC
+      _BITS   res2      : 3;    ///< Reserved
+      _BITS   PCKEN_CAN : 1;    ///< clock enable CAN
     } PCKENR2;
 
 
     /** Reserved register (1B). Was CAN clock control (obsolete as of STM8 UM rev 7) */
-    uint8_t    res2[1]; 
-     
+    uint8_t   res2[1];
+
 
     /** HSI clock calibration trimming register (CLK_HSITRIMR) */
     struct {
-      _BITS    HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
-      _BITS    res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS   HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
+      _BITS   res     : 4;    ///< Reserved, must be kept cleared.
     } HSITRIMR;
 
 
     /** SWIM clock control register (CLK_SWIMCCR) */
     struct {
-      _BITS    SWIMCLK : 1;    ///< SWIM clock divider
-      _BITS    res     : 7;    ///< Reserved.
+      _BITS   SWIMCLK : 1;    ///< SWIM clock divider
+      _BITS   res     : 7;    ///< Reserved.
     } SWIMCCR;
 
   } CLK_t;
@@ -669,7 +805,7 @@
   #define _CLK          _SFR(CLK_t, CLK_BaseAddress)          ///< bitfield access to clock control
   #define _CLK_ICKR     _SFR(uint8_t, CLK_BaseAddress+0)      ///< Internal clock register
   #define _CLK_ECKR     _SFR(uint8_t, CLK_BaseAddress+1)      ///< External clock register
-                                                              ///< Reserved (1B)
+  // reserved (1B)
   #define _CLK_CMSR     _SFR(uint8_t, CLK_BaseAddress+3)      ///< Clock master status register
   #define _CLK_SWR      _SFR(uint8_t, CLK_BaseAddress+4)      ///< Clock master switch register
   #define _CLK_SWCR     _SFR(uint8_t, CLK_BaseAddress+5)      ///< Switch control register
@@ -678,7 +814,7 @@
   #define _CLK_CSSR     _SFR(uint8_t, CLK_BaseAddress+8)      ///< Clock security system register
   #define _CLK_CCOR     _SFR(uint8_t, CLK_BaseAddress+9)      ///< Configurable clock output register
   #define _CLK_PCKENR2  _SFR(uint8_t, CLK_BaseAddress+10)     ///< Peripheral clock gating register 2
-                                                              ///< Reserved (1B)
+  // reserved (1B)
   #define _CLK_HSITRIMR _SFR(uint8_t, CLK_BaseAddress+12)     ///< HSI clock calibration trimming register
   #define _CLK_SWIMCCR  _SFR(uint8_t, CLK_BaseAddress+13)     ///< SWIM clock control register
 
@@ -792,104 +928,104 @@
 
     /** UART2 Status register (UART2_SR) */
     struct {
-      _BITS    PE      : 1;    ///< Parity error
-      _BITS    FE      : 1;    ///< Framing error
-      _BITS    NF      : 1;    ///< Noise flag
-      _BITS    OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
-      _BITS    IDLE    : 1;    ///< IDLE line detected
-      _BITS    RXNE    : 1;    ///< Read data register not empty
-      _BITS    TC      : 1;    ///< Transmission complete
-      _BITS    TXE     : 1;    ///< Transmit data register empty
+      _BITS   PE      : 1;    ///< Parity error
+      _BITS   FE      : 1;    ///< Framing error
+      _BITS   NF      : 1;    ///< Noise flag
+      _BITS   OR_LHE  : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+      _BITS   IDLE    : 1;    ///< IDLE line detected
+      _BITS   RXNE    : 1;    ///< Read data register not empty
+      _BITS   TC      : 1;    ///< Transmission complete
+      _BITS   TXE     : 1;    ///< Transmit data register empty
     } SR;
-  
-  
+
+
     /** UART2 data register (UART2_DR). No bit access */
-    uint8_t   DR; 
+    uint8_t   DR;
 
 
     /** UART2 Baud rate register 1 (UART2_BRR1) */
     struct {
-      _BITS    DIV_4_11 : 8;   ///< UART2_BRR bits [11:4]
+      _BITS   DIV_4_11 : 8;   ///< UART2_BRR bits [11:4]
     } BRR1;
 
 
     /** UART2 Baud rate register 2 (UART2_BRR2) */
     struct {
-      _BITS    DIV_0_3   : 4;  ///< UART2_BRR bits [3:0]
-      _BITS    DIV_12_15 : 4;  ///< UART2_BRR bits [15:12]
+      _BITS   DIV_0_3   : 4;    ///< UART2_BRR bits [3:0]
+      _BITS   DIV_12_15 : 4;    ///< UART2_BRR bits [15:12]
     } BRR2;
 
 
     /** UART2 Control register 1 (UART2_CR1) */
     struct {
-      _BITS    PIEN    : 1;    ///< Parity interrupt enable
-      _BITS    PS      : 1;    ///< Parity selection
-      _BITS    PCEN    : 1;    ///< Parity control enable
-      _BITS    WAKE    : 1;    ///< Wakeup method
-      _BITS    M       : 1;    ///< word length
-      _BITS    UARTD   : 1;    ///< UART Disable (for low power consumption)
-      _BITS    T8      : 1;    ///< Transmit Data bit 8 (in 9-bit mode)
-      _BITS    R8      : 1;    ///< Receive Data bit 8 (in 9-bit mode)
+      _BITS   PIEN    : 1;   ///< Parity interrupt enable
+      _BITS   PS      : 1;   ///< Parity selection
+      _BITS   PCEN    : 1;   ///< Parity control enable
+      _BITS   WAKE    : 1;   ///< Wakeup method
+      _BITS   M       : 1;   ///< word length
+      _BITS   UARTD   : 1;   ///< UART Disable (for low power consumption)
+      _BITS   T8      : 1;   ///< Transmit Data bit 8 (in 9-bit mode)
+      _BITS   R8      : 1;   ///< Receive Data bit 8 (in 9-bit mode)
     } CR1;
 
 
     /** UART2 Control register 2 (UART2_CR2) */
     struct {
-      _BITS    SBK     : 1;    ///< Send break
-      _BITS    RWU     : 1;    ///< Receiver wakeup
-      _BITS    REN     : 1;    ///< Receiver enable
-      _BITS    TEN     : 1;    ///< Transmitter enable
-      _BITS    ILIEN   : 1;    ///< IDLE Line interrupt enable
-      _BITS    RIEN    : 1;    ///< Receiver interrupt enable
-      _BITS    TCIEN   : 1;    ///< Transmission complete interrupt enable
-      _BITS    TIEN    : 1;    ///< Transmitter interrupt enable
+      _BITS   SBK     : 1;    ///< Send break
+      _BITS   RWU     : 1;    ///< Receiver wakeup
+      _BITS   REN     : 1;    ///< Receiver enable
+      _BITS   TEN     : 1;    ///< Transmitter enable
+      _BITS   ILIEN   : 1;    ///< IDLE Line interrupt enable
+      _BITS   RIEN    : 1;    ///< Receiver interrupt enable
+      _BITS   TCIEN   : 1;    ///< Transmission complete interrupt enable
+      _BITS   TIEN    : 1;    ///< Transmitter interrupt enable
     } CR2;
 
 
     /** UART2 Control register 3 (UART2_CR3) */
     struct {
-      _BITS    LBCL    : 1;    ///< Last bit clock pulse
-      _BITS    CPHA    : 1;    ///< Clock phase
-      _BITS    CPOL    : 1;    ///< Clock polarity
-      _BITS    CKEN    : 1;    ///< Clock enable
-      _BITS    STOP    : 2;    ///< STOP bits
-      _BITS    LINEN   : 1;    ///< LIN mode enable
-      _BITS    res     : 1;    ///< Reserved, must be kept cleared
+      _BITS   LBCL    : 1;    ///< Last bit clock pulse
+      _BITS   CPHA    : 1;    ///< Clock phase
+      _BITS   CPOL    : 1;    ///< Clock polarity
+      _BITS   CKEN    : 1;    ///< Clock enable
+      _BITS   STOP    : 2;    ///< STOP bits
+      _BITS   LINEN   : 1;    ///< LIN mode enable
+      _BITS   res     : 1;    ///< Reserved, must be kept cleared
     } CR3;
 
 
     /** UART2 Control register 4 (UART2_CR4) */
     struct {
-      _BITS    ADD     : 4;    ///< Address of the UART node
-      _BITS    LBDF    : 1;    ///< LIN Break Detection Flag
-      _BITS    LBDL    : 1;    ///< LIN Break Detection Length
-      _BITS    LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-      _BITS    res     : 1;    ///< Reserved, must be kept cleared
+      _BITS   ADD     : 4;    ///< Address of the UART node
+      _BITS   LBDF    : 1;    ///< LIN Break Detection Flag
+      _BITS   LBDL    : 1;    ///< LIN Break Detection Length
+      _BITS   LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
+      _BITS   res     : 1;    ///< Reserved, must be kept cleared
     } CR4;
 
 
     /** UART2 Control register 5 (UART2_CR5) */
     struct {
-      _BITS    res     : 1;    ///< Reserved, must be kept cleared
-      _BITS    IREN    : 1;    ///< IrDA mode Enable
-      _BITS    IRLP    : 1;    ///< IrDA Low Power
-      _BITS    res2    : 1;    ///< Reserved, must be kept cleared
-      _BITS    NACK    : 1;    ///< Smartcard NACK enable
-      _BITS    SCEN    : 1;    ///< Smartcard mode enable
-      _BITS    res3    : 2;    ///< Reserved, must be kept cleared
+      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS   IREN    : 1;    ///< IrDA mode Enable
+      _BITS   IRLP    : 1;    ///< IrDA Low Power
+      _BITS   res2    : 1;    ///< Reserved, must be kept cleared
+      _BITS   NACK    : 1;    ///< Smartcard NACK enable
+      _BITS   SCEN    : 1;    ///< Smartcard mode enable
+      _BITS   res3    : 2;    ///< Reserved, must be kept cleared
     } CR5;
 
 
     /** UART2 Control register 6 (UART2_CR6) */
     struct {
-      _BITS    LSF     : 1;    ///< LIN Sync Field
-      _BITS    LHDF    : 1;    ///< LIN Header Detection Flag
-      _BITS    LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-      _BITS    res     : 1;    ///< Reserved
-      _BITS    LASE    : 1;    ///< LIN automatic resynchronisation enable
-      _BITS    LSLV    : 1;    ///< LIN Slave Enable
-      _BITS    res2    : 1;    ///< Reserved
-      _BITS    LDUM    : 1;    ///< LIN Divider Update Method
+      _BITS   LSF     : 1;    ///< LIN Sync Field
+      _BITS   LHDF    : 1;    ///< LIN Header Detection Flag
+      _BITS   LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
+      _BITS   res     : 1;    ///< Reserved
+      _BITS   LASE    : 1;    ///< LIN automatic resynchronisation enable
+      _BITS   LSLV    : 1;    ///< LIN Slave Enable
+      _BITS   res2    : 1;    ///< Reserved
+      _BITS   LDUM    : 1;    ///< LIN Divider Update Method
     } CR6;
 
 
@@ -916,19 +1052,19 @@
   #define _UART2_CR6  _SFR(uint8_t,  UART2_BaseAddress+9)     ///< UART2 Control register 6
   #define _UART2_GTR  _SFR(uint8_t,  UART2_BaseAddress+10)    ///< UART2 guard time register register
   #define _UART2_PSCR _SFR(uint8_t,  UART2_BaseAddress+11)    ///< UART2 prescaler register register register
-  
+
   /* UART2 Module Reset Values */
-  #define UART2_SR_RESET_VALUE      ((uint8_t)0xC0)
-  #define UART2_BRR1_RESET_VALUE    ((uint8_t)0x00)
-  #define UART2_BRR2_RESET_VALUE    ((uint8_t)0x00)
-  #define UART2_CR1_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_CR2_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_CR3_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_CR4_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_CR5_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_CR6_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_GTR_RESET_VALUE     ((uint8_t)0x00)
-  #define UART2_PSCR_RESET_VALUE    ((uint8_t)0x00)
+  #define _UART2_SR_RESET_VALUE      ((uint8_t)0xC0)
+  #define _UART2_BRR1_RESET_VALUE    ((uint8_t)0x00)
+  #define _UART2_BRR2_RESET_VALUE    ((uint8_t)0x00)
+  #define _UART2_CR1_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_CR2_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_CR3_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_CR4_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_CR5_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_CR6_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_GTR_RESET_VALUE     ((uint8_t)0x00)
+  #define _UART2_PSCR_RESET_VALUE    ((uint8_t)0x00)
 
   /* UART2 Status register (UART2_SR) bits */
   #define _UART2_PE               ((uint8_t) (0x01 << 0))        ///< Parity error [0]
@@ -990,7 +1126,7 @@
   #define _UART2_NACK             ((uint8_t) (0x01 << 4))        ///< Smartcard NACK enable [0]
   #define _UART2_SCEN             ((uint8_t) (0x01 << 5))        ///< Smartcard mode enable [0]
   // reserved [7:6]
- 
+
   /* UART2 Control register 6 (UART2_CR6) bits */
   #define _UART2_LSF              ((uint8_t) (0x01 << 0))        ///< LIN Sync Field [0]
   #define _UART2_LHDF             ((uint8_t) (0x01 << 1))        ///< LIN Header Detection Flag [0]
@@ -1012,65 +1148,66 @@
 
   /** struct containing TIM4 registers (selected devices) */
   typedef struct {
-  
+
     /** TIM4 Control register (TIM4_CR) */
     struct {
-      _BITS    CEN     : 1;    ///< Counter enable
-      _BITS    UDIS    : 1;    ///< Update disable
-      _BITS    URS     : 1;    ///< Update request source
-      _BITS    OPM     : 1;    ///< One-pulse mode
-      _BITS    res     : 3;    ///< Reserved
-      _BITS    ARPE    : 1;    ///< Auto-reload preload enable
+      _BITS   CEN     : 1;    ///< Counter enable
+      _BITS   UDIS    : 1;    ///< Update disable
+      _BITS   URS     : 1;    ///< Update request source
+      _BITS   OPM     : 1;    ///< One-pulse mode
+      _BITS   res     : 3;    ///< Reserved
+      _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR;
-  
-  
+
+
     /** Reserved registers on selected devices (2B) */
     #if defined(STM8S103) || defined(STM8S003) || defined(STM8S001)
-      uint8_t         res[2]; 
+      uint8_t   res[2];
     #endif
 
 
     /** TIM4 Interrupt enable (TIM4_IER) */
     struct {
-      _BITS    UIE     : 1;    ///< Update interrupt enable
-      _BITS    res     : 7;    ///< Reserved
+      _BITS   UIE     : 1;    ///< Update interrupt enable
+      _BITS   res     : 7;    ///< Reserved
     } IER;
 
 
     /** TIM4 Status register (TIM4_SR) */
     struct {
-      _BITS    UIF     : 1;    ///< Update interrupt flag
-      _BITS    es     : 7;    ///< Reserved
+      _BITS   UIF     : 1;    ///< Update interrupt flag
+      _BITS   res     : 7;    ///< Reserved
     } SR;
-  
-  
+
+
     /** TIM4 Event Generation (TIM4_EGR) */
     struct {
-      _BITS    UG      : 1;    ///< Update generation
-      _BITS    res     : 7;    ///< Reserved
+      _BITS   UG      : 1;    ///< Update generation
+      _BITS   res     : 7;    ///< Reserved
     } EGR;
-  
-  
+
+
     /** TIM4 8-bit counter register (TIM4_CNTR). No bit access */
-    uint8_t    CNTR;
-  
-  
+    uint8_t   CNTR;
+
+
     /** TIM4 clock prescaler (TIM4_PSCR) */
     struct {
-      _BITS    PSC     : 3;    ///< clock prescaler
-      _BITS    res     : 5;    ///< Reserved
+      _BITS   PSC     : 3;    ///< clock prescaler
+      _BITS   res     : 5;    ///< Reserved
     } PSCR;
-  
-  
+
+
     /** TIM4 8-bit auto-reload register (TIM4_ARR). No bit access */
-    uint8_t    ARR;
-  
+    uint8_t   ARR;
+
   } TIM4_t;
 
   /// pointer to TIM4 registers
   #define _TIM4      _SFR(TIM4_t,  TIM4_BaseAddress)         ///< bitfield access to TIM4
   #define _TIM4_CR   _SFR(uint8_t, TIM4_BaseAddress+0)       ///< TIM4 control register
   #if defined(STM8S103) || defined(STM8S003)                 // 2B offset for selected devices
+    // 2B reserved
     #define _TIM4_IER   _SFR(uint8_t, TIM4_BaseAddress+3)    ///< TIM4 interrupt enable register
     #define _TIM4_SR    _SFR(uint8_t, TIM4_BaseAddress+4)    ///< TIM4 status register
     #define _TIM4_EGR   _SFR(uint8_t, TIM4_BaseAddress+5)    ///< TIM4 event generation register
@@ -1085,7 +1222,7 @@
     #define _TIM4_PSCR  _SFR(uint8_t, TIM4_BaseAddress+5)    ///< TIM4 clock prescaler register
     #define _TIM4_ARR   _SFR(uint8_t, TIM4_BaseAddress+6)    ///< TIM4 auto-reload register
   #endif
-  
+
   /* TIM4 Module Reset Values */
   #define _TIM4_CR_RESET_VALUE      ((uint8_t)0x00)
   #define _TIM4_IER_RESET_VALUE     ((uint8_t)0x00)
@@ -1094,7 +1231,7 @@
   #define _TIM4_CNTR_RESET_VALUE    ((uint8_t)0x00)
   #define _TIM4_PSCR_RESET_VALUE    ((uint8_t)0x00)
   #define _TIM4_ARR_RESET_VALUE     ((uint8_t)0xFF)
-  
+
   /* TIM4 Control register (TIM4_CR) */
   #define _TIM4_CEN               ((uint8_t) (0x01 << 0))        ///< Counter enable [0]
   #define _TIM4_UDIS              ((uint8_t) (0x01 << 1))        ///< Counter enable [0]

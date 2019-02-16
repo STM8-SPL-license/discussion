@@ -30,6 +30,8 @@
 void main(void) {
 
   uint16_t  BRR;
+  uint8_t   c;
+  
 
   ////
   // initialization
@@ -68,7 +70,7 @@ void main(void) {
       _GPIOC.ODR.PIN5 ^= 1;
     
       // read byte from receive buffer
-      uint8_t c = _UART2_DR;
+      c = _UART2_DR;
 
       // send echo+1
       _UART2_DR = c +1;
