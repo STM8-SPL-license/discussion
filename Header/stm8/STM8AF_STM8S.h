@@ -100,7 +100,7 @@
   #define TRIGGER_TRAP           _asm("trap")                         ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
   #define WAIT_FOR_INTERRUPT()   _asm("wfi")                          ///< stop code execution and wait for interrupt
   #define ENTER_HALT()           _asm("halt")                         ///< put controller to HALT mode
-  #define SW_RESET()             _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+  #define SW_RESET()             (_WWDG_CR=0xBF)                      ///< reset controller via WWGD module
 
   // data type in bit fields
   #define _BITS                  unsigned int                         ///< follow C90 standard
@@ -122,7 +122,7 @@
   #define TRIGGER_TRAP         _trap_()                             ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
   #define WAIT_FOR_INTERRUPT() _wfi_()                              ///< stop code execution and wait for interrupt
   #define ENTER_HALT()         _halt_()                             ///< put controller to HALT mode
-  #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+  #define SW_RESET()           (_WWDG_CR=0xBF)                      ///< reset controller via WWGD module
 
   // data type in bit fields
   #define _BITS                 unsigned int                        ///< follow C90 standard
@@ -145,7 +145,7 @@
   #define TRIGGER_TRAP         __trap()                             ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
   #define WAIT_FOR_INTERRUPT() __wait_for_interrupt()               ///< stop code execution and wait for interrupt
   #define ENTER_HALT()         __halt()                             ///< put controller to HALT mode
-  #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+  #define SW_RESET()           (_WWDG_CR=0xBF)                      ///< reset controller via WWGD module
 
   // data type in bit fields
   #define _BITS                 unsigned char                       ///< unsigned int fails for unknown reason
@@ -169,7 +169,7 @@
   #define TRIGGER_TRAP         __asm__("trap")                      ///< trigger a trap (=soft interrupt) e.g. for EMC robustness (see AN1015)
   #define WAIT_FOR_INTERRUPT() __asm__("wfi")                       ///< stop code execution and wait for interrupt
   #define ENTER_HALT()         __asm__("halt")                      ///< put controller to HALT mode
-  #define SW_RESET()           _WWDG.CR=0xBF                        ///< reset controller via WWGD module
+  #define SW_RESET()           (_WWDG_CR=0xBF)                      ///< reset controller via WWGD module
 
   // data type in bit fields
   #define _BITS                 unsigned int                        ///< follow C90 standard
@@ -215,6 +215,9 @@
 
     #define   UINT16_MAX  0xFFFF
     #define   UINT16_MIN  0
+    /** Internal clock register (CLK_ICKR) */
+    struct {
+
 
     #define   INT32_MAX   0x7fffffffL
     #define   INT32_MIN   (-INT32_MAX - 1L)
@@ -360,7 +363,7 @@
 -----------------------------------------------------------------------------*/
 
 //------------------------
-// PORT ports (implemented on all devices)
+// General purpose input/output pins (PORT)
 //------------------------
 #if defined(PORTA_BaseAddress) || defined(PORTB_BaseAddress) || defined(PORTC_BaseAddress) || defined(PORTD_BaseAddress) || \
     defined(PORTE_BaseAddress) || defined(PORTF_BaseAddress) || defined(PORTG_BaseAddress) || defined(PORTH_BaseAddress) || \
@@ -431,7 +434,7 @@
 
   } PORT_t;
 
-  /* pointer to port A registers */
+  /* Pointer to port A registers */
   #if defined(PORTA_BaseAddress)
     #define _GPIOA      _SFR(PORT_t,  PORTA_BaseAddress)    ///< bitfield access to port A
     #define _GPIOA_ODR  _SFR(uint8_t, PORTA_BaseAddress+0)  ///< port A output register
@@ -441,7 +444,7 @@
     #define _GPIOA_CR2  _SFR(uint8_t, PORTA_BaseAddress+4)  ///< port A control register 2
   #endif
 
-  /* pointer to port B registers */
+  /* Pointer to port B registers */
   #if defined(PORTB_BaseAddress)
     #define _GPIOB      _SFR(PORT_t,  PORTB_BaseAddress)    ///< bitfield access to port B
     #define _GPIOB_ODR  _SFR(uint8_t, PORTB_BaseAddress+0)  ///< port B output register
@@ -451,7 +454,7 @@
     #define _GPIOB_CR2  _SFR(uint8_t, PORTB_BaseAddress+4)  ///< port B control register 2
   #endif
 
-  /* pointer to port C registers */
+  /* Pointer to port C registers */
   #if defined(PORTC_BaseAddress)
     #define _GPIOC      _SFR(PORT_t,  PORTC_BaseAddress)    ///< bitfield access to port C
     #define _GPIOC_ODR  _SFR(uint8_t, PORTC_BaseAddress+0)  ///< port C output register
@@ -461,7 +464,7 @@
     #define _GPIOC_CR2  _SFR(uint8_t, PORTC_BaseAddress+4)  ///< port C control register 2
   #endif
 
-  /* pointer to port D registers */
+  /* Pointer to port D registers */
   #if defined(PORTD_BaseAddress)
     #define _GPIOD      _SFR(PORT_t,  PORTD_BaseAddress)    ///< bitfield access to port D
     #define _GPIOD_ODR  _SFR(uint8_t, PORTD_BaseAddress+0)  ///< port D output register
@@ -471,7 +474,7 @@
     #define _GPIOD_CR2  _SFR(uint8_t, PORTD_BaseAddress+4)  ///< port D control register 2
   #endif
 
-  /* pointer to port E registers */
+  /* Pointer to port E registers */
   #if defined(PORTE_BaseAddress)
     #define _GPIOE      _SFR(PORT_t,  PORTE_BaseAddress)    ///< bitfield access to port E
     #define _GPIOE_ODR  _SFR(uint8_t, PORTE_BaseAddress+0)  ///< port E output register
@@ -481,7 +484,7 @@
     #define _GPIOE_CR2  _SFR(uint8_t, PORTE_BaseAddress+4)  ///< port E control register 2
   #endif
 
-  /* pointer to port F registers */
+  /* Pointer to port F registers */
   #if defined(PORTF_BaseAddress)
     #define _GPIOF      _SFR(PORT_t,  PORTF_BaseAddress)    ///< bitfield access to port F
     #define _GPIOF_ODR  _SFR(uint8_t, PORTF_BaseAddress+0)  ///< port F output register
@@ -491,7 +494,7 @@
     #define _GPIOF_CR2  _SFR(uint8_t, PORTF_BaseAddress+4)  ///< port F control register 2
   #endif
 
-  /* pointer to port G registers */
+  /* Pointer to port G registers */
   #if defined(PORTG_BaseAddress)
     #define _GPIOG      _SFR(PORT_t,  PORTG_BaseAddress)    ///< bitfield access to port G
     #define _GPIOG_ODR  _SFR(uint8_t, PORTG_BaseAddress+0)  ///< port G output register
@@ -501,7 +504,7 @@
     #define _GPIOG_CR2  _SFR(uint8_t, PORTG_BaseAddress+4)  ///< port G control register 2
   #endif
 
-  /* pointer to port H registers */
+  /* Pointer to port H registers */
   #if defined(PORTH_BaseAddress)
     #define _GPIOH      _SFR(PORT_t,  PORTH_BaseAddress)    ///< bitfield access to port H
     #define _GPIOH_ODR  _SFR(uint8_t, PORTH_BaseAddress+0)  ///< port H output register
@@ -511,7 +514,7 @@
     #define _GPIOH_CR2  _SFR(uint8_t, PORTH_BaseAddress+4)  ///< port H control register 2
   #endif
 
-  /* pointer to port I registers */
+  /* Pointer to port I registers */
   #if defined(PORTI_BaseAddress)
     #define _GPIOI      _SFR(PORT_t,  PORTI_BaseAddress)    ///< bitfield access to port I
     #define _GPIOI_ODR  _SFR(uint8_t, PORTI_BaseAddress+0)  ///< port I output register
@@ -542,9 +545,9 @@
 
 
 //------------------------
-// NVM Module FLASH (all devices, but differet sizes)
+// Non-volative memory (FLASH)
 //------------------------
-#if (FLASH_BaseAddress)
+#if defined(FLASH_BaseAddress)
 
   /** struct containing FLASH memory registers */
   typedef struct {
@@ -624,8 +627,8 @@
 
   } FLASH_t;
 
-  /// pointer to all flash registers (all devices, but differet sizes)
-  #define _FLASH        _SFR(FLASH_t,  FLASH_BaseAddress)     ///< bitfield access to TIM4
+  /* Pointer to flash registers */
+  #define _FLASH        _SFR(FLASH_t,  FLASH_BaseAddress)     ///< bitfield access to FLASH
   #define _FLASH_CR1    _SFR(uint8_t,  FLASH_BaseAddress+0)   ///< Flash control register 1 (FLASH_CR1)
   #define _FLASH_CR2    _SFR(uint8_t,  FLASH_BaseAddress+1)   ///< Flash control register 2 (FLASH_CR2)
   #define _FLASH_NCR2   _SFR(uint8_t,  FLASH_BaseAddress+2)   ///< complementary Flash control register 2 (FLASH_NCR2)
@@ -678,7 +681,103 @@
 
 
 //------------------------
-// Clock module CLK (implemented on all devices)
+// External interrupt control (EXTI)
+//------------------------
+#if defined(EXTI_BaseAddress)
+
+  /** struct containing EXTI registers */
+  typedef struct {
+
+    /** External interrupt control register 1 (EXTI_CR1) */
+    struct {
+      uint8_t PAIS    : 2;    ///< Port A external interrupt sensitivity bits
+      uint8_t PBIS    : 2;    ///< Port B external interrupt sensitivity bits
+      uint8_t PCIS    : 2;    ///< Port C external interrupt sensitivity bits
+      uint8_t PDIS    : 2;    ///< Port D external interrupt sensitivity bits
+    } CR1;
+
+
+    /** External interrupt control register 2 (EXTI_CR2) */
+    struct {
+      uint8_t PEIS    : 2;    ///< Port E external interrupt sensitivity bits
+      uint8_t TLIS    : 1;    ///< Top level interrupt sensitivity
+      uint8_t res     : 5;    ///< Reserved
+    } CR2;
+
+  } EXTI_t;
+
+  /* Pointer to EXTI registers */
+  #define _EXTI         _SFR(EXTI_t,   EXTI_BaseAddress)      ///< bitfield access to EXTI
+  #define _EXTI_CR1     _SFR(uint8_t,  EXTI_BaseAddress+0)    ///< External interrupt control register 1 (EXTI_CR1)
+  #define _EXTI_CR2     _SFR(uint8_t,  EXTI_BaseAddress+1)    ///< External interrupt control register 2 (EXTI_CR2)
+
+  /* EXTI Module Reset Values */
+  #define _EXTI_CR1_RESET_VALUE ((uint8_t)0x00)
+  #define _EXTI_CR2_RESET_VALUE ((uint8_t)0x00)
+
+  /* External interrupt control register 1 (EXTI_CR1) */
+  #define _EXTI_PAIS              ((uint8_t) 0x03)               ///< Port A external interrupt sensitivity bits [1:0]
+  #define _EXTI_PAIS0             ((uint8_t) (0x01 << 0))        ///< Port A external interrupt sensitivity bits [0]
+  #define _EXTI_PAIS1             ((uint8_t) (0x01 << 1))        ///< Port A external interrupt sensitivity bits [1]
+  #define _EXTI_PBIS              ((uint8_t) 0x0C)               ///< Port B external interrupt sensitivity bits [1:0]
+  #define _EXTI_PBIS0             ((uint8_t) (0x01 << 2))        ///< Port B external interrupt sensitivity bits [0]
+  #define _EXTI_PBIS1             ((uint8_t) (0x01 << 3))        ///< Port B external interrupt sensitivity bits [1]
+  #define _EXTI_PCIS              ((uint8_t) 0x30)               ///< Port C external interrupt sensitivity bits [1:0]
+  #define _EXTI_PCIS0             ((uint8_t) (0x01 << 4))        ///< Port C external interrupt sensitivity bits [0]
+  #define _EXTI_PCIS1             ((uint8_t) (0x01 << 5))        ///< Port C external interrupt sensitivity bits [1]
+  #define _EXTI_PDIS              ((uint8_t) 0xC0)               ///< Port D external interrupt sensitivity bits [1:0]
+  #define _EXTI_PDIS0             ((uint8_t) (0x01 << 6))        ///< Port D external interrupt sensitivity bits [0]
+  #define _EXTI_PDIS1             ((uint8_t) (0x01 << 7))        ///< Port D external interrupt sensitivity bits [1]
+
+  /* External interrupt control register 2 (EXTI_CR2) */
+  #define _EXTI_PEIS              ((uint8_t) 0x03)               ///< Port E external interrupt sensitivity bits [1:0]
+  #define _EXTI_PEIS0             ((uint8_t) (0x01 << 0))        ///< Port E external interrupt sensitivity bits [0]
+  #define _EXTI_PEIS1             ((uint8_t) (0x01 << 1))        ///< Port E external interrupt sensitivity bits [1]
+  #define _EXTI_TLIS              ((uint8_t) (0x01 << 2))        ///< Top level interrupt sensitivity [0]
+  // reserved [7:3]
+
+#endif // EXTI_BaseAddress
+
+
+
+//------------------------
+// Reset status (RST)
+//------------------------
+#if defined(RST_BaseAddress)
+
+  /** struct containing RST registers */
+  typedef struct {
+
+    /** Reset status register (RST_SR) */
+    struct {
+      uint8_t WWDGF   : 1;    ///< Window Watchdog reset flag
+      uint8_t IWDGF   : 1;    ///< Independent Watchdog reset flag
+      uint8_t ILLOPF  : 1;    ///< Illegal opcode reset flag
+      uint8_t SWIMF   : 1;    ///< SWIM reset flag
+      uint8_t EMCF    : 1;    ///< EMC reset flag
+      uint8_t res     : 3;    ///< Reserved
+    } SR;
+
+  } RST_t;
+
+  /* Pointer to reset status register */
+  #define _RST          _SFR(RST_t,    RST_BaseAddress)       ///< bitfield access to RST
+  #define _RST_SR       _SFR(uint8_t,  RST_BaseAddress+0)     ///< Reset status register (RST_SR)
+
+  /* Flash control register 1 (FLASH_CR1) */
+  #define _RST_WWDGF              ((uint8_t) (0x01 << 0))        ///< Window Watchdog reset flag [0]
+  #define _RST_IWDGF              ((uint8_t) (0x01 << 1))        ///< Independent Watchdog reset flag [0]
+  #define _RST_ILLOPF             ((uint8_t) (0x01 << 2))        ///< Illegal opcode reset flag [0]
+  #define _RST_SWIMF              ((uint8_t) (0x01 << 3))        ///< SWIM reset flag [0]
+  #define _RST_EMCF               ((uint8_t) (0x01 << 4))        ///< EMC reset flag [0]
+  // reserved [7:5]
+
+#endif // RST_BaseAddress
+
+
+
+//------------------------
+// Clock control (CLK)
 //------------------------
 #if defined(CLK_BaseAddress)
 
@@ -801,7 +900,7 @@
 
   } CLK_t;
 
-  /// pointer to CLK registers
+  /* Pointer to CLK registers */
   #define _CLK          _SFR(CLK_t, CLK_BaseAddress)          ///< bitfield access to clock control
   #define _CLK_ICKR     _SFR(uint8_t, CLK_BaseAddress+0)      ///< Internal clock register
   #define _CLK_ECKR     _SFR(uint8_t, CLK_BaseAddress+1)      ///< External clock register
@@ -915,11 +1014,110 @@
 
 
 //------------------------
-// UART2 Module with
-//    asyncronous & synchronous mode
-//    multiprocessor communication
-//    SmartCard & IrDA mode
-//    LIN master & slave mode
+// Window Watchdog (WWDG)
+//------------------------
+#if defined(WWDG_BaseAddress)
+
+  /** struct containing Window Watchdog registers (WWDG) */
+  typedef struct {
+
+    /** WWDG Control register (WWDG_CR) */
+    struct {
+      uint8_t T       : 7;    ///< 7-bit WWDG counter
+      uint8_t WDGA    : 1;    ///< WWDG activation bit (n/a if WWDG enabled by option byte)
+    } CR;
+
+
+    /** WWDR Window register (WWDG_WR) */
+    struct {
+      uint8_t W       : 7;    ///< 7-bit window value
+      uint8_t res     : 1;    ///< Reserved
+    } WR;
+
+  } WWDG_t;
+
+  /* Pointer to Window Watchdog registers */
+  #define _WWDG         _SFR(WWDG_t,   WWDG_BaseAddress)      ///< bitfield access to WWDG
+  #define _WWDG_CR      _SFR(uint8_t,  WWDG_BaseAddress+0)    ///< WWDG Control register (WWDG_CR)
+  #define _WWDG_WR      _SFR(uint8_t,  WWDG_BaseAddress+1)    ///< WWDR Window register (WWDG_WR)
+
+  /* WWDG Module Reset Values */
+  #define _WWDG_CR_RESET_VALUE      ((uint8_t)0x7F)
+  #define _WWDG_WR_RESET_VALUE      ((uint8_t)0x7F)
+
+  /* WWDG Control register (WWDG_CR) */
+  #define _WWDG_T                 ((uint8_t) (0x01 << 0))        ///< 7-bit WWDG counter [6:0]
+  #define _WWDG_T0                ((uint8_t) (0x01 << 0))        ///< 7-bit WWDG counter [0]
+  #define _WWDG_T1                ((uint8_t) (0x01 << 1))        ///< 7-bit WWDG counter [1]
+  #define _WWDG_T2                ((uint8_t) (0x01 << 2))        ///< 7-bit WWDG counter [2]
+  #define _WWDG_T3                ((uint8_t) (0x01 << 3))        ///< 7-bit WWDG counter [3]
+  #define _WWDG_T4                ((uint8_t) (0x01 << 4))        ///< 7-bit WWDG counter [4]
+  #define _WWDG_T5                ((uint8_t) (0x01 << 5))        ///< 7-bit WWDG counter [5]
+  #define _WWDG_T6                ((uint8_t) (0x01 << 6))        ///< 7-bit WWDG counter [6]
+  #define _WWDG_WDGA              ((uint8_t) (0x01 << 7))        ///< WWDG activation bit (n/a if WWDG enabled by option byte) [0]
+
+  /* WWDR Window register (WWDG_WR) */
+  #define _WWDG_W                 ((uint8_t) (0x01 << 0))        ///< 7-bit window value [6:0]
+  #define _WWDG_W0                ((uint8_t) (0x01 << 0))        ///< 7-bit window value [0]
+  #define _WWDG_W1                ((uint8_t) (0x01 << 1))        ///< 7-bit window value [1]
+  #define _WWDG_W2                ((uint8_t) (0x01 << 2))        ///< 7-bit window value [2]
+  #define _WWDG_W3                ((uint8_t) (0x01 << 3))        ///< 7-bit window value [3]
+  #define _WWDG_W4                ((uint8_t) (0x01 << 4))        ///< 7-bit window value [4]
+  #define _WWDG_W5                ((uint8_t) (0x01 << 5))        ///< 7-bit window value [5]
+  #define _WWDG_W6                ((uint8_t) (0x01 << 6))        ///< 7-bit window value [6]
+  // reserved [7]
+
+#endif // WWDG_BaseAddress
+
+
+
+//------------------------
+// Independent Timeout Watchdog (IWDG)
+//------------------------
+#if defined(IWDG_BaseAddress)
+
+  /** struct containing IWDG independent watchdog registers */
+  typedef struct {
+
+    /** IWDG Key register (IWDG_KR). No bit access */
+    uint8_t   KR;
+
+
+    /** IWDG Prescaler register (IWDG_PR) */
+    struct {
+      uint8_t PR      : 3;    ///< Prescaler divider
+      uint8_t res     : 5;    ///< Reserved
+    } PR;
+
+
+    /** IWDG Reload register (IWDG_RLR). No bit access */
+    uint8_t   RLR;
+
+  } IWDG_t;
+
+  /* Pointer to Independent Timeout Watchdog registers */
+  #define _IWDG         _SFR(IWDG_t,   IWDG_BaseAddress)      ///< bitfield access to IWDG
+  #define _IWDG_KR      _SFR(uint8_t,  IWDG_BaseAddress+0)    ///< IWDG Key register (IWDG_KR)
+  #define _IWDG_PR      _SFR(uint8_t,  IWDG_BaseAddress+1)    ///< IWDG Prescaler register (IWDG_PR)
+  #define _IWDG_RLR     _SFR(uint8_t,  IWDG_BaseAddress+1)    ///< IWDG Reload register (IWDG_RLR)
+
+  /* IWDG Module Reset Values */
+  #define IWDG_PR_RESET_VALUE        ((uint8_t)0x00)
+  #define IWDG_RLR_RESET_VALUE       ((uint8_t)0xFF)
+
+  /* IWDG Prescaler register (IWDG_PR) bits */
+  #define _IWDG_PR                ((uint8_t) 0x07)               ///< Prescaler divider [2:0]
+  #define _IWDG_PR0               ((uint8_t) (0x01 << 0))        ///< Prescaler divider [0]
+  #define _IWDG_PR1               ((uint8_t) (0x01 << 1))        ///< Prescaler divider [1]
+  #define _IWDG_PR2               ((uint8_t) (0x01 << 2))        ///< Prescaler divider [2]
+  // reserved [7:3]
+
+#endif // IWDG_BaseAddress
+
+
+
+//------------------------
+// Universal Asynchronous Receiver Transmitter 2 (UART2)
 //------------------------
 #if defined(UART2_BaseAddress)
 
@@ -1038,8 +1236,8 @@
 
   } UART2_t;
 
-  /// pointer to UART2 registers
-  #define _UART2      _SFR(UART2_t,  UART2_BaseAddress)       ///< bitfield access to TIM4
+  /* Pointer to UART2 registers */
+  #define _UART2      _SFR(UART2_t,  UART2_BaseAddress)       ///< bitfield access to UART2
   #define _UART2_SR   _SFR(uint8_t,  UART2_BaseAddress+0)     ///< UART2 Status register
   #define _UART2_DR   _SFR(uint8_t,  UART2_BaseAddress+1)     ///< UART2 data register
   #define _UART2_BRR1 _SFR(uint8_t,  UART2_BaseAddress+2)     ///< UART2 Baud rate register 1
@@ -1142,7 +1340,7 @@
 
 
 //------------------------
-// 8-Bit Timer TIM4
+// 8-Bit Timer 4 (TIM4)
 //------------------------
 #if defined(TIM4_BaseAddress)
 
@@ -1203,7 +1401,7 @@
 
   } TIM4_t;
 
-  /// pointer to TIM4 registers
+  /* Pointer to TIM4 registers */
   #define _TIM4      _SFR(TIM4_t,  TIM4_BaseAddress)         ///< bitfield access to TIM4
   #define _TIM4_CR   _SFR(uint8_t, TIM4_BaseAddress+0)       ///< TIM4 control register
   #if defined(STM8S103) || defined(STM8S003)                 // 2B offset for selected devices
