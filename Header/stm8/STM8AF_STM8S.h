@@ -1106,10 +1106,10 @@
   #define IWDG_RLR_RESET_VALUE       ((uint8_t)0xFF)
 
   /* IWDG Prescaler register (IWDG_PR) bits */
-  #define _IWDG_PR                ((uint8_t) 0x07)               ///< Prescaler divider [2:0]
-  #define _IWDG_PR0               ((uint8_t) (0x01 << 0))        ///< Prescaler divider [0]
-  #define _IWDG_PR1               ((uint8_t) (0x01 << 1))        ///< Prescaler divider [1]
-  #define _IWDG_PR2               ((uint8_t) (0x01 << 2))        ///< Prescaler divider [2]
+  #define _IWDG_PRE               ((uint8_t) 0x07)               ///< Prescaler divider [2:0]
+  #define _IWDG_PRE0              ((uint8_t) (0x01 << 0))        ///< Prescaler divider [0]
+  #define _IWDG_PRE1              ((uint8_t) (0x01 << 1))        ///< Prescaler divider [1]
+  #define _IWDG_PRE2              ((uint8_t) (0x01 << 2))        ///< Prescaler divider [2]
   // reserved [7:3]
 
 #endif // IWDG_BaseAddress
