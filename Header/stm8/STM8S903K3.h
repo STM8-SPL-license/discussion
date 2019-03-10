@@ -45,32 +45,32 @@
 #define STM8_EEPROM_SIZE 640
 
 /* define device base addresses */
-#define     OPT_BaseAddress    0x4800
-#define   PORTA_BaseAddress    0x5000
-#define   PORTB_BaseAddress    0x5005
-#define   PORTC_BaseAddress    0x500A
-#define   PORTD_BaseAddress    0x500F
-#define   PORTE_BaseAddress    0x5014
-#define   PORTF_BaseAddress    0x5019
-#define   FLASH_BaseAddress    0x505A
-#define    EXTI_BaseAddress    0x50A0
-#define     RST_BaseAddress    0x50B3
-#define     CLK_BaseAddress    0x50C0
-#define    WWDG_BaseAddress    0x50D1
-#define    IWDG_BaseAddress    0x50E0
-#define     AWU_BaseAddress    0x50F0
-#define    BEEP_BaseAddress    0x50F3
-#define     SPI_BaseAddress    0x5200
-#define     I2C_BaseAddress    0x5210
-#define   UART1_BaseAddress    0x5230
-#define    TIM1_BaseAddress    0x5250
-#define    TIM5_BaseAddress    0x5300
-#define    TIM6_BaseAddress    0x5340
-#define    ADC1_BaseAddress    0x53E0
-#define     CFG_BaseAddress    0x7F60
-#define     ITC_BaseAddress    0x7F70
-#define      DM_BaseAddress    0x7F90
-#define     UID_BaseAddress    0x4865
+#define     OPT_AddressBase    0x4800
+#define   PORTA_AddressBase    0x5000
+#define   PORTB_AddressBase    0x5005
+#define   PORTC_AddressBase    0x500A
+#define   PORTD_AddressBase    0x500F
+#define   PORTE_AddressBase    0x5014
+#define   PORTF_AddressBase    0x5019
+#define   FLASH_AddressBase    0x505A
+#define    EXTI_AddressBase    0x50A0
+#define     RST_AddressBase    0x50B3
+#define     CLK_AddressBase    0x50C0
+#define    WWDG_AddressBase    0x50D1
+#define    IWDG_AddressBase    0x50E0
+#define     AWU_AddressBase    0x50F0
+#define    BEEP_AddressBase    0x50F3
+#define     SPI_AddressBase    0x5200
+#define     I2C_AddressBase    0x5210
+#define   UART1_AddressBase    0x5230
+#define    TIM1_AddressBase    0x5250
+#define    TIM5_AddressBase    0x5300
+#define    TIM6_AddressBase    0x5340
+#define    ADC1_AddressBase    0x53E0
+#define     CFG_AddressBase    0x7F60
+#define     ITC_AddressBase    0x7F70
+#define      DM_AddressBase    0x7F90
+#define     UID_AddressBase    0x4865
 
 /* include generic header for series */
 #include "STM8AF_STM8S.h"
