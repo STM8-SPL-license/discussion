@@ -34,7 +34,7 @@
   #error please select supported device or adapt pinning
   #include <stophere>
 #endif
-    
+
 // SPL headers
 #include "stm8s_it.h"
 #include "stm8s_gpio.h"
@@ -60,18 +60,18 @@ extern uint32_t   g_millis;
 // main routine
 ////////
 void main(void) {
-  
+
   ////
   // initialization
   ////
 
   // disable interrupts for initialization
   DISABLE_INTERRUPTS();
-  
+
   // switch to 16MHz clock (reset is 2MHz)
   //_CLK_CKDIVR = 0x00;                                 // clear complete register
   //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
-  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access 
+  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access
 
   // configure LED pin to output push-pull (SPL)
   #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
@@ -79,7 +79,7 @@ void main(void) {
   #else                            // sduino-UNO -> PC5
     GPIO_Init(GPIOC, (GPIO_Pin_TypeDef) GPIO_PIN_5, GPIO_MODE_OUT_PP_LOW_FAST);
   #endif
-  
+
   // init TIM4 for 1ms interrupt
   TIM4_TimeBaseInit(TIM4_PRESCALER_128, 124);
   TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);
@@ -93,7 +93,7 @@ void main(void) {
   // main loop
   ////
   while (1) {
-    
+
     // blink LED every 500ms (direct bitwise access)
     if (g_millis > 500) {
       g_millis = 0;
@@ -103,10 +103,10 @@ void main(void) {
         //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
         _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
       #else                            // sduino-UNO -> PC5
-        //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
-        _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+        _GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
+        //_GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
       #endif
-      
+
     } // 500ms loop
 
   } // main loop

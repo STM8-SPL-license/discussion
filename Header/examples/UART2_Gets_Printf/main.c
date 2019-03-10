@@ -21,10 +21,6 @@
 // define communication speed
 #define BAUDRATE   9600
 
-// addresses to write to / read from
-#define FLASH_ADDR    0xA000  //STM8_PFLASH_END     // for flash use last byte
-#define EEPROM_ADDR   STM8_EEPROM_START   // for EEPROM use first byte
-
 
 ////////
 // main routine
@@ -64,10 +60,13 @@ void main(void) {
     printf("Enter a number: ");
     gets(str);
 
+    // if terminal terminates with NL & LF, skip 2nd EOL char
+    //getchar();
+
     // convert to integer [-2^16; 2^16-1]
     num = atoi(str);
 
-    // print result via UART1
+    // print result via UART2
     printf("value: %d\n\n", num);
 
   } // main loop
