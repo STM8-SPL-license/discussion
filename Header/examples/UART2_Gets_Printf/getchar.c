@@ -16,6 +16,17 @@
 -----------------------------------------------------------------------------*/
 #include "main.h"
 
+// define data type, depending on compiler
+#if defined(_SDCC_)
+  #define RETURN_TYPE int
+#elif defined(_COSMIC_)
+  #define RETURN_TYPE char
+#elif defined(_RAISONANCE_)
+  #define RETURN_TYPE char
+#else // IAR
+  #define RETURN_TYPE int
+#endif
+
 
 /**
   \fn char getchar(void)
@@ -28,25 +39,19 @@
   Use receive routine set via getchar_attach()
   Return type depends on used compiler (see respective stdio.h)
 */
-#if defined(_SDCC_)
-  int getchar() {
-#elif defined(_COSMIC_)
-  char getchar() {
-#elif defined(_RAISONANCE_)
-  char getchar() {
-#else // IAR
-  int getchar() {
-#endif
+RETURN_TYPE getchar(void) {
 
-  char   c;
+  uint8_t   c;
 
   // wait until byte received
-  while (!(_UART2.SR.RXNE));
+  while (!(_UART2_SR & _UART2_RXNE));
+  //while (!(_UART2.SR.RXNE));
 
   // read Rx buffer
-  c = _UART2.DR;
+  c = _UART2_DR;
+  //c = _UART2.DR.DATA;
 
-  // compiler specific: echo character
+  // compiler specific: echo character & terminate with NL
   #if defined(_COSMIC_) || defined(_RAISONANCE_) || defined(_IAR_)
 
     // echo to console
@@ -56,13 +61,12 @@
     if (c == 13)
       c = 10;
 
-  #endif // __CSMC__
+  #endif // _COSMIC_ || _RAISONANCE_ || _IAR_
 
   // return received byte
-  return c;
+  return (RETURN_TYPE) c;
 
 } // getchar
-
 
 /*-----------------------------------------------------------------------------
     END OF MODULE
