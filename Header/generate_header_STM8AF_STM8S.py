@@ -285,7 +285,7 @@ class PeripheralList:
 def saveDeviceHeader(device):
 
   # print optional message
-  #logging.warning('export %s.h', device)
+  logging.warning('export %s.h', device)
 
   # get device info
   description = devices.getDescription(device)
@@ -410,11 +410,17 @@ devices     = ProductList(args.devices)
 peripherals = PeripheralList(args.peripherals)
 
 numExport = 0
+numSkip = 0
 for part in devices.part:
   if peripherals.getIdxName(part) >= 0:
     #print(part)
     saveDeviceHeader(part)
     numExport = numExport + 1
+  else:
+    # print optional message
+    logging.warning('skip %s', part)
+    numSkip = numSkip + 1
 
-print('\ndone, exported ' + str(numExport) + ' headers\n')
+
+print('\nfinished: exported ' + str(numExport) + ' headers, skipped ' + str(numSkip) + ' devices\n')
 
