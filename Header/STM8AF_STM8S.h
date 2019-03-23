@@ -1,3 +1,7 @@
+/** \addtogroup STM8AF_STM8S
+ *  @{
+ */
+
 /*-------------------------------------------------------------------------
   STM8AF_STM8S.h - Register Declarations for STMAF and STM8S families
 
@@ -5091,7 +5095,7 @@
     } DGR;
 
 
-    /** @brief CAN page selection register for below paged registers (CAN_PSR) */
+    /** @brief CAN page selection register for paged registers (CAN_PSR) */
     struct {
       _BITS   PS        : 3;    ///< Page select
       _BITS   res       : 5;    ///< Reserved
@@ -6081,6 +6085,201 @@
   #define  _CAN_FCR_RESET_VALUE        ((uint8_t) 0x00)          ///< CAN filter configuration register reset value
   #define  _CAN_MFMIR_RESET_VALUE      ((uint8_t) 0x00)          ///< CAN mailbox filter match index register reset value
 
+  /* CAN master control register (CAN_MCR) */
+  #define _CAN_INRQ               ((uint8_t) (0x01 << 0))        ///< CAN Channel Initialization Request [0] (in _CAN_MCR)
+  #define _CAN_SLEEP              ((uint8_t) (0x01 << 1))        ///< CAN Channel Sleep Mode Request [0] (in _CAN_MCR)
+  #define _CAN_TXFP               ((uint8_t) (0x01 << 2))        ///< CAN Channel Transmit FIFO Priority [0] (in _CAN_MCR)
+  #define _CAN_RFLM               ((uint8_t) (0x01 << 3))        ///< CAN Channel Receive FIFO Locked Mode [0] (in _CAN_MCR)
+  #define _CAN_NART               ((uint8_t) (0x01 << 4))        ///< CAN Channel No Automatic Retransmission [0] (in _CAN_MCR)
+  #define _CAN_AWUM               ((uint8_t) (0x01 << 5))        ///< CAN Channel Automatic Wakeup Mode [0] (in _CAN_MCR)
+  #define _CAN_ABOM               ((uint8_t) (0x01 << 6))        ///< CAN Channel Automatic Bus-Off Management [0] (in _CAN_MCR)
+  #define _CAN_TTCM               ((uint8_t) (0x01 << 7))        ///< CAN Channel Time Triggered Communication Mode [0] (in _CAN_MCR)
+
+  /* CAN master status register (CAN_MSR) */
+  #define _CAN_INAK               ((uint8_t) (0x01 << 0))        ///< CAN Initialization Acknowledge [0] (in _CAN_MSR)
+  #define _CAN_SLAK               ((uint8_t) (0x01 << 1))        ///< CAN Sleep Acknowledge [0] (in _CAN_MSR)
+  #define _CAN_ERRI               ((uint8_t) (0x01 << 2))        ///< CAN Error Interrupt [0] (in _CAN_MSR)
+  #define _CAN_WKUI               ((uint8_t) (0x01 << 3))        ///< CAN Wakeup Interrupt [0] (in _CAN_MSR)
+  #define _CAN_TX                 ((uint8_t) (0x01 << 4))        ///< CAN Transmit [0] (in _CAN_MSR)
+  #define _CAN_RX                 ((uint8_t) (0x01 << 5))        ///< CAN Receive [0] (in _CAN_MSR)
+  // reserved [7:6]
+
+  /* CAN transmit status register (CAN_TSR) */
+  #define _CAN_RQCP0              ((uint8_t) (0x01 << 0))        ///< CAN Request Completed for Mailbox 0 [0] (in _CAN_TSR)
+  #define _CAN_RQCP1              ((uint8_t) (0x01 << 1))        ///< CAN Request Completed for Mailbox 1 [0] (in _CAN_TSR)
+  #define _CAN_RQCP2              ((uint8_t) (0x01 << 2))        ///< CAN Request Completed for Mailbox 2 [0] (in _CAN_TSR)
+  // reserved [3]
+  #define _CAN_TXOK0              ((uint8_t) (0x01 << 4))        ///< CAN Transmission ok for Mailbox 0 [0] (in _CAN_TSR)
+  #define _CAN_TXOK1              ((uint8_t) (0x01 << 5))        ///< CAN Transmission ok for Mailbox 1 [0] (in _CAN_TSR)
+  #define _CAN_TXOK2              ((uint8_t) (0x01 << 6))        ///< CAN Transmission ok for Mailbox 2 [0] (in _CAN_TSR)
+  // reserved [7]
+
+  /* CAN transmit priority register (CAN_TPR) */
+  #define _CAN_CODE              ((uint8_t) (0x03 << 0))        ///< CAN Mailbox Code [1:0] (in _CAN_TPR)
+  #define _CAN_CODE0             ((uint8_t) (0x01 << 0))        ///< CAN Mailbox Code [0] (in _CAN_TPR)
+  #define _CAN_CODE1             ((uint8_t) (0x01 << 1))        ///< CAN Mailbox Code [1] (in _CAN_TPR)
+  #define _CAN_TME0              ((uint8_t) (0x01 << 2))        ///< CAN Transmit Mailbox 0 Empty [0] (in _CAN_TPR)
+  #define _CAN_TME1              ((uint8_t) (0x01 << 3))        ///< CAN Transmit Mailbox 1 Empty [0] (in _CAN_TPR)
+  #define _CAN_TME2              ((uint8_t) (0x01 << 4))        ///< CAN Transmit Mailbox 2 Empty [0] (in _CAN_TPR)
+  #define _CAN_LOW0              ((uint8_t) (0x01 << 5))        ///< CAN Lowest Priority Flag for Mailbox 0 [0] (in _CAN_TPR)
+  #define _CAN_LOW1              ((uint8_t) (0x01 << 6))        ///< CAN Lowest Priority Flag for Mailbox 1 [0] (in _CAN_TPR)
+  #define _CAN_LOW2              ((uint8_t) (0x01 << 7))        ///< CAN Lowest Priority Flag for Mailbox 2 [0] (in _CAN_TPR)
+
+  /* CAN receive FIFO register (CAN_RFR) */
+  #define _CAN_FMP               ((uint8_t) (0x03 << 0))        ///< CAN FIFO Message Pending [1:0] (in _CAN_RFR)
+  #define _CAN_FMP0              ((uint8_t) (0x01 << 0))        ///< CAN FIFO Message Pending [0] (in _CAN_RFR)
+  #define _CAN_FMP1              ((uint8_t) (0x01 << 1))        ///< CAN FIFO Message Pending [1] (in _CAN_RFR)
+  // reserved [2]
+  #define _CAN_FULL              ((uint8_t) (0x01 << 3))        ///< CAN FIFO Full [0] (in _CAN_RFR)
+  #define _CAN_FOVR              ((uint8_t) (0x01 << 4))        ///< CAN FIFO Overrun [0] (in _CAN_RFR)
+  #define _CAN_RFOM              ((uint8_t) (0x01 << 5))        ///< CAN Release FIFO Output Mailbox [0] (in _CAN_RFR)
+  // reserved [7:6]
+
+  /* CAN interrupt enable register (CAN_IER) */
+  #define _CAN_TMEIE             ((uint8_t) (0x01 << 0))        ///< CAN Transmit Mailbox Empty Interrupt Enable [0] (in _CAN_IER)
+  #define _CAN_FMPIE             ((uint8_t) (0x01 << 1))        ///< CAN FIFO Message Pending Interrupt Enable [0] (in _CAN_IER)
+  #define _CAN_FFIE              ((uint8_t) (0x01 << 2))        ///< CAN FIFO Full Interrupt Enable [0] (in _CAN_IER)
+  #define _CAN_FOVIE             ((uint8_t) (0x01 << 3))        ///< CAN FIFO Overrun Interrupt Enable [0] (in _CAN_IER)
+  // reserved [6:4]
+  #define _CAN_WKUIE             ((uint8_t) (0x01 << 7))        ///< CAN Wakeup Interrupt Enable [0] (in _CAN_IER)
+
+  /* CAN diagnosis register (CAN_DGR) */
+  #define _CAN_LBKM              ((uint8_t) (0x01 << 0))        ///< CAN Loop back mode [0] (in _CAN_DGR)
+  #define _CAN_SILM              ((uint8_t) (0x01 << 1))        ///< CAN Silent mode [0] (in _CAN_DGR)
+  #define _CAN_SAMP              ((uint8_t) (0x01 << 2))        ///< CAN Last sample point [0] (in _CAN_DGR)
+  #define _CAN_RXS               ((uint8_t) (0x01 << 3))        ///< CAN Rx Signal (=pin status) [0] (in _CAN_DGR)
+  #define _CAN_TXM2E             ((uint8_t) (0x01 << 4))        ///< CAN TX Mailbox 2 enable [0] (in _CAN_DGR)
+  // reserved [7:5]
+
+  /* CAN page selection register for paged registers (CAN_PSR) */
+  #define _CAN_PS                ((uint8_t) (0x07 << 0))        ///< CAN Page select [2:0] (in _CAN_PSR)
+  #define _CAN_PS0               ((uint8_t) (0x01 << 0))        ///< CAN Page select [0] (in _CAN_PSR)
+  #define _CAN_PS1               ((uint8_t) (0x01 << 1))        ///< CAN Page select [1] (in _CAN_PSR)
+  #define _CAN_PS2               ((uint8_t) (0x01 << 2))        ///< CAN Page select [2] (in _CAN_PSR)
+  // reserved [7:3]
+
+  /* CAN message control/status register (CAN_MCSR, page 0,1,5) */
+  #define _CAN_TXRQ              ((uint8_t) (0x01 << 0))        ///< CAN Transmission mailbox request [0] (in _CAN_MCSR, page 0,1,5)
+  #define _CAN_ABRQ              ((uint8_t) (0x01 << 1))        ///< CAN Abort request for mailbox [0] (in _CAN_MCSR, page 0,1,5)
+  #define _CAN_RQCP              ((uint8_t) (0x01 << 2))        ///< CAN Request completed [0] (in _CAN_MCSR, page 0,1,5)
+  #define _CAN_TXOK              ((uint8_t) (0x01 << 3))        ///< CAN Transmission OK [0] (in _CAN_MCSR, page 0,1,5)
+  #define _CAN_ALST              ((uint8_t) (0x01 << 4))        ///< CAN Arbitration lost [0] (in _CAN_MCSR, page 0,1,5)
+  #define _CAN_TERR              ((uint8_t) (0x01 << 5))        ///< CAN Transmission error [0] (in _CAN_MCSR, page 0,1,5)
+  // reserved [7:6]
+
+  /* CAN mailbox data length control register (CAN_MDLCR, page 0,1,5,7) */
+  #define _CAN_DLC               ((uint8_t) (0x0F << 0))        ///< CAN Data length code [3:0] (in _CAN_MDLCR, page 0,1,5,7)
+  #define _CAN_DLC0              ((uint8_t) (0x01 << 0))        ///< CAN Data length code [0] (in _CAN_MDLCR, page 0,1,5,7)
+  #define _CAN_DLC1              ((uint8_t) (0x01 << 1))        ///< CAN Data length code [1] (in _CAN_MDLCR, page 0,1,5,7)
+  #define _CAN_DLC2              ((uint8_t) (0x01 << 2))        ///< CAN Data length code [2] (in _CAN_MDLCR, page 0,1,5,7)
+  #define _CAN_DLC3              ((uint8_t) (0x01 << 3))        ///< CAN Data length code [3] (in _CAN_MDLCR, page 0,1,5,7)
+  // reserved [6:4]
+  #define _CAN_TGT               ((uint8_t) (0x01 << 7))        ///< CAN Transmit global time [0] (in _CAN_MDLCR, page 0,1,5,7)
+
+  /* CAN mailbox identifier register 1 (CAN_MIDR1, page 0,1,5) */
+  // skip ID [4:0], as it depends on addressing mode
+  #define _CAN_RTR               ((uint8_t) (0x01 << 5))        ///< CAN Remote transmission request [0] (in _CAN_MIDR1, page 0,1,5)
+  #define _CAN_IDE               ((uint8_t) (0x01 << 6))        ///< CAN Extended identifier [0] (in _CAN_MIDR1, page 0,1,5)
+  // reserved [7]
+
+  /* CAN error status register (CAN_ESR, page 6) */
+  #define _CAN_EWGF              ((uint8_t) (0x01 << 0))        ///< CAN Error warning flag [0] (in _CAN_ESR, page 6)
+  #define _CAN_EPVF              ((uint8_t) (0x01 << 1))        ///< CAN Error passive flag [0] (in _CAN_ESR, page 6)
+  #define _CAN_BOFF              ((uint8_t) (0x01 << 2))        ///< CAN Bus off flag [0] (in _CAN_ESR, page 6)
+  // reserved [3]
+  #define _CAN_LEC               ((uint8_t) (0x07 << 4))        ///< CAN Last error code [2:0] (in _CAN_ESR, page 6)
+  #define _CAN_LEC0              ((uint8_t) (0x01 << 4))        ///< CAN Last error code [0] (in _CAN_ESR, page 6)
+  #define _CAN_LEC1              ((uint8_t) (0x01 << 5))        ///< CAN Last error code [1] (in _CAN_ESR, page 6)
+  #define _CAN_LEC2              ((uint8_t) (0x01 << 6))        ///< CAN Last error code [3] (in _CAN_ESR, page 6)
+  // reserved [7]
+
+  /* CAN error interrupt enable register (CAN_EIER, page 6) */
+  #define _CAN_EWGIE             ((uint8_t) (0x01 << 0))        ///< CAN Error warning interrupt enable [0] (in _CAN_EIER, page 6)
+  #define _CAN_EPVIE             ((uint8_t) (0x01 << 1))        ///< CAN Error passive  interrupt enable [0] (in _CAN_EIER, page 6)
+  #define _CAN_BOFIE             ((uint8_t) (0x01 << 2))        ///< CAN Bus-Off  interrupt enable [0] (in _CAN_EIER, page 6)
+  // reserved [3]
+  #define _CAN_LECIE             ((uint8_t) (0x01 << 4))        ///< CAN Last error code interrupt enable [0] (in _CAN_EIER, page 6)
+  // reserved [6:5]
+  #define _CAN_ERRIE             ((uint8_t) (0x01 << 6))        ///< CAN Error interrupt enable [0] (in _CAN_EIER, page 6)
+  // reserved [7]
+
+  /* CAN bit timing register 1 (CAN_BTR1, page 6) */
+  #define _CAN_BRP               ((uint8_t) (0x3F << 0))        ///< CAN Baud rate prescaler [5:0] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP0              ((uint8_t) (0x01 << 0))        ///< CAN Baud rate prescaler [0] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP1              ((uint8_t) (0x01 << 1))        ///< CAN Baud rate prescaler [1] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP2              ((uint8_t) (0x01 << 2))        ///< CAN Baud rate prescaler [2] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP3              ((uint8_t) (0x01 << 3))        ///< CAN Baud rate prescaler [3] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP4              ((uint8_t) (0x01 << 4))        ///< CAN Baud rate prescaler [4] (in _CAN_BTR1, page 6)
+  #define _CAN_BRP5              ((uint8_t) (0x01 << 5))        ///< CAN Baud rate prescaler [5] (in _CAN_BTR1, page 6)
+  #define _CAN_SJW               ((uint8_t) (0x03 << 6))        ///< CAN Resynchronization jump width [1:0] (in _CAN_EIER, page 6)
+  #define _CAN_SJW0              ((uint8_t) (0x01 << 6))        ///< CAN Resynchronization jump width [0] (in _CAN_EIER, page 6)
+  #define _CAN_SJW1              ((uint8_t) (0x01 << 7))        ///< CAN Resynchronization jump width [1] (in _CAN_EIER, page 6)
+
+  /* CAN bit timing register 2 (CAN_BTR2, page 6) */
+  #define _CAN_BS1               ((uint8_t) (0x0F << 0))        ///< CAN Bit segment 1 [3:0] (in _CAN_BTR2, page 6)
+  #define _CAN_BS10              ((uint8_t) (0x01 << 0))        ///< CAN Bit segment 1 [0] (in _CAN_BTR2, page 6)
+  #define _CAN_BS11              ((uint8_t) (0x01 << 1))        ///< CAN Bit segment 1 [1] (in _CAN_BTR2, page 6)
+  #define _CAN_BS12              ((uint8_t) (0x01 << 2))        ///< CAN Bit segment 1 [2] (in _CAN_BTR2, page 6)
+  #define _CAN_BS13              ((uint8_t) (0x01 << 3))        ///< CAN Bit segment 1 [3] (in _CAN_BTR2, page 6)
+  #define _CAN_BS2               ((uint8_t) (0x07 << 4))        ///< CAN Bit segment 2 [2:0] (in _CAN_BTR2, page 6)
+  #define _CAN_BS20              ((uint8_t) (0x01 << 4))        ///< CAN Bit segment 2 [0] (in _CAN_BTR2, page 6)
+  #define _CAN_BS21              ((uint8_t) (0x01 << 5))        ///< CAN Bit segment 2 [1] (in _CAN_BTR2, page 6)
+  #define _CAN_BS22              ((uint8_t) (0x01 << 6))        ///< CAN Bit segment 2 [2] (in _CAN_BTR2, page 6)
+  // reserved [7]
+
+  /* CAN filter mode register 1 (CAN_FMR1, page 6) */
+  #define _CAN_FML0              ((uint8_t) (0x01 << 0))        ///< CAN Filter 0 mode low [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FMH0              ((uint8_t) (0x01 << 1))        ///< CAN Filter 0 mode high [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FML1              ((uint8_t) (0x01 << 2))        ///< CAN Filter 1 mode low [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FMH1              ((uint8_t) (0x01 << 3))        ///< CAN Filter 1 mode high [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FML2              ((uint8_t) (0x01 << 4))        ///< CAN Filter 2 mode low [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FMH2              ((uint8_t) (0x01 << 5))        ///< CAN Filter 2 mode high [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FML3              ((uint8_t) (0x01 << 6))        ///< CAN Filter 3 mode low [0] (in _CAN_FMR1, page 6)
+  #define _CAN_FMH3              ((uint8_t) (0x01 << 7))        ///< CAN Filter 3 mode high [0] (in _CAN_FMR1, page 6)
+
+  /* CAN filter mode register 2 (CAN_FMR2, page 6) */
+  #define _CAN_FML4              ((uint8_t) (0x01 << 0))        ///< CAN Filter 4 mode low [0] (in _CAN_FMR2, page 6)
+  #define _CAN_FMH4              ((uint8_t) (0x01 << 1))        ///< CAN Filter 4 mode high [0] (in _CAN_FMR2, page 6)
+  #define _CAN_FML5              ((uint8_t) (0x01 << 2))        ///< CAN Filter 5 mode low [0] (in _CAN_FMR2, page 6)
+  #define _CAN_FMH5              ((uint8_t) (0x01 << 3))        ///< CAN Filter 5 mode high [0] (in _CAN_FMR2, page 6)
+  // reserved [7:4]
+
+  /* CAN filter configuration register 1 (CAN_FCR1, page 6) */
+  #define _CAN_FACT0             ((uint8_t) (0x01 << 0))        ///< CAN Filter 0 active [0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC0              ((uint8_t) (0x03 << 1))        ///< CAN Filter 0 scale configuration [1:0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC00             ((uint8_t) (0x01 << 1))        ///< CAN Filter 0 scale configuration [0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC01             ((uint8_t) (0x01 << 2))        ///< CAN Filter 0 scale configuration [1] (in _CAN_FCR1, page 6)
+  // reserved [3]
+  #define _CAN_FACT1             ((uint8_t) (0x01 << 4))        ///< CAN Filter 1 active [0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC1              ((uint8_t) (0x03 << 5))        ///< CAN Filter 1 scale configuration [1:0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC10             ((uint8_t) (0x01 << 5))        ///< CAN Filter 1 scale configuration [0] (in _CAN_FCR1, page 6)
+  #define _CAN_FSC11             ((uint8_t) (0x01 << 6))        ///< CAN Filter 1 scale configuration [1] (in _CAN_FCR1, page 6)
+  // reserved [7]
+
+  /* CAN filter configuration register 2 (CAN_FCR2, page 6) */
+  #define _CAN_FACT2             ((uint8_t) (0x01 << 0))        ///< CAN Filter 2 active [0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC2              ((uint8_t) (0x03 << 1))        ///< CAN Filter 2 scale configuration [1:0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC20             ((uint8_t) (0x01 << 1))        ///< CAN Filter 2 scale configuration [0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC21             ((uint8_t) (0x01 << 2))        ///< CAN Filter 2 scale configuration [1] (in _CAN_FCR2, page 6)
+  // reserved [3]
+  #define _CAN_FACT3             ((uint8_t) (0x01 << 4))        ///< CAN Filter 3 active [0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC3              ((uint8_t) (0x03 << 5))        ///< CAN Filter 3 scale configuration [1:0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC30             ((uint8_t) (0x01 << 5))        ///< CAN Filter 3 scale configuration [0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC31             ((uint8_t) (0x01 << 6))        ///< CAN Filter 3 scale configuration [1] (in _CAN_FCR2, page 6)
+  // reserved [7]
+
+  /* CAN filter configuration register 3 (CAN_FCR3, page 6) */
+  #define _CAN_FACT4             ((uint8_t) (0x01 << 0))        ///< CAN Filter 4 active [0] (in _CAN_FCR3, page 6)
+  #define _CAN_FSC4              ((uint8_t) (0x03 << 1))        ///< CAN Filter 4 scale configuration [1:0] (in _CAN_FCR3, page 6)
+  #define _CAN_FSC40             ((uint8_t) (0x01 << 1))        ///< CAN Filter 4 scale configuration [0] (in _CAN_FCR3, page 6)
+  #define _CAN_FSC41             ((uint8_t) (0x01 << 2))        ///< CAN Filter 4 scale configuration [1] (in _CAN_FCR3, page 6)
+  // reserved [3]
+  #define _CAN_FACT5             ((uint8_t) (0x01 << 4))        ///< CAN Filter 5 active [0] (in _CAN_FCR2, page 6)
+  #define _CAN_FSC5              ((uint8_t) (0x03 << 5))        ///< CAN Filter 5 scale configuration [1:0] (in _CAN_FCR3, page 6)
+  #define _CAN_FSC50             ((uint8_t) (0x01 << 5))        ///< CAN Filter 5 scale configuration [0] (in _CAN_FCR3, page 6)
+  #define _CAN_FSC51             ((uint8_t) (0x01 << 6))        ///< CAN Filter 5 scale configuration [1] (in _CAN_FCR3, page 6)
+  // reserved [7]
+
 #endif // CAN_AddressBase
 
 
@@ -6334,3 +6533,5 @@
     END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
 #endif // _STM8AF_STM8S_H_
+
+/** @}*/
