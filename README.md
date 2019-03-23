@@ -20,7 +20,7 @@ Georg
 I have just updated my open-source STM8 device headers to [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header). 
 
 Changes
-- implemented some proposals from the "[discussion](https://github.com/STM8-SPL-license/discussion/issues)"
+- implemented some proposals from the [discussion](https://github.com/STM8-SPL-license/discussion/issues)
 - added support for all STM8AF and STM8S devices, and all peripherals
 - added reference (via Doxygen) under [Headers/doxygen/html/index.html](https://github.com/STM8-SPL-license/discussion/tree/master/Header/doxygen/html/index.html)
 - added example projects under [Headers/examples](https://github.com/STM8-SPL-license/discussion/tree/master/Header/examples)
@@ -29,7 +29,7 @@ My final goal is still to have these headers bundled into SDCC, in order to faci
 As expected, the development takes a lot of effort (and is rather dull), so please let me know if this is an option. 
 
 Actually I would prefer a different way to support STM8 out of the box, e.g. via SPL headers or another OSS alternative, however I 
-understand from our "[discussion](https://github.com/STM8-SPL-license/discussion/issues)" that this is not to be expected anytime soon...?
+understand from our [discussion](https://github.com/STM8-SPL-license/discussion/issues) that this is not to be expected anytime soon...?
 
 
 
