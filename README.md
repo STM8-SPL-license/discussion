@@ -22,7 +22,8 @@ I have just updated my open-source STM8 device headers to [Headers/stm8](https:/
 Changes
 - implemented some proposals from the [discussion](https://github.com/STM8-SPL-license/discussion/issues)
 - added support for all STM8AF and STM8S devices, and all peripherals
-- added reference (via Doxygen) under [Headers/doxygen/html/index.html](https://github.com/STM8-SPL-license/discussion/tree/master/Header/doxygen/html/index.html)
+- added HTML reference (via Doxygen) under [Headers/doxygen/html/index.html](https://github.com/STM8-SPL-license/discussion/tree/master/Header/doxygen/html/index.html)
+- added PDF reference (via Doxygen) under [Headers/doxygen/refman.pdf](https://github.com/STM8-SPL-license/discussion/blob/master/Header/doxygen/refman.pdf)
 - added example projects under [Headers/examples](https://github.com/STM8-SPL-license/discussion/tree/master/Header/examples)
 
 My final goal is still to have these headers bundled into SDCC, in order to facilitate development and code exchange within the STM8 community.

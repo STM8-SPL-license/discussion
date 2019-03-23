@@ -13,10 +13,9 @@
   - PWM output project 
   - Flash write/read project
 
-<!--- 
-- File [doxygen/html/index.html](https://github.com/STM8-SPL-license/discussion/tree/master/Header/doxygen/html/index.html) contains a doxygen generated reference for the device headers
-  - this is work in (early) progress, so any advice is highly appreciated! 
--->
+- Reference via Doxygen
+  - HTML under [doxygen/html/index.html](https://github.com/STM8-SPL-license/discussion/tree/master/Header/doxygen/html/index.html)
+  - PDF under [doxygen/refman.pdf](https://github.com/STM8-SPL-license/discussion/blob/master/Header/doxygen/refman.pdf)
 
 - File [generate_header_STM8AF_STM8S.py](https://github.com/STM8-SPL-license/discussion/blob/master/Header/generate_header_STM8AF_STM8S.py)
   - imports a product list downloaded from [STM Homepage](https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html)
