@@ -1,0 +1,45 @@
+
+<ApplicationBuild Header="blink" Extern=".\blink.rapp" Path=".\blink.rapp" OutputFile=".\blink.aof" Config="Standard" sate="98" >
+	<NodeH Path="..\..\..\stm8\STM8AF_STM8S.h" Header="STM8AF_STM8S.h" Marker="-1" OutputFile="" sate="0" />
+	<NodeH Path="..\main.h" Header="main.h" Marker="-1" OutputFile="" sate="0" />
+	<NodeC Path="..\main.c" Header="main.c" Marker="0" OutputFile=".\main.obj" sate="0" >
+		<Options>
+			<Config Header="Standard" >
+				<Set Header="RCST7" >
+					<Section Header="Defines" >
+						<Property Header="Defines" Value="STM8S105K6" Removable="1" />
+					</Section>
+				</Set>
+			</Config>
+		</Options>
+	</NodeC>
+	<NodeC Path="..\timer4.c" Header="timer4.c" Marker="-1" OutputFile=".\timer4.obj" sate="0" />
+	<Options>
+		<Config Header="Standard" >
+			<Set Header="ApplicationBuild" >
+				<Section Header="General" >
+					<Property Header="TargetFamily" Value="ST7" />
+				</Section>
+				<Section Header="Directories" >
+					<Property Header="IncDir" Value="..\..\stm8;$(RkitInc);$(RkitInc)\ST7;$(RkitInc)\STM8" Removable="1" />
+				</Section>
+			</Set>
+			<Set Header="Target" >
+				<Section Header="ProcessorST7" >
+					<Property Header="Processor" Value="STM8S105C6" Removable="1" />
+				</Section>
+				<Section Header="DebugST7" >
+					<Property Header="DebugTool_STM8" Value="SIM-ST7" Removable="1" />
+				</Section>
+				<Section Header="ToolSetST7" >
+					<Property Header="ArelocInfo" Value="" Removable="1" />
+				</Section>
+			</Set>
+			<Set Header="RLST7" >
+				<Section Header="Output" >
+					<Property Header="ExtendedBin" Value="" Removable="1" />
+				</Section>
+			</Set>
+		</Config>
+	</Options>
+</ApplicationBuild>
