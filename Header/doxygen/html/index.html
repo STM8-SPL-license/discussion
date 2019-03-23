@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>STM8 Device Headers: page1 A documentation page</title>
+<title>STM8 Device Headers: Main Page</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,22 +60,46 @@ $(function() {
 
 <div class="header">
   <div class="headertitle">
-<div class="title">page1 A documentation page </div>  </div>
+<div class="title">Main Page </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="section1-page1"></a>
-An example section</h1>
-<p>bla bla bla</p>
-<h2><a class="anchor" id="subsection1-page1"></a>
-The first subsection</h2>
-<p>bla bla bla</p>
-<h3><a class="anchor" id="subsubsection1-page1"></a>
-The first subsubsection</h3>
-<p>bla bla bla</p>
-<h4><a class="anchor" id="paragraph1-page1"></a>
-The first paragraph</h4>
-<p>bla bla bla </p>
-</div></div><!-- contents -->
+<div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
+Device Overview</h1>
+<p>This is a set of open-source device headers for the 8-bit <a href="https://www.st.com/en/microcontrollers-microprocessors/stm8-8-bit-mcus.html">STM8 microcontroller</a> family by <a href="https://www.st.com">STMicroelectronics</a>. For a brief introduction to the STM8 see e.g. <a href="https://en.wikipedia.org/wiki/STM8">here</a> or <a href="https://jaycarlson.net/pf/st-stm8">here</a>.</p>
+<p>Due to a superb performance to cost ratio, low current consumption and ease-of-use, STM8s are widely used in low-end electronic <a href="https://github.com/TG9541/stm8ef/wiki/STM8S-Value-Line-Gadgets">gadgets</a>, and a lot of <a href="http://www.colecovision.eu/stm8/">development boards</a> are readily available.</p>
+<h1><a class="anchor" id="toolchain_sec"></a>
+Toolchains</h1>
+<p>Several commercial cross-compilers support the STM8, namely <a href="http://www.cosmic-software.com/stm8.php">Cosmic</a>, <a href="https://www.iar.com/iar-embedded-workbench/#!?architecture=STM8">IAR</a> and <a href="http://www.raisonance.com/stm8-compiler.html">Raisonance</a>. In addition, the open-source compiler <a href="http://sdcc.sourceforge.net/">SDCC</a> also supports the STM8 since v3.4.0.</p>
+<p>All commercial compilers come with device headers pre-installed, but these are mutually incompatible and (of course) not open-source. SDCC does not come with STM8 device headers due to license issues.</p>
+<p>To facilitate development, STM provides the so-called <a href="https://www.st.com/en/embedded-software/stsw-stm8069.html">Standard Peripheral Library (SPL)</a> which contains not only device headers, but also standardized peripherals functions. The SPL is compatible with all above commercial compilers out of the box, and with SDCC via a <a href="https://github.com/gicking/STM8-SPL_SDCC_patch">patch</a>. Unfortunately the SPL is also not 100% open-source, as discussed <a href="https://github.com/gicking/STM8-SPL_SDCC_patch/issues/1">here</a> or <a href="https://github.com/STM8-SPL-license/discussion/issues/1">here</a>.</p>
+<h1><a class="anchor" id="header_sec"></a>
+Open-Source Headers</h1>
+<p>A lot of (more or less complete) STM8 device headers is available on the internet, e.g. <a href="https://github.com/junaidpv/stm8/blob/master/inc/stm8s.h">here</a> or <a href="https://github.com/tymmothy/libstm8s/blob/master/inc/stm8s.h">here</a>. Alternatively one can also use the SPL headers, or those from the above commercial compilers (if license allows). However, these are all mutually incompatible, and thus hinder the exchange of code snippets between projects. Compare this to the <a href="https://www.arduino.cc">Arduino</a> and <a href="http://www.nongnu.org/avr-libc">avr-libc</a> multiverse... :-(</p>
+<p>Following a longer <a href="https://github.com/STM8-SPL-license/discussion/issues/1">discussion</a>, here is a proposal for open-source STM8 device headers, published under <a href="https://www.gnu.org/licenses">GPL3+</a>. They are intended for inclusion into the <a href="http://sdcc.sourceforge.net/">SDCC</a> distribution, but are compatible with all above compilers. My final aim is to provide standardized device headers for all available STM8 devices, which can be used in open-source projects without restrictions, and facilitate code exchange withon the STM8 OS-community.</p>
+<h2><a class="anchor" id="content_ssec"></a>
+Content</h2>
+<ul>
+<li>device headers for all STM8AS and STM8S devices (70 of 138 STM8 devices and growing)</li>
+<li>this reference (created by <a href="http://sdcc.sourceforge.net/">Doxygen</a>)</li>
+<li>example projects for SDCC, Cosmic, IAR and Raisonance toolchains<ul>
+<li>pin toggle (aka blink)</li>
+<li>timer interrupts</li>
+<li>serial communication (incl. printf() and gets())</li>
+<li>analog measurements</li>
+<li>PWM generation</li>
+<li>mixing with SPL headers and routines</li>
+</ul>
+</li>
+</ul>
+<h2><a class="anchor" id="features_ssec"></a>
+Features</h2>
+<ul>
+<li>direct/bitwise or byte-wise access to all peripheral registers</li>
+<li>assembler macros for common operations like <em><a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gad99fda6bb7696991797c925f968234b9" title="perform a nop() operation (=minimum delay) ">NOP()</a></em> or <em><a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gac136489c5ba4794566532004267967f8" title="disable interrupt handling ">DISABLE_INTERRUPTS()</a></em> </li>
+<li>can be mixed with SPL headers and functions (see example <em>blink_TIM4_SPL</em>)</li>
+</ul>
+<p>Example:</p>
+<div class="fragment"><div class="line"><span class="comment">// device header (STM8 Discovery board)</span></div><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_s_t_m8_s105_c6_8h.html">STM8S105C6.h</a>&quot;</span></div><div class="line"></div><div class="line"><span class="comment">// configure LED pin to output push-pull (bitmasks)</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga10549d3834b7736a4b65bec2265b60ce">_GPIOD_DDR</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input(=0) or output(=1)</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#gaef4f8b72d25eee7d01a82a449938f0da">_GPIOD_CR1</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga7119c97096f63eec1704bb3b345a95d7">_GPIOD_CR2</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope</span></div><div class="line"></div><div class="line"><span class="comment">// main loop</span></div><div class="line"><span class="keywordflow">while</span> (1) {</div><div class="line"></div><div class="line">  <span class="comment">// toggle LED</span></div><div class="line">  <span class="comment">//_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)</span></div><div class="line">  <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga87e504590c788fbfb6169c92e6cf6a40">_GPIOD</a>.ODR.PIN0 ^= 1;            <span class="comment">// bit access (more convenient)</span></div><div class="line"></div><div class="line">  <span class="comment">// wait a bit</span></div><div class="line">  <span class="keywordflow">for</span> (uint16_t i=20000L; i; i--)</div><div class="line">    <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#gad99fda6bb7696991797c925f968234b9">NOP</a>();</div><div class="line"></div><div class="line">} <span class="comment">// main loop</span></div></div><!-- fragment --> </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

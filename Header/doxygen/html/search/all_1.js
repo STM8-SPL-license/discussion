@@ -14,7 +14,6 @@ var searchData=
   ['addmode',['ADDMODE',['../struct_i2_c__t.html#a0e4fbc2e46e382d377579d2bce10651c',1,'I2C_t']]],
   ['addr',['ADDR',['../struct_i2_c__t.html#afbc744b24d0edf0f23cca35dc576e8c4',1,'I2C_t']]],
   ['adon',['ADON',['../struct_a_d_c1__t.html#a8083eff4e7d1913d888654545ced6e1f',1,'ADC1_t::ADON()'],['../struct_a_d_c2__t.html#a8083eff4e7d1913d888654545ced6e1f',1,'ADC2_t::ADON()']]],
-  ['advanced_20usage',['Advanced Usage',['../advanced.html',1,'page1']]],
   ['af',['AF',['../struct_i2_c__t.html#a8cbffeb68ee50692068667958893ce9a',1,'I2C_t']]],
   ['ahalt',['AHALT',['../struct_f_l_a_s_h__t.html#a5e6c463c7715fd52f72d7482e22ace61',1,'FLASH_t']]],
   ['al',['AL',['../struct_c_f_g__t.html#a3bb248d50746b466710cbd0e398e5f2c',1,'CFG_t']]],
@@ -42,6 +41,5 @@ var searchData=
   ['awuen',['AWUEN',['../struct_a_w_u__t.html#a5275f6167e562ad70f1a4fac7eb23a28',1,'AWU_t']]],
   ['awuf',['AWUF',['../struct_a_w_u__t.html#af0a171615cafeec4f90d021242e70e47',1,'AWU_t']]],
   ['awum',['AWUM',['../struct_c_a_n__t.html#a70fc10a2c05be23da957bdc5ccf72336',1,'CAN_t']]],
-  ['awutb',['AWUTB',['../struct_a_w_u__t.html#ad529a2bb61c8d22fe5d7166ef67624f0',1,'AWU_t']]],
-  ['a_20documentation_20page',['A documentation page',['../page1.html',1,'']]]
+  ['awutb',['AWUTB',['../struct_a_w_u__t.html#ad529a2bb61c8d22fe5d7166ef67624f0',1,'AWU_t']]]
 ];
