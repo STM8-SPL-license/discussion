@@ -31,8 +31,6 @@ var searchData=
   ['stm8af6366_2eh',['STM8AF6366.h',['../_s_t_m8_a_f6366_8h.html',1,'']]],
   ['stm8af6388_2eh',['STM8AF6388.h',['../_s_t_m8_a_f6388_8h.html',1,'']]],
   ['stm8af_5fstm8s_2eh',['STM8AF_STM8S.h',['../_s_t_m8_a_f___s_t_m8_s_8h.html',1,'']]],
-  ['stm8al_2eh',['STM8AL.h',['../_s_t_m8_a_l_8h.html',1,'']]],
-  ['stm8al6388_2eh',['STM8AL6388.h',['../_s_t_m8_a_l6388_8h.html',1,'']]],
   ['stm8s001j3_2eh',['STM8S001J3.h',['../_s_t_m8_s001_j3_8h.html',1,'']]],
   ['stm8s003f3_2eh',['STM8S003F3.h',['../_s_t_m8_s003_f3_8h.html',1,'']]],
   ['stm8s003k3_2eh',['STM8S003K3.h',['../_s_t_m8_s003_k3_8h.html',1,'']]],

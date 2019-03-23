@@ -22,6 +22,6 @@ var searchData=
   ['lsirdy',['LSIRDY',['../struct_c_l_k__t.html#ae66146c53f4bf754e91e6c43d11fa981',1,'CLK_t']]],
   ['lslv',['LSLV',['../struct_u_a_r_t2__t.html#a2e39f1c2e099d513042970b9e1b1efaf',1,'UART2_t::LSLV()'],['../struct_u_a_r_t3__t.html#a2e39f1c2e099d513042970b9e1b1efaf',1,'UART3_t::LSLV()'],['../struct_u_a_r_t4__t.html#a2e39f1c2e099d513042970b9e1b1efaf',1,'UART4_t::LSLV()']]],
   ['lt',['LT',['../struct_a_d_c1__t.html#a1036a165d530b27da33c08107052cb87',1,'ADC1_t']]],
-  ['ltrh',['LTRH',['../struct_a_d_c1__t.html#a2937fdb456a1d80ec1db7f70f724d0ca',1,'ADC1_t::LTRH()'],['../struct_a_d_c1__t.html#a7c03d1eb7d5e9a4cfc38a5c02ae0266f',1,'ADC1_t::LTRH()']]],
-  ['ltrl',['LTRL',['../struct_a_d_c1__t.html#a125f908ddfd3a487668f9b2814cbef17',1,'ADC1_t::LTRL()'],['../struct_a_d_c1__t.html#a5d6d8a6f2fe6b7a1a01017915b3444c9',1,'ADC1_t::LTRL()']]]
+  ['ltrh',['LTRH',['../struct_a_d_c1__t.html#a2937fdb456a1d80ec1db7f70f724d0ca',1,'ADC1_t']]],
+  ['ltrl',['LTRL',['../struct_a_d_c1__t.html#a125f908ddfd3a487668f9b2814cbef17',1,'ADC1_t']]]
 ];
