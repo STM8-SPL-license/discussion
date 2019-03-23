@@ -1,0 +1,13 @@
+/// @mainpage page1 A documentation page
+///
+/// @section section1-page1 An example section
+/// bla bla bla
+///
+/// @subsection subsection1-page1 The first subsection
+/// bla bla bla
+///
+/// @subsubsection subsubsection1-page1 The first subsubsection
+/// bla bla bla
+///
+/// @paragraph paragraph1-page1 The first paragraph
+/// bla bla bla
