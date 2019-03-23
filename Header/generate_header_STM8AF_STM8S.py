@@ -3,7 +3,7 @@
 '''
   Utility to generate STM8 device headers from Excel device list downloaded from the STM homepage,
   and a corresponding peripherals list, manually created from respective datasheets.
-  
+
   Copyright (C) 2019 Georg Icking-Konert
 
   This program is free software: you can redistribute it and/or modify
@@ -57,8 +57,8 @@ print('')
 #-------------------------------------------------------------------
 class ProductList:
   """ Class for storing the product list as downloaded from STM homepage.
-  
-  An instance of product list class, which stores and evaluates the devices as downloaded from the 
+
+  An instance of product list class, which stores and evaluates the devices as downloaded from the
   `STM8 product list download page <https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html>`_
 
   :param filename:   Name of Excel (.xlsx) to download
@@ -73,7 +73,7 @@ class ProductList:
   def __init__(self, filename):
     """ Create an object containing the product list as downloaded from STM homepage.
 
-    Create an object containing the STM8 product list as downloaded from the 
+    Create an object containing the STM8 product list as downloaded from the
     `STM8 product list download page <https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html>`_
 
     :param filename:   Name of Excel (.xlsx) to import
@@ -82,7 +82,7 @@ class ProductList:
 
     """
     self.filename = filename
-      
+
     # import Excel device list as downloaded from https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html
     # table structure:
     #  pars start in line 6 (=index 5)
@@ -120,13 +120,13 @@ class ProductList:
     #   30: Touch sensing FW library
     self.list = pandas.read_excel(self.filename, sheet_name=0)
     start_line = 5
-    self.part        = self.list.iloc[start_line:, 0]  # device name for header file name 
+    self.part        = self.list.iloc[start_line:, 0]  # device name for header file name
     self.numParts    = len(self.part.iloc[:])          # number of devices
     self.description = self.list.iloc[start_line:, 1]  # comment in header
     self.status      = self.list.iloc[start_line:, 2]  # status = Active, Proposal
-    self.flash_size  = self.list.iloc[start_line:, 5]  # for flash memory size 
-    self.RAM_size    = self.list.iloc[start_line:, 6]  # for RAM memory size 
-    self.EEPROM_size = self.list.iloc[start_line:, 7]  # for EEPROM memory size 
+    self.flash_size  = self.list.iloc[start_line:, 5]  # for flash memory size
+    self.RAM_size    = self.list.iloc[start_line:, 6]  # for RAM memory size
+    self.EEPROM_size = self.list.iloc[start_line:, 7]  # for EEPROM memory size
 
     # get number of active devices
     numActive = 0
@@ -189,8 +189,8 @@ class ProductList:
 #-------------------------------------------------------------------
 class PeripheralList:
   """ Class for storing the peripherals for devices, as derived from datasheets.
-  
-  An instance of peripherals list class, which stores and evaluates the devices as extracted form the 
+
+  An instance of peripherals list class, which stores and evaluates the devices as extracted form the
   device datasheets downloaded from `STM homepahe <https://www.st.com>`_
 
   :param filename:   Name of Excel (.xlsx) to download
@@ -205,7 +205,7 @@ class PeripheralList:
   def __init__(self, filename):
     """ Create an object containing the product list as downloaded from STM homepage.
 
-    Create an object containing the STM8 product list as downloaded from the 
+    Create an object containing the STM8 product list as downloaded from the
     `STM8 product list download page <https://www.st.com/content/st_com/en/products/microcontrollers/stm8-8-bit-mcus.html>`_
 
     :param filename:   Name of Excel (.xlsx) to import
@@ -214,7 +214,7 @@ class PeripheralList:
 
     """
     self.filename = filename
-      
+
     # import Excel peripherals list
     # table structure is interpreted on the go
     self.Devices  = pandas.read_excel(self.filename, sheet_name="Devices",  header=0)
@@ -298,6 +298,10 @@ def saveDeviceHeader(device):
   f = open(directory + '/' + device+'.h','w+')
 
   # write file header
+  f.write('/** \\addtogroup STM8AF_STM8S\n')
+  f.write('*  @{\n')
+  f.write('*/\n')
+  f.write('\n')
   f.write('/*-------------------------------------------------------------------------\n')
   f.write('  ' + device +'.h - Register Declarations for STM ' + device + '\n')
   f.write('\n')
@@ -363,6 +367,9 @@ def saveDeviceHeader(device):
   f.write('END OF MODULE DEFINITION FOR MULTIPLE INLUSION\n')
   f.write('-----------------------------------------------------------------------------*/\n')
   f.write('#endif // _' + device + '_H\n')
+  f.write('\n')
+  f.write('/** @}*/\n')
+  f.write('\n')
 
   # close file
   f.close()
@@ -381,7 +388,7 @@ parser.add_argument('-p', '--peripherals', type=str,   help='Peripherals Excel',
 args = parser.parse_args()
 
 # create new output folder for headers (avoid left-overs)
-directory = 'stm8'
+directory = 'stm8/stm8af_stm8s'
 try:
     shutil.rmtree(directory)
 except OSError:
@@ -401,11 +408,11 @@ except OSError:
 # set verbosity level for output (CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET)
 logger = logging.getLogger()
 hdlr = logging.FileHandler('./export.log')
-logger.addHandler(hdlr) 
+logger.addHandler(hdlr)
 logger.setLevel(logging.INFO)
 
 
-# import product list and corresponding peripherals list 
+# import product list and corresponding peripherals list
 devices     = ProductList(args.devices)
 peripherals = PeripheralList(args.peripherals)
 
@@ -423,4 +430,3 @@ for part in devices.part:
 
 
 print('\nfinished: exported ' + str(numExport) + ' headers, skipped ' + str(numSkip) + ' devices\n')
-
