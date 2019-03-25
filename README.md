@@ -15,6 +15,17 @@ Thanks and have a great day,
 Georg
 
 
+## Update 2019-03-25:
+
+I have just updated my open-source STM8 device headers to [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header). 
+
+Changes
+- added STM8L10x devices
+- updated reference for STM8L10x 
+
+Currently all STMAF, STM8S and STML10x devices (=76 out of 138) are supported, and 62 are pending 
+
+
 ## Update 2019-03-23:
 
 I have just updated my open-source STM8 device headers to [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header). 

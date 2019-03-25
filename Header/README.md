@@ -32,7 +32,7 @@ Practically I combined my existing headers from [STM8_templates](https://github.
 
 ## Limitations
 
-- Of the 138 STM8 devices in the STM8 list, currently 70 are supported (number growing), and 68 are skipped 
+- Of the 138 STM8 devices in the STM8 list, currently 76 are supported (all STM8AF, STM8S and STM8L10x), 62 are skipped 
 - My Raisonance demo license has expired, and cannot be "refreshed" by re-installing. Therefore testing with Ride is currently not possible
 - This is currently only a proposal with minimal testing, namely via the above examples 
 
