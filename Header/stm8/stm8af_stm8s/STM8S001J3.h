@@ -44,8 +44,8 @@
 #endif
 
 /* device memory sizes [B] */
-#define STM8_PFLASH_SIZE 8*1024
-#define STM8_RAM_SIZE    1*1024
+#define STM8_PFLASH_SIZE 8192
+#define STM8_RAM_SIZE    1024
 #define STM8_EEPROM_SIZE 128
 
 /* define device base addresses */

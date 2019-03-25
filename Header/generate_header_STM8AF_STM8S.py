@@ -294,6 +294,14 @@ def saveDeviceHeader(device):
   EEPROM_size = devices.getEEPROMSize(device)
   family, module, address = peripherals.getDevice(device)
 
+  # convert memory sizes to byte
+  flash_size = int(float(flash_size) * 1024)
+  RAM_size = int(float(RAM_size) * 1024)
+  if EEPROM_size.isdigit():
+    EEPROM_size = int(EEPROM_size)
+  else:
+    EEPROM_size = 0
+
   # create new file
   f = open(directory + '/' + device+'.h','w+')
 
@@ -348,9 +356,9 @@ def saveDeviceHeader(device):
   f.write('\n')
 
   f.write('/* device memory sizes [B] */\n')
-  f.write('#define STM8_PFLASH_SIZE ' + flash_size + '*1024\n')
-  f.write('#define STM8_RAM_SIZE    ' + RAM_size + '*1024\n')
-  f.write('#define STM8_EEPROM_SIZE ' + EEPROM_size + '\n')
+  f.write('#define STM8_PFLASH_SIZE ' + str(flash_size) + '\n')
+  f.write('#define STM8_RAM_SIZE    ' + str(RAM_size) + '\n')
+  f.write('#define STM8_EEPROM_SIZE ' + str(EEPROM_size) + '\n')
   f.write('\n')
 
   f.write('/* define device base addresses */\n')
@@ -399,7 +407,7 @@ except OSError:
     print('cannot create folder \'' + directory + '\', exit!')
     exit(1);
 try:
-    shutil.copyfile('STM8AF_STM8S.h', directory+'/STM8AF_STM8S.h')
+    shutil.copyfile('STM8AF_STM8S.h', directory + '/STM8AF_STM8S.h')
 except OSError:
     print('cannot copy family headers to \'' + directory + '\', exit!')
     exit(1);

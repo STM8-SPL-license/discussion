@@ -57,11 +57,11 @@
 // if memory sizes [B] are not given, assume smallest available in family
 #if !defined(STM8_PFLASH_SIZE)
   #warning undefined STM8_PFLASH_SIZE, assume minimum
-  #define STM8_PFLASH_SIZE      2*1024        ///< size of program flash [B]
+  #define STM8_PFLASH_SIZE      2048          ///< size of program flash [B]
 #endif
 #if !defined(STM8_RAM_SIZE)
   #warning undefined STM8_RAM_SIZE, assume minimum
-  #define STM8_RAM_SIZE         1*1024        ///< size of RAM [B]
+  #define STM8_RAM_SIZE         1024          ///< size of RAM [B]
 #endif
 #if !defined(STM8_EEPROM_SIZE)
   #warning undefined STM8_EEPROM_SIZE, assume minimum
@@ -241,12 +241,12 @@
 
 #define __TLI_VECTOR__            0       ///< irq0 - External Top Level interrupt (TLI) for pin PD7
 #define __AWU_VECTOR__            1       ///< irq1 - Auto Wake Up from Halt interrupt (AWU)
-#define __CLK_VECTOR__            2       /// irq2 - Clock Controller interrupt
-#define __PORTA_VECTOR__          3       /// irq3 - External interrupt 0 (GPIOA)
-#define __PORTB_VECTOR__          4       /// irq4 - External interrupt 1 (GPIOB)
-#define __PORTC_VECTOR__          5       /// irq5 - External interrupt 2 (GPIOC)
-#define __PORTD_VECTOR__          6       /// irq6 - External interrupt 3 (GPIOD)
-#define __PORTE_VECTOR__          7       /// irq7 - External interrupt 4 (GPIOE)
+#define __CLK_VECTOR__            2       ///< irq2 - Clock Controller interrupt
+#define __PORTA_VECTOR__          3       ///< irq3 - External interrupt 0 (GPIOA)
+#define __PORTB_VECTOR__          4       ///< irq4 - External interrupt 1 (GPIOB)
+#define __PORTC_VECTOR__          5       ///< irq5 - External interrupt 2 (GPIOC)
+#define __PORTD_VECTOR__          6       ///< irq6 - External interrupt 3 (GPIOD)
+#define __PORTE_VECTOR__          7       ///< irq7 - External interrupt 4 (GPIOE)
 #if defined(CAN_AddressBase)
   #define __CAN_RX_VECTOR__       8       ///< irq8 - CAN receive interrupt (shared with \__PORTF_VECTOR__)
 #endif
@@ -256,9 +256,9 @@
 #if defined(CAN_AddressBase)
   #define __CAN_TX_VECTOR__       9       ///< irq9 - CAN transmit interrupt
 #endif
-#define __SPI_VECTOR__            10      /// irq10 - SPI End of transfer interrupt
-#define __TIM1_UPD_OVF_VECTOR__   11      /// irq11 - TIM1 Update/Overflow/Trigger/Break interrupt
-#define __TIM1_CAPCOM_VECTOR__    12      /// irq12 - TIM1 Capture/Compare interrupt
+#define __SPI_VECTOR__            10      ///< irq10 - SPI End of transfer interrupt
+#define __TIM1_UPD_OVF_VECTOR__   11      ///< irq11 - TIM1 Update/Overflow/Trigger/Break interrupt
+#define __TIM1_CAPCOM_VECTOR__    12      ///< irq12 - TIM1 Capture/Compare interrupt
 #if defined(TIM2_AddressBase)
   #define __TIM2_UPD_OVF_VECTOR__ 13      ///< irq13 - TIM2 Update/overflow interrupt (shared with \__TIM5_UPD_OVF_VECTOR__)
 #endif
@@ -307,7 +307,7 @@
 #elif defined(TIM6_AddressBase)
   #define __TIM6_UPD_OVF_VECTOR__ 23      ///< irq23 - TIM6 Update/Overflow interrupt (shared with \__TIM4_UPD_OVF_VECTOR__)
 #endif
-#define __FLASH_VECTOR__          24      /// irq24 - flash interrupt
+#define __FLASH_VECTOR__          24      ///< irq24 - flash interrupt
 
 
 
@@ -509,14 +509,14 @@
       _BITS   IE    : 1;    ///< Flash Interrupt enable
       _BITS   AHALT : 1;    ///< Power-down in Active-halt mode
       _BITS   HALT  : 1;    ///< Power-down in Halt mode
-      _BITS   res   : 4;    ///< Reserved
+      _BITS         : 4;    //   Reserved
     } CR1;
 
 
     /** @brief Flash control register 2 (FLASH_CR2) */
     struct {
       _BITS   PRG   : 1;    ///< Standard block programming
-      _BITS   res   : 3;    ///< Reserved
+      _BITS         : 3;    //   Reserved
       _BITS   FPRG  : 1;    ///< Fast block programming
       _BITS   ERASE : 1;    ///< Block erasing
       _BITS   WPRG  : 1;    ///< Word programming
@@ -527,7 +527,7 @@
     /** @brief Complementary flash control register 2 (FLASH_NCR2) */
     struct {
       _BITS   NPRG   : 1;   ///< Standard block programming
-      _BITS   res    : 3;   ///< Reserved
+      _BITS          : 3;   //   Reserved
       _BITS   NFPRG  : 1;   ///< Fast block programming
       _BITS   NERASE : 1;   ///< Block erasing
       _BITS   NWPRG  : 1;   ///< Word programming
@@ -538,14 +538,14 @@
     /** @brief Flash protection register (FLASH_FPR) */
     struct {
       _BITS   WPB    : 6;   ///< User boot code area protection bits
-      _BITS   res    : 2;   ///< Reserved
+      _BITS          : 2;   //   Reserved
     } FPR;
 
 
     /** @brief Complementary flash protection register (FLASH_NFPR) */
     struct {
       _BITS   NWPB   : 6;   ///< User boot code area protection bits
-      _BITS   res    : 2;   ///< Reserved
+      _BITS          : 2;   //   Reserved
     } NFPR;
 
 
@@ -555,14 +555,14 @@
       _BITS   PUL       : 1;  ///< Flash Program memory unlocked flag
       _BITS   EOP       : 1;  ///< End of programming (write or erase operation) flag
       _BITS   DUL       : 1;  ///< Data EEPROM area unlocked flag
-      _BITS   res       : 2;  ///< Reserved, forced by hardware to 0
+      _BITS             : 2;  //   Reserved, forced by hardware to 0
       _BITS   HVOFF     : 1;  ///< End of high voltage flag
-      _BITS   res2      : 1;  ///< Reserved
+      _BITS             : 1;  //   Reserved
     } IAPSR;
 
 
     /** @brief Reserved registers (2B) */
-    uint8_t   res[2];
+    uint8_t res     [2];
 
 
     /** @brief Flash program memory unprotecting key register (FLASH_PUKR) */
@@ -572,7 +572,7 @@
 
 
     /** @brief Reserved register (1B) */
-    uint8_t   res2[1];
+    uint8_t res2    [1];
 
 
     /** @brief Data EEPROM unprotection key register (FLASH_DUKR) */
@@ -662,7 +662,7 @@
     struct {
       _BITS   PEIS    : 2;    ///< Port E external interrupt sensitivity bits
       _BITS   TLIS    : 1;    ///< Top level interrupt sensitivity
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } CR2;
 
   } EXTI_t;
@@ -716,7 +716,7 @@
       _BITS   ILLOPF  : 1;    ///< Illegal opcode reset flag
       _BITS   SWIMF   : 1;    ///< SWIM reset flag
       _BITS   EMCF    : 1;    ///< EMC reset flag
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
     } SR;
 
   } RST_t;
@@ -753,7 +753,7 @@
       _BITS   LSIEN   : 1;    ///< Low speed internal RC oscillator enable
       _BITS   LSIRDY  : 1;    ///< Low speed internal oscillator ready flag
       _BITS   REGAH   : 1;    ///< Regulator power off in Active-halt mode enable
-      _BITS   res     : 2;    ///< Reserved, must be kept cleared
+      _BITS           : 2;    //   Reserved, must be kept cleared
     } ICKR;
 
 
@@ -761,12 +761,12 @@
     struct {
       _BITS   HSEEN   : 1;    ///< High speed external crystal oscillator enable
       _BITS   HSERDY  : 1;    ///< High speed external crystal oscillator ready
-      _BITS   res     : 6;    ///< Reserved, must be kept cleared
+      _BITS           : 6;    //   Reserved, must be kept cleared
     } ECKR;
 
 
     /** @brief Reserved register (1B) */
-    uint8_t   res[1];
+    uint8_t res     [1];
 
 
     /** @brief Clock master status register (CLK_CMSR) */
@@ -787,7 +787,7 @@
       _BITS   SWEN    : 1;    ///< Switch start/stop enable
       _BITS   SWIEN   : 1;    ///< Clock switch interrupt enable
       _BITS   SWIF    : 1;    ///< Clock switch interrupt flag
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } SWCR;
 
 
@@ -795,7 +795,7 @@
     struct {
       _BITS   CPUDIV  : 3;    ///< CPU clock prescaler
       _BITS   HSIDIV  : 2;    ///< High speed internal clock prescaler
-      _BITS   res     : 3;    ///< Reserved, must be kept cleared.
+      _BITS           : 3;    //   Reserved, must be kept cleared.
     } CKDIVR;
 
 
@@ -818,7 +818,7 @@
       _BITS   AUX     : 1;    ///< Auxiliary oscillator connected to master clock
       _BITS   CSSDIE  : 1;    ///< Clock security system detection interrupt enable
       _BITS   CSSD    : 1;    ///< Clock security system detection
-      _BITS   res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS           : 4;    //   Reserved, must be kept cleared.
     } CSSR;
 
 
@@ -828,35 +828,35 @@
       _BITS   CCOSEL  : 4;    ///< Configurable clock output selection.
       _BITS   CCORDY  : 1;    ///< Configurable clock output ready
       _BITS   CCOBSY  : 1;    ///< Configurable clock output busy
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared.
+      _BITS           : 1;    //   Reserved, must be kept cleared.
     } CCOR;
 
 
     /** @brief Peripheral clock gating register 2 (CLK_PCKENR2) */
     struct {
-      _BITS   res       : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
       _BITS   PCKEN_AWU : 1;    ///< clock enable AWU
       _BITS   PCKEN_ADC : 1;    ///< clock enable ADC
-      _BITS   res2      : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
       _BITS   PCKEN_CAN : 1;    ///< clock enable CAN
     } PCKENR2;
 
 
     /** @brief Reserved register (1B). Was CAN clock control (obsolete as of STM8 UM rev 7) */
-    uint8_t   res2[1];
+    uint8_t res2    [1];
 
 
     /** @brief HSI clock calibration trimming register (CLK_HSITRIMR) */
     struct {
       _BITS   HSITRIM : 4;    ///< HSI trimming value (some devices only support 3 bits, see DS!)
-      _BITS   res     : 4;    ///< Reserved, must be kept cleared.
+      _BITS           : 4;    //   Reserved, must be kept cleared.
     } HSITRIMR;
 
 
     /** @brief SWIM clock control register (CLK_SWIMCCR) */
     struct {
       _BITS   SWIMCLK : 1;    ///< SWIM clock divider
-      _BITS   res     : 7;    ///< Reserved.
+      _BITS           : 7;    //   Reserved.
     } SWIMCCR;
 
   } CLK_t;
@@ -997,7 +997,7 @@
     /** @brief WWDR Window register (WWDG_WR) */
     struct {
       _BITS   W       : 7;    ///< 7-bit window value
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } WR;
 
   } WWDG_t;
@@ -1054,7 +1054,7 @@
     /** @brief IWDG Prescaler register (IWDG_PR) */
     struct {
       _BITS   PRE     : 3;  ///< Prescaler divider
-      _BITS   res     : 5;  ///< Reserved
+      _BITS           : 5;  //   Reserved
     } PR;
 
 
@@ -1102,24 +1102,24 @@
     /** @brief AWU Control/status register (AWU_CSR) */
     struct {
       _BITS   MSR     : 1;    ///< LSI measurement enable
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   AWUEN   : 1;    ///< Auto-wakeup enable
       _BITS   AWUF    : 1;    ///< Auto-wakeup flag
-      _BITS   res2    : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } CSR;
 
 
     /** @brief AWU Asynchronous prescaler register (AWU_APR) */
     struct {
       _BITS   APRE    : 6;    ///< Asynchronous prescaler divider
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } APR;
 
 
     /** @brief AWU Timebase selection register (AWU_TBR) */
     struct {
       _BITS   AWUTB   : 4;    ///< Auto-wakeup timebase selection
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } TBR;
 
   } AWU_t;
@@ -1228,7 +1228,7 @@
       _BITS   SSI     : 1;    ///< Internal slave select
       _BITS   SSM     : 1;    ///< Software slave management
       _BITS   RXONLY  : 1;    ///< Receive only
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   CRCNEXT : 1;    ///< Transmit CRC next
       _BITS   CRCEN   : 1;    ///< Hardware CRC calculation enable
       _BITS   BDOE    : 1;    ///< Input/Output enable in bidirectional mode
@@ -1238,7 +1238,7 @@
 
     /** @brief SPI interrupt control register (SPI_ICR) */
     struct {
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
       _BITS   WKIE    : 1;    ///< Wakeup interrupt enable
       _BITS   ERRIE   : 1;    ///< Error interrupt enable
       _BITS   RXIE    : 1;    ///< Rx buffer not empty interrupt enable
@@ -1250,7 +1250,7 @@
     struct {
       _BITS   RXNE    : 1;    ///< Receive buffer not empty
       _BITS   TXE     : 1;    ///< Transmit buffer empty
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   WKUP    : 1;    ///< Wakeup flag
       _BITS   CRCERR  : 1;    ///< CRC error flag
       _BITS   MODF    : 1;    ///< Mode fault
@@ -1358,7 +1358,7 @@
     /** @brief I2C Control register 1 (I2C_CR1) */
     struct {
       _BITS   PE        : 1;    ///< Peripheral enable
-      _BITS   res       : 5;    ///< Reserved
+      _BITS             : 5;    //   Reserved
       _BITS   ENGC      : 1;    ///< General call enable
       _BITS   NOSTRETCH : 1;    ///< Clock stretching disable (Slave mode)
     } CR1;
@@ -1370,7 +1370,7 @@
       _BITS   STOP      : 1;    ///< Stop generation
       _BITS   ACK       : 1;    ///< Acknowledge enable
       _BITS   POS       : 1;    ///< Acknowledge position (for data reception)
-      _BITS   res       : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
       _BITS   SWRST     : 1;    ///< Software reset
     } CR2;
 
@@ -1378,7 +1378,7 @@
     /** @brief I2C Frequency register (I2C_FREQR) */
     struct {
       _BITS   FREQ      : 6;    ///< Peripheral clock frequency
-      _BITS   res       : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
     } FREQR;
 
 
@@ -1391,16 +1391,16 @@
 
     /** @brief I2C own address register high byte (I2C_OARH) */
     struct {
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   ADD       : 2;    ///< Interface address [9:8] (in 10-bit address mode)
-      _BITS   res2      : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
       _BITS   ADDCONF   : 1;    ///< Address mode configuration (must always be written as ‘1’)
       _BITS   ADDMODE   : 1;    ///< 7-/10-bit addressing mode (Slave mode)
     } OARH;
 
 
     /** @brief Reserved register (1B) */
-    uint8_t         res[1];
+    uint8_t res     [1];
 
 
     /** @brief I2C data register (I2C_DR) */
@@ -1411,12 +1411,12 @@
 
     /** @brief I2C Status register 1 (I2C_SR1) */
     struct {
-      _BITS   SB        : 1;    ///< Start bit (Mastermode)
-      _BITS   ADDR      : 1;    ///< Address sent (master mode) / matched (slave mode)
+      _BITS   SB        : 1;    ///< Start bit (Master mode)
+      _BITS   ADDR      : 1;    ///< Address sent (Master mode) / matched (slave mode)
       _BITS   BTF       : 1;    ///< Byte transfer finished
       _BITS   ADD10     : 1;    ///< 10-bit header sent (Master mode)
       _BITS   STOPF     : 1;    ///< Stop detection (Slave mode)
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   RXNE      : 1;    ///< Data register not empty (receivers)
       _BITS   TXE       : 1;    ///< Data register empty (transmitters)
     } SR1;
@@ -1425,12 +1425,12 @@
     /** @brief I2C Status register 2 (I2C_SR2) */
     struct {
       _BITS   BERR      : 1;    ///< Bus error
-      _BITS   ARLO      : 1;    ///< Arbitration lost (master mode)
+      _BITS   ARLO      : 1;    ///< Arbitration lost (Master mode)
       _BITS   AF        : 1;    ///< Acknowledge failure
       _BITS   OVR       : 1;    ///< Overrun/underrun
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   WUFH      : 1;    ///< Wakeup from Halt
-      _BITS   res2      : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
     } SR2;
 
 
@@ -1439,9 +1439,9 @@
       _BITS   MSL       : 1;    ///< Master/Slave
       _BITS   BUSY      : 1;    ///< Bus busy
       _BITS   TRA       : 1;    ///< Transmitter/Receiver
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   GENCALL   : 1;    ///< General call header (Slavemode)
-      _BITS   res2      : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
     } SR3;
 
 
@@ -1450,7 +1450,7 @@
       _BITS   ITERREN   : 1;    ///< Error interrupt enable
       _BITS   ITEVTEN   : 1;    ///< Event interrupt enable
       _BITS   ITBUFEN   : 1;    ///< Buffer interrupt enable
-      _BITS   res       : 5;    ///< Reserved
+      _BITS             : 5;    //   Reserved
     } ITR;
 
 
@@ -1463,21 +1463,21 @@
     /** @brief I2C Clock control register high byte (I2C_CCRH) */
     struct {
       _BITS   CCR       : 4;    ///< Clock control register in Fast/Standard mode (Master mode)
-      _BITS   res       : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
       _BITS   DUTY      : 1;    ///< Fast mode duty cycle
-      _BITS   FS        : 1;    ///< I2C master mode selection
+      _BITS   FS        : 1;    ///< I2C Master mode selection
     } CCRH;
 
 
     /** @brief I2C rise time register (I2C_TRISER) */
     struct {
       _BITS   TRISE     : 6;    ///< Maximum rise time in Fast/Standard mode (Master mode)
-      _BITS   res       : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
     } TRISER;
 
 
     /** @brief Reserved register (1B). Was I2C packet error checking (undocumented in STM8 UM rev 9) */
-    uint8_t         res2[1];
+    uint8_t res2    [1];
 
   } I2C_t;
 
@@ -1558,8 +1558,8 @@
   #define _I2C_ADDMODE         ((uint8_t) (0x01 << 7))           ///< I2C 7-/10-bit addressing mode (Slave mode) [0] (in _I2C_OARH)
 
   /* I2C Status register 1 (I2C_SR1) */
-  #define _I2C_SB              ((uint8_t) (0x01 << 0))           ///< I2C Start bit (Mastermode) [0] (in _I2C_SR1)
-  #define _I2C_ADDR            ((uint8_t) (0x01 << 1))           ///< I2C Address sent (master mode) / matched (slave mode) [0] (in _I2C_SR1)
+  #define _I2C_SB              ((uint8_t) (0x01 << 0))           ///< I2C Start bit (Master mode) [0] (in _I2C_SR1)
+  #define _I2C_ADDR            ((uint8_t) (0x01 << 1))           ///< I2C Address sent (Master mode) / matched (Slave mode) [0] (in _I2C_SR1)
   #define _I2C_BTF             ((uint8_t) (0x01 << 2))           ///< I2C Byte transfer finished [0] (in _I2C_SR1)
   #define _I2C_ADD10           ((uint8_t) (0x01 << 3))           ///< I2C 10-bit header sent (Master mode) [0] (in _I2C_SR1)
   #define _I2C_STOPF           ((uint8_t) (0x01 << 4))           ///< I2C Stop detection (Slave mode) [0] (in _I2C_SR1)
@@ -1569,7 +1569,7 @@
 
   /* I2C Status register 2 (I2C_SR2) */
   #define _I2C_BERR            ((uint8_t) (0x01 << 0))           ///< I2C Bus error [0] (in _I2C_SR2)
-  #define _I2C_ARLO            ((uint8_t) (0x01 << 1))           ///< I2C Arbitration lost (master mode) [0] (in _I2C_SR2)
+  #define _I2C_ARLO            ((uint8_t) (0x01 << 1))           ///< I2C Arbitration lost (Master mode) [0] (in _I2C_SR2)
   #define _I2C_AF              ((uint8_t) (0x01 << 2))           ///< I2C Acknowledge failure [0] (in _I2C_SR2)
   #define _I2C_OVR             ((uint8_t) (0x01 << 3))           ///< I2C Overrun/underrun [0] (in _I2C_SR2)
   // reserved [4]
@@ -1598,7 +1598,7 @@
   #define _I2C_CCR3            ((uint8_t) (0x01 << 3))           ///< I2C Clock control register (Master mode) [3] (in _I2C_CCRH)
   // reserved [5:4]
   #define _I2C_DUTY            ((uint8_t) (0x01 << 6))           ///< I2C Fast mode duty cycle [0] (in _I2C_CCRH)
-  #define _I2C_FS              ((uint8_t) (0x01 << 7))           ///< I2C master mode selection [0] (in _I2C_CCRH)
+  #define _I2C_FS              ((uint8_t) (0x01 << 7))           ///< I2C Master mode selection [0] (in _I2C_CCRH)
 
   /* I2C rise time register (I2C_TRISER) */
   #define _I2C_TRISE           ((uint8_t) (0x3F << 0))           ///< I2C Maximum rise time (Master mode) [5:0] (in _I2C_TRISER)
@@ -1627,7 +1627,7 @@
       _BITS   PE      : 1;    ///< Parity error
       _BITS   FE      : 1;    ///< Framing error
       _BITS   NF      : 1;    ///< Noise flag
-      _BITS   OR      : 1;    ///< LIN Header Error (LIN slave mode) / Overrun error
+      _BITS   OR      : 1;    ///< LIN Header Error (LIN Slave mode) / Overrun error
       _BITS   IDLE    : 1;    ///< IDLE line detected
       _BITS   RXNE    : 1;    ///< Read data register not empty
       _BITS   TC      : 1;    ///< Transmission complete
@@ -1688,7 +1688,7 @@
       _BITS   CKEN    : 1;    ///< Clock enable
       _BITS   STOP    : 2;    ///< STOP bits
       _BITS   LINEN   : 1;    ///< LIN mode enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR3;
 
 
@@ -1698,19 +1698,19 @@
       _BITS   LBDF    : 1;    ///< LIN Break Detection Flag
       _BITS   LBDL    : 1;    ///< LIN Break Detection Length
       _BITS   LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR4;
 
 
     /** @brief UART1 Control register 5 (UART1_CR5) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   IREN    : 1;    ///< IrDA mode Enable
       _BITS   IRLP    : 1;    ///< IrDA Low Power
       _BITS   HDSEL   : 1;    ///< Half-Duplex Selection
       _BITS   NACK    : 1;    ///< Smartcard NACK enable
       _BITS   SCEN    : 1;    ///< Smartcard mode enable
-      _BITS   res2    : 2;    ///< Reserved, must be kept cleared
+      _BITS           : 2;    //   Reserved, must be kept cleared
     } CR5;
 
 
@@ -1892,7 +1892,7 @@
       _BITS   CKEN    : 1;    ///< Clock enable
       _BITS   STOP    : 2;    ///< STOP bits
       _BITS   LINEN   : 1;    ///< LIN mode enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR3;
 
 
@@ -1902,19 +1902,19 @@
       _BITS   LBDF    : 1;    ///< LIN Break Detection Flag
       _BITS   LBDL    : 1;    ///< LIN Break Detection Length
       _BITS   LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR4;
 
 
     /** @brief UART2 Control register 5 (UART2_CR5) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   IREN    : 1;    ///< IrDA mode Enable
       _BITS   IRLP    : 1;    ///< IrDA Low Power
-      _BITS   res2    : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   NACK    : 1;    ///< Smartcard NACK enable
       _BITS   SCEN    : 1;    ///< Smartcard mode enable
-      _BITS   res3    : 2;    ///< Reserved, must be kept cleared
+      _BITS           : 2;    //   Reserved, must be kept cleared
     } CR5;
 
 
@@ -1923,10 +1923,10 @@
       _BITS   LSF     : 1;    ///< LIN Sync Field
       _BITS   LHDF    : 1;    ///< LIN Header Detection Flag
       _BITS   LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LASE    : 1;    ///< LIN automatic resynchronisation enable
       _BITS   LSLV    : 1;    ///< LIN Slave Enable
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LDUM    : 1;    ///< LIN Divider Update Method
     } CR6;
 
@@ -2115,10 +2115,10 @@
 
     /** @brief UART3 Control register 3 (UART3_CR3) */
     struct {
-      _BITS   res     : 4;    ///< Reserved, must be kept cleared
+      _BITS           : 4;    //   Reserved, must be kept cleared
       _BITS   STOP    : 2;    ///< STOP bits
       _BITS   LINEN   : 1;    ///< LIN mode enable
-      _BITS   res2    : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR3;
 
 
@@ -2128,12 +2128,12 @@
       _BITS   LBDF    : 1;    ///< LIN Break Detection Flag
       _BITS   LBDL    : 1;    ///< LIN Break Detection Length
       _BITS   LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR4;
 
 
     /** @brief Reserved register (1B) */
-    uint8_t   res[1];
+    uint8_t res     [1];
 
 
     /** @brief UART3 Control register 6 (UART3_CR6) */
@@ -2141,10 +2141,10 @@
       _BITS   LSF     : 1;    ///< LIN Sync Field
       _BITS   LHDF    : 1;    ///< LIN Header Detection Flag
       _BITS   LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LASE    : 1;    ///< LIN automatic resynchronisation enable
       _BITS   LSLV    : 1;    ///< LIN Slave Enable
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LDUM    : 1;    ///< LIN Divider Update Method
     } CR6;
 
@@ -2310,7 +2310,7 @@
       _BITS   CKEN    : 1;    ///< Clock enable
       _BITS   STOP    : 2;    ///< STOP bits
       _BITS   LINEN   : 1;    ///< LIN mode enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR3;
 
 
@@ -2320,19 +2320,19 @@
       _BITS   LBDF    : 1;    ///< LIN Break Detection Flag
       _BITS   LBDL    : 1;    ///< LIN Break Detection Length
       _BITS   LBDIEN  : 1;    ///< LIN Break Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR4;
 
 
     /** @brief UART4 Control register 5 (UART4_CR5) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   IREN    : 1;    ///< IrDA mode Enable
       _BITS   IRLP    : 1;    ///< IrDA Low Power
       _BITS   HDSEL   : 1;    ///< Half-Duplex Selection
       _BITS   NACK    : 1;    ///< Smartcard NACK enable
       _BITS   SCEN    : 1;    ///< Smartcard mode enable
-      _BITS   res2    : 2;    ///< Reserved, must be kept cleared
+      _BITS           : 2;    //   Reserved, must be kept cleared
     } CR5;
 
 
@@ -2341,10 +2341,10 @@
       _BITS   LSF     : 1;    ///< LIN Sync Field
       _BITS   LHDF    : 1;    ///< LIN Header Detection Flag
       _BITS   LHDIEN  : 1;    ///< LIN Header Detection Interrupt Enable
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LASE    : 1;    ///< LIN automatic resynchronisation enable
       _BITS   LSLV    : 1;    ///< LIN Slave Enable
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   LDUM    : 1;    ///< LIN Divider Update Method
     } CR6;
 
@@ -2488,18 +2488,18 @@
     /** @brief TIM1 Control register 2 (TIM1_CR2) */
     struct {
       _BITS   CCPC    : 1;    ///< Capture/compare preloaded control
-      _BITS   res     : 1;    ///< Reserved, forced by hardware to 0
+      _BITS           : 1;    //   Reserved, forced by hardware to 0
       _BITS   COMS    : 1;    ///< Capture/compare control update selection
-      _BITS   res2    : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   MMS     : 3;    ///< Master mode selection
-      _BITS   res3    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } CR2;
 
 
-    /** @brief Slave mode control register (TIM1_SMCR) */
+    /** @brief TIM1 Slave mode control register (TIM1_SMCR) */
     struct {
       _BITS   SMS     : 3;    ///< Clock/trigger/slave mode selection
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   TS      : 3;    ///< Trigger selection
       _BITS   MSM     : 1;    ///< Master/slave mode
     } SMCR;
@@ -2542,12 +2542,12 @@
 
     /** @brief TIM1 Status register 2 (TIM1_SR2) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
       _BITS   CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
       _BITS   CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
       _BITS   CC4OF   : 1;    ///< Capture/compare 4 overcapture flag
-      _BITS   res2    : 3;    ///< Reserved, must be kept cleared
+      _BITS           : 3;    //   Reserved, must be kept cleared
     } SR2;
 
 
@@ -2673,7 +2673,7 @@
       _BITS   CC3NP   : 1;    ///< Capture/compare 3 complementary output polarity
       _BITS   CC4E    : 1;    ///< Capture/compare 4 output enable
       _BITS   CC4P    : 1;    ///< Capture/compare 4 output polarity
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } CCER2;
 
 
@@ -2794,7 +2794,7 @@
       _BITS   OIS3    : 1;    ///< Output idle state 3 (OC3 output)
       _BITS   OIS3N   : 1;    ///< Output idle state 3 (OC3N output)
       _BITS   OIS4    : 1;    ///< Output idle state 4 (OC4 output)
-      _BITS   res     : 1;    ///< Reserved, forced by hardware to 0
+      _BITS           : 1;    //   Reserved, forced by hardware to 0
     } OISR;
 
   } TIM1_t;
@@ -3102,14 +3102,14 @@
       _BITS   UDIS    : 1;    ///< Update disable
       _BITS   URS     : 1;    ///< Update request source
       _BITS   OPM     : 1;    ///< One-pulse mode
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR1;
 
 
     /** @brief Reserved registers on selected devices (2B) */
     #if defined(STM8S103) || defined(STM8S003) || defined(STM8S001)
-      uint8_t   res[2];
+      uint8_t      [2];
     #endif
 
 
@@ -3119,7 +3119,7 @@
       _BITS   CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
       _BITS   CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
       _BITS   CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } IER;
 
 
@@ -3129,17 +3129,17 @@
       _BITS   CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
       _BITS   CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
       _BITS   CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } SR1;
 
 
     /** @brief TIM2 Status register 2 (TIM2_SR2) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
       _BITS   CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
       _BITS   CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
-      _BITS   res2    : 4;    ///< Reserved, must be kept cleared
+      _BITS           : 4;    //   Reserved, must be kept cleared
     } SR2;
 
 
@@ -3149,7 +3149,7 @@
       _BITS   CC1G    : 1;    ///< Capture/compare 1 generation
       _BITS   CC2G    : 1;    ///< Capture/compare 2 generation
       _BITS   CC3G    : 1;    ///< Capture/compare 3 generation
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } EGR;
 
 
@@ -3159,10 +3159,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
         _BITS   CC1S    : 2;    ///< Compare 1 selection
-        _BITS   res     : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
         _BITS   OC1PE   : 1;    ///< Output compare 1 preload enable
         _BITS   OC1M    : 3;    ///< Output compare 1 mode
-        _BITS   res2    : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
       } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -3181,10 +3181,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
        _BITS   CC2S    : 2;    ///< Capture/compare 2 selection
-       _BITS   res     : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
        _BITS   OC2PE   : 1;    ///< Output compare 2 preload enable
        _BITS   OC2M    : 3;    ///< Output compare 2 mode
-       _BITS   res2    : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
       } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -3203,7 +3203,7 @@
       /** @brief bitwise access to register (output mode) */
       struct {
         _BITS   CC3S    : 2;    ///< Capture/compare 3 selection
-        _BITS   res     : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
         _BITS   OC3PE   : 1;    ///< Output compare 3 preload enable
         _BITS   OC3M    : 3;    ///< Output compare 3 mode
         _BITS   OC3CE   : 1;    ///< Output compare 3 clear enable
@@ -3223,10 +3223,10 @@
     struct {
       _BITS   CC1E    : 1;    ///< Capture/compare 1 output enable
       _BITS   CC1P    : 1;    ///< Capture/compare 1 output polarity
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   CC2E    : 1;    ///< Capture/compare 2 output enable
       _BITS   CC2P    : 1;    ///< Capture/compare 2 output polarity
-      _BITS   res2    : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } CCER1;
 
 
@@ -3234,7 +3234,7 @@
     struct {
       _BITS   CC3E    : 1;    ///< Capture/compare 3 output enable
       _BITS   CC3P    : 1;    ///< Capture/compare 3 output polarity
-      _BITS   res     : 6;    ///< Reserved
+      _BITS           : 6;    //   Reserved
     } CCER2;
 
 
@@ -3253,7 +3253,7 @@
     /** @brief TIM2 16-bit prescaler high byte (TIM2_PSCR) */
     struct {
       _BITS   PSC     : 4;    ///< prescaler [3:0]
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } PSCR;
 
 
@@ -3521,7 +3521,7 @@
       _BITS   UDIS    : 1;    ///< Update disable
       _BITS   URS     : 1;    ///< Update request source
       _BITS   OPM     : 1;    ///< One-pulse mode
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR1;
 
@@ -3531,7 +3531,7 @@
       _BITS   UIE     : 1;    ///< Update interrupt enable
       _BITS   CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
       _BITS   CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } IER;
 
 
@@ -3540,16 +3540,16 @@
       _BITS   UIF     : 1;    ///< Update interrupt flag
       _BITS   CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
       _BITS   CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } SR1;
 
 
     /** @brief TIM3 Status register 2 (TIM3_SR2) */
     struct {
-      _BITS   res     : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
       _BITS   CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
-      _BITS   res2    : 5;    ///< Reserved, must be kept cleared
+      _BITS           : 5;    //   Reserved, must be kept cleared
     } SR2;
 
 
@@ -3558,7 +3558,7 @@
       _BITS   UG      : 1;    ///< Update generation
       _BITS   CC1G    : 1;    ///< Capture/compare 1 generation
       _BITS   CC2G    : 1;    ///< Capture/compare 2 generation
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } EGR;
 
 
@@ -3568,10 +3568,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
         _BITS   CC1S    : 2;    ///< Compare 1 selection
-        _BITS   res     : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
         _BITS   OC1PE   : 1;    ///< Output compare 1 preload enable
         _BITS   OC1M    : 3;    ///< Output compare 1 mode
-        _BITS   res2    : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
       } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -3590,10 +3590,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
        _BITS   CC2S    : 2;    ///< Capture/compare 2 selection
-       _BITS   res     : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
        _BITS   OC2PE   : 1;    ///< Output compare 2 preload enable
        _BITS   OC2M    : 3;    ///< Output compare 2 mode
-       _BITS   res2    : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
      } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -3610,10 +3610,10 @@
     struct {
       _BITS   CC1E    : 1;    ///< Capture/compare 1 output enable
       _BITS   CC1P    : 1;    ///< Capture/compare 1 output polarity
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   CC2E    : 1;    ///< Capture/compare 2 output enable
       _BITS   CC2P    : 1;    ///< Capture/compare 2 output polarity
-      _BITS   res2    : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } CCER1;
 
 
@@ -3632,7 +3632,7 @@
     /** @brief TIM3 16-bit prescaler high byte (TIM3_PSCR) */
     struct {
       _BITS   PSC     : 4;    ///< prescaler [3:0]
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } PSCR;
 
 
@@ -3824,35 +3824,35 @@
       _BITS   UDIS    : 1;    ///< Update disable
       _BITS   URS     : 1;    ///< Update request source
       _BITS   OPM     : 1;    ///< One-pulse mode
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR;
 
 
     /** @brief Reserved registers on selected devices (2B) */
     #if defined(STM8S103) || defined(STM8S003) || defined(STM8S001)
-      uint8_t   res[2];
+      uint8_t      [2];
     #endif
 
 
     /** @brief TIM4 Interrupt enable (TIM4_IER) */
     struct {
       _BITS   UIE     : 1;    ///< Update interrupt enable
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } IER;
 
 
     /** @brief TIM4 Status register (TIM4_SR) */
     struct {
       _BITS   UIF     : 1;    ///< Update interrupt flag
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } SR;
 
 
     /** @brief TIM4 Event Generation (TIM4_EGR) */
     struct {
       _BITS   UG      : 1;    ///< Update generation
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } EGR;
 
 
@@ -3864,7 +3864,7 @@
     /** @brief TIM4 clock prescaler (TIM4_PSCR) */
     struct {
       _BITS   PSC     : 3;    ///< clock prescaler
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } PSCR;
 
 
@@ -3949,7 +3949,7 @@
       _BITS   UDIS    : 1;    ///< Update disable
       _BITS   URS     : 1;    ///< Update request source
       _BITS   OPM     : 1;    ///< One-pulse mode
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR1;
 
@@ -3957,18 +3957,18 @@
     /** @brief TIM5 Control register 2 (TIM5_CR2) */
     struct {
       _BITS   CCPC    : 1;    ///< Capture/compare preloaded control
-      _BITS   res     : 1;    ///< Reserved, forced by hardware to 0
+      _BITS           : 1;    //   Reserved, forced by hardware to 0
       _BITS   COMS    : 1;    ///< Capture/compare control update selection
-      _BITS   res2    : 1;    ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
       _BITS   MMS     : 3;    ///< Master mode selection
-      _BITS   res3    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } CR2;
 
 
     /** @brief Slave mode control register (TIM5_SMCR) */
     struct {
       _BITS   SMS     : 3;    ///< Clock/trigger/slave mode selection
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   TS      : 3;    ///< Trigger selection
       _BITS   MSM     : 1;    ///< Master/slave mode
     } SMCR;
@@ -3980,9 +3980,9 @@
       _BITS   CC1IE   : 1;    ///< Capture/compare 1 interrupt enable
       _BITS   CC2IE   : 1;    ///< Capture/compare 2 interrupt enable
       _BITS   CC3IE   : 1;    ///< Capture/compare 3 interrupt enable
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   TIE     : 1;    ///< Trigger interrupt enable
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } IER;
 
 
@@ -3992,19 +3992,19 @@
       _BITS   CC1IF   : 1;    ///< Capture/compare 1 interrupt flag
       _BITS   CC2IF   : 1;    ///< Capture/compare 2 interrupt flag
       _BITS   CC3IF   : 1;    ///< Capture/compare 3 interrupt flag
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   TIF     : 1;    ///< Trigger interrupt flag
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } SR1;
 
 
     /** @brief TIM5 Status register 2 (TIM5_SR2) */
     struct {
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   CC1OF   : 1;    ///< Capture/compare 1 overcapture flag
       _BITS   CC2OF   : 1;    ///< Capture/compare 2 overcapture flag
       _BITS   CC3OF   : 1;    ///< Capture/compare 3 overcapture flag
-      _BITS   res2    : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } SR2;
 
 
@@ -4014,9 +4014,9 @@
       _BITS   CC1G    : 1;    ///< Capture/compare 1 generation
       _BITS   CC2G    : 1;    ///< Capture/compare 2 generation
       _BITS   CC3G    : 1;    ///< Capture/compare 3 generation
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   TG      : 1;    ///< Trigger generation
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } EGR;
 
 
@@ -4026,10 +4026,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
         _BITS   CC1S    : 2;    ///< Compare 1 selection
-        _BITS   res     : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
         _BITS   OC1PE   : 1;    ///< Output compare 1 preload enable
         _BITS   OC1M    : 3;    ///< Output compare 1 mode
-        _BITS   res2    : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
       } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -4048,10 +4048,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
        _BITS   CC2S    : 2;    ///< Capture/compare 2 selection
-       _BITS   res     : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
        _BITS   OC2PE   : 1;    ///< Output compare 2 preload enable
        _BITS   OC2M    : 3;    ///< Output compare 2 mode
-       _BITS   res2    : 1;    ///< Reserved
+       _BITS           : 1;    //   Reserved
      } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -4070,10 +4070,10 @@
       /** @brief bitwise access to register (output mode) */
       struct {
         _BITS   CC3S    : 2;    ///< Capture/compare 3 selection
-        _BITS   res     : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
         _BITS   OC3PE   : 1;    ///< Output compare 3 preload enable
         _BITS   OC3M    : 3;    ///< Output compare 3 mode
-        _BITS   res2    : 1;    ///< Reserved
+        _BITS           : 1;    //   Reserved
       } OUT;
 
       /** @brief bitwise access to register (input mode) */
@@ -4090,10 +4090,10 @@
     struct {
       _BITS   CC1E    : 1;    ///< Capture/compare 1 output enable
       _BITS   CC1P    : 1;    ///< Capture/compare 1 output polarity
-      _BITS   res     : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
       _BITS   CC2E    : 1;    ///< Capture/compare 2 output enable
       _BITS   CC2P    : 1;    ///< Capture/compare 2 output polarity
-      _BITS   res2    : 2;    ///< Reserved
+      _BITS           : 2;    //   Reserved
     } CCER1;
 
 
@@ -4101,7 +4101,7 @@
     struct {
       _BITS   CC3E    : 1;    ///< Capture/compare 3 output enable
       _BITS   CC3P    : 1;    ///< Capture/compare 3 output polarity
-      _BITS   res     : 6;    ///< Reserved
+      _BITS           : 6;    //   Reserved
     } CCER2;
 
 
@@ -4120,7 +4120,7 @@
     /** @brief TIM5 prescaler (TIM5_PSCR) */
     struct {
       _BITS   PSC     : 4;    ///< clock prescaler
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
     } PSCR;
 
 
@@ -4397,23 +4397,23 @@
       _BITS   UDIS    : 1;    ///< Update disable
       _BITS   URS     : 1;    ///< Update request source
       _BITS   OPM     : 1;    ///< One-pulse mode
-      _BITS   res     : 3;    ///< Reserved
+      _BITS           : 3;    //   Reserved
       _BITS   ARPE    : 1;    ///< Auto-reload preload enable
     } CR1;
 
 
     /** @brief TIM6 Control register (TIM6_CR2) */
     struct {
-      _BITS   res     : 4;    ///< Reserved
+      _BITS           : 4;    //   Reserved
       _BITS   MMS     : 3;    ///< Master mode selection
-      _BITS   res2    : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
     } CR2;
 
 
     /** @brief Slave mode control register (TIM6_SMCR) */
     struct {
       _BITS   SMS     : 3;    ///< Clock/trigger/slave mode selection
-      _BITS   res     : 1;    ///< Reserved
+      _BITS           : 1;    //   Reserved
       _BITS   TS      : 3;    ///< Trigger selection
       _BITS   MSM     : 1;    ///< Master/slave mode  #define _TIM5_CR1_RESET_VALUE        ((uint8_t) 0x00)          ///< TIM5 control register 1 reset value
 
@@ -4423,21 +4423,21 @@
     /** @brief TIM6 Interrupt enable (TIM6_IER) */
     struct {
       _BITS   UIE     : 1;    ///< Update interrupt enable
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } IER;
 
 
     /** @brief TIM6 Status register (TIM6_SR) */
     struct {
       _BITS   UIF     : 1;    ///< Update interrupt flag
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } SR;
 
 
     /** @brief TIM6 Event Generation (TIM6_EGR) */
     struct {
       _BITS   UG      : 1;    ///< Update generation
-      _BITS   res     : 7;    ///< Reserved
+      _BITS           : 7;    //   Reserved
     } EGR;
 
 
@@ -4449,7 +4449,7 @@
     /** @brief TIM6 clock prescaler (TIM6_PSCR) */
     struct {
       _BITS   PSC     : 3;    ///< clock prescaler
-      _BITS   res     : 5;    ///< Reserved
+      _BITS           : 5;    //   Reserved
     } PSCR;
 
 
@@ -4540,252 +4540,252 @@
 
     /** @brief ADC1 10-bit Data Buffer Register 0 (ADC1_DB0RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 0 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 0 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB0RH;
 
     /** @brief ADC1 10-bit Data Buffer Register 0 (ADC1_DB0RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 0 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 0 value (low)
     } DB0RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 1 (ADC1_DB1RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 1 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 1 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB1RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 1 (ADC1_DB1RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 1 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 1 value (low)
     } DB1RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 2 (ADC1_DB2RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 2 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 2 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB2RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 2 (ADC1_DB2RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 2 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 2 value (low)
     } DB2RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 3 (ADC1_DB3RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 3 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 3 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB3RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 3 (ADC1_DB3RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 3 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 3 value (low)
     } DB3RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 4 (ADC1_DB4RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 4 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 4 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB4RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 4 (ADC1_DB4RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 4 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 4 value (low)
     } DB4RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 5 (ADC1_DB5RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 5 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 5 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB5RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 5 (ADC1_DB5RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 5 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 5 value (low)
     } DB5RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 6 (ADC1_DB6RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 6 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 6 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB6RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 6 (ADC1_DB6RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 6 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 6 value (low)
     } DB6RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 7 (ADC1_DB7RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 7 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 7 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB7RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 7 (ADC1_DB7RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 7 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 7 value (low)
     } DB7RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 8 (ADC1_DB8RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 8 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 8 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB8RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 8 (ADC1_DB8RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 8 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 8 value (low)
     } DB8RL;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 9 (ADC1_DB9RH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data buffer 9 value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data buffer 9 value [9:8]
+      _BITS           : 6;    //   Reserved
     } DB9RH;
 
 
     /** @brief ADC1 10-bit Data Buffer Register 9 (ADC1_DB8RL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data buffer 9 value (low)
+      _BITS   DATA    : 8;    ///< Data buffer 9 value (low)
     } DB9RL;
 
 
     /** @brief Reserved register (12B) */
-    uint8_t   res[12];
+    uint8_t res     [12];
 
 
     /** @brief ADC1 control/status register (ADC1_CSR) */
     struct {
-      _BITS   CH        : 4;        ///< Channel selection bits
-      _BITS   AWDIE        : 1;        ///< Analog watchdog interrupt enable
-      _BITS   EOCIE        : 1;        ///< Interrupt enable for EOC
-      _BITS   AWD        : 1;        ///< Analog Watchdog flag
-      _BITS   EOC        : 1;        ///< End of conversion
+      _BITS   CH      : 4;    ///< Channel selection bits
+      _BITS   AWDIE   : 1;    ///< Analog watchdog interrupt enable
+      _BITS   EOCIE   : 1;    ///< Interrupt enable for EOC
+      _BITS   AWD     : 1;    ///< Analog Watchdog flag
+      _BITS   EOC     : 1;    ///< End of conversion
     } CSR;
 
 
     /** @brief ADC1 Configuration Register 1 (ADC1_CR1) */
     struct {
-      _BITS   ADON        : 1;        ///< A/D Converter on/off
-      _BITS   CONT        : 1;        ///< Continuous conversion
-      _BITS   res        : 2;        ///< Reserved, always read as 0
-      _BITS   SPSEL        : 3;        ///< Clock prescaler selection
-      _BITS   res2        : 1;        ///< Reserved, always read as 0
+      _BITS   ADON    : 1;    ///< A/D Converter on/off
+      _BITS   CONT    : 1;    ///< Continuous conversion
+      _BITS           : 2;    //   Reserved, always read as 0
+      _BITS   SPSEL   : 3;    ///< Clock prescaler selection
+      _BITS           : 1;    //   Reserved, always read as 0
     } CR1;
 
 
     /** @brief ADC1 Configuration Register 2 (ADC1_CR2) */
     struct {
-      _BITS   res        : 1;        ///< Reserved, must be kept cleared
-      _BITS   SCAN        : 1;        ///< Scan mode enable
-      _BITS   res2        : 1;        ///< Reserved, must be kept cleared
-      _BITS   ALIGN        : 1;        ///< Data alignment
-      _BITS   EXTSEL    : 2;        ///< External event selection
-      _BITS   EXTTRIG    : 1;        ///< External trigger enable
-      _BITS   res3        : 1;        ///< Reserved, must be kept cleared
+      _BITS           : 1;    //   Reserved, must be kept cleared
+      _BITS   SCAN    : 1;    ///< Scan mode enable
+      _BITS           : 1;    //   Reserved, must be kept cleared
+      _BITS   ALIGN   : 1;    ///< Data alignment
+      _BITS   EXTSEL  : 2;    ///< External event selection
+      _BITS   EXTTRIG : 1;    ///< External trigger enable
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR2;
 
 
     /** @brief ADC1 Configuration Register 3 (ADC1_CR3) */
     struct {
-      _BITS   res        : 6;        ///< Reserved, must be kept cleared
-      _BITS   OVR        : 1;        ///< Overrun flag
-      _BITS   DBUF        : 1;        ///< Data buffer enable
+      _BITS           : 6;    //   Reserved, must be kept cleared
+      _BITS   OVR     : 1;    ///< Overrun flag
+      _BITS   DBUF    : 1;    ///< Data buffer enable
     } CR3;
 
 
     /** @brief ADC1 (unbuffered) 10-bit measurement result (ADC1_DRH) */
     struct {
-      _BITS   DATA     : 2;   ///< Data value [9:8]
-      _BITS   res      : 6;   ///< reserved
+      _BITS   DATA    : 2;    ///< Data value [9:8]
+      _BITS           : 6;    //   Reserved
     } DRH;
 
 
     /** @brief ADC1 (unbuffered) 10-bit measurement result (ADC1_DRL) */
     struct {
-      _BITS   DATA     : 8;   ///< Data value [7:0]
+      _BITS   DATA    : 8;    ///< Data value [7:0]
     } DRL;
 
 
     /** @brief ADC1 Schmitt trigger disable register (ADC1_TDRH) */
     struct {
-      _BITS   TDH      : 8;   ///< Schmitt trigger disable [15:8]
+      _BITS   TDH     : 8;    ///< Schmitt trigger disable [15:8]
     } TDRH;
 
 
     /** @brief ADC1 Schmitt trigger disable register (ADC1_TDRL) */
     struct {
-      _BITS   TDL      : 8;   ///< Schmitt trigger disable [7:0]
+      _BITS   TDL     : 8;    ///< Schmitt trigger disable [7:0]
     } TDRL;
 
 
     /** @brief ADC1 watchdog high threshold register (ADC1_HTRH) */
     struct {
-      _BITS   HT       : 8;   ///< watchdog high threshold [9:2]
+      _BITS   HT      : 8;    ///< watchdog high threshold [9:2]
     } HTRH;
 
 
     /** @brief ADC1 watchdog high threshold register (ADC1_HTRL) */
     struct {
-      _BITS   HT        : 2;  ///< watchdog high threshold [1:0]
-      _BITS   res         : 6;  ///< Reserved
+      _BITS   HT      : 2;    ///< watchdog high threshold [1:0]
+      _BITS           : 6;    //   Reserved
 
     } HTRL;
 
 
     /** @brief ADC1 watchdog low threshold register (ADC1_LTRH) */
     struct {
-      _BITS   LT        : 8;  ///< watchdog low threshold [9:2]
+      _BITS   LT      : 8;    ///< watchdog low threshold [9:2]
     } LTRH;
 
 
     /** @brief ADC1 watchdog low threshold register (ADC1_LTRL) */
     struct {
-      _BITS   LT        : 2;  ///< watchdog low threshold [1:0]
-      _BITS   res         : 6;  ///< Reserved
+      _BITS   LT      : 2;    ///< watchdog low threshold [1:0]
+      _BITS           : 6;    //   Reserved
     } LTRL;
 
 
     /** @brief ADC1 watchdog status register (ADC1_AWSRH) */
     struct {
-      _BITS   AWS       : 2;  ///< watchdog status register [9:8]
-      _BITS   res         : 6;  ///< Reserved
+      _BITS   AWS     : 2;    ///< watchdog status register [9:8]
+      _BITS           : 6;    //   Reserved
     } AWSRH;
 
 
     /** @brief ADC1 watchdog status register (ADC1_AWSRL) */
     struct {
-      _BITS   AWS       : 8;  ///< watchdog status register [7:0]
+      _BITS   AWS     : 8;    ///< watchdog status register [7:0]
     } AWSRL;
 
 
     /** @brief ADC1 watchdog control register (ADC1_AWCRH) */
     struct {
-      _BITS   AWEN      : 2;  ///< watchdog control register [9:8]
-      _BITS   res         : 6;  ///< Reserved
+      _BITS   AWEN    : 2;    ///< watchdog control register [9:8]
+      _BITS           : 6;    //   Reserved
     } AWCRH;
 
 
     /** @brief ADC1 watchdog control register (ADC1_AWCRL) */
     struct {
-      _BITS   AWEN      : 8;  ///< watchdog control register [7:0]
+      _BITS   AWEN    : 8;    ///< watchdog control register [7:0]
     } AWCRL;
 
   } ADC1_t;
@@ -4895,60 +4895,60 @@
 
     /** @brief ADC2 control/status register (ADC2_CSR) */
     struct {
-      _BITS   CH        : 4;        ///< Channel selection bits
-      _BITS   res       : 1;        ///< Reserved
-      _BITS   EOCIE     : 1;        ///< Interrupt enable for EOC
-      _BITS   res2      : 1;        ///< Reserved
-      _BITS   EOC       : 1;        ///< End of conversion
+      _BITS   CH      : 4;    ///< Channel selection bits
+      _BITS           : 1;    //   Reserved
+      _BITS   EOCIE   : 1;    ///< Interrupt enable for EOC
+      _BITS           : 1;    //   Reserved
+      _BITS   EOC     : 1;    ///< End of conversion
     } CSR;
 
 
     /** @brief ADC2 Configuration Register 1 (ADC2_CR1) */
     struct {
-      _BITS   ADON      : 1;        ///< A/D Converter on/off
-      _BITS   CONT      : 1;        ///< Continuous conversion
-      _BITS   res       : 2;        ///< Reserved, always read as 0
-      _BITS   SPSEL     : 3;        ///< Clock prescaler selection
-      _BITS   res2      : 1;        ///< Reserved, always read as 0
+      _BITS   ADON    : 1;    ///< A/D Converter on/off
+      _BITS   CONT    : 1;    ///< Continuous conversion
+      _BITS           : 2;    //   Reserved, always read as 0
+      _BITS   SPSEL   : 3;    ///< Clock prescaler selection
+      _BITS           : 1;    //   Reserved, always read as 0
     } CR1;
 
 
     /** @brief ADC2 Configuration Register 2 (ADC2_CR2) */
     struct {
-      _BITS   res       : 3;        ///< Reserved, must be kept cleared
-      _BITS   ALIGN     : 1;        ///< Data alignment
-      _BITS   EXTSEL    : 2;        ///< External event selection
-      _BITS   EXTTRIG   : 1;        ///< External trigger enable
-      _BITS   res3      : 1;        ///< Reserved, must be kept cleared
+      _BITS           : 3;    //   Reserved, must be kept cleared
+      _BITS   ALIGN   : 1;    ///< Data alignment
+      _BITS   EXTSEL  : 2;    ///< External event selection
+      _BITS   EXTTRIG : 1;    ///< External trigger enable
+      _BITS           : 1;    //   Reserved, must be kept cleared
     } CR2;
 
 
     /** @brief Reserved register (1B) */
-    uint8_t       res[1];
+    uint8_t res     [1];
 
 
     /** @brief ADC2 (unbuffered) 10-bit measurement result (ADC2_DRH) */
     struct {
-      _BITS DATA      : 2;  ///< Data value [9:8]
-      _BITS res       : 6;  ///< Reserved
+      _BITS DATA      : 2;    ///< Data value [9:8]
+      _BITS           : 6;    //   Reserved
     } DRH;
 
 
     /** @brief ADC2 (unbuffered) 10-bit measurement result (ADC2_DRL) */
     struct {
-      _BITS DATA      : 8;  ///< Data value [7:0]
+      _BITS DATA      : 8;    ///< Data value [7:0]
     } DRL;
 
 
     /** @brief ADC2 Schmitt trigger disable register (ADC2_TDRH) */
     struct {
-      _BITS TDH       : 8;  ///< Schmitt trigger disable [9:8]
+      _BITS TDH       : 8;    ///< Schmitt trigger disable [9:8]
     } TDRH;
 
 
     /** @brief ADC2 Schmitt trigger disable register (ADC2_TDRL) */
     struct {
-      _BITS TDL       : 8;  ///< Schmitt trigger disable [7:0]
+      _BITS TDL       : 8;    ///< Schmitt trigger disable [7:0]
     } TDRL;
 
   } ADC2_t;
@@ -5033,7 +5033,7 @@
       _BITS   WKUI      : 1;    ///< Wakeup Interrupt
       _BITS   TX        : 1;    ///< Transmit
       _BITS   RX        : 1;    ///< Receive
-      _BITS   res       : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
     } MSR;
 
 
@@ -5042,11 +5042,11 @@
       _BITS   RQCP0     : 1;    ///< Request Completed for Mailbox 0
       _BITS   RQCP1     : 1;    ///< Request Completed for Mailbox 1
       _BITS   RQCP2     : 1;    ///< Request Completed for Mailbox 2
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   TXOK0     : 1;    ///< Transmission ok for Mailbox 0
       _BITS   TXOK1     : 1;    ///< Transmission ok for Mailbox 1
       _BITS   TXOK2     : 1;    ///< Transmission ok for Mailbox 2
-      _BITS   res2      : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
     } TSR;
 
 
@@ -5065,11 +5065,11 @@
     /** @brief CAN receive FIFO register (CAN_RFR) */
     struct {
       _BITS   FMP       : 2;    ///< FIFO Message Pending
-      _BITS   res       : 1;    ///< Reserved
+      _BITS             : 1;    //   Reserved
       _BITS   FULL      : 1;    ///< FIFO Full
       _BITS   FOVR      : 1;    ///< FIFO Overrun
       _BITS   RFOM      : 1;    ///< Release FIFO Output Mailbox
-      _BITS   res2      : 2;    ///< Reserved
+      _BITS             : 2;    //   Reserved
     } RFR;
 
 
@@ -5079,7 +5079,7 @@
       _BITS   FMPIE     : 1;    ///< FIFO Message Pending Interrupt Enable
       _BITS   FFIE      : 1;    ///< FIFO Full Interrupt Enable
       _BITS   FOVIE     : 1;    ///< FIFO Overrun Interrupt Enable
-      _BITS   res       : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
       _BITS   WKUIE     : 1;    ///< Wakeup Interrupt Enable
     } IER;
 
@@ -5091,14 +5091,14 @@
       _BITS   SAMP      : 1;    ///< Last sample point
       _BITS   RX        : 1;    ///< CAN Rx Signal
       _BITS   TXM2E     : 1;    ///< TX Mailbox 2 enable
-      _BITS   res       : 3;    ///< Reserved
+      _BITS             : 3;    //   Reserved
     } DGR;
 
 
     /** @brief CAN page selection register for paged registers (CAN_PSR) */
     struct {
       _BITS   PS        : 3;    ///< Page select
-      _BITS   res       : 5;    ///< Reserved
+      _BITS             : 5;    //   Reserved
     } PSR;
 
 
@@ -5117,14 +5117,14 @@
           _BITS   TXOK      : 1;    ///< Transmission OK
           _BITS   ALST      : 1;    ///< Arbitration lost
           _BITS   TERR      : 1;    ///< Transmission error
-          _BITS   res       : 2;    ///< Reserved
+          _BITS             : 2;    //   Reserved
         } MCSR;
 
 
         /** @brief CAN mailbox data length control register (CAN_MDLCR) */
         struct {
           _BITS   DLC       : 4;    ///< Data length code
-          _BITS   res       : 3;    ///< Reserved
+          _BITS             : 3;    //   Reserved
           _BITS   TGT       : 1;    ///< Transmit global time
         } MDLCR;
 
@@ -5134,7 +5134,7 @@
           _BITS   ID        : 5;    ///< STID[10:6] or EXID[28:24]
           _BITS   RTR       : 1;    ///< Remote transmission request
           _BITS   IDE       : 1;    ///< Extended identifier
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } MIDR1;
 
 
@@ -5231,14 +5231,14 @@
           _BITS   TXOK      : 1;    ///< Transmission OK
           _BITS   ALST      : 1;    ///< Arbitration lost
           _BITS   TERR      : 1;    ///< Transmission error
-          _BITS   res       : 2;    ///< Reserved
+          _BITS             : 2;    //   Reserved
         } MCSR;
 
 
         /** @brief CAN mailbox data length control register (CAN_MDLCR) */
         struct {
           _BITS   DLC       : 4;    ///< Data length code
-          _BITS   res       : 3;    ///< Reserved
+          _BITS             : 3;    //   Reserved
           _BITS   TGT       : 1;    ///< Transmit global time
         } MDLCR;
 
@@ -5248,7 +5248,7 @@
           _BITS   ID        : 5;    ///< STID[10:6] or EXID[28:24]
           _BITS   RTR       : 1;    ///< Remote transmission request
           _BITS   IDE       : 1;    ///< Extended identifier
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } MIDR1;
 
 
@@ -5609,14 +5609,14 @@
           _BITS   TXOK      : 1;    ///< Transmission OK
           _BITS   ALST      : 1;    ///< Arbitration lost
           _BITS   TERR      : 1;    ///< Transmission error
-          _BITS   res       : 2;    ///< Reserved
+          _BITS             : 2;    //   Reserved
         } MCSR;
 
 
         /** @brief CAN mailbox data length control register (CAN_MDLCR) */
         struct {
           _BITS   DLC       : 4;    ///< Data length code
-          _BITS   res       : 3;    ///< Reserved
+          _BITS             : 3;    //   Reserved
           _BITS   TGT       : 1;    ///< Transmit global time
         } MDLCR;
 
@@ -5626,7 +5626,7 @@
           _BITS   ID        : 5;    ///< STID[10:6] or EXID[28:24]
           _BITS   RTR       : 1;    ///< Remote transmission request
           _BITS   IDE       : 1;    ///< Extended identifier
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } MIDR1;
 
 
@@ -5720,9 +5720,9 @@
           _BITS   EWGF      : 1;    ///< Error warning flag
           _BITS   EPVF      : 1;    ///< Error passive flag
           _BITS   BOFF      : 1;    ///< Bus off flag
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
           _BITS   LEC       : 3;    ///< Last error code
-          _BITS   res2      : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } ESR;
 
 
@@ -5731,9 +5731,9 @@
           _BITS   EWGIE     : 1;    ///< Error warning interrupt enable
           _BITS   EPVIE     : 1;    ///< Error passive  interrupt enable
           _BITS   BOFIE     : 1;    ///< Bus-Off  interrupt enable
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
           _BITS   LECIE     : 1;    ///< Last error code interrupt enable
-          _BITS   res2      : 2;    ///< Reserved
+          _BITS             : 2;    //   Reserved
           _BITS   ERRIE     : 1;    ///< Error interrupt enable
         } EIER;
 
@@ -5761,12 +5761,12 @@
         struct {
           _BITS   BS1       : 4;    ///< Bit segment 1
           _BITS   BS2       : 3;    ///< Bit segment 2
-          _BITS   res       : 1;    ///< Reserved, must be kept cleared
+          _BITS             : 1;    //   Reserved, must be kept cleared
         } BTR2;
 
 
         /** @brief Reserved registers (2B) */
-        uint8_t         res[2];
+        uint8_t res     [2];
 
 
         /** @brief CAN filter mode register 1 (CAN_FMR1) */
@@ -5788,7 +5788,7 @@
           _BITS   FMH4      : 1;    ///< Filter 4 mode high
           _BITS   FML5      : 1;    ///< Filter 5 mode low
           _BITS   FMH5      : 1;    ///< Filter 5 mode high
-          _BITS   res       : 4;    ///< Reserved
+          _BITS             : 4;    //   Reserved
         } FMR2;
 
 
@@ -5796,10 +5796,10 @@
         struct {
           _BITS   FACT0     : 1;    ///< Filter 0 active
           _BITS   FSC0      : 2;    ///< Filter 0 scale configuration
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
           _BITS   FACT1     : 1;    ///< Filter 1 active
           _BITS   FSC1      : 2;    ///< Filter 1 scale configuration
-          _BITS   res2      : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } FCR1;
 
 
@@ -5807,10 +5807,10 @@
         struct {
           _BITS   FACT2     : 1;    ///< Filter 2 active
           _BITS   FSC2      : 2;    ///< Filter 2 scale configuration
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
           _BITS   FACT3     : 1;    ///< Filter 3 active
           _BITS   FSC3      : 2;    ///< Filter 3 scale configuration
-          _BITS   res2      : 1;    ///< Reserve
+          _BITS             : 1;    ///< Reserve
         } FCR2;
 
 
@@ -5818,15 +5818,15 @@
         struct {
           _BITS   FACT4     : 1;    ///< Filter 4 active
           _BITS   FSC4      : 2;    ///< Filter 4 scale configuration
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
           _BITS   FACT5     : 1;    ///< Filter 5 active
           _BITS   FSC5      : 2;    ///< Filter 5 scale configuration
-          _BITS   res2      : 1;    ///< Reserve
+          _BITS             : 1;    ///< Reserve
         } FCR3;
 
 
         /** @brief Reserved registers (3B) */
-        _BITS         res2[3];
+        uint8_t res2    [3];
 
       } PAGE_6;
 
@@ -5844,7 +5844,7 @@
         /** @brief CAN mailbox data length control register (CAN_MDLCR) */
         struct {
           _BITS   DLC       : 4;    ///< Data length code
-          _BITS   res       : 3;    ///< Reserved
+          _BITS             : 3;    //   Reserved
           _BITS   TGT       : 1;    ///< Transmit global time
         } MDLCR;
 
@@ -5854,7 +5854,7 @@
           _BITS   ID        : 5;    ///< STID[10:6] or EXID[28:24]
           _BITS   RTR       : 1;    ///< Remote transmission request
           _BITS   IDE       : 1;    ///< Extended identifier
-          _BITS   res       : 1;    ///< Reserved
+          _BITS             : 1;    //   Reserved
         } MIDR1;
 
 
@@ -6296,7 +6296,7 @@
     struct {
       _BITS   SWD     : 1;    ///< SWIM disable
       _BITS   AL      : 1;    ///< Activation level
-      _BITS   res     : 6;    ///< Reserved
+      _BITS           : 6;    //   Reserved
     } GCR;
 
   } CFG_t;
@@ -6327,7 +6327,7 @@
 
     /** @brief interrupt priority register 1 (ITC_SPR1) */
     struct {
-      _BITS   res       : 2;    ///< Reserved (TLI always highest prio)
+      _BITS             : 2;    //   Reserved (TLI always highest prio)
       _BITS   VECT1SPR  : 2;    ///< interrupt priority vector 1
       _BITS   VECT2SPR  : 2;    ///< interrupt priority vector 2
       _BITS   VECT3SPR  : 2;    ///< interrupt priority vector 3
@@ -6392,7 +6392,7 @@
     struct {
       _BITS   VECT28SPR : 2;    ///< interrupt priority vector 28
       _BITS   VECT29SPR : 2;    ///< interrupt priority vector 29
-      _BITS   res       : 4;    ///< Reserved
+      _BITS             : 4;    //   Reserved
     } SPR8;
 
   } ITC_t;
