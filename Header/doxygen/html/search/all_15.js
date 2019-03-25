@@ -1,9 +1,11 @@
 var searchData=
 [
   ['w',['W',['../struct_w_w_d_g__t.html#a41b28dfebbd99dee603f4da02e19197f',1,'WWDG_t']]],
-  ['wait_5ffor_5finterrupt',['WAIT_FOR_INTERRUPT',['../group___s_t_m8_a_f___s_t_m8_s.html#ga005ed1b077a9da0cd4b368e52054120d',1,'STM8AF_STM8S.h']]],
-  ['wake',['WAKE',['../struct_u_a_r_t1__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART1_t::WAKE()'],['../struct_u_a_r_t2__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART2_t::WAKE()'],['../struct_u_a_r_t3__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART3_t::WAKE()'],['../struct_u_a_r_t4__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART4_t::WAKE()']]],
+  ['wait_5ffor_5finterrupt',['WAIT_FOR_INTERRUPT',['../group___s_t_m8_a_f___s_t_m8_s.html#ga005ed1b077a9da0cd4b368e52054120d',1,'WAIT_FOR_INTERRUPT():&#160;STM8AF_STM8S.h'],['../group___s_t_m8_l10_x.html#ga005ed1b077a9da0cd4b368e52054120d',1,'WAIT_FOR_INTERRUPT():&#160;STM8L10x.h']]],
+  ['wake',['WAKE',['../struct_u_a_r_t1__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART1_t::WAKE()'],['../struct_u_a_r_t2__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART2_t::WAKE()'],['../struct_u_a_r_t3__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART3_t::WAKE()'],['../struct_u_a_r_t4__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'UART4_t::WAKE()'],['../struct_u_s_a_r_t__t.html#a81239f230b14d539e5e0ee7f923cd5ab',1,'USART_t::WAKE()']]],
   ['wdga',['WDGA',['../struct_w_w_d_g__t.html#ad861f0e9ae3bccb305b85b2be64d0455',1,'WWDG_t']]],
+  ['wfe_5faddressbase',['WFE_AddressBase',['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101F1.h'],['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101F2.h'],['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101F3.h'],['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101G2.h'],['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101G3.h'],['../group___s_t_m8_l10_x.html#ga049918fe977d65e02340fef72afb3de4',1,'WFE_AddressBase():&#160;STM8L101K3.h']]],
+  ['wfe_5ft',['WFE_t',['../struct_w_f_e__t.html',1,'']]],
   ['wkie',['WKIE',['../struct_s_p_i__t.html#a2f4ea5d2b0b651a297a615395b1395db',1,'SPI_t']]],
   ['wkui',['WKUI',['../struct_c_a_n__t.html#ae038c6738a6c462bd8bf35aab7e2c87b',1,'CAN_t']]],
   ['wkuie',['WKUIE',['../struct_c_a_n__t.html#a73cd38ed5fbb59a4ce218e7f2ed5229a',1,'CAN_t']]],

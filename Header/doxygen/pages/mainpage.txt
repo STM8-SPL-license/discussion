@@ -67,8 +67,8 @@
 
   \subsection content_ssec Content
 
-  - device headers for all STM8AS and STM8S devices (70 of 138 STM8 devices and growing)
-  - this reference (created by <a href="http://sdcc.sourceforge.net/">Doxygen</a>)
+  - device headers for all STM8AF, STM8S and STM8L10x devices (76 of 138 STM8 devices and growing)
+  - this reference as HTML and PDF (created by <a href="http://sdcc.sourceforge.net/">Doxygen</a>)
   - example projects for SDCC, Cosmic, IAR and Raisonance toolchains 
     - pin toggle (aka blink)
     - timer interrupts
