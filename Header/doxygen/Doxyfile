@@ -2099,6 +2099,8 @@ PREDEFINED             = OPT_AddressBase=0x4800 \
                          WFE_AddressBase=0x50A6 \
                          IRTIM_AddressBase=0x52FF \
                          COMP_AddressBase=0x5300 \
+                         SYSCFG_AddressBase=0x509E \
+                         PXS_AddressBase=0x5300 \
                          _SDCC_ \
                          SDCC_VERSION=30403
 

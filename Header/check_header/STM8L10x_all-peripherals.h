@@ -1,7 +1,7 @@
 /*-------------------------------------------------------------------------
-  STM8S10x_all-peripherals.h - Register Declarations for STM8S10x Umbrella Device
+  STM8L10x_all-peripherals.h - Register Declarations for STM8L10x Umbrella Device
 
-  Virtual STM8S10x device, containing all peripherals to check header
+  Virtual STM8L10x device, containing all peripherals to check header
 
   Copyright (C) 2019, Georg Icking-Konert
 
@@ -28,8 +28,8 @@
 /*-----------------------------------------------------------------------------
     MODULE DEFINITION FOR MULTIPLE INCLUSION
 -----------------------------------------------------------------------------*/
-#ifndef STM8S10X_ALL_H
-#define STM8S10X_ALL_H
+#ifndef STM8L10X_ALL_H
+#define STM8L10X_ALL_H
 
 /* device memory sizes [B] */
 #define STM8_PFLASH_SIZE 8192
@@ -69,4 +69,4 @@
 /*-----------------------------------------------------------------------------
 END OF MODULE DEFINITION FOR MULTIPLE INLUSION
 -----------------------------------------------------------------------------*/
-#endif // STM8S10X_ALL_H
+#endif // STM8L10X_ALL_H

@@ -77,5 +77,11 @@ var searchData=
   ['stm8s208s8_2eh',['STM8S208S8.h',['../_s_t_m8_s208_s8_8h.html',1,'']]],
   ['stm8s208sb_2eh',['STM8S208SB.h',['../_s_t_m8_s208_s_b_8h.html',1,'']]],
   ['stm8s903f3_2eh',['STM8S903F3.h',['../_s_t_m8_s903_f3_8h.html',1,'']]],
-  ['stm8s903k3_2eh',['STM8S903K3.h',['../_s_t_m8_s903_k3_8h.html',1,'']]]
+  ['stm8s903k3_2eh',['STM8S903K3.h',['../_s_t_m8_s903_k3_8h.html',1,'']]],
+  ['stm8tl52f4_2eh',['STM8TL52F4.h',['../_s_t_m8_t_l52_f4_8h.html',1,'']]],
+  ['stm8tl52g4_2eh',['STM8TL52G4.h',['../_s_t_m8_t_l52_g4_8h.html',1,'']]],
+  ['stm8tl53c4_2eh',['STM8TL53C4.h',['../_s_t_m8_t_l53_c4_8h.html',1,'']]],
+  ['stm8tl53f4_2eh',['STM8TL53F4.h',['../_s_t_m8_t_l53_f4_8h.html',1,'']]],
+  ['stm8tl53g4_2eh',['STM8TL53G4.h',['../_s_t_m8_t_l53_g4_8h.html',1,'']]],
+  ['stm8tl5x_2eh',['STM8TL5x.h',['../_s_t_m8_t_l5x_8h.html',1,'']]]
 ];

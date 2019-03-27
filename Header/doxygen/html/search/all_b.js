@@ -16,6 +16,7 @@ var searchData=
   ['low0',['LOW0',['../struct_c_a_n__t.html#af70339bd8cb8cc7e228450c77a7ff2d4',1,'CAN_t']]],
   ['low1',['LOW1',['../struct_c_a_n__t.html#a9fc2e57f7ad64e09ed9236251b303ca0',1,'CAN_t']]],
   ['low2',['LOW2',['../struct_c_a_n__t.html#ab4cfa3040326d663401fc87b730d12fc',1,'CAN_t']]],
+  ['low_5fpower',['LOW_POWER',['../struct_p_x_s__t.html#aa553d7f9ef482b7b5926f7e83fe4dccc',1,'PXS_t']]],
   ['lsbfirst',['LSBFIRST',['../struct_s_p_i__t.html#a75d0fe8dfb88953c02a28e814e6a6416',1,'SPI_t']]],
   ['lsf',['LSF',['../struct_u_a_r_t2__t.html#aa2bdf20247adc6629da864283c34c985',1,'UART2_t::LSF()'],['../struct_u_a_r_t3__t.html#aa2bdf20247adc6629da864283c34c985',1,'UART3_t::LSF()'],['../struct_u_a_r_t4__t.html#aa2bdf20247adc6629da864283c34c985',1,'UART4_t::LSF()']]],
   ['lsien',['LSIEN',['../struct_c_l_k__t.html#ad0325f538925596255970818018be728',1,'CLK_t']]],

@@ -1969,7 +1969,7 @@
 
   /* Pointer to TIM3 registers */
   #if defined(TIM3_AddressBase)
-    #define _TIM3        _SFR(TIM3_3_t,  TIM3_AddressBase)         ///< TIM3 struct/bit access
+    #define _TIM3        _SFR(TIM2_3_t,  TIM3_AddressBase)         ///< TIM3 struct/bit access
     #define _TIM3_CR1    _SFR(uint8_t,   TIM3_AddressBase+0x00)    ///< TIM3 control register 1
     #define _TIM3_CR2    _SFR(uint8_t,   TIM3_AddressBase+0x01)    ///< TIM3 control register 2
     #define _TIM3_SMCR   _SFR(uint8_t,   TIM3_AddressBase+0x02)    ///< TIM3 Slave mode control register
