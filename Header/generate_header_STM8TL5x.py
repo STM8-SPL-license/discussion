@@ -297,7 +297,7 @@ def saveDeviceHeader(device):
   # convert memory sizes to byte
   flash_size = int(float(flash_size) * 1024)
   RAM_size = int(float(RAM_size) * 1024)
-  if EEPROM_size.isdigit():
+  if str(EEPROM_size).isdigit():
     EEPROM_size = int(EEPROM_size)
   else:
     EEPROM_size = 0
@@ -391,8 +391,8 @@ def saveDeviceHeader(device):
 
 # commandline parameters with defaults
 parser = argparse.ArgumentParser(description="STM8 header creator")
-parser.add_argument('-d', '--devices',     type=str,   help='Product List Excel', required=False, default='ProductsList.xlsx')
-parser.add_argument('-p', '--peripherals', type=str,   help='Peripherals Excel',  required=False, default='STM8TL5x_Peripherals.xlsx')
+parser.add_argument('-d', '--devices',     type=str,   help='Product List Excel', required=False, default='ProductsList_STM8.xlsx')
+parser.add_argument('-p', '--peripherals', type=str,   help='Peripherals Excel',  required=False, default='Peripherals_STM8TL5x.xlsx')
 args = parser.parse_args()
 
 # create new output folder for headers (avoid left-overs)
@@ -415,7 +415,7 @@ except OSError:
 
 # set verbosity level for output (CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET)
 logger = logging.getLogger()
-hdlr = logging.FileHandler('./export.log')
+hdlr = logging.FileHandler('./export_stm8tl5x.log')
 logger.addHandler(hdlr)
 logger.setLevel(logging.INFO)
 
