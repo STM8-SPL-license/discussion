@@ -3,7 +3,7 @@
 ----------------------------------------------------------*/
 #define STM8S_DISCOVERY 1
 #define SDUINO_UNO      2
-#define BOARD           STM8S_DISCOVERY
+#define BOARD           SDUINO_UNO
 
 
 /*----------------------------------------------------------

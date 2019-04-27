@@ -30,18 +30,18 @@ void main(void) {
   ////
 
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK_CKDIVR = 0x00;                                 // clear complete register
+  _CLK_CKDIVR = 0x00;                         // clear complete register
 
   // configure PWM output pin (D6=PD3=TIM2_CC2) as push-pull (bitmasks)
-  _GPIOD_DDR |= _GPIO_PIN3;        // input(=0) or output(=1)
-  _GPIOD_CR1 |= _GPIO_PIN3;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  _GPIOD_CR2 |= _GPIO_PIN3;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  _PORTD_DDR |= _PORT_PIN3;                   // input(=0) or output(=1)
+  _PORTD_CR1 |= _PORT_PIN3;                   // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+  _PORTD_CR2 |= _PORT_PIN3;                   // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
 
 
   // configure TIM2_CC2 for 100Hz / 30%
   ARR   = 625;                                // reload value (=period)
   CC2   = 187;                                // duty cycle (fraction of ARR)
-  _TIM2_CR1 = _TIM2_CEN | _TIM2_ARPE;         // stop timer & buffer registers
+  _TIM2_CR1 = _TIM2_CR1_CEN | _TIM2_CR1_ARPE; // stop timer & buffer registers
   _TIM2_PSCR = 8;                             // set prescaler to 2^8 -> 62.5kHz
   _TIM2_ARRH = (uint8_t) (ARR >> 8);          // set period (HB)
   _TIM2_ARRL = (uint8_t) (ARR & 0xFF);        // set period (LB)

@@ -48,7 +48,7 @@
 RETURN_TYPE putchar(INPUT_TYPE c) {
 
   // wait until TX buffer is available
-  while (!(_UART2_SR & _UART2_TXE));
+  while (!(_UART2_SR & _UART2_SR_TXE));
   //while (!(_UART2.SR.TXE));
 
   // send byte

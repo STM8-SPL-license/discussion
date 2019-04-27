@@ -38,14 +38,14 @@ void main(void) {
   ////
 
   // switch to 16MHz clock (reset is 2MHz)
-  _CLK_CKDIVR = 0x00;                                 // clear complete register
-  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
-  //_CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access
+  _CLK_CKDIVR = 0x00;                                          // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CKDIVR_CPUDIV | _CLK_CKDIVR_HSIDIV);   // using bitmasks
+  //_CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;             // direct access
 
   // configure LED pin (=PC5) to output push-pull (bitmasks)
-  _GPIOC_DDR |= _GPIO_PIN5;        // input(=0) or output(=1)
-  _GPIOC_CR1 |= _GPIO_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-  _GPIOC_CR2 |= _GPIO_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+  _PORTC_DDR |= _PORT_PIN5;        // input(=0) or output(=1)
+  _PORTC_CR1 |= _PORT_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+  _PORTC_CR2 |= _PORT_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
 
   // set UART1 baudrate (note: BRR2 must be written before BRR1!)
   BRR = (uint16_t) (((uint32_t) 16000000L)/BAUDRATE);
@@ -53,8 +53,8 @@ void main(void) {
   _UART1_BRR1 = (uint8_t) ((BRR & 0x0FF0) >> 4);
 
   // enable UART1 receiver & sender
-  //_UART1_CR2 |= (_UART1_REN | _UART1_TEN);
-  _UART1.CR2.REN = 1; _UART1.CR2.TEN = 1;
+  _UART1_CR2 |= (_UART1_CR2_REN | _UART1_CR2_TEN);
+  //_UART1.CR2.REN = 1; _UART1.CR2.TEN = 1;
 
 
   ////
@@ -63,11 +63,11 @@ void main(void) {
   while (1) {
 
     // if byte received, reply echo+1 and blink LED
-    if (_UART1.SR.RXNE) {
-    //if (_UART1_SR & _UART1_RXNE) {
+    //if (_UART1.SR.RXNE) {
+    if (_UART1_SR & _UART1_SR_RXNE) {
 
       // toggle LED (=PC5)
-      _GPIOC.ODR.PIN5 ^= 1;
+      _PORTC.ODR.PIN5 ^= 1;
 
       // read byte from receive buffer
       c = _UART1_DR;

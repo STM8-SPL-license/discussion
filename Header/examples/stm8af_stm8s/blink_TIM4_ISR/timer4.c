@@ -33,7 +33,7 @@ extern uint32_t   g_millis;
 ISR_HANDLER(TIM4_UPD_ISR, __TIM4_UPD_OVF_VECTOR__)
 {
   // reset ISR flag
-  _TIM4_SR  &= ~_TIM4_UIF;
+  _TIM4_SR  &= ~_TIM4_SR_UIF;
   
   // set/increase global variables
   g_millis++;

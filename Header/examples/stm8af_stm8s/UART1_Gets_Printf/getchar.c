@@ -44,7 +44,7 @@ RETURN_TYPE getchar(void) {
   uint8_t   c;
 
   // wait until byte received
-  while (!(_UART1_SR & _UART1_RXNE));
+  while (!(_UART1_SR & _UART1_SR_RXNE));
   //while (!(_UART1.SR.RXNE));
 
   // read Rx buffer

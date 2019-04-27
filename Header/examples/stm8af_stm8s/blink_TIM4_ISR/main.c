@@ -48,28 +48,28 @@ void main(void) {
   DISABLE_INTERRUPTS();
 
   // switch to 16MHz clock (reset is 2MHz)
-  //_CLK_CKDIVR = 0x00;                                 // clear complete register
-  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
-  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access
+  _CLK_CKDIVR = 0x00;                                         // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CKDIVR_CPUDIV | _CLK_CKDIVR_HSIDIV);  // using bitmasks
+  //_CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;            // direct access
 
   // configure LED pin to output push-pull (bitmasks)
   #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
-    _GPIOD_DDR |= _GPIO_PIN0;        // input(=0) or output(=1)
-    _GPIOD_CR1 |= _GPIO_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-    _GPIOD_CR2 |= _GPIO_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+    _PORTD_DDR |= _PORT_PIN0;        // input(=0) or output(=1)
+    _PORTD_CR1 |= _PORT_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _PORTD_CR2 |= _PORT_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #else                            // sduino-UNO -> PC5
-    _GPIOC_DDR |= _GPIO_PIN5;        // input(=0) or output(=1)
-    _GPIOC_CR1 |= _GPIO_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-    _GPIOC_CR2 |= _GPIO_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+    _PORTC_DDR |= _PORT_PIN5;        // input(=0) or output(=1)
+    _PORTC_CR1 |= _PORT_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _PORTC_CR2 |= _PORT_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #endif
 
     // init TIM4 for 1ms interrupt
-  _TIM4_CR      |= _TIM4_ARPE;         // auto-reload value buffered
+  _TIM4_CR      |= _TIM4_CR_ARPE;      // auto-reload value buffered
   _TIM4.PSCR.PSC = 6;                  // set clock prescaler to 6 -> 16Mhz/2^6 = 250kHz -> 4us resolution
   _TIM4_ARR      = 250;                // set autoreload period to 1ms (=250*4us)
-  //_TIM4_IER  |= _TIM4_UIE;             // enable timer 4 interrupt (bit mask)
+  //_TIM4_IER  |= _TIM4_IER_UIE;         // enable timer 4 interrupt (bit mask)
   _TIM4.IER.UIE = 1;                   // enable timer 4 interrupt (direct access)
-  _TIM4_CR   |= _TIM4_CEN;             // start timer
+  _TIM4_CR   |= _TIM4_CR_CEN;          // start timer
 
   // enable interrupts after initialization
   ENABLE_INTERRUPTS();
@@ -86,11 +86,11 @@ void main(void) {
 
       // toggle LED
       #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
-        //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
-        _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
+        //_PORTD_ODR ^= _PORT_PIN0;        // byte access (smaller)
+        _PORTD.ODR.PIN0 ^= 1;            // bit access (more convenient)
       #else                            // sduino-UNO -> PC5
-        //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
-        _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+        //_PORTC_ODR ^= _PORT_PIN5;        // byte access (smaller)
+        _PORTC.ODR.PIN5 ^= 1;            // bit access (more convenient)
       #endif
 
     } // 500ms loop

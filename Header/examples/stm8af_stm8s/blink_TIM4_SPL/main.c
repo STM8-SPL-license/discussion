@@ -18,7 +18,7 @@
 ----------------------------------------------------------*/
 #define STM8S_DISCOVERY 1
 #define SDUINO_UNO      2
-#define BOARD           STM8S_DISCOVERY
+#define BOARD           SDUINO_UNO
 
 
 /*----------------------------------------------------------
@@ -69,9 +69,9 @@ void main(void) {
   DISABLE_INTERRUPTS();
 
   // switch to 16MHz clock (reset is 2MHz)
-  //_CLK_CKDIVR = 0x00;                                 // clear complete register
-  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
-  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access
+  //_CLK_CKDIVR = 0x00;                                         // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CKDIVR_CPUDIV | _CLK_CKDIVR_HSIDIV);  // using bitmasks
+  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;            // direct access
 
   // configure LED pin to output push-pull (SPL)
   #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
@@ -100,11 +100,11 @@ void main(void) {
 
       // toggle LED
       #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
-        //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
-        _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
+        //_PORTD_ODR ^= _PORT_PIN0;        // byte access (smaller)
+        _PORTD.ODR.PIN0 ^= 1;            // bit access (more convenient)
       #else                            // sduino-UNO -> PC5
-        _GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
-        //_GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+        //_PORTC_ODR ^= _PORT_PIN5;        // byte access (smaller)
+        _PORTC.ODR.PIN5 ^= 1;            // bit access (more convenient)
       #endif
 
     } // 500ms loop

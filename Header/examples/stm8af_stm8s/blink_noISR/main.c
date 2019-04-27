@@ -18,7 +18,7 @@
 #define STM8S_DISCOVERY 1
 #define SDUINO_UNO      2
 #define MUBOARD         3
-#define BOARD           STM8S_DISCOVERY
+#define BOARD           SDUINO_UNO
 
 
 /*----------------------------------------------------------
@@ -52,23 +52,23 @@ void main(void) {
   ////
 
   // switch to 16MHz clock (reset is 2MHz)
-  //_CLK_CKDIVR = 0x00;                                 // clear complete register
-  //_CLK_CKDIVR &= ~(_CLK_CPUDIV | _CLK_HSIDIV);        // using bitmasks
-  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;    // direct access
+  //_CLK_CKDIVR = 0x00;                                          // clear complete register
+  //_CLK_CKDIVR &= ~(_CLK_CKDIVR_CPUDIV | _CLK_CKDIVR_HSIDIV);   // using bitmasks
+  _CLK.CKDIVR.CPUDIV = 0; _CLK.CKDIVR.HSIDIV  = 0;             // direct access
 
   // configure LED pin to output push-pull (bitmasks)
   #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
-    _GPIOD_DDR |= _GPIO_PIN0;        // input(=0) or output(=1)
-    _GPIOD_CR1 |= _GPIO_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-    _GPIOD_CR2 |= _GPIO_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+    _PORTD_DDR |= _PORT_PIN0;        // input(=0) or output(=1)
+    _PORTD_CR1 |= _PORT_PIN0;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _PORTD_CR2 |= _PORT_PIN0;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #elif BOARD == SDUINO_UNO        // sduino-UNO -> PC5
-    _GPIOC_DDR |= _GPIO_PIN5;        // input(=0) or output(=1)
-    _GPIOC_CR1 |= _GPIO_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-    _GPIOC_CR2 |= _GPIO_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+    _PORTC_DDR |= _PORT_PIN5;        // input(=0) or output(=1)
+    _PORTC_CR1 |= _PORT_PIN5;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _PORTC_CR2 |= _PORT_PIN5;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #elif BOARD == MUBOARD           // muBoard -> PH3 (red)
-    _GPIOH_DDR |= _GPIO_PIN3;        // input(=0) or output(=1)
-    _GPIOH_CR1 |= _GPIO_PIN3;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
-    _GPIOH_CR2 |= _GPIO_PIN3;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
+    _PORTH_DDR |= _PORT_PIN3;        // input(=0) or output(=1)
+    _PORTH_CR1 |= _PORT_PIN3;        // input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull
+    _PORTH_CR2 |= _PORT_PIN3;        // input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope
   #endif
 
 
@@ -79,14 +79,14 @@ void main(void) {
 
     // toggle LED
     #if BOARD == STM8S_DISCOVERY     // STM8S-Discovery -> PD0
-      //_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)
-      _GPIOD.ODR.PIN0 ^= 1;            // bit access (more convenient)
+      _PORTD_ODR ^= _PORT_PIN0;        // byte access (smaller)
+      //_PORTD.ODR.PIN0 ^= 1;            // bit access (more convenient)
     #elif BOARD == SDUINO_UNO        // sduino-UNO -> PC5
-      //_GPIOC_ODR ^= _GPIO_PIN5;        // byte access (smaller)
-      _GPIOC.ODR.PIN5 ^= 1;            // bit access (more convenient)
+      _PORTC_ODR ^= _PORT_PIN5;        // byte access (smaller)
+      //_PORTC.ODR.PIN5 ^= 1;            // bit access (more convenient)
     #elif BOARD == MUBOARD           // muBoard -> PH3 (red)
-      //_GPIOH_ODR ^= _GPIO_PIN3;        // byte access (smaller)
-      _GPIOH.ODR.PIN3 ^= 1;            // bit access (more convenient)
+      _PORTH_ODR ^= _PORT_PIN3;        // byte access (smaller)
+      //_PORTH.ODR.PIN3 ^= 1;            // bit access (more convenient)
     #endif
 
     // wait a bit
