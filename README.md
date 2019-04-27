@@ -15,6 +15,18 @@ Thanks and have a great day,
 Georg
 
 
+## Update 2019-04-00:
+
+I have just updated my open-source STM8 device headers to [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header). 
+
+Changes
+- added STLUX & STNRG devices
+- fixed minor bugs in other headers
+- updated reference for STLUX & STNRG
+
+New status: of the 145 devices with STM8 core, 88 are implemented and 57 are pending. For details see [Readme](https://github.com/STM8-SPL-license/discussion/tree/master/Header)
+
+
 ## Update 2019-03-27:
 
 I have just updated my open-source STM8 device headers to [Headers/stm8](https://github.com/STM8-SPL-license/discussion/tree/master/Header). 

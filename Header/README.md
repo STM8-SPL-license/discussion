@@ -32,7 +32,20 @@ Practically I combined my existing headers from [STM8_templates](https://github.
 
 ## Limitations
 
-- Of the 138 STM8 devices in the STM8 list, currently 81 are supported (all STM8AF, STM8S, STM8L10x and STM8TL5x), 57 are pending 
+- Of the STM8 (137) + STLUX (4) + STNRG (3) + STM8SPLNB (1) devices in the STM product lists, the current status is:
+  - STM8AFxx: 30 supported, 0 pending
+  - STM8Sxx: 40 supported, 0 pending
+  - STM8L10xx: 6 supported, 0 pending
+  - STM8TL5xx: 5 supported, 0 pending
+  - STM8ALxx: 0 supported, 22 pending
+  - STM8L15xx: 0 supported, 27 pending
+  - STM8L16xx: 0 supported, 2 pending
+  - STM8L05xx: 0 supported, 4 pending
+  - STM8L001x: 0 supported, 1 pending
+  - STLUXxx: 4 implemented, 0 pending
+  - STNRGxx: 3 implemented, 0 pending
+  - STM8SPLNB: 0 implemented, 1 pending
+  - Overall: 88 implemented, 57 pending
 - My Raisonance demo license has expired, and cannot be "refreshed" by re-installing. Therefore testing with Ride is currently not possible
 - This is currently only a proposal with minimal testing, namely via the above examples 
 
