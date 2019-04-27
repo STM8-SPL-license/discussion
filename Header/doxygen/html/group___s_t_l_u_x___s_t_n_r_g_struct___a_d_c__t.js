@@ -1,0 +1,25 @@
+var group___s_t_l_u_x___s_t_n_r_g_struct___a_d_c__t =
+[
+    [ "CFG", "group___s_t_l_u_x___s_t_n_r_g.html#a6d97a532d770562e9157a7b3ec420aa9", null ],
+    [ "DATH_0", "group___s_t_l_u_x___s_t_n_r_g.html#a1590d36c0c058a8d758fd4c6ff0a6e1a", null ],
+    [ "DATH_1", "group___s_t_l_u_x___s_t_n_r_g.html#a0f563af69a4fe7d9f75155e486f2186c", null ],
+    [ "DATH_2", "group___s_t_l_u_x___s_t_n_r_g.html#a43a768d7cacf762656f39b488dce3e30", null ],
+    [ "DATH_3", "group___s_t_l_u_x___s_t_n_r_g.html#a5455b9ae995d26928cffe1505ed2b1c8", null ],
+    [ "DATH_4", "group___s_t_l_u_x___s_t_n_r_g.html#a15b11f0a990eddc703ea887a2e6295c8", null ],
+    [ "DATH_5", "group___s_t_l_u_x___s_t_n_r_g.html#ac085b4db4038d43cdc3220b76d99c7cc", null ],
+    [ "DATH_6", "group___s_t_l_u_x___s_t_n_r_g.html#a90cef810f4505b32329bf262042ad1d1", null ],
+    [ "DATH_7", "group___s_t_l_u_x___s_t_n_r_g.html#a5ca2213eb74098838b45d931b5e954b6", null ],
+    [ "DATL_0", "group___s_t_l_u_x___s_t_n_r_g.html#a7e18606acd006adfe8efffb699bc1763", null ],
+    [ "DATL_1", "group___s_t_l_u_x___s_t_n_r_g.html#aca41f38be80687f9c4c306a3f49f4ca2", null ],
+    [ "DATL_2", "group___s_t_l_u_x___s_t_n_r_g.html#a212101388ec973685f0a8b245d717beb", null ],
+    [ "DATL_3", "group___s_t_l_u_x___s_t_n_r_g.html#a594d220e7e84ca46654e77f85b82cdfa", null ],
+    [ "DATL_4", "group___s_t_l_u_x___s_t_n_r_g.html#a80421ba4aa3a643f4c093bc3257708d7", null ],
+    [ "DATL_5", "group___s_t_l_u_x___s_t_n_r_g.html#a7ca5efbf8dcfac3c36662836b20eb210", null ],
+    [ "DATL_6", "group___s_t_l_u_x___s_t_n_r_g.html#a40c858bbd50538e8dc95e88921b92721", null ],
+    [ "DATL_7", "group___s_t_l_u_x___s_t_n_r_g.html#a0892bb8987513665e64bd1d79e35027a", null ],
+    [ "DLYCNT", "group___s_t_l_u_x___s_t_n_r_g.html#a960b60f89843632022dc34fbe0621e9a", null ],
+    [ "IER", "group___s_t_l_u_x___s_t_n_r_g.html#a91a60940a898229df04bf1feacdafef7", null ],
+    [ "SEQ", "group___s_t_l_u_x___s_t_n_r_g.html#adda4c7d0a587d5e327d8a7e39b361bee", null ],
+    [ "SOC", "group___s_t_l_u_x___s_t_n_r_g.html#a6dd6d0c780c2f9f49b6765cd9ba57a21", null ],
+    [ "SR", "group___s_t_l_u_x___s_t_n_r_g.html#a1bb584efa0dfd786b410468c57420954", null ]
+];
