@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,76 +83,19 @@ $(function() {
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index__"></a>- _ -</h3><ul>
-<li>__pad0__
-: <a class="el" href="struct_a_d_c1__t.html#a6eee014176c0152c7a8c6bfd4920c77b">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#a6eee014176c0152c7a8c6bfd4920c77b">ADC2_t</a>
-, <a class="el" href="struct_a_w_u__t.html#a6eee014176c0152c7a8c6bfd4920c77b">AWU_t</a>
-, <a class="el" href="struct_c_a_n__t.html#a6eee014176c0152c7a8c6bfd4920c77b">CAN_t</a>
-, <a class="el" href="struct_c_f_g__t.html#a6eee014176c0152c7a8c6bfd4920c77b">CFG_t</a>
-, <a class="el" href="struct_c_l_k__t.html#a6eee014176c0152c7a8c6bfd4920c77b">CLK_t</a>
-, <a class="el" href="struct_c_o_m_p__t.html#a6eee014176c0152c7a8c6bfd4920c77b">COMP_t</a>
-, <a class="el" href="struct_e_x_t_i__t.html#a6eee014176c0152c7a8c6bfd4920c77b">EXTI_t</a>
-, <a class="el" href="struct_f_l_a_s_h__t.html#a6eee014176c0152c7a8c6bfd4920c77b">FLASH_t</a>
-, <a class="el" href="struct_i2_c__t.html#a6eee014176c0152c7a8c6bfd4920c77b">I2C_t</a>
-, <a class="el" href="struct_i_r_t_i_m__t.html#a6eee014176c0152c7a8c6bfd4920c77b">IRTIM_t</a>
-, <a class="el" href="struct_i_t_c__t.html#a6eee014176c0152c7a8c6bfd4920c77b">ITC_t</a>
-, <a class="el" href="struct_i_w_d_g__t.html#a6eee014176c0152c7a8c6bfd4920c77b">IWDG_t</a>
-, <a class="el" href="struct_p_x_s__t.html#a6eee014176c0152c7a8c6bfd4920c77b">PXS_t</a>
-, <a class="el" href="struct_r_s_t__t.html#a6eee014176c0152c7a8c6bfd4920c77b">RST_t</a>
-, <a class="el" href="struct_s_p_i__t.html#a6eee014176c0152c7a8c6bfd4920c77b">SPI_t</a>
-, <a class="el" href="struct_s_y_s_c_f_g__t.html#a6eee014176c0152c7a8c6bfd4920c77b">SYSCFG_t</a>
-, <a class="el" href="struct_t_i_m1__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#a6eee014176c0152c7a8c6bfd4920c77b">TIM6_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a6eee014176c0152c7a8c6bfd4920c77b">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a6eee014176c0152c7a8c6bfd4920c77b">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a6eee014176c0152c7a8c6bfd4920c77b">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a6eee014176c0152c7a8c6bfd4920c77b">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a6eee014176c0152c7a8c6bfd4920c77b">USART_t</a>
-, <a class="el" href="struct_w_f_e__t.html#a6eee014176c0152c7a8c6bfd4920c77b">WFE_t</a>
-, <a class="el" href="struct_w_w_d_g__t.html#a6eee014176c0152c7a8c6bfd4920c77b">WWDG_t</a>
-</li>
-<li>__pad1__
-: <a class="el" href="struct_a_d_c1__t.html#aadd889df1eefe254a8a6288898cf36c5">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#aadd889df1eefe254a8a6288898cf36c5">ADC2_t</a>
-, <a class="el" href="struct_a_w_u__t.html#aadd889df1eefe254a8a6288898cf36c5">AWU_t</a>
-, <a class="el" href="struct_c_a_n__t.html#aadd889df1eefe254a8a6288898cf36c5">CAN_t</a>
-, <a class="el" href="struct_c_l_k__t.html#aadd889df1eefe254a8a6288898cf36c5">CLK_t</a>
-, <a class="el" href="struct_f_l_a_s_h__t.html#aadd889df1eefe254a8a6288898cf36c5">FLASH_t</a>
-, <a class="el" href="struct_i2_c__t.html#aadd889df1eefe254a8a6288898cf36c5">I2C_t</a>
-, <a class="el" href="struct_i_t_c__t.html#aadd889df1eefe254a8a6288898cf36c5">ITC_t</a>
-, <a class="el" href="struct_p_x_s__t.html#aadd889df1eefe254a8a6288898cf36c5">PXS_t</a>
-, <a class="el" href="struct_s_p_i__t.html#aadd889df1eefe254a8a6288898cf36c5">SPI_t</a>
-, <a class="el" href="struct_s_y_s_c_f_g__t.html#aadd889df1eefe254a8a6288898cf36c5">SYSCFG_t</a>
-, <a class="el" href="struct_t_i_m1__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#aadd889df1eefe254a8a6288898cf36c5">TIM6_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#aadd889df1eefe254a8a6288898cf36c5">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#aadd889df1eefe254a8a6288898cf36c5">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aadd889df1eefe254a8a6288898cf36c5">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aadd889df1eefe254a8a6288898cf36c5">UART4_t</a>
-</li>
-<li>__pad2__
-: <a class="el" href="struct_a_d_c1__t.html#ae9c954ad4edcb6c76fefdb8e4e465053">ADC1_t</a>
-, <a class="el" href="struct_t_i_m1__t.html#ae9c954ad4edcb6c76fefdb8e4e465053">TIM1_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#ae9c954ad4edcb6c76fefdb8e4e465053">TIM5_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#ae9c954ad4edcb6c76fefdb8e4e465053">UART2_t</a>
+<li>_WR
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a607e26b6f57ec9bca6a91153f130bd6c">WWDG_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

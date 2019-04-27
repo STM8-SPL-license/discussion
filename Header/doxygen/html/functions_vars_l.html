@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars_l.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,116 +83,22 @@ $(function() {
 &#160;
 
 <h3><a id="index_l"></a>- l -</h3><ul>
-<li>LASE
-: <a class="el" href="struct_u_a_r_t2__t.html#aaa7cdefc8e7b148ca8a32d38823c3c01">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aaa7cdefc8e7b148ca8a32d38823c3c01">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aaa7cdefc8e7b148ca8a32d38823c3c01">UART4_t</a>
-</li>
-<li>LBCL
-: <a class="el" href="struct_u_a_r_t1__t.html#a80f45967930bdc8b322cb16e92089041">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a80f45967930bdc8b322cb16e92089041">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a80f45967930bdc8b322cb16e92089041">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a80f45967930bdc8b322cb16e92089041">USART_t</a>
-</li>
-<li>LBDF
-: <a class="el" href="struct_u_a_r_t1__t.html#a76131d3ce4960e8ee77a7e93e2e37077">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a76131d3ce4960e8ee77a7e93e2e37077">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a76131d3ce4960e8ee77a7e93e2e37077">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a76131d3ce4960e8ee77a7e93e2e37077">UART4_t</a>
-</li>
-<li>LBDIEN
-: <a class="el" href="struct_u_a_r_t1__t.html#aa5462b24ee68cbd3889dd91460c9d307">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#aa5462b24ee68cbd3889dd91460c9d307">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aa5462b24ee68cbd3889dd91460c9d307">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aa5462b24ee68cbd3889dd91460c9d307">UART4_t</a>
-</li>
-<li>LBDL
-: <a class="el" href="struct_u_a_r_t1__t.html#a1410bef78a92d1ebabbb93dab628c61b">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a1410bef78a92d1ebabbb93dab628c61b">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a1410bef78a92d1ebabbb93dab628c61b">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a1410bef78a92d1ebabbb93dab628c61b">UART4_t</a>
-</li>
-<li>LBKM
-: <a class="el" href="struct_c_a_n__t.html#ae2a0f58d24f2e0c7f589f690331b6e42">CAN_t</a>
-</li>
-<li>LDUM
-: <a class="el" href="struct_u_a_r_t2__t.html#af1fc1377a6609e9a2eacb6ec60e4848e">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#af1fc1377a6609e9a2eacb6ec60e4848e">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#af1fc1377a6609e9a2eacb6ec60e4848e">UART4_t</a>
-</li>
-<li>LEC
-: <a class="el" href="struct_c_a_n__t.html#af6179b63c342b298118b7869fc962a0b">CAN_t</a>
-</li>
-<li>LECIE
-: <a class="el" href="struct_c_a_n__t.html#a495afdae55791995c670b09e38b014c9">CAN_t</a>
-</li>
-<li>LHDF
-: <a class="el" href="struct_u_a_r_t2__t.html#a85fca6160680421c517d69c73da29c15">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a85fca6160680421c517d69c73da29c15">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a85fca6160680421c517d69c73da29c15">UART4_t</a>
-</li>
-<li>LHDIEN
-: <a class="el" href="struct_u_a_r_t2__t.html#af0b2cece121be7c00a658bafc043bfaf">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#af0b2cece121be7c00a658bafc043bfaf">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#af0b2cece121be7c00a658bafc043bfaf">UART4_t</a>
-</li>
-<li>LINEN
-: <a class="el" href="struct_u_a_r_t1__t.html#ab7da335bf1e0b135e3d360eb7c119030">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#ab7da335bf1e0b135e3d360eb7c119030">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#ab7da335bf1e0b135e3d360eb7c119030">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#ab7da335bf1e0b135e3d360eb7c119030">UART4_t</a>
-</li>
-<li>LOCK
-: <a class="el" href="struct_t_i_m1__t.html#afc268151ce237c25d291952499e88133">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#afc268151ce237c25d291952499e88133">TIM2_3_t</a>
-</li>
-<li>LOW0
-: <a class="el" href="struct_c_a_n__t.html#af70339bd8cb8cc7e228450c77a7ff2d4">CAN_t</a>
-</li>
-<li>LOW1
-: <a class="el" href="struct_c_a_n__t.html#a9fc2e57f7ad64e09ed9236251b303ca0">CAN_t</a>
-</li>
-<li>LOW2
-: <a class="el" href="struct_c_a_n__t.html#ab4cfa3040326d663401fc87b730d12fc">CAN_t</a>
-</li>
-<li>LOW_POWER
-: <a class="el" href="struct_p_x_s__t.html#aa553d7f9ef482b7b5926f7e83fe4dccc">PXS_t</a>
-</li>
-<li>LSBFIRST
-: <a class="el" href="struct_s_p_i__t.html#a75d0fe8dfb88953c02a28e814e6a6416">SPI_t</a>
-</li>
-<li>LSF
-: <a class="el" href="struct_u_a_r_t2__t.html#aa2bdf20247adc6629da864283c34c985">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aa2bdf20247adc6629da864283c34c985">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aa2bdf20247adc6629da864283c34c985">UART4_t</a>
-</li>
-<li>LSIEN
-: <a class="el" href="struct_c_l_k__t.html#ad0325f538925596255970818018be728">CLK_t</a>
-</li>
-<li>LSIRDY
-: <a class="el" href="struct_c_l_k__t.html#ae66146c53f4bf754e91e6c43d11fa981">CLK_t</a>
-</li>
-<li>LSLV
-: <a class="el" href="struct_u_a_r_t2__t.html#a2e39f1c2e099d513042970b9e1b1efaf">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a2e39f1c2e099d513042970b9e1b1efaf">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a2e39f1c2e099d513042970b9e1b1efaf">UART4_t</a>
-</li>
-<li>LT
-: <a class="el" href="struct_a_d_c1__t.html#a1036a165d530b27da33c08107052cb87">ADC1_t</a>
-</li>
 <li>LTRH
-: <a class="el" href="struct_a_d_c1__t.html#a2937fdb456a1d80ec1db7f70f724d0ca">ADC1_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a5684f3e0086e19451e7bd911e6cd19ec">_ADC1_t</a>
 </li>
 <li>LTRL
-: <a class="el" href="struct_a_d_c1__t.html#a125f908ddfd3a487668f9b2814cbef17">ADC1_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a31b5cd8f91fbb18b13b8b33255bbacfc">_ADC1_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_o.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -63,166 +84,37 @@ $(function() {
 
 <h3><a id="index_o"></a>- o -</h3><ul>
 <li>OAR1H
-: <a class="el" href="struct_i2_c__t.html#a874e4603b790b3775af81ebbb285230f">I2C_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#acc3235af56a2ec5ddbd1b41a20ac7b85">_I2C_t</a>
 </li>
 <li>OAR1L
-: <a class="el" href="struct_i2_c__t.html#a3ca384e97b62440039f634c657800393">I2C_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a415c53f4538ec85b73fb263476351485">_I2C_t</a>
 </li>
 <li>OAR2
-: <a class="el" href="struct_i2_c__t.html#a42ef76c305696f4916a338336c8d6b2a">I2C_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a5e8b5f4629124874f79325733dd0a4ad">_I2C_t</a>
 </li>
 <li>OARH
-: <a class="el" href="struct_i2_c__t.html#a8a208cab4e83758ddeb20bf6ec9cfc48">I2C_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a481b9b34ce0d5e86bc11704e238ced51">_I2C_t</a>
 </li>
 <li>OARL
-: <a class="el" href="struct_i2_c__t.html#aec9b3d22492bff5b41beed63e42e2143">I2C_t</a>
-</li>
-<li>OC1CE
-: <a class="el" href="struct_t_i_m1__t.html#aa136e0ba6ba2a6d7ee1364565502a63b">TIM1_t</a>
-</li>
-<li>OC1FE
-: <a class="el" href="struct_t_i_m1__t.html#a23b29dc236e2ead96ca7194fdc4c88ec">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a23b29dc236e2ead96ca7194fdc4c88ec">TIM2_3_t</a>
-</li>
-<li>OC1M
-: <a class="el" href="struct_t_i_m1__t.html#a090729f68e2b9ef131375f2d72015984">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a090729f68e2b9ef131375f2d72015984">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a090729f68e2b9ef131375f2d72015984">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a090729f68e2b9ef131375f2d72015984">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a090729f68e2b9ef131375f2d72015984">TIM5_t</a>
-</li>
-<li>OC1PE
-: <a class="el" href="struct_t_i_m1__t.html#aee0dbe5e3e005a7270c60577b75b9b82">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#aee0dbe5e3e005a7270c60577b75b9b82">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#aee0dbe5e3e005a7270c60577b75b9b82">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#aee0dbe5e3e005a7270c60577b75b9b82">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#aee0dbe5e3e005a7270c60577b75b9b82">TIM5_t</a>
-</li>
-<li>OC2CE
-: <a class="el" href="struct_t_i_m1__t.html#a93b7eb793daea8456adc1b3cb45a6550">TIM1_t</a>
-</li>
-<li>OC2FE
-: <a class="el" href="struct_t_i_m1__t.html#ad56665fa9b7b5f347fdef9f5c7d73311">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#ad56665fa9b7b5f347fdef9f5c7d73311">TIM2_3_t</a>
-</li>
-<li>OC2M
-: <a class="el" href="struct_t_i_m1__t.html#ae04507194748a39088df02964361587d">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#ae04507194748a39088df02964361587d">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#ae04507194748a39088df02964361587d">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#ae04507194748a39088df02964361587d">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#ae04507194748a39088df02964361587d">TIM5_t</a>
-</li>
-<li>OC2PE
-: <a class="el" href="struct_t_i_m1__t.html#a282a4700eaa8aca44472de464d9eb3e7">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a282a4700eaa8aca44472de464d9eb3e7">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a282a4700eaa8aca44472de464d9eb3e7">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a282a4700eaa8aca44472de464d9eb3e7">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a282a4700eaa8aca44472de464d9eb3e7">TIM5_t</a>
-</li>
-<li>OC3CE
-: <a class="el" href="struct_t_i_m1__t.html#a0f723ff309459c4ecb370871ce3f756a">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a0f723ff309459c4ecb370871ce3f756a">TIM2_t</a>
-</li>
-<li>OC3FE
-: <a class="el" href="struct_t_i_m1__t.html#a7f975270ff8f90a8fdbb9d5f2facdfc2">TIM1_t</a>
-</li>
-<li>OC3M
-: <a class="el" href="struct_t_i_m1__t.html#a828148891b1136d02a14a7aeee031536">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a828148891b1136d02a14a7aeee031536">TIM2_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a828148891b1136d02a14a7aeee031536">TIM5_t</a>
-</li>
-<li>OC3PE
-: <a class="el" href="struct_t_i_m1__t.html#a871e28593f4b295d451b3fe102146d4b">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a871e28593f4b295d451b3fe102146d4b">TIM2_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a871e28593f4b295d451b3fe102146d4b">TIM5_t</a>
-</li>
-<li>OC4CE
-: <a class="el" href="struct_t_i_m1__t.html#ac15dfa25d8fe949fa302b159da74664c">TIM1_t</a>
-</li>
-<li>OC4FE
-: <a class="el" href="struct_t_i_m1__t.html#a170245a65b806c316c9461c1b7891558">TIM1_t</a>
-</li>
-<li>OC4M
-: <a class="el" href="struct_t_i_m1__t.html#aedfde6e456d7c6cd852045fb54f69a9d">TIM1_t</a>
-</li>
-<li>OC4PE
-: <a class="el" href="struct_t_i_m1__t.html#a09e7a2fe637bdc619e4967d13b68a064">TIM1_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a5ca9b35c92f902d23981e7e5f9336395">_I2C_t</a>
 </li>
 <li>ODR
-: <a class="el" href="struct_p_o_r_t__t.html#a16b6e0de7feb7f01d5f86f57aaf12dab">PORT_t</a>
-</li>
-<li>OIS1
-: <a class="el" href="struct_t_i_m1__t.html#a2fa6439a19c5c96a8048efb4f1b64eac">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a2fa6439a19c5c96a8048efb4f1b64eac">TIM2_3_t</a>
-</li>
-<li>OIS1N
-: <a class="el" href="struct_t_i_m1__t.html#a392465e435dde567b10c947700c434b7">TIM1_t</a>
-</li>
-<li>OIS2
-: <a class="el" href="struct_t_i_m1__t.html#aa53666c7e984f1cfe2579f024ed264c5">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#aa53666c7e984f1cfe2579f024ed264c5">TIM2_3_t</a>
-</li>
-<li>OIS2N
-: <a class="el" href="struct_t_i_m1__t.html#a92ed687b42f47261a9531f924087f026">TIM1_t</a>
-</li>
-<li>OIS3
-: <a class="el" href="struct_t_i_m1__t.html#ad9105661afc214e47279abbb57e2224f">TIM1_t</a>
-</li>
-<li>OIS3N
-: <a class="el" href="struct_t_i_m1__t.html#a048d529a0c93215fb9955b3f55eacd46">TIM1_t</a>
-</li>
-<li>OIS4
-: <a class="el" href="struct_t_i_m1__t.html#aa1c84d613539f7991777c7e205a8562c">TIM1_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a7052fc53647316ab6c81fdd0d923407e">_PORT_t</a>
 </li>
 <li>OISR
-: <a class="el" href="struct_t_i_m1__t.html#a5ac7b73873d272cb48c9098f03f1aaea">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a98532fdaa077f5e93c252b6b57b54077">TIM2_3_t</a>
-</li>
-<li>OPM
-: <a class="el" href="struct_t_i_m1__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#acf3d1e5d51741ac35dd05159e43d53f4">TIM6_t</a>
-</li>
-<li>OPT
-: <a class="el" href="struct_f_l_a_s_h__t.html#ad1d1b015e6316e73ae7b2bcc1b1de0b0">FLASH_t</a>
-</li>
-<li>OR
-: <a class="el" href="struct_u_a_r_t1__t.html#abe250398538fb21e67e9957c59b152b2">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#abe250398538fb21e67e9957c59b152b2">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#abe250398538fb21e67e9957c59b152b2">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#abe250398538fb21e67e9957c59b152b2">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#abe250398538fb21e67e9957c59b152b2">USART_t</a>
-</li>
-<li>OSSI
-: <a class="el" href="struct_t_i_m1__t.html#afa6406765fee95b4365d50c4512931d3">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#afa6406765fee95b4365d50c4512931d3">TIM2_3_t</a>
-</li>
-<li>OSSR
-: <a class="el" href="struct_t_i_m1__t.html#a06cd1f5e49fa6b2502d63e7daed50d17">TIM1_t</a>
-</li>
-<li>OUT
-: <a class="el" href="struct_t_i_m1__t.html#a97baf541e00c26624dafe6c0cf7efda4">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a269aacbe15fa596d89ecedfd04343322">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a6ba4b6c7a1a854c13c71b43f393325e7">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#af110a8a2771ff21d6bb5bd113c199b1e">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#af29040841bd1f4432943037a15cfe021">TIM5_t</a>
-</li>
-<li>OVR
-: <a class="el" href="struct_a_d_c1__t.html#a3f287c4bbe84b00de24450c01194209a">ADC1_t</a>
-, <a class="el" href="struct_i2_c__t.html#a3f287c4bbe84b00de24450c01194209a">I2C_t</a>
-, <a class="el" href="struct_s_p_i__t.html#a3f287c4bbe84b00de24450c01194209a">SPI_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ac12e96aec880c52f0cac4c54f608958e">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ac63971079984844dce341a728bff4158">_TIM2_3_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['gcr',['GCR',['../struct_c_f_g__t.html#aa8306e72d86f423a668bc1c6aef634ef',1,'CFG_t::GCR()'],['../struct_c_f_g__t.html#a4fe58ec2ad8611438c68620a421b1a1b',1,'CFG_t::GCR()'],['../struct_c_f_g__t.html#ac229e0f679d3783a8ce02c1d4c28110e',1,'CFG_t::GCR()']]],
-  ['gencall',['GENCALL',['../struct_i2_c__t.html#a4726a1f1ac0a5f8413aec23aec5b8992',1,'I2C_t']]],
-  ['gt',['GT',['../struct_u_a_r_t1__t.html#a447045fd544b88687ec97502bfd0a308',1,'UART1_t::GT()'],['../struct_u_a_r_t2__t.html#a447045fd544b88687ec97502bfd0a308',1,'UART2_t::GT()'],['../struct_u_a_r_t4__t.html#a447045fd544b88687ec97502bfd0a308',1,'UART4_t::GT()']]],
-  ['gtr',['GTR',['../struct_u_a_r_t1__t.html#a8a19bb7347907e8fafb8e8cb8207b6bd',1,'UART1_t::GTR()'],['../struct_u_a_r_t2__t.html#a10ad446b248c0645151db038b374f51d',1,'UART2_t::GTR()'],['../struct_u_a_r_t4__t.html#a48e30d6078fe42c4d24592728805dafe',1,'UART4_t::GTR()']]]
+  ['gcr',['GCR',['../group___s_t_l_u_x___s_t_n_r_g.html#a6143b7f90d6a09db236d4871cd78c08e',1,'_CFG_t::GCR()'],['../group___s_t_l_u_x___s_t_n_r_g.html#a5476eadba21e81a05e50fb9211074164',1,'_CFG_t::GCR()'],['../group___s_t_l_u_x___s_t_n_r_g.html#aa79b37675a4d7b0f06db29fb2ab63aae',1,'_CFG_t::GCR()'],['../group___s_t_l_u_x___s_t_n_r_g.html#ab895d12d83d2de6b39f1ce69123a10af',1,'_CFG_t::GCR()']]],
+  ['gcr_5faddressbase',['GCR_AddressBase',['../group___s_t_l_u_x___s_t_n_r_g.html#gae47efc0f7a4518fbac6e9ae17c6fa876',1,'GCR_AddressBase():&#160;STLUX285A.h'],['../group___s_t_l_u_x___s_t_n_r_g.html#gae47efc0f7a4518fbac6e9ae17c6fa876',1,'GCR_AddressBase():&#160;STLUX325A.h'],['../group___s_t_l_u_x___s_t_n_r_g.html#gae47efc0f7a4518fbac6e9ae17c6fa876',1,'GCR_AddressBase():&#160;STLUX383A.h'],['../group___s_t_l_u_x___s_t_n_r_g.html#gae47efc0f7a4518fbac6e9ae17c6fa876',1,'GCR_AddressBase():&#160;STLUX385A.h']]],
+  ['gsts',['GSTS',['../group___s_t_l_u_x___s_t_n_r_g.html#afa505d7383a3698fc06b1cfc61f03b25',1,'_SMED_t']]],
+  ['gtr',['GTR',['../group___s_t_m8_a_f___s_t_m8_s.html#a6b314efe0da28b66da08a5989b6cb006',1,'_UART1_t::GTR()'],['../group___s_t_m8_a_f___s_t_m8_s.html#acffe13d08c7e95fe2f6165108944d8ec',1,'_UART2_t::GTR()'],['../group___s_t_m8_a_f___s_t_m8_s.html#a9cfc013cd7f36530c8dff14f722eea4a',1,'_UART4_t::GTR()']]]
 ];

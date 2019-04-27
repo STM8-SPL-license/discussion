@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars_b.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,108 +83,39 @@ $(function() {
 &#160;
 
 <h3><a id="index_b"></a>- b -</h3><ul>
-<li>BDM
-: <a class="el" href="struct_s_p_i__t.html#a22c95c6232ca57b050749576d9aff8da">SPI_t</a>
-</li>
-<li>BDOE
-: <a class="el" href="struct_s_p_i__t.html#acb7d963428dcf0ad33163b2b8577e334">SPI_t</a>
-</li>
-<li>BEEPDIV
-: <a class="el" href="struct_b_e_e_p__t.html#a4053736547375929d910f064b5e11810">BEEP_t</a>
-</li>
-<li>BEEPEN
-: <a class="el" href="struct_b_e_e_p__t.html#ac37bd9d452f17cc095dbac5ff886b87e">BEEP_t</a>
-</li>
-<li>BEEPSEL
-: <a class="el" href="struct_b_e_e_p__t.html#a35b883e94a392233ed838eef06053e06">BEEP_t</a>
-</li>
-<li>BERR
-: <a class="el" href="struct_i2_c__t.html#ac5a1654698b42c639a93028822b4eeca">I2C_t</a>
-</li>
-<li>BG
-: <a class="el" href="struct_t_i_m1__t.html#adabe199420cf874f7fbeaa97d5f311b0">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#adabe199420cf874f7fbeaa97d5f311b0">TIM2_3_t</a>
-</li>
-<li>BIAS
-: <a class="el" href="struct_p_x_s__t.html#a643d50aab914aeb7131069c19ce3ee74">PXS_t</a>
-</li>
-<li>BIAS_EN
-: <a class="el" href="struct_c_o_m_p__t.html#a994930e9d8a1686d21830d76a8961a99">COMP_t</a>
-</li>
-<li>BIE
-: <a class="el" href="struct_t_i_m1__t.html#ab4dcdbaee0d27b7690b9b6dfbb33c85c">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#ab4dcdbaee0d27b7690b9b6dfbb33c85c">TIM2_3_t</a>
-</li>
-<li>BIF
-: <a class="el" href="struct_t_i_m1__t.html#af6952584e960681948826fb66e4ef9f7">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#af6952584e960681948826fb66e4ef9f7">TIM2_3_t</a>
-</li>
-<li>BKE
-: <a class="el" href="struct_t_i_m1__t.html#a07b8e0a2e38a34a09a5b71a6f82a76c7">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a07b8e0a2e38a34a09a5b71a6f82a76c7">TIM2_3_t</a>
-</li>
-<li>BKP
-: <a class="el" href="struct_t_i_m1__t.html#af1c1f5f9b28fd98c04a5e6b082e953b7">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#af1c1f5f9b28fd98c04a5e6b082e953b7">TIM2_3_t</a>
+<li>BD
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a50403b0f8ba384e9e412ef9894a9141c">_DALI_t</a>
 </li>
 <li>BKR
-: <a class="el" href="struct_t_i_m1__t.html#a991ba6254e9ac6397b7a5767079bd12d">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a63c8e1b253cad9e8868283c5addc32c3">TIM2_3_t</a>
-</li>
-<li>BOFF
-: <a class="el" href="struct_c_a_n__t.html#a23ffdd476622237d2c0532c8d527e510">CAN_t</a>
-</li>
-<li>BOFIE
-: <a class="el" href="struct_c_a_n__t.html#a7943d2467ca7dc85b633f81392e6381a">CAN_t</a>
-</li>
-<li>BR
-: <a class="el" href="struct_s_p_i__t.html#a2928f70a1e8b5c5738ffa092298d2ba8">SPI_t</a>
-</li>
-<li>BRP
-: <a class="el" href="struct_c_a_n__t.html#ad4d925f2e112f426ddf0c9dd4dca1406">CAN_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a77e9fd170ccdd9d0fb5b6304e5aef499">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a9d3ed3e38a30dde79f99fd1a4b854462">_TIM2_3_t</a>
 </li>
 <li>BRR1
-: <a class="el" href="struct_u_a_r_t1__t.html#a65706d6114a76ca46b7fa254e095452a">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#adb53a3a59732ac69e706850cae31a80a">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aca9b8690f7b62836ce857a4637272ff5">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a62daa7559a506c78c76d71cbd03e6fc7">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a5b28fdde90dd1720993cfd0738829024">USART_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#aa662f104df11e97040a6eb2148bf81d6">_UART1_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a1830aaf7dd1241b97d42d5cc9e9253b8">_UART2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a1d02260a4ac2a6b1f848bbacd8810f79">_UART3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#af1f28b982ca63cd66db0e1a8ccde8b18">_UART4_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a6058cffff3f35c567fa78a834437e9c1">_UART_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ac62e114fd7db75569410382923439777">_USART_t</a>
 </li>
 <li>BRR2
-: <a class="el" href="struct_u_a_r_t1__t.html#a18a5052de626acc1a04af0a7e579f146">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a2c02195498d5032e877049a2849f3b83">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#adf2266076bd785954c7288ffc99c0e09">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aa3dfcf64d330dcd7c6760fdacf1a9d28">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a29600849eb405df4744253abcfab2ca1">USART_t</a>
-</li>
-<li>BS1
-: <a class="el" href="struct_c_a_n__t.html#a8a76bcabb6966b2f8504a609b7fb8f32">CAN_t</a>
-</li>
-<li>BS2
-: <a class="el" href="struct_c_a_n__t.html#a90e3b2cbd3248c09f5e572f8e04365cd">CAN_t</a>
-</li>
-<li>BSY
-: <a class="el" href="struct_s_p_i__t.html#ab312863d7f92b27a641cc09edaa6b9cd">SPI_t</a>
-</li>
-<li>BTF
-: <a class="el" href="struct_i2_c__t.html#a63246c6ebef1de996e9f5432b04419db">I2C_t</a>
-</li>
-<li>BTR1
-: <a class="el" href="struct_c_a_n__t.html#ad44e57d1920689d0f5614a224fc52542">CAN_t</a>
-</li>
-<li>BTR2
-: <a class="el" href="struct_c_a_n__t.html#a7fe472823f004202c7f434f42c166758">CAN_t</a>
-</li>
-<li>BUSY
-: <a class="el" href="struct_i2_c__t.html#ac2bd59737891acbfa61574f7bc29fca7">I2C_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a4cf88de202061bda65f689b91e547688">_UART1_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a344df25e0ef44a401fc9fafe74586f1b">_UART2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a4996acccd2648ca17ecc472c5622684f">_UART3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a03d2704cad18ffc4e8b9a5f57473934e">_UART4_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a865ebec948f2fd39674beb3562a679be">_UART_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a1a3956b5a0654feeaa34c9114828d421">_USART_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

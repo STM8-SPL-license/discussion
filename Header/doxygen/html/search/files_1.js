@@ -1,5 +1,10 @@
 var searchData=
 [
+  ['stlux285a_2eh',['STLUX285A.h',['../_s_t_l_u_x285_a_8h.html',1,'']]],
+  ['stlux325a_2eh',['STLUX325A.h',['../_s_t_l_u_x325_a_8h.html',1,'']]],
+  ['stlux383a_2eh',['STLUX383A.h',['../_s_t_l_u_x383_a_8h.html',1,'']]],
+  ['stlux385a_2eh',['STLUX385A.h',['../_s_t_l_u_x385_a_8h.html',1,'']]],
+  ['stlux_5fstnrg_2eh',['STLUX_STNRG.h',['../_s_t_l_u_x___s_t_n_r_g_8h.html',1,'']]],
   ['stm8af5268_2eh',['STM8AF5268.h',['../_s_t_m8_a_f5268_8h.html',1,'']]],
   ['stm8af5269_2eh',['STM8AF5269.h',['../_s_t_m8_a_f5269_8h.html',1,'']]],
   ['stm8af5286_2eh',['STM8AF5286.h',['../_s_t_m8_a_f5286_8h.html',1,'']]],

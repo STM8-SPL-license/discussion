@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars_s.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,196 +83,151 @@ $(function() {
 &#160;
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>SAMP
-: <a class="el" href="struct_c_a_n__t.html#a4d838b16e9d017a658a7b528849b4ab9">CAN_t</a>
-</li>
-<li>SB
-: <a class="el" href="struct_i2_c__t.html#ad64fe489cb9ae30537ace722eda171e0">I2C_t</a>
-</li>
-<li>SBK
-: <a class="el" href="struct_u_a_r_t1__t.html#af0ff19dfbe73662afba6d352b977aef1">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#af0ff19dfbe73662afba6d352b977aef1">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#af0ff19dfbe73662afba6d352b977aef1">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#af0ff19dfbe73662afba6d352b977aef1">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#af0ff19dfbe73662afba6d352b977aef1">USART_t</a>
-</li>
-<li>SCAN
-: <a class="el" href="struct_a_d_c1__t.html#a49a65de7330fb15f05bf752272c31d5f">ADC1_t</a>
-</li>
-<li>SCEN
-: <a class="el" href="struct_u_a_r_t1__t.html#acf96f23b833f0de4eb81af01f4bae341">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#acf96f23b833f0de4eb81af01f4bae341">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#acf96f23b833f0de4eb81af01f4bae341">UART4_t</a>
-</li>
-<li>SILM
-: <a class="el" href="struct_c_a_n__t.html#aaeeffac4aa95328754afdbad616de68f">CAN_t</a>
-</li>
-<li>SJW
-: <a class="el" href="struct_c_a_n__t.html#a8919da18040466fbfda20f4e3b7ddaf2">CAN_t</a>
-</li>
-<li>SLAK
-: <a class="el" href="struct_c_a_n__t.html#ae1ae743e8d2a6f575a80c5bd566f1f33">CAN_t</a>
-</li>
-<li>SLEEP
-: <a class="el" href="struct_c_a_n__t.html#ac5f6dcb15d1904458a8e47173ab8c61f">CAN_t</a>
+<li>SEQ
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#adda4c7d0a587d5e327d8a7e39b361bee">_ADC_t</a>
 </li>
 <li>SMCR
-: <a class="el" href="struct_t_i_m1__t.html#ab587552e96eeab3298394e68b07d0e0f">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a5677ff73f2000c8560a9de08d8502ad8">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#aef9b0d36a507095288052df46b63d177">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a99b29c57b4a24e3788ef232896647ca1">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#ac3e986a9688129ec4c7851491185d4e7">TIM6_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a585ed5cbfae69f725f4abc69c0528544">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a3ddf9bf530d76cc44963ef6aec2e17cc">_TIM2_3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ad206302845c10acb2f120a25c9f86ec7">_TIM4_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#af8a94dc39415f73a311c841f4f74bb48">_TIM5_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a55e472a28f87c65c2e989def9594ca4c">_TIM6_t</a>
 </li>
-<li>SMS
-: <a class="el" href="struct_t_i_m1__t.html#a8aee8772fcc50120138ec95c28cbabc9">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a8aee8772fcc50120138ec95c28cbabc9">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#a8aee8772fcc50120138ec95c28cbabc9">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a8aee8772fcc50120138ec95c28cbabc9">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#a8aee8772fcc50120138ec95c28cbabc9">TIM6_t</a>
+<li>SMD0
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a5ecc864cc80b7d3be66a86378a819c74">CLK_t</a>
 </li>
-<li>SPE
-: <a class="el" href="struct_s_p_i__t.html#afd069cb7b2ae5fbf1ee870d68feb5f02">SPI_t</a>
+<li>SMD1
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aec31ba704f076e673aa3cdd557708d9a">CLK_t</a>
+</li>
+<li>SMD2
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ae1c2dcfa8a3a40fea7662d45842ff18b">CLK_t</a>
+</li>
+<li>SMD3
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a849d85de0d7098046cd7fd49edd47fd9">CLK_t</a>
+</li>
+<li>SMD4
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a153fa4d8d1d6e57bb20aaacd826c70cf">CLK_t</a>
+</li>
+<li>SMD5
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aaa74ba856601b50c2f40f5b816040314">CLK_t</a>
+</li>
+<li>SMDCFG01
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a52070c387497fa2961a742ee5593c2c9">_MSC_t</a>
+</li>
+<li>SMDCFG23
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a7cb3c773e158d16ae5a8084b322b0d53">_MSC_t</a>
+</li>
+<li>SMDCFG45
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#af946d7085267a20e2cbcca674c66e2d9">_MSC_t</a>
+</li>
+<li>SMSWEV
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a2d4df7d7452bed7926fccebaa088aa87">_MSC_t</a>
+</li>
+<li>SMUNLOCK
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aa1560d87c70a6800c46863299afeb27d">_MSC_t</a>
+</li>
+<li>SOC
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a6dd6d0c780c2f9f49b6765cd9ba57a21">_ADC_t</a>
 </li>
 <li>SPR1
-: <a class="el" href="struct_i_t_c__t.html#a83d6222e7b86a2319288126bb5a72944">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a4126a79160d0a8e2e6b128f0047064e7">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ad76aef50b473b118be9a8b6ed061e7b2">ITC_t</a>
 </li>
 <li>SPR2
-: <a class="el" href="struct_i_t_c__t.html#acd39d39386ad29bb49a688808413bebb">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aee580eb9508597d098136641e29957aa">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a4d4de50a7e1e0beb997736a5ba347a2f">ITC_t</a>
 </li>
 <li>SPR3
-: <a class="el" href="struct_i_t_c__t.html#ae7e4b2815502f1f787c7348427723740">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a091e0630a28c04bd27cf3a9c5bbcfedd">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a54e25d0559bf5a8ce942ecfe226d5d1b">ITC_t</a>
 </li>
 <li>SPR4
-: <a class="el" href="struct_i_t_c__t.html#a707b174bef37d982b44d70c64d414a78">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ae28422b94b2f12dc3c065d7ada27c179">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#abe61660a3bf27531481abb0a5a0cf109">ITC_t</a>
 </li>
 <li>SPR5
-: <a class="el" href="struct_i_t_c__t.html#a65263b56986be73763076ca3e077ee7d">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a28392b37b1b7f6bf9c393222f7e7a452">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a73bda3285ece4c147b2051b5b8c6e0b9">ITC_t</a>
 </li>
 <li>SPR6
-: <a class="el" href="struct_i_t_c__t.html#a3ce971cde88720d4763e07c935929c46">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aa15bab31cdd907a8fae40676388bdf00">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a32adf9eec2cdd76728370b6be7589b39">ITC_t</a>
 </li>
 <li>SPR7
-: <a class="el" href="struct_i_t_c__t.html#a90ea6ea5430a690abe4e23f615ba3933">ITC_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a2be14c4fbf2e828d15c29187cf3b5a80">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a2e2ce77fdca3fc3388b1de8642c2dbbd">ITC_t</a>
 </li>
 <li>SPR8
-: <a class="el" href="struct_i_t_c__t.html#ae27e8767ea79e1afd434bf82a6bc71d3">ITC_t</a>
-</li>
-<li>SPSEL
-: <a class="el" href="struct_a_d_c1__t.html#ace7e67d79205b37f1fbc07af9bbab0dd">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#ace7e67d79205b37f1fbc07af9bbab0dd">ADC2_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a571d76d701b151682ed99eca763448b1">_ITC_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a7b2b7c2a29847e5624173ef5ab7ba7e5">ITC_t</a>
 </li>
 <li>SR
-: <a class="el" href="struct_r_s_t__t.html#acb0327bed11198157a47b0d6315c03cf">RST_t</a>
-, <a class="el" href="struct_s_p_i__t.html#a3aa025e322a921dbf1e03f4048c4cebb">SPI_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#a158ff7259c5cb62fe4b5758f18ec5417">TIM4_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#a2b0d2b6374e1396fc4e6999630742339">TIM6_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a464838bd4d27c67f2ab0981b07a3086c">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a5f8f45d7ad9da4e450004953a30c8dee">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#ab4415426ce0e1096dd4f70b5314c464f">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a9161c984eee17bee3ccd99d9bdb5b1be">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a0675eb10620907e42ec11afd9a38b824">USART_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a1bb584efa0dfd786b410468c57420954">_ADC_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a22eaf625a59a3d34b7c4accbd19aff10">_RST_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#aa6dcc77492f83ebb0445aafbcd1d59ec">_SPI_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ae09f83a4cdc574ab996fa2d97b5db76a">_TIM4_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a291a4d4dfd516505a76d3760991873d7">_TIM6_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a03da75c4a4845d312e1e62ea0eb93342">_UART1_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ae4d5fd1fa1bb84e27a6c809062c15d7b">_UART2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a954e6fcbdb9c7c5d4a01a3e21e199156">_UART3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a0f874d5b8d995b332deec53bb5f7dddb">_UART4_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a3fac5894f8360ef41ac5eafccb56ae73">_UART_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a674800dcff177abfa51924e38413231f">_USART_t</a>
 </li>
 <li>SR1
-: <a class="el" href="struct_e_x_t_i__t.html#aaa28dc860e1f3fc1682ad59c26774369">EXTI_t</a>
-, <a class="el" href="struct_i2_c__t.html#a6b0482500a88e36a316a84bd3434f09f">I2C_t</a>
-, <a class="el" href="struct_t_i_m1__t.html#aae1cd691ba3e096c33e0cb1d91585c0b">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#adea2a1556ac0f28d66c76655671d9167">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a87d19a894de52ab291297a97d60ebec1">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#ab3a103bde0ade7f37047666ca6d4ea4d">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#ae306fbd755ff6249ac6bf2afe8c43c2d">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#aca523bfe709d94ed682c98653fb3dc3b">TIM5_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a2cc1b9973e738b3b04db546cea4d711d">_EXTI_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aba78d21e05214d5db38217790db491f3">_I2C_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a7cdc34934ecfae77561d64b676e3697b">_SYSTIM_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a592238f974223caf14c32baf0c487dbd">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a25d40d231b48bbd01c5940443080f073">_TIM2_3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a708581ae6032fd0fb0af4be2ff97fde8">_TIM2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ab858e56f4e09b50fa6baac24e12e2fcb">_TIM3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a554d21e6b73da91a66c5f011a12861c9">_TIM4_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ad84337c4d7480c6556716b36d0d98354">_TIM5_t</a>
 </li>
 <li>SR2
-: <a class="el" href="struct_e_x_t_i__t.html#a37880a85162f6d60b1c063eb3990f0ab">EXTI_t</a>
-, <a class="el" href="struct_i2_c__t.html#a6cff51e03e4cbf76300143093fbef6b8">I2C_t</a>
-, <a class="el" href="struct_t_i_m1__t.html#a0aaae6be976ba4d37b2f36c3e969c701">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a42e2330a4aa0c8775c5d55aa3e1f15d1">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a2c4e19a5e44fdc5c762d02daea66f763">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a7c2c773c11c9e314767dcbf81f540c3d">TIM3_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a5641fa9f346211b9db865a479373b045">TIM5_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#aed1043e904bf88416a3a704915e5729e">_EXTI_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a9e4022b78ee5317b45f00cdb38a8645b">_I2C_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ad8ac9cc07cc6bb1dcaa1011fcf62442f">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a2c1b03dfb56b4a690f422ec1c41f5dea">_TIM2_3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a401b4825ed081afd07afe9b172a91b62">_TIM2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a68d18c761a7ab019ece3f5fc60596e0f">_TIM3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a451c7f012ebcfc33b1e32aa47c294afe">_TIM5_t</a>
 </li>
 <li>SR3
-: <a class="el" href="struct_i2_c__t.html#a2c1adbc3904e5eb235fc9647f95693b1">I2C_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ab7781824951879aca8b591e625648e59">_I2C_t</a>
 </li>
-<li>SSI
-: <a class="el" href="struct_s_p_i__t.html#a96e548fce94850e08a5a535aeeb4b257">SPI_t</a>
+<li>STSP0
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a1666efc3fa3e14147e24dabba77c646e">_MSC_t</a>
 </li>
-<li>SSM
-: <a class="el" href="struct_s_p_i__t.html#a94a0e284a1e97cd34ee548af6ef00f3c">SPI_t</a>
+<li>STSP1
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#af5fea0d72b02893497739edf28f0f55c">_MSC_t</a>
 </li>
-<li>STAB
-: <a class="el" href="struct_p_x_s__t.html#a9f59c67f77b8f1ad85d09b15b027c1b4">PXS_t</a>
-</li>
-<li>START
-: <a class="el" href="struct_i2_c__t.html#a35bd4dba2e476c5d477448b8eb9fcabd">I2C_t</a>
-, <a class="el" href="struct_p_x_s__t.html#a35bd4dba2e476c5d477448b8eb9fcabd">PXS_t</a>
-</li>
-<li>STOP
-: <a class="el" href="struct_i2_c__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">I2C_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a26fd2b4e2ed23dcb9f9a96b1e6c1be4a">USART_t</a>
-</li>
-<li>STOPF
-: <a class="el" href="struct_i2_c__t.html#a3d2730d8a9c1ff9dc409fba9e8c44973">I2C_t</a>
-</li>
-<li>SWBSY
-: <a class="el" href="struct_c_l_k__t.html#a3bd6e7e638e960902b1d5d412b899ded">CLK_t</a>
+<li>STSP2
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a558a462b838db50dd7a7cc563eb15fb6">_MSC_t</a>
 </li>
 <li>SWCR
-: <a class="el" href="struct_c_l_k__t.html#af9a5453ed0b29bc422b3784314c652f4">CLK_t</a>
-</li>
-<li>SWD
-: <a class="el" href="struct_c_f_g__t.html#a0c326394b6189d22a4812753e4481d36">CFG_t</a>
-</li>
-<li>SWEN
-: <a class="el" href="struct_c_l_k__t.html#a23d18d3711fbcec36d05b0a8d12def41">CLK_t</a>
-</li>
-<li>SWI
-: <a class="el" href="struct_c_l_k__t.html#ac40311e23bebd9f506edcc66ace96fc8">CLK_t</a>
-</li>
-<li>SWIEN
-: <a class="el" href="struct_c_l_k__t.html#a9d34c649799eddc20e5d8f0152deb6cc">CLK_t</a>
-</li>
-<li>SWIF
-: <a class="el" href="struct_c_l_k__t.html#a85b1dadf33103fe3102783062d0e46e9">CLK_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a1ce0e3bba6c6194d14e20ba660a03842">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ade78fb455fccb5a8fadb9b35a6a80a17">CLK_t</a>
 </li>
 <li>SWIMCCR
-: <a class="el" href="struct_c_l_k__t.html#a1ed8a51a08efe436ae032c2fed21d4a4">CLK_t</a>
-</li>
-<li>SWIMCLK
-: <a class="el" href="struct_c_l_k__t.html#a4a34764cb3da61e2c91a57c91eca81a1">CLK_t</a>
-</li>
-<li>SWIMF
-: <a class="el" href="struct_r_s_t__t.html#a89c79131739b8f785cd0da10ea6109dd">RST_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a4ca52c6152da86ca11e0830f4c1b7c84">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a882207ce38a9db58802715eeed136663">CLK_t</a>
 </li>
 <li>SWR
-: <a class="el" href="struct_c_l_k__t.html#a406138c234c9eb9d4a7ac16e0e09e099">CLK_t</a>
-</li>
-<li>SWRST
-: <a class="el" href="struct_i2_c__t.html#a6a7796e2be84ac5f400767de08b866bc">I2C_t</a>
-</li>
-<li>SYNC_OVRF
-: <a class="el" href="struct_p_x_s__t.html#a8d46a243c12e96c7e5d291f434488ed2">PXS_t</a>
-</li>
-<li>SYNCEDGE
-: <a class="el" href="struct_p_x_s__t.html#a7c68317dbebe3375469e20bca290f998">PXS_t</a>
-</li>
-<li>SYNCEN
-: <a class="el" href="struct_p_x_s__t.html#a5f788c3e92be9f4048da47fdf1a370a6">PXS_t</a>
-</li>
-<li>SYNCPF
-: <a class="el" href="struct_p_x_s__t.html#aca5baa093f8fc99682e735275fb84638">PXS_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a3fa00320aee0877d91a5c6c9460b5da5">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a5231ec41100b8bd7b0c01ac4d56ff616">CLK_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

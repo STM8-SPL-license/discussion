@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('globals_defs_u.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -134,29 +155,30 @@ $(function() {
 <li>UART3_AddressBase
 : <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF5268.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF5269.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208R6.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF5286.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF5288.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF5289.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF528A.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208S8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF52A6.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF52A8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF52A9.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207RB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208R6.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF52AA.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF6286.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF6288.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207M8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF6289.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF628A.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF62A6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207C8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF62A8.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207RB.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF62A9.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF62AA.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8AF6388.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207M8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S007C8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207C6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207C8.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207CB.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207K6.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S207K8.h</a>
@@ -174,82 +196,94 @@ $(function() {
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208RB.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208S6.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208SB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga07ff99cdc244951966df121cb5322b6b">STM8S208S8.h</a>
 </li>
 <li>UART4_AddressBase
-: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6213.h</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6223.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6213.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6213A.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6223A.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6226.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gafe970a61cef13d20fb23abb4df70f591">STM8AF6223.h</a>
+</li>
+<li>UART_AddressBase
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga53ef3788e5acd48bd7da9d86cc63e01b">STLUX325A.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga53ef3788e5acd48bd7da9d86cc63e01b">STLUX285A.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga53ef3788e5acd48bd7da9d86cc63e01b">STLUX383A.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga53ef3788e5acd48bd7da9d86cc63e01b">STLUX385A.h</a>
 </li>
 <li>UID_AddressBase
-: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207CB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207SB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207RB.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL52G4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208CB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103K3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207S6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105K4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208C8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207M8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207MB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208MB.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101K3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207S8.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F2.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105C6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207R8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208S6.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101G3.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53C4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208S8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S903F3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103F3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208RB.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S903K3.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105C4.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL52F4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105S4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207K8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207R6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208C6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208SB.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F1.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53G4.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101G2.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53F4.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208R8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207K6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207C6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208R6.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105K6.h</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103F2.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga55285003ad24bbe5a86e94f3a731ccef">STLUX383A.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga55285003ad24bbe5a86e94f3a731ccef">STLUX285A.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207C8.h</a>
-, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103F2.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101K3.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103F3.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208CB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105K4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105K6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105S4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207R8.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208MB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105C6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207M8.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F3.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207RB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208SB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207SB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208RB.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F2.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208C8.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101G3.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207S8.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208S8.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207MB.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53C4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208R6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207S6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S903F3.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101F1.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga55285003ad24bbe5a86e94f3a731ccef">STLUX385A.h</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ga55285003ad24bbe5a86e94f3a731ccef">STLUX325A.h</a>
 , <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105S6.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL52F4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208C6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S103K3.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53G4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207CB.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208S6.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8L101G2.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S903K3.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S208R8.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207C6.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207R6.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL53F4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S105C4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207K6.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8TL52G4.h</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ga55285003ad24bbe5a86e94f3a731ccef">STM8S207K8.h</a>
 </li>
 <li>USART_AddressBase
-: <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL52G4.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL53G4.h</a>
+: <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F1.h</a>
 , <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL53C4.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101K3.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F1.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101G2.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F3.h</a>
-, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F2.h</a>
-, <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL53F4.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL53G4.h</a>
 , <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL52F4.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F3.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101K3.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101G2.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL53F4.h</a>
 , <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101G3.h</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8L101F2.h</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#gaaadf38f5524c0b53bfd0906fba5f032c">STM8TL52G4.h</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

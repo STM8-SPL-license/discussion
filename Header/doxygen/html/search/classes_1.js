@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['beep_5ft',['BEEP_t',['../struct_b_e_e_p__t.html',1,'']]]
+  ['clk_5ft',['CLK_t',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t',1,'']]],
+  ['clk_5ft_2eadcr',['CLK_t.ADCR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_a_d_c_r',1,'']]],
+  ['clk_5ft_2eawudiv',['CLK_t.AWUDIV',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_a_w_u_d_i_v',1,'']]],
+  ['clk_5ft_2eccodivr',['CLK_t.CCODIVR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_c_o_d_i_v_r',1,'']]],
+  ['clk_5ft_2eccor',['CLK_t.CCOR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_c_o_r',1,'CLK_t.CCOR'],['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_c_o_r',1,'CLK_t.CCOR'],['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_c_o_r',1,'CLK_t.CCOR']]],
+  ['clk_5ft_2eckdivr',['CLK_t.CKDIVR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_k_d_i_v_r',1,'CLK_t.CKDIVR'],['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_k_d_i_v_r',1,'CLK_t.CKDIVR']]],
+  ['clk_5ft_2ecmsr',['CLK_t.CMSR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_m_s_r',1,'']]],
+  ['clk_5ft_2ecssr',['CLK_t.CSSR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_c_s_s_r',1,'']]],
+  ['clk_5ft_2eeckr',['CLK_t.ECKR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_e_c_k_r',1,'']]],
+  ['clk_5ft_2ehsitrimr',['CLK_t.HSITRIMR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_h_s_i_t_r_i_m_r',1,'']]],
+  ['clk_5ft_2eickr',['CLK_t.ICKR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_i_c_k_r',1,'']]],
+  ['clk_5ft_2epckenr1',['CLK_t.PCKENR1',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_p_c_k_e_n_r1',1,'CLK_t.PCKENR1'],['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_p_c_k_e_n_r1',1,'CLK_t.PCKENR1']]],
+  ['clk_5ft_2epckenr2',['CLK_t.PCKENR2',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_p_c_k_e_n_r2',1,'']]],
+  ['clk_5ft_2eplldiv',['CLK_t.PLLDIV',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_p_l_l_d_i_v',1,'']]],
+  ['clk_5ft_2epllr',['CLK_t.PLLR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_p_l_l_r',1,'']]],
+  ['clk_5ft_2esmd0',['CLK_t.SMD0',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d0',1,'']]],
+  ['clk_5ft_2esmd1',['CLK_t.SMD1',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d1',1,'']]],
+  ['clk_5ft_2esmd2',['CLK_t.SMD2',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d2',1,'']]],
+  ['clk_5ft_2esmd3',['CLK_t.SMD3',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d3',1,'']]],
+  ['clk_5ft_2esmd4',['CLK_t.SMD4',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d4',1,'']]],
+  ['clk_5ft_2esmd5',['CLK_t.SMD5',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_m_d5',1,'']]],
+  ['clk_5ft_2eswcr',['CLK_t.SWCR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_w_c_r',1,'']]],
+  ['clk_5ft_2eswimccr',['CLK_t.SWIMCCR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_w_i_m_c_c_r',1,'']]],
+  ['clk_5ft_2eswr',['CLK_t.SWR',['../group___s_t_l_u_x___s_t_n_r_g.html#struct_c_l_k__t_8_s_w_r',1,'']]]
 ];

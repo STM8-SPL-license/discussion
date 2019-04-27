@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars_p.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,306 +83,106 @@ $(function() {
 &#160;
 
 <h3><a id="index_p"></a>- p -</h3><ul>
-<li>P0F
-: <a class="el" href="struct_e_x_t_i__t.html#a691834d4c581a7b459fb6b27b850be81">EXTI_t</a>
-</li>
-<li>P0IS
-: <a class="el" href="struct_e_x_t_i__t.html#ac6235cc8ffce94bf57d974fc77147bd0">EXTI_t</a>
-</li>
-<li>P1F
-: <a class="el" href="struct_e_x_t_i__t.html#a885e4b4bdb39299794c52922a19d7feb">EXTI_t</a>
-</li>
-<li>P1IS
-: <a class="el" href="struct_e_x_t_i__t.html#a9d97472de7fd8f412554b21fb8013e1d">EXTI_t</a>
-</li>
-<li>P2F
-: <a class="el" href="struct_e_x_t_i__t.html#a6ad990247fdb1b85b4f96999c47c9ef8">EXTI_t</a>
-</li>
-<li>P2IS
-: <a class="el" href="struct_e_x_t_i__t.html#abe42d60eca81b61d02501be4a9bfbb96">EXTI_t</a>
-</li>
-<li>P3F
-: <a class="el" href="struct_e_x_t_i__t.html#adafbdac936e57c8352c4c9894bf061a9">EXTI_t</a>
-</li>
-<li>P3IS
-: <a class="el" href="struct_e_x_t_i__t.html#a30591fab8e516ecc847539d848651b10">EXTI_t</a>
-</li>
-<li>P4F
-: <a class="el" href="struct_e_x_t_i__t.html#a9cd1b18ac0ed5f6f2cb57fb60c37b218">EXTI_t</a>
-</li>
-<li>P4IS
-: <a class="el" href="struct_e_x_t_i__t.html#a7153bde3b07aed2d0405e567094da88d">EXTI_t</a>
-</li>
-<li>P5F
-: <a class="el" href="struct_e_x_t_i__t.html#ac46aba9dcabdd71ea28ea01fff919ec2">EXTI_t</a>
-</li>
-<li>P5IS
-: <a class="el" href="struct_e_x_t_i__t.html#a5e434153196ae03e4e5b9aaeb36df1a1">EXTI_t</a>
-</li>
-<li>P6F
-: <a class="el" href="struct_e_x_t_i__t.html#ae1bba2bfed9a141b35cfed0412c97ad6">EXTI_t</a>
-</li>
-<li>P6IS
-: <a class="el" href="struct_e_x_t_i__t.html#a6e36841f39395a214f7d465f06ecd470">EXTI_t</a>
-</li>
-<li>P7F
-: <a class="el" href="struct_e_x_t_i__t.html#a007f0069c80e947dbc7ed81419891f54">EXTI_t</a>
-</li>
-<li>P7IS
-: <a class="el" href="struct_e_x_t_i__t.html#a75ce8563b663dce3e6a0b1faea9bbf68">EXTI_t</a>
-</li>
 <li>Page
-: <a class="el" href="struct_c_a_n__t.html#a193b1038c558e60ddc8263cdecaacddf">CAN_t</a>
-</li>
-<li>PAGE_0
-: <a class="el" href="struct_c_a_n__t.html#a6717336734e3cff7a00c4b2131151e31">CAN_t</a>
-</li>
-<li>PAGE_1
-: <a class="el" href="struct_c_a_n__t.html#a559cc855db88d46d916822fd8a69ae02">CAN_t</a>
-</li>
-<li>PAGE_2
-: <a class="el" href="struct_c_a_n__t.html#a4fe186e46f11251fb716ce17c2c2de15">CAN_t</a>
-</li>
-<li>PAGE_3
-: <a class="el" href="struct_c_a_n__t.html#a014718cafd341046a673af2a16399d2a">CAN_t</a>
-</li>
-<li>PAGE_4
-: <a class="el" href="struct_c_a_n__t.html#ae3f23d662ca53b0252a7c6c887251902">CAN_t</a>
-</li>
-<li>PAGE_5
-: <a class="el" href="struct_c_a_n__t.html#a33092512992ae0e3bbf5f913b28d5275">CAN_t</a>
-</li>
-<li>PAGE_6
-: <a class="el" href="struct_c_a_n__t.html#a5167c33353eed9cb6103efb6a3984812">CAN_t</a>
-</li>
-<li>PAGE_7
-: <a class="el" href="struct_c_a_n__t.html#ac9291c82b1042174a92ae394c3f6720a">CAN_t</a>
-</li>
-<li>PAIS
-: <a class="el" href="struct_e_x_t_i__t.html#a1dc2565786a8045c460f17614a40965d">EXTI_t</a>
-</li>
-<li>PASSLEN
-: <a class="el" href="struct_p_x_s__t.html#aeeafa47067663c4cd2601d1220d9048d">PXS_t</a>
-</li>
-<li>PBF
-: <a class="el" href="struct_e_x_t_i__t.html#a08f3bad07f301cfaeae17ab8bdea9d90">EXTI_t</a>
-</li>
-<li>PBHIS
-: <a class="el" href="struct_e_x_t_i__t.html#a2d3cf39a8728009fb9d555f9f5fe9381">EXTI_t</a>
-</li>
-<li>PBIS
-: <a class="el" href="struct_e_x_t_i__t.html#a18d82e50c315fd14e2355c79873c5a12">EXTI_t</a>
-</li>
-<li>PBLIS
-: <a class="el" href="struct_e_x_t_i__t.html#a4820a1696ea9ad3a7bd7bccc67bfe17a">EXTI_t</a>
-</li>
-<li>PCEN
-: <a class="el" href="struct_u_a_r_t1__t.html#adb8338591dd30ed0cfe9d3b0f9d3d036">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#adb8338591dd30ed0cfe9d3b0f9d3d036">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#adb8338591dd30ed0cfe9d3b0f9d3d036">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#adb8338591dd30ed0cfe9d3b0f9d3d036">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#adb8338591dd30ed0cfe9d3b0f9d3d036">USART_t</a>
-</li>
-<li>PCIS
-: <a class="el" href="struct_e_x_t_i__t.html#aa1f1105d12a00fe05b96c459794c69da">EXTI_t</a>
-</li>
-<li>PCKEN_ADC
-: <a class="el" href="struct_c_l_k__t.html#a024ea83f338af167b3acfd63184829fc">CLK_t</a>
-</li>
-<li>PCKEN_AWU
-: <a class="el" href="struct_c_l_k__t.html#acada6aff508a91ea4fe8afb367f53891">CLK_t</a>
-</li>
-<li>PCKEN_AWU_BEEP
-: <a class="el" href="struct_c_l_k__t.html#a7d01ebe133cad102940af6cb44ee7104">CLK_t</a>
-</li>
-<li>PCKEN_CAN
-: <a class="el" href="struct_c_l_k__t.html#a60e5d1184e4235b2517790c72a6a4a95">CLK_t</a>
-</li>
-<li>PCKEN_I2C
-: <a class="el" href="struct_c_l_k__t.html#aac2ae87bde6e3189bd5f858c08b84337">CLK_t</a>
-</li>
-<li>PCKEN_PXS
-: <a class="el" href="struct_c_l_k__t.html#ae060c813f3752283bc6cacb6018c8b3e">CLK_t</a>
-</li>
-<li>PCKEN_SPI
-: <a class="el" href="struct_c_l_k__t.html#a45c496ea6165380c9dfef79d569e6f5e">CLK_t</a>
-</li>
-<li>PCKEN_TIM1
-: <a class="el" href="struct_c_l_k__t.html#ab10e66d4b726d01e803ba6574a6f6207">CLK_t</a>
-</li>
-<li>PCKEN_TIM2
-: <a class="el" href="struct_c_l_k__t.html#af1dbfd7612ba7547c20ae022f56515f2">CLK_t</a>
-</li>
-<li>PCKEN_TIM2_TIM5
-: <a class="el" href="struct_c_l_k__t.html#a33dfe14bb24aa759f52c7e4226308801">CLK_t</a>
-</li>
-<li>PCKEN_TIM3
-: <a class="el" href="struct_c_l_k__t.html#abca448544a7e49899a1c19390dcb5121">CLK_t</a>
-</li>
-<li>PCKEN_TIM4
-: <a class="el" href="struct_c_l_k__t.html#a158ce4b8906730b2977c464e3b853f3d">CLK_t</a>
-</li>
-<li>PCKEN_TIM4_TIM6
-: <a class="el" href="struct_c_l_k__t.html#aa86d80118290d062d37e83b118301555">CLK_t</a>
-</li>
-<li>PCKEN_UART1
-: <a class="el" href="struct_c_l_k__t.html#a2ae933f250d0c361e7c7ce4d949403ef">CLK_t</a>
-</li>
-<li>PCKEN_UART2
-: <a class="el" href="struct_c_l_k__t.html#a7ca251cad6e7b3b1336d63abe8972295">CLK_t</a>
-</li>
-<li>PCKEN_USART
-: <a class="el" href="struct_c_l_k__t.html#af6b83f67a1e2774e5054a0fb1e52a6a7">CLK_t</a>
-</li>
-<li>PCKEN_WWDG
-: <a class="el" href="struct_c_l_k__t.html#af3001d2a8d1b85510da3a117589d8640">CLK_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a871d148268df106e907aca33769fe9ad">_CAN_t</a>
 </li>
 <li>PCKENR1
-: <a class="el" href="struct_c_l_k__t.html#a6c5c5ce2bd09bc7b83a4e45932b2d974">CLK_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a23140edfbfd0f676e786766c92c53af0">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a15ac293ce43a9f86feae8ad937787278">CLK_t</a>
 </li>
 <li>PCKENR2
-: <a class="el" href="struct_c_l_k__t.html#acd32b3eb83616d994d34ac706ba34458">CLK_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#abb62099425965494829971f8c478f86a">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a2559569ffafa255aeeaf0351792a066e">CLK_t</a>
 </li>
-<li>PDF
-: <a class="el" href="struct_e_x_t_i__t.html#a06d103ef2452a9f71c561676d5fabe55">EXTI_t</a>
+<li>PLLDIV
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a72ab67197ef22f8e3dd5708911fb982c">CLK_t</a>
 </li>
-<li>PDHIS
-: <a class="el" href="struct_e_x_t_i__t.html#ad1bb6a1a99f071d93e1fe88a00881cba">EXTI_t</a>
-</li>
-<li>PDIS
-: <a class="el" href="struct_e_x_t_i__t.html#a54a2c60b55c7988a3de7bd3775bd05b9">EXTI_t</a>
-</li>
-<li>PDLIS
-: <a class="el" href="struct_e_x_t_i__t.html#a33a39a3e4aef7244b5754104b4f29be9">EXTI_t</a>
-</li>
-<li>PE
-: <a class="el" href="struct_i2_c__t.html#a737ef23f7b37424196b71e4beebec1c0">I2C_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a737ef23f7b37424196b71e4beebec1c0">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a737ef23f7b37424196b71e4beebec1c0">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a737ef23f7b37424196b71e4beebec1c0">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a737ef23f7b37424196b71e4beebec1c0">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a737ef23f7b37424196b71e4beebec1c0">USART_t</a>
-</li>
-<li>PEIS
-: <a class="el" href="struct_e_x_t_i__t.html#ab9dca05cab2a0171efcdeaed0f1c41fd">EXTI_t</a>
-</li>
-<li>PIEN
-: <a class="el" href="struct_u_a_r_t1__t.html#a13e6a840c9634cb3de18f88072714f3f">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a13e6a840c9634cb3de18f88072714f3f">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a13e6a840c9634cb3de18f88072714f3f">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a13e6a840c9634cb3de18f88072714f3f">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a13e6a840c9634cb3de18f88072714f3f">USART_t</a>
-</li>
-<li>PIN0
-: <a class="el" href="struct_p_o_r_t__t.html#a4fa9f9550d33ca64cffe5ac24d77d39b">PORT_t</a>
-</li>
-<li>PIN1
-: <a class="el" href="struct_p_o_r_t__t.html#a9ec524274ed4b1d91e79bb1232d4bfec">PORT_t</a>
-</li>
-<li>PIN2
-: <a class="el" href="struct_p_o_r_t__t.html#a8ea8e5b2262aa76410bfcfd18cc2a940">PORT_t</a>
-</li>
-<li>PIN3
-: <a class="el" href="struct_p_o_r_t__t.html#a9f91fa3e81d11d8988c50491d5f3aca8">PORT_t</a>
-</li>
-<li>PIN4
-: <a class="el" href="struct_p_o_r_t__t.html#a1b6f0632dcf9f68dca168ed7bf9245c4">PORT_t</a>
-</li>
-<li>PIN5
-: <a class="el" href="struct_p_o_r_t__t.html#ae4b0cd19b29b530cae9f8991ad80ea4c">PORT_t</a>
-</li>
-<li>PIN6
-: <a class="el" href="struct_p_o_r_t__t.html#abcaefff251b20d4ebe67072b80729d3d">PORT_t</a>
-</li>
-<li>PIN7
-: <a class="el" href="struct_p_o_r_t__t.html#a9af704522f6be8dc931b7ded97c89439">PORT_t</a>
-</li>
-<li>PIN_KEY
-: <a class="el" href="struct_r_s_t__t.html#a7cf834d689703d6a2a68e656d78952d0">RST_t</a>
-</li>
-<li>POL
-: <a class="el" href="struct_c_o_m_p__t.html#accb8b70e949148aaa11bc1ab7ab20922">COMP_t</a>
-</li>
-<li>PORF
-: <a class="el" href="struct_r_s_t__t.html#a107d5ff9a5f71805d614dc0f272edbac">RST_t</a>
-</li>
-<li>POS
-: <a class="el" href="struct_i2_c__t.html#afbbc40c434676a62eaf0ed25afd9852f">I2C_t</a>
+<li>PLLR
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a2e47948d95d65441b49df9e65c13abb8">CLK_t</a>
 </li>
 <li>PR
-: <a class="el" href="struct_i_w_d_g__t.html#ab0d5a08aaa953919e7ab4da63f5cfdc3">IWDG_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aefb1366994b2416887de12031e3a1e37">_IWDG_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a8e4c91445607af7eef0dfce0b107f0f9">IWDG_t</a>
 </li>
-<li>PRE
-: <a class="el" href="struct_i_w_d_g__t.html#af3d49ff65e2ab79850d1724c538efe59">IWDG_t</a>
+<li>PRM_ID0
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ad9bf96ee7ec2071f71de3f7dba0c40fc">_SMED_t</a>
 </li>
-<li>PRESC
-: <a class="el" href="struct_p_x_s__t.html#a534c23221405af11e0e865af972c4ce5">PXS_t</a>
+<li>PRM_ID1
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a7cef0cc23d1d306aa0a71f3af4a0028a">_SMED_t</a>
 </li>
-<li>PRG
-: <a class="el" href="struct_f_l_a_s_h__t.html#a8d4512f4dd1e6a8635bd0f3b835312b4">FLASH_t</a>
+<li>PRM_ID2
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a17d8504121a73945304a516a414fae4f">_SMED_t</a>
 </li>
-<li>PS
-: <a class="el" href="struct_c_a_n__t.html#a61be40cb57e76f25548d1e1ad0a93157">CAN_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a61be40cb57e76f25548d1e1ad0a93157">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a61be40cb57e76f25548d1e1ad0a93157">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a61be40cb57e76f25548d1e1ad0a93157">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a61be40cb57e76f25548d1e1ad0a93157">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a61be40cb57e76f25548d1e1ad0a93157">USART_t</a>
+<li>PRM_S00
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a8d42eefb934a52cd332cb2dfea12da0a">_SMED_t</a>
 </li>
-<li>PSC
-: <a class="el" href="struct_t_i_m1__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#a44274c2a73e369853b32d7d10086fb8b">TIM6_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a44274c2a73e369853b32d7d10086fb8b">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a44274c2a73e369853b32d7d10086fb8b">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a44274c2a73e369853b32d7d10086fb8b">UART4_t</a>
+<li>PRM_S01
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a31c47e76d0f3d8423a96d4959fad9258">_SMED_t</a>
+</li>
+<li>PRM_S02
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a06582f5ea6156c53ce4c6ee0170b2ac4">_SMED_t</a>
+</li>
+<li>PRM_S10
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aa9efafe4d1d85cb07bfdbe92ca98d312">_SMED_t</a>
+</li>
+<li>PRM_S11
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ac9afbe44c1bd5a0bd4b3e546da023b4d">_SMED_t</a>
+</li>
+<li>PRM_S12
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ad63829e21afaefd7947c0f7f03f7738c">_SMED_t</a>
+</li>
+<li>PRM_S20
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a05400286410b29aaae6c5752351b54a6">_SMED_t</a>
+</li>
+<li>PRM_S21
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#aae4fceb9a98362d09846a57891ee908a">_SMED_t</a>
+</li>
+<li>PRM_S22
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ac59dec67dc5af0b8a629a7e67fc0d702">_SMED_t</a>
+</li>
+<li>PRM_S30
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#abf15d0f6426234c8498adbe89833bf94">_SMED_t</a>
+</li>
+<li>PRM_S31
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a10917f734b82adc5f7b8e5acc1f20daa">_SMED_t</a>
+</li>
+<li>PRM_S32
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a349723cd9ab4bbb5ecd3197532543a8b">_SMED_t</a>
 </li>
 <li>PSCR
-: <a class="el" href="struct_t_i_m2__3__t.html#a35f0a24f2217e01989f80dd2797075f6">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a2e495e2e27534954dc5c39257684b376">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a390dd76077c80e95a2a84de37eae167b">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#aeb834657b7965b508df555e6103f9d42">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#a8cfe7c1863512767ba63f016e92d3d67">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#a8384a376a523c9687872bf0182e11f7f">TIM6_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a4b3af5104cdafd04ba5e54c671716a70">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#ac1502cbc4b383ba064896cbf87a8631d">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#acfbc88e2b58c88980fcfb8b966c0d7c5">UART4_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#af45827fe2afa68dd121b5e3c041efed1">_SYSTIM_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a09cea4dd0b0ad162ee11a8bd9e980ee9">_TIM2_3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a763477b81a529a8da8ccb49f861e46b3">_TIM2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a648c48b9f62dc86a714d75ee3ce93712">_TIM3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a479389841d5f07a4d344153e39866aae">_TIM4_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ab71e2aaf6efe383346a371d43fe05087">_TIM5_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#aee2eaeb0802b72db073a7c146562eb38">_TIM6_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ab253b1d50ecb42671bb910785415bce7">_UART1_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#af2cf19d8daaa319406e3a10a6a61e999">_UART2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a21c3204c0e5cb84263b9ba9892e657a0">_UART4_t</a>
 </li>
 <li>PSCRH
-: <a class="el" href="struct_t_i_m1__t.html#a0e1c577559fe349c779aa3a4a3d69c5e">TIM1_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a13bedf71b1b550201af604e92eb8a566">_TIM1_t</a>
 </li>
 <li>PSCRL
-: <a class="el" href="struct_t_i_m1__t.html#a5f29af2a2a0841d4adafe9695d96933f">TIM1_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#af7e0c3d4c5df4c250c2b215c0fb28597">_TIM1_t</a>
 </li>
 <li>PSR
-: <a class="el" href="struct_c_a_n__t.html#a15999803c27b076ff05bd3a2ce8e1f43">CAN_t</a>
-</li>
-<li>PUK
-: <a class="el" href="struct_f_l_a_s_h__t.html#afefdadcf7324e11e04f51b42755641c5">FLASH_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ac9dd96b9624e538ee662e819c53dec71">_CAN_t</a>
 </li>
 <li>PUKR
-: <a class="el" href="struct_f_l_a_s_h__t.html#a27166601167a96ab2a3b0a601d2f0710">FLASH_t</a>
-</li>
-<li>PUL
-: <a class="el" href="struct_f_l_a_s_h__t.html#a5b35aae0ee72b0221c71b39c7452207b">FLASH_t</a>
-</li>
-<li>PXS_EV
-: <a class="el" href="struct_w_f_e__t.html#a15c7aa391766b0bdff52adb34cdd2615">WFE_t</a>
-</li>
-<li>PXSEN
-: <a class="el" href="struct_p_x_s__t.html#a5740ce42d9b76634fb4af8d99fd2c609">PXS_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a541c72b6bbd765c7a878e0e58b1ddad3">_FLASH_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

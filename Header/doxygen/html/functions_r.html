@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_r.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,547 +83,228 @@ $(function() {
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_r"></a>- r -</h3><ul>
-<li>R8
-: <a class="el" href="struct_u_a_r_t1__t.html#a5807e7eb8f472b4f26f5f082e1be7ba1">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a5807e7eb8f472b4f26f5f082e1be7ba1">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a5807e7eb8f472b4f26f5f082e1be7ba1">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a5807e7eb8f472b4f26f5f082e1be7ba1">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a5807e7eb8f472b4f26f5f082e1be7ba1">USART_t</a>
-</li>
 <li>RCR
-: <a class="el" href="struct_t_i_m1__t.html#a2ed3bc1f907a3fbafca458163d127bd4">TIM1_t</a>
-</li>
-<li>REC
-: <a class="el" href="struct_c_a_n__t.html#a156ed660c2c5d79f88022c59fa0052e7">CAN_t</a>
-</li>
-<li>RECR
-: <a class="el" href="struct_c_a_n__t.html#a60a9913d3d3a538d05639c0cb8b0c341">CAN_t</a>
-</li>
-<li>REGAH
-: <a class="el" href="struct_c_l_k__t.html#adbcc764cfa83634b82c0c60c09657162">CLK_t</a>
-</li>
-<li>REN
-: <a class="el" href="struct_u_a_r_t1__t.html#aa3111c91fb5c9dc4877da4b89b6fbfc6">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#aa3111c91fb5c9dc4877da4b89b6fbfc6">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#aa3111c91fb5c9dc4877da4b89b6fbfc6">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#aa3111c91fb5c9dc4877da4b89b6fbfc6">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#aa3111c91fb5c9dc4877da4b89b6fbfc6">USART_t</a>
-</li>
-<li>REP
-: <a class="el" href="struct_t_i_m1__t.html#a50da4389276c904150204550234769c2">TIM1_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a26e04400fe645eb77ed0e6b16146f54e">_TIM1_t</a>
 </li>
 <li>res
-: <a class="el" href="struct_a_d_c1__t.html#a82e62eedeb9b9634aec8379b3dd103c6">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#a5a6d4f4123a113fbe2d966831810a93f">ADC2_t</a>
-, <a class="el" href="struct_c_a_n__t.html#aa19891a1d495d545f4e65c35dfcf3360">CAN_t</a>
-, <a class="el" href="struct_c_l_k__t.html#aa36cd21afba2f0e4b8cdcc3e33894984">CLK_t</a>
-, <a class="el" href="struct_f_l_a_s_h__t.html#aa19891a1d495d545f4e65c35dfcf3360">FLASH_t</a>
-, <a class="el" href="struct_i2_c__t.html#aa36cd21afba2f0e4b8cdcc3e33894984">I2C_t</a>
-, <a class="el" href="struct_p_x_s__t.html#a5a6d4f4123a113fbe2d966831810a93f">PXS_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a5a6d4f4123a113fbe2d966831810a93f">UART3_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a77a9856eb1bb8c6ca32b5bbd282957bf">_ADC1_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ae45ecd3872edb1242527609fcfb0fa9c">_ADC2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a5c2819cd98f365335c5fe36cbb8246e4">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#add2bf628463e42e924cfd4caceda608e">_FLASH_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a2f3b86dbe1ca09b5a5c8f8485033bbfd">_I2C_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ad718b31a7f5391671608cc70c719d1b8">_MSC_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ae9681fc0eb83cde587d188a48c8cc43b">_UART3_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a4378127e361b1aab36b3ce868cc6d928">CLK_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a17f256aca80deec3977efc2164027ec8">PXS_t</a>
 </li>
 <li>res2
-: <a class="el" href="struct_c_a_n__t.html#adb3a402c25b8cd3157ed6f2954640e7a">CAN_t</a>
-, <a class="el" href="struct_c_l_k__t.html#a1b1ab991348d00c0ae46c1d50a5c794e">CLK_t</a>
-, <a class="el" href="struct_f_l_a_s_h__t.html#ad26a47e55f2b44c0cac2e87d01a14509">FLASH_t</a>
-, <a class="el" href="struct_i2_c__t.html#ad26a47e55f2b44c0cac2e87d01a14509">I2C_t</a>
-, <a class="el" href="struct_p_x_s__t.html#ad26a47e55f2b44c0cac2e87d01a14509">PXS_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a688a976b8afa6dba3b2fe2e77ca78899">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a76549939ee6762e16d8c18d7f73e6c2c">_FLASH_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a38aa37cf7df5a85a338ecb26d0963320">_I2C_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ac2e220a2d09b27aa9119a535e131910c">_MSC_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a133c83fbf4820d4f997b238637c52c88">CLK_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a4bac4f3d2e61da9d4beddd3507bbbef7">PXS_t</a>
 </li>
 <li>res3
-: <a class="el" href="struct_p_x_s__t.html#a85e0211829e3dabd78feb5a44b754634">PXS_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a57c28571bf180eb575c5afb0a1b713ec">_FLASH_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a35e6ecca9b2226ad5461865459a90dc6">_MSC_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ae560c2bbd2715bce76aeca981e86569e">CLK_t</a>
+, <a class="el" href="group___s_t_m8_t_l5_x.html#a404ab04b61c4e00c516bd2fb2998f202">PXS_t</a>
 </li>
 <li>res4
-: <a class="el" href="struct_p_x_s__t.html#a72962cc1f25b97041931b80d6c7def47">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a5698803b33a08acb9ef2c68f536de7ff">PXS_t</a>
 </li>
 <li>res5
-: <a class="el" href="struct_p_x_s__t.html#a129cb95617ac5cc3232f0fa2a8ff4898">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a6609cf0810f357800b160947eac0ade1">PXS_t</a>
 </li>
 <li>res6
-: <a class="el" href="struct_p_x_s__t.html#a233fc6452040f455afad96c09c2470a3">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a59d7e3046e4e69901a3c5f95731f2a1a">PXS_t</a>
 </li>
 <li>res7
-: <a class="el" href="struct_p_x_s__t.html#a461347717c4b666b8963a9353666425d">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#aa73e7711cdc15f1793a824e1f4992bb5">PXS_t</a>
 </li>
-<li>RFLM
-: <a class="el" href="struct_c_a_n__t.html#ad3864e31b47ddae7e6e97573577f9222">CAN_t</a>
-</li>
-<li>RFOM
-: <a class="el" href="struct_c_a_n__t.html#a1e8ebd68ba3e11667866db7ddb178808">CAN_t</a>
+<li>REVLN
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ab8ee012761c6a71215b7afe01b3a50a8">_DALI_t</a>
 </li>
 <li>RFR
-: <a class="el" href="struct_c_a_n__t.html#aa260886ce55643cb07bcb2c8df7e619b">CAN_t</a>
-</li>
-<li>RIEN
-: <a class="el" href="struct_u_a_r_t1__t.html#a14ac5d1b2793c9c88b3d60d2625328c8">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a14ac5d1b2793c9c88b3d60d2625328c8">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a14ac5d1b2793c9c88b3d60d2625328c8">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a14ac5d1b2793c9c88b3d60d2625328c8">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a14ac5d1b2793c9c88b3d60d2625328c8">USART_t</a>
-</li>
-<li>RL
-: <a class="el" href="struct_i_w_d_g__t.html#a2d28712a10b6095f05d8e0adf202efb1">IWDG_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a6cfa8f0f645a34ccb43ca31dff8584a4">_CAN_t</a>
 </li>
 <li>RLR
-: <a class="el" href="struct_i_w_d_g__t.html#a9553968087c989d067918408c9b84d54">IWDG_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a259540f0323989d0b261cc78c5a6ea48">_IWDG_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#afe8b72a19bb0ff2dd1e97315c10c4595">IWDG_t</a>
 </li>
 <li>RMPCR
-: <a class="el" href="struct_s_y_s_c_f_g__t.html#a41bbde0802af4fb35ff9782f68743fda">SYSCFG_t</a>
-</li>
-<li>RQCP
-: <a class="el" href="struct_c_a_n__t.html#a53569cdc81415bbe0ffa5542c70bd29d">CAN_t</a>
-</li>
-<li>RQCP0
-: <a class="el" href="struct_c_a_n__t.html#a93ec400b484f03cdb379d03b7aadfa66">CAN_t</a>
-</li>
-<li>RQCP1
-: <a class="el" href="struct_c_a_n__t.html#abef8b13b55690489171b919b2e007b52">CAN_t</a>
-</li>
-<li>RQCP2
-: <a class="el" href="struct_c_a_n__t.html#a356be360194e410d8c0b0e26a2060185">CAN_t</a>
-</li>
-<li>RTR
-: <a class="el" href="struct_c_a_n__t.html#a57ea3fbcad7e1a960ce66fb167793480">CAN_t</a>
-</li>
-<li>RWU
-: <a class="el" href="struct_u_a_r_t1__t.html#a711a763e6dc042b9f0126d27b62d1e42">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a711a763e6dc042b9f0126d27b62d1e42">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a711a763e6dc042b9f0126d27b62d1e42">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a711a763e6dc042b9f0126d27b62d1e42">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a711a763e6dc042b9f0126d27b62d1e42">USART_t</a>
-</li>
-<li>RX
-: <a class="el" href="struct_c_a_n__t.html#ac8f13ea2b365476fdaa1466bc1b97bbb">CAN_t</a>
-</li>
-<li>RX0CNT
-: <a class="el" href="struct_p_x_s__t.html#ad5e943965a7e8f28806b9933e18f1dc5">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a23a04b130a5540cec763e9d9d8b8836c">_SYSCFG_t</a>
 </li>
 <li>RX0CNTRH
-: <a class="el" href="struct_p_x_s__t.html#ad54ad33528de3c89e1b2e8bb39026e8a">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a49bd513eb3a511f7d4a38c8f53c0483d">PXS_t</a>
 </li>
 <li>RX0CNTRL
-: <a class="el" href="struct_p_x_s__t.html#ae97060d7321789a8e69427b11d1e0937">PXS_t</a>
-</li>
-<li>RX0CSSEL
-: <a class="el" href="struct_p_x_s__t.html#ad94d9fe8449064f3fc565de1b0762783">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a1aa8e14bbb52a1e451c938abe40c221e">PXS_t</a>
 </li>
 <li>RX0CSSELR
-: <a class="el" href="struct_p_x_s__t.html#a6a51c6601525c40052cfa22d5791697c">PXS_t</a>
-</li>
-<li>RX0EPCC
-: <a class="el" href="struct_p_x_s__t.html#a523393b92c9a0b0d91e599f9b05f9c47">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a74e28e653d48e2d19edc354ab9fdc2c9">PXS_t</a>
 </li>
 <li>RX0EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a7b6f054158a073844a59c55cf58716ad">PXS_t</a>
-</li>
-<li>RX1CNT
-: <a class="el" href="struct_p_x_s__t.html#a2119389d7e08aa22ac391ecb2a77e206">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#adb6f8a45f398f15fc740acf4ebd3c6e0">PXS_t</a>
 </li>
 <li>RX1CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a26e7700a5b9fd2c8c2d6eebb7886b1a9">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a1e2badee34d42ec642f46540cde5e0e1">PXS_t</a>
 </li>
 <li>RX1CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a4679cf6491fb90ce94e50aae04ea0b0f">PXS_t</a>
-</li>
-<li>RX1CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a3ee066345c219f11a24fc746e9091fb1">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a473b54331f3265d5004e2582d2857fb4">PXS_t</a>
 </li>
 <li>RX1CSSELR
-: <a class="el" href="struct_p_x_s__t.html#a2517edd65839a1f2b6f81a7b0522eb10">PXS_t</a>
-</li>
-<li>RX1EPCC
-: <a class="el" href="struct_p_x_s__t.html#a7a4c6baa8d6a8f043f2a8dd8c1fb1c17">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a1c15150323970bd10839ba965c81fbe2">PXS_t</a>
 </li>
 <li>RX1EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#aa0078ca378a8f4249f685117eed5ea0b">PXS_t</a>
-</li>
-<li>RX2CNT
-: <a class="el" href="struct_p_x_s__t.html#af6e63ead0b1b3ce714576195c582a69a">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a32a7fe8686568fe54e3dde5932efdffc">PXS_t</a>
 </li>
 <li>RX2CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a8c612abcffa8f1962421fc36638950dc">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#acaa1dcb5d43b1b7f2c0bc30dc4079d0d">PXS_t</a>
 </li>
 <li>RX2CNTRL
-: <a class="el" href="struct_p_x_s__t.html#aaad7b88ebbe17f5be6b029066c55a7d7">PXS_t</a>
-</li>
-<li>RX2CSSEL
-: <a class="el" href="struct_p_x_s__t.html#af1be7fc27d336e3762731a1efb05a387">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a40e877c764f07aa37d54dde0c5bb1a35">PXS_t</a>
 </li>
 <li>RX2CSSELR
-: <a class="el" href="struct_p_x_s__t.html#aa2123c5cd003c8354c7d40ff2b071466">PXS_t</a>
-</li>
-<li>RX2EPCC
-: <a class="el" href="struct_p_x_s__t.html#a391cfcc63690437ad9c63d0673e0026c">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ad7548e7fdbad14f309e73fc0cdf91270">PXS_t</a>
 </li>
 <li>RX2EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a9032b35389c1899898abd7419e9886dd">PXS_t</a>
-</li>
-<li>RX3CNT
-: <a class="el" href="struct_p_x_s__t.html#a8063a6eb969f92f9712b95ce7d9b0391">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ad03a561d9f50e1614a300a3a57fc92d7">PXS_t</a>
 </li>
 <li>RX3CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a684ce83086d2379445de44e34dc110a6">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a08ddec2a5494faa87c0872588098d798">PXS_t</a>
 </li>
 <li>RX3CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a5047b91e30ac1ffda384d6a8e79056cd">PXS_t</a>
-</li>
-<li>RX3CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a4f38cd7ba14d47ee83bce3ffbe5e4c28">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#aa834db0b9704b0168ac53ce9f34a38b6">PXS_t</a>
 </li>
 <li>RX3CSSELR
-: <a class="el" href="struct_p_x_s__t.html#adeb8266d4e4b22f460fa9cc5ab3f374f">PXS_t</a>
-</li>
-<li>RX3EPCC
-: <a class="el" href="struct_p_x_s__t.html#a120aa4384ed62ffe37bfede59acb8067">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a209d57028bedc8266cfcbdb39d507dc8">PXS_t</a>
 </li>
 <li>RX3EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a702b4bf2b9f9e1059397186b0b941b41">PXS_t</a>
-</li>
-<li>RX4CNT
-: <a class="el" href="struct_p_x_s__t.html#a8f6c25fe118a26ee4ab5c0aac690af43">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ace6524fb8997e2511e28d268cb319acb">PXS_t</a>
 </li>
 <li>RX4CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a9f1a7669220e05769ea0c68b908c4533">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a9200c8358dc551d5bd845b70ba46b31d">PXS_t</a>
 </li>
 <li>RX4CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a034db3a9fd3058040fd15160b803484f">PXS_t</a>
-</li>
-<li>RX4CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a222685076b27d890193694ad508ed567">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a1905ff5b1fa3a8a4fb4fafc5c1427aee">PXS_t</a>
 </li>
 <li>RX4CSSELR
-: <a class="el" href="struct_p_x_s__t.html#a70a844f1f71a17b0625e1234adb4e727">PXS_t</a>
-</li>
-<li>RX4EPCC
-: <a class="el" href="struct_p_x_s__t.html#aa82f0bb284b46e43d4ce97b80b495654">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ac51885ffd46f5161b845e20664fa4fbd">PXS_t</a>
 </li>
 <li>RX4EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a70817148a389abae03a4b2339555d973">PXS_t</a>
-</li>
-<li>RX5CNT
-: <a class="el" href="struct_p_x_s__t.html#a6c067e7206567d808dacaca7efe5ec0f">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a7ab886fa9e306a7f8f0898ce189bf178">PXS_t</a>
 </li>
 <li>RX5CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a6b0531e3e76b38fb1125eadcc764bf9a">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a92d168a34c1cbf35839fd32f67cb0192">PXS_t</a>
 </li>
 <li>RX5CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a92e20e3c79fa1fb6a102d6a18808fd94">PXS_t</a>
-</li>
-<li>RX5CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a0be791eca6d02c292c9a95d62bf224d6">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ace3484ab9a493db75673cbc5952cbffa">PXS_t</a>
 </li>
 <li>RX5CSSELR
-: <a class="el" href="struct_p_x_s__t.html#af776d20ef0e39e0d9535a97ba4b186d9">PXS_t</a>
-</li>
-<li>RX5EPCC
-: <a class="el" href="struct_p_x_s__t.html#a53640030808e5547afd41d230892d2c8">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a227ac8298b16078f81b5b4d0a8c3106e">PXS_t</a>
 </li>
 <li>RX5EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a9c1504a85434e349282fcb1b669e3e9c">PXS_t</a>
-</li>
-<li>RX6CNT
-: <a class="el" href="struct_p_x_s__t.html#addabf2027dc67adffdee6ef3dd362849">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#aa36f96112743164d064d23ede3a70dcd">PXS_t</a>
 </li>
 <li>RX6CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a0d24275d6f53bf5da82cb3b6b8dde82a">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a8781c657310142ce84785cd995d579f0">PXS_t</a>
 </li>
 <li>RX6CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a9b7ee4d26b793292a1eae072d64f7815">PXS_t</a>
-</li>
-<li>RX6CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a4d308bb4345b8fbe8e9a38ecca1c82c6">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a30420aed25d0d3adba121744d5c4e61b">PXS_t</a>
 </li>
 <li>RX6CSSELR
-: <a class="el" href="struct_p_x_s__t.html#aed717745f4cd08526aacf3cb29296de2">PXS_t</a>
-</li>
-<li>RX6EPCC
-: <a class="el" href="struct_p_x_s__t.html#a917f676aeea4fa6f28c3e8c6b9066388">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a82702725ee75be85c418564b753404a7">PXS_t</a>
 </li>
 <li>RX6EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a048d907af71ea6317c198c8d77df2989">PXS_t</a>
-</li>
-<li>RX7CNT
-: <a class="el" href="struct_p_x_s__t.html#a08dbe903e2b9665830dbdc676b9f73ad">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ac2f705f45dd652007c9416ed49c27d3f">PXS_t</a>
 </li>
 <li>RX7CNTRH
-: <a class="el" href="struct_p_x_s__t.html#a1f0c185c6db017a4ac20035e87ff616c">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a8b1988c091c92285ab8882289b01df4a">PXS_t</a>
 </li>
 <li>RX7CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a0bfd3eba34877a122fe39d8e39967827">PXS_t</a>
-</li>
-<li>RX7CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a417e9cc7d8955f073c84fdb1da3a45e1">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#aa88c563a70ce5a10253b69909c0aa2ae">PXS_t</a>
 </li>
 <li>RX7CSSELR
-: <a class="el" href="struct_p_x_s__t.html#a9fdd66d2c586ecefd36e6a9c9f0996c4">PXS_t</a>
-</li>
-<li>RX7EPCC
-: <a class="el" href="struct_p_x_s__t.html#a3c10235417112af65a347780550bbd6c">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#aa27db773580a2bd62dd4e02f818ac20b">PXS_t</a>
 </li>
 <li>RX7EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a18f6150d569dc9af7f81ec2c26b08f75">PXS_t</a>
-</li>
-<li>RX8CNT
-: <a class="el" href="struct_p_x_s__t.html#ac4891d2b1ffb696f8863f4a21cc005a5">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a1301ef559b48efe1773f667035260ae8">PXS_t</a>
 </li>
 <li>RX8CNTRH
-: <a class="el" href="struct_p_x_s__t.html#ad5b3c9bf383415a809a0c0f2d95158b0">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a9c6dfe1b81cd10b2c3082d9fc2ae9106">PXS_t</a>
 </li>
 <li>RX8CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a991c8c47d7cc2ae9f4ddd8effa858428">PXS_t</a>
-</li>
-<li>RX8CSSEL
-: <a class="el" href="struct_p_x_s__t.html#a7e6d8250f79ef0d82417d7c3692d7c22">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a9814477a70cf1a14ff2e68687d128b3e">PXS_t</a>
 </li>
 <li>RX8CSSELR
-: <a class="el" href="struct_p_x_s__t.html#ace287e6a0c5f2844e524a8f302af389a">PXS_t</a>
-</li>
-<li>RX8EPCC
-: <a class="el" href="struct_p_x_s__t.html#a918e4adfecaf8a306e19b3a08128f7cc">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#ad42c849fe31bea228079acc577d9ac92">PXS_t</a>
 </li>
 <li>RX8EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#ab92d5bd268c0bfadb7a17cdb9f8587e7">PXS_t</a>
-</li>
-<li>RX9CNT
-: <a class="el" href="struct_p_x_s__t.html#afeee1f2fd877f465307a64dd5c017902">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a3d91fa0267aea6cf332295faeca03e47">PXS_t</a>
 </li>
 <li>RX9CNTRH
-: <a class="el" href="struct_p_x_s__t.html#afc05c93812a361fb0254876d20fffe30">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#acb2b243f2bad6d23d28b2f77c2fe0757">PXS_t</a>
 </li>
 <li>RX9CNTRL
-: <a class="el" href="struct_p_x_s__t.html#a22a37c49a0aeaf821891ca754fdcd418">PXS_t</a>
-</li>
-<li>RX9CSSEL
-: <a class="el" href="struct_p_x_s__t.html#ad9cdaa3d3d6ad05682694ae810099824">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a568186fd836900ee0fdd0400897d0398">PXS_t</a>
 </li>
 <li>RX9CSSELR
-: <a class="el" href="struct_p_x_s__t.html#a85870ae66c97ae01a178b494b5567a7e">PXS_t</a>
-</li>
-<li>RX9EPCC
-: <a class="el" href="struct_p_x_s__t.html#afbeb259b994734ab5608610a94c99083">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a66214b86c1e4af7b67912a33db4b46d6">PXS_t</a>
 </li>
 <li>RX9EPCCSELR
-: <a class="el" href="struct_p_x_s__t.html#a2d176afb0236fdb3f3ac32582d109043">PXS_t</a>
-</li>
-<li>RXCOUPLING
-: <a class="el" href="struct_p_x_s__t.html#ab7dcfdf501fe4aa24143edc59433a887">PXS_t</a>
-</li>
-<li>RXCR1_0
-: <a class="el" href="struct_p_x_s__t.html#a639c0c57df6f961bacfab9bd3c064c84">PXS_t</a>
-</li>
-<li>RXCR1_1
-: <a class="el" href="struct_p_x_s__t.html#a35d0ec7f467cf52b0e71a7a105f26e3d">PXS_t</a>
-</li>
-<li>RXCR1_2
-: <a class="el" href="struct_p_x_s__t.html#acf870ff7a8759dd56f0d63d17f7a0cb1">PXS_t</a>
-</li>
-<li>RXCR1_3
-: <a class="el" href="struct_p_x_s__t.html#ace5f2f674443ca159eb1e72ee9184f26">PXS_t</a>
-</li>
-<li>RXCR1_4
-: <a class="el" href="struct_p_x_s__t.html#a088c200aa6c299d7b199b4638889e536">PXS_t</a>
-</li>
-<li>RXCR1_5
-: <a class="el" href="struct_p_x_s__t.html#a662036057a65328ecc84d0fe8fb67b88">PXS_t</a>
-</li>
-<li>RXCR1_6
-: <a class="el" href="struct_p_x_s__t.html#a58b1c7c3aa6d2c254d83520e8408667b">PXS_t</a>
-</li>
-<li>RXCR1_7
-: <a class="el" href="struct_p_x_s__t.html#a63b5df68223b36322c15c823f2865e5e">PXS_t</a>
-</li>
-<li>RXCR1_8
-: <a class="el" href="struct_p_x_s__t.html#adc7d63c4c718744b24b7bbb4f514e069">PXS_t</a>
-</li>
-<li>RXCR1_9
-: <a class="el" href="struct_p_x_s__t.html#ac2509717df03f2c5f68b815d82438057">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a13d97d44bdb226fb24671b069bfb0f49">PXS_t</a>
 </li>
 <li>RXCR1H
-: <a class="el" href="struct_p_x_s__t.html#a0aea779e292f7e5620f2f3fe0d279177">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a8265028885b86487174834e4c591446b">PXS_t</a>
 </li>
 <li>RXCR1L
-: <a class="el" href="struct_p_x_s__t.html#a76de4bab414b1f97022d69a54f463bd3">PXS_t</a>
-</li>
-<li>RXCR2_0
-: <a class="el" href="struct_p_x_s__t.html#a5cc0777e4327900c1481dd0edeb48e74">PXS_t</a>
-</li>
-<li>RXCR2_1
-: <a class="el" href="struct_p_x_s__t.html#a4a5268049e9086b2a633d7cda87a6d50">PXS_t</a>
-</li>
-<li>RXCR2_2
-: <a class="el" href="struct_p_x_s__t.html#adc718eef52573921a2c01f37bb59a8fd">PXS_t</a>
-</li>
-<li>RXCR2_3
-: <a class="el" href="struct_p_x_s__t.html#a154ba146caaabc83f00ad378ef87eb67">PXS_t</a>
-</li>
-<li>RXCR2_4
-: <a class="el" href="struct_p_x_s__t.html#ac3b7f33f7013ac6850c02b8eadf1f028">PXS_t</a>
-</li>
-<li>RXCR2_5
-: <a class="el" href="struct_p_x_s__t.html#ad95773b0947c95e5e0dc9baa9dbc92b8">PXS_t</a>
-</li>
-<li>RXCR2_6
-: <a class="el" href="struct_p_x_s__t.html#a6000827d0aef14ec6cfb819695c41a29">PXS_t</a>
-</li>
-<li>RXCR2_7
-: <a class="el" href="struct_p_x_s__t.html#a6b73f62cd4fbccfec5cd204455d9d3db">PXS_t</a>
-</li>
-<li>RXCR2_8
-: <a class="el" href="struct_p_x_s__t.html#add81764bd7c04bdb8046781527a5f23a">PXS_t</a>
-</li>
-<li>RXCR2_9
-: <a class="el" href="struct_p_x_s__t.html#a3c57844d8f8037eb0c756d9f033a4593">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#acf8973cb19d88a4e351f7db2a4a44ed7">PXS_t</a>
 </li>
 <li>RXCR2H
-: <a class="el" href="struct_p_x_s__t.html#a6b1d8d8d6d39b809a419e11f0b6823f4">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a9ebae04844da1785c202480578962b80">PXS_t</a>
 </li>
 <li>RXCR2L
-: <a class="el" href="struct_p_x_s__t.html#a1a3c199cecb4a4e69beb6d80c23c3dd5">PXS_t</a>
-</li>
-<li>RXCR3_0
-: <a class="el" href="struct_p_x_s__t.html#a98aa731981cc5bd9733e37038ddf6ea6">PXS_t</a>
-</li>
-<li>RXCR3_1
-: <a class="el" href="struct_p_x_s__t.html#a29ec2133c568393823cfd1a3776d9acd">PXS_t</a>
-</li>
-<li>RXCR3_2
-: <a class="el" href="struct_p_x_s__t.html#a4e869d1115645c234361e942bf2046de">PXS_t</a>
-</li>
-<li>RXCR3_3
-: <a class="el" href="struct_p_x_s__t.html#a476322b3f028ad87d7d3fc816e85ce32">PXS_t</a>
-</li>
-<li>RXCR3_4
-: <a class="el" href="struct_p_x_s__t.html#ac671375b8cc0637d2471918e45a8552e">PXS_t</a>
-</li>
-<li>RXCR3_5
-: <a class="el" href="struct_p_x_s__t.html#a92a2fa9239f3bfff49e756c53af340d0">PXS_t</a>
-</li>
-<li>RXCR3_6
-: <a class="el" href="struct_p_x_s__t.html#a903f9af76b491d7a34000d0ff55adbdc">PXS_t</a>
-</li>
-<li>RXCR3_7
-: <a class="el" href="struct_p_x_s__t.html#ae81f63204d918a1ee39b2db68f9f5670">PXS_t</a>
-</li>
-<li>RXCR3_8
-: <a class="el" href="struct_p_x_s__t.html#a3507000ae953ba7c6dc82d6dbf1b85e6">PXS_t</a>
-</li>
-<li>RXCR3_9
-: <a class="el" href="struct_p_x_s__t.html#a75cc71fd6ac92f9f363f081f6cc5d6c4">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a8ae197d86efe2b8ff2f2d6b22a58f7be">PXS_t</a>
 </li>
 <li>RXCR3H
-: <a class="el" href="struct_p_x_s__t.html#a9bfa59f2c1d8e24f2f05ae16274c272c">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#af63f97ab20935f43bb9030e47afacc43">PXS_t</a>
 </li>
 <li>RXCR3L
-: <a class="el" href="struct_p_x_s__t.html#a096a7d1d0f9b5c255a8e06cb11e178fe">PXS_t</a>
-</li>
-<li>RxCRC
-: <a class="el" href="struct_s_p_i__t.html#aea07caf9665a5d94f1a6fbcffc085dcb">SPI_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a6389f80adc7ed2ec4aa2b4603e4c4be3">PXS_t</a>
 </li>
 <li>RXCRCR
-: <a class="el" href="struct_s_p_i__t.html#a3535f88288c9070991092d654f2a90b9">SPI_t</a>
-</li>
-<li>RXEN0
-: <a class="el" href="struct_p_x_s__t.html#aa660da894ae60ad621044374273d6333">PXS_t</a>
-</li>
-<li>RXEN1
-: <a class="el" href="struct_p_x_s__t.html#a83f6f72ae47967acb71be0de2792e6d7">PXS_t</a>
-</li>
-<li>RXEN2
-: <a class="el" href="struct_p_x_s__t.html#a512fc80741ce5c0d643b44aac6957375">PXS_t</a>
-</li>
-<li>RXEN3
-: <a class="el" href="struct_p_x_s__t.html#a90649635ecf7b0b2758cbba1a7683f8d">PXS_t</a>
-</li>
-<li>RXEN4
-: <a class="el" href="struct_p_x_s__t.html#a8ab562e6b34790803e18fdb1363732b6">PXS_t</a>
-</li>
-<li>RXEN5
-: <a class="el" href="struct_p_x_s__t.html#af16c0d2ed8d8238e45d92f476eb61e51">PXS_t</a>
-</li>
-<li>RXEN6
-: <a class="el" href="struct_p_x_s__t.html#a54b1884ef05044bd8914690e437dffd6">PXS_t</a>
-</li>
-<li>RXEN7
-: <a class="el" href="struct_p_x_s__t.html#aa7dba0cfcd02d0f4d173f7d696401ee3">PXS_t</a>
-</li>
-<li>RXEN8
-: <a class="el" href="struct_p_x_s__t.html#ae9f3fbd9bd85bd4da92dc32ae79970c5">PXS_t</a>
-</li>
-<li>RXEN9
-: <a class="el" href="struct_p_x_s__t.html#ac04de6a3533b1a7cc069a2f4963c320b">PXS_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a843a5718f4118a1bcaaf7b3f96868745">_SPI_t</a>
 </li>
 <li>RXENRH
-: <a class="el" href="struct_p_x_s__t.html#ad95ac131ea0757b95afb995b3916dc08">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a36a0c9ce74aacf0797a02769c17c905e">PXS_t</a>
 </li>
 <li>RXENRL
-: <a class="el" href="struct_p_x_s__t.html#a4cc7aa9bd30ef12d470d4872edba5aa2">PXS_t</a>
-</li>
-<li>RXGROUP
-: <a class="el" href="struct_p_x_s__t.html#a724ad6dfca96b9c7044ac439f4f49279">PXS_t</a>
-</li>
-<li>RXIE
-: <a class="el" href="struct_s_p_i__t.html#a44c5b21f7fe08adef92b181a38919f0a">SPI_t</a>
-</li>
-<li>RXINS0
-: <a class="el" href="struct_p_x_s__t.html#a637d94e30a9cf850bee17076e8ddadf8">PXS_t</a>
-</li>
-<li>RXINS1
-: <a class="el" href="struct_p_x_s__t.html#afc6cc6fe2c29ebd92a9216671b168bc6">PXS_t</a>
-</li>
-<li>RXINS2
-: <a class="el" href="struct_p_x_s__t.html#a151bdb787577182d07a6935b141154c8">PXS_t</a>
-</li>
-<li>RXINS3
-: <a class="el" href="struct_p_x_s__t.html#a7e29e75946999dbd6ef8b37b88231a2b">PXS_t</a>
-</li>
-<li>RXINS4
-: <a class="el" href="struct_p_x_s__t.html#a37b147e61518c36bbac43c406354337f">PXS_t</a>
-</li>
-<li>RXINS5
-: <a class="el" href="struct_p_x_s__t.html#a22dcf69db3213739301db3e052681ab1">PXS_t</a>
-</li>
-<li>RXINS6
-: <a class="el" href="struct_p_x_s__t.html#a90fddb34094e31ccf105b465bc17c2d4">PXS_t</a>
-</li>
-<li>RXINS7
-: <a class="el" href="struct_p_x_s__t.html#a18f5683553ff27358bc05354781a7a5c">PXS_t</a>
-</li>
-<li>RXINS8
-: <a class="el" href="struct_p_x_s__t.html#a63cbf54303380544cdd0666e86d78d80">PXS_t</a>
-</li>
-<li>RXINS9
-: <a class="el" href="struct_p_x_s__t.html#a17317af4f5113acc72b3a9e87aea4eeb">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#af6435b926a56ec650b300ead232f7dd2">PXS_t</a>
 </li>
 <li>RXINSRH
-: <a class="el" href="struct_p_x_s__t.html#a9577c3ea1e3128738d184ac5315e06ab">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a5d77c02f9fbf637b7b6b3c734fe7eb11">PXS_t</a>
 </li>
 <li>RXINSRL
-: <a class="el" href="struct_p_x_s__t.html#a659c199dfba8d5fd83f450ada840c20a">PXS_t</a>
-</li>
-<li>RXNE
-: <a class="el" href="struct_i2_c__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">I2C_t</a>
-, <a class="el" href="struct_s_p_i__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">SPI_t</a>
-, <a class="el" href="struct_u_a_r_t1__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">UART1_t</a>
-, <a class="el" href="struct_u_a_r_t2__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">UART2_t</a>
-, <a class="el" href="struct_u_a_r_t3__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">UART3_t</a>
-, <a class="el" href="struct_u_a_r_t4__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">UART4_t</a>
-, <a class="el" href="struct_u_s_a_r_t__t.html#a75aeee2d81c71fcaf1dd0f6955917cbf">USART_t</a>
-</li>
-<li>RXONLY
-: <a class="el" href="struct_s_p_i__t.html#a5f60eb0d1d58a35376e4632795945497">SPI_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a234416a6215b26d81c7aae7542439f51">PXS_t</a>
 </li>
 <li>RXSRH
-: <a class="el" href="struct_p_x_s__t.html#a0d43118313c401b38f0ce98183e2641a">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a87bd8c989de2ce8e1177a38976a8c41a">PXS_t</a>
 </li>
 <li>RXSRL
-: <a class="el" href="struct_p_x_s__t.html#aacf4db5b4860be64d10347efb3103cc7">PXS_t</a>
+: <a class="el" href="group___s_t_m8_t_l5_x.html#a6e4c29044c6a02baf63b17c2173fefb9">PXS_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

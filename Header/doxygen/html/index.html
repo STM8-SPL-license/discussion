@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('index.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -95,16 +116,19 @@ Content</h2>
 Features</h2>
 <ul>
 <li>direct/bitwise or byte-wise access to all peripheral registers</li>
-<li>assembler macros for common operations like <em><a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gad99fda6bb7696991797c925f968234b9" title="perform a nop() operation (=minimum delay) ">NOP()</a></em> or <em><a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#gac136489c5ba4794566532004267967f8" title="disable interrupt handling ">DISABLE_INTERRUPTS()</a></em> </li>
+<li>assembler macros for common operations like <em><a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#gad99fda6bb7696991797c925f968234b9" title="perform a nop() operation (=minimum delay) ">NOP()</a></em> or <em><a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#gac136489c5ba4794566532004267967f8" title="disable interrupt handling ">DISABLE_INTERRUPTS()</a></em> </li>
 <li>can be mixed with SPL headers and functions (see example <em>blink_TIM4_SPL</em>)</li>
 </ul>
 <p>Example:</p>
-<div class="fragment"><div class="line"><span class="comment">// device header (STM8 Discovery board)</span></div><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_s_t_m8_s105_c6_8h.html">STM8S105C6.h</a>&quot;</span></div><div class="line"></div><div class="line"><span class="comment">// configure LED pin to output push-pull (bitmasks)</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga10549d3834b7736a4b65bec2265b60ce">_GPIOD_DDR</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input(=0) or output(=1)</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#gaef4f8b72d25eee7d01a82a449938f0da">_GPIOD_CR1</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull</span></div><div class="line"><a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga7119c97096f63eec1704bb3b345a95d7">_GPIOD_CR2</a> |= <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga98ba3918a353a62d05f76fba0ca59988">_GPIO_PIN0</a>;        <span class="comment">// input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope</span></div><div class="line"></div><div class="line"><span class="comment">// main loop</span></div><div class="line"><span class="keywordflow">while</span> (1) {</div><div class="line"></div><div class="line">  <span class="comment">// toggle LED</span></div><div class="line">  <span class="comment">//_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)</span></div><div class="line">  <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#ga87e504590c788fbfb6169c92e6cf6a40">_GPIOD</a>.ODR.PIN0 ^= 1;            <span class="comment">// bit access (more convenient)</span></div><div class="line"></div><div class="line">  <span class="comment">// wait a bit</span></div><div class="line">  <span class="keywordflow">for</span> (uint16_t i=20000L; i; i--)</div><div class="line">    <a class="code" href="group___s_t_m8_a_f___s_t_m8_s.html#gad99fda6bb7696991797c925f968234b9">NOP</a>();</div><div class="line"></div><div class="line">} <span class="comment">// main loop</span></div></div><!-- fragment --> </div></div><!-- contents -->
+<div class="fragment"><div class="line"><span class="comment">// device header (STM8 Discovery board)</span></div><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="_s_t_m8_s105_c6_8h.html">STM8S105C6.h</a>&quot;</span></div><div class="line"></div><div class="line"><span class="comment">// configure LED pin to output push-pull (bitmasks)</span></div><div class="line">_GPIOD_DDR |= _GPIO_PIN0;        <span class="comment">// input(=0) or output(=1)</span></div><div class="line">_GPIOD_CR1 |= _GPIO_PIN0;        <span class="comment">// input: 0=float, 1=pull-up; output: 0=open-drain, 1=push-pull</span></div><div class="line">_GPIOD_CR2 |= _GPIO_PIN0;        <span class="comment">// input: 0=no exint, 1=exint; output: 0=2MHz slope, 1=10MHz slope</span></div><div class="line"></div><div class="line"><span class="comment">// main loop</span></div><div class="line"><span class="keywordflow">while</span> (1) {</div><div class="line"></div><div class="line">  <span class="comment">// toggle LED</span></div><div class="line">  <span class="comment">//_GPIOD_ODR ^= _GPIO_PIN0;        // byte access (smaller)</span></div><div class="line">  _GPIOD.ODR.PIN0 ^= 1;            <span class="comment">// bit access (more convenient)</span></div><div class="line"></div><div class="line">  <span class="comment">// wait a bit</span></div><div class="line">  <span class="keywordflow">for</span> (uint16_t i=20000L; i; i--)</div><div class="line">    <a class="code" href="group___s_t_l_u_x___s_t_n_r_g.html#gad99fda6bb7696991797c925f968234b9">NOP</a>();</div><div class="line"></div><div class="line">} <span class="comment">// main loop</span></div></div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

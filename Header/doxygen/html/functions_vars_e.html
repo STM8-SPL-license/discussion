@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -44,6 +51,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_vars_e.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,140 +83,34 @@ $(function() {
 &#160;
 
 <h3><a id="index_e"></a>- e -</h3><ul>
-<li>ECE
-: <a class="el" href="struct_t_i_m1__t.html#aca58a09b2286e2352a6dc69a144f4fd2">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#aca58a09b2286e2352a6dc69a144f4fd2">TIM2_3_t</a>
-</li>
 <li>ECKR
-: <a class="el" href="struct_c_l_k__t.html#ac56dfdb25b235957f17f627e4d1e6fc5">CLK_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a35d1d235e50e2069aa21f22a0371af54">_CLK_t</a>
+, <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#ad58bf0851af5a42e8e2e90a1e113d117">CLK_t</a>
 </li>
 <li>EGR
-: <a class="el" href="struct_t_i_m1__t.html#add08764e70762eb49e9da3caf15c76cf">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a2cbd99240f7c906cbf324024e6ee58f5">TIM2_3_t</a>
-, <a class="el" href="struct_t_i_m2__t.html#a7feafc0f8cf6aeece95a27a9b21b938f">TIM2_t</a>
-, <a class="el" href="struct_t_i_m3__t.html#a747c6c1d65b32a6b9deaa112c25baad7">TIM3_t</a>
-, <a class="el" href="struct_t_i_m4__t.html#a300e4fbfb7fa2abfc90a198e515728ee">TIM4_t</a>
-, <a class="el" href="struct_t_i_m5__t.html#ad2024102aebde902ae9ac064501182ee">TIM5_t</a>
-, <a class="el" href="struct_t_i_m6__t.html#af1252ba08afd5a9ffaa95d9a6b3bd078">TIM6_t</a>
-</li>
-<li>EIER
-: <a class="el" href="struct_c_a_n__t.html#aefd8c02a8124398d36919ab894043340">CAN_t</a>
-</li>
-<li>EMCF
-: <a class="el" href="struct_r_s_t__t.html#aeba08de280583baf5944524e29baa98a">RST_t</a>
-</li>
-<li>ENDUAL
-: <a class="el" href="struct_i2_c__t.html#ac278e37241e67f0b9afaf03f1c14bc0e">I2C_t</a>
-</li>
-<li>ENGC
-: <a class="el" href="struct_i2_c__t.html#aebbd82418b2894e3766183df29fabda6">I2C_t</a>
-</li>
-<li>EOC
-: <a class="el" href="struct_a_d_c1__t.html#a6421d880024b018cb83cf7a31b7b0b3e">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#a6421d880024b018cb83cf7a31b7b0b3e">ADC2_t</a>
-</li>
-<li>EOCF
-: <a class="el" href="struct_p_x_s__t.html#a55f813c3678048cc05ef806a0087b9a3">PXS_t</a>
-</li>
-<li>EOCIE
-: <a class="el" href="struct_a_d_c1__t.html#ae4d0e5b84d078c67b9420dea0fa87d0f">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#ae4d0e5b84d078c67b9420dea0fa87d0f">ADC2_t</a>
-</li>
-<li>EOCITEN
-: <a class="el" href="struct_p_x_s__t.html#a3ac364185315909ce4c367486b653b57">PXS_t</a>
-</li>
-<li>EOP
-: <a class="el" href="struct_f_l_a_s_h__t.html#a6e9f61ff71c8f0c046afe1ad98ae9ac3">FLASH_t</a>
-</li>
-<li>EPVF
-: <a class="el" href="struct_c_a_n__t.html#a6eb3321a790adec419e21c5ee4c831a6">CAN_t</a>
-</li>
-<li>EPVIE
-: <a class="el" href="struct_c_a_n__t.html#aeec780a3eab84f57c35c22ad4a0748d7">CAN_t</a>
-</li>
-<li>ERASE
-: <a class="el" href="struct_f_l_a_s_h__t.html#af38bd1af97ec79d7d156bbc82de85de1">FLASH_t</a>
-</li>
-<li>ERRI
-: <a class="el" href="struct_c_a_n__t.html#a8cb606563bcdfcd2420f7862ccb6c02c">CAN_t</a>
-</li>
-<li>ERRIE
-: <a class="el" href="struct_c_a_n__t.html#a9ecd8f70234846d5bdcf1602b8177c01">CAN_t</a>
-, <a class="el" href="struct_s_p_i__t.html#a9ecd8f70234846d5bdcf1602b8177c01">SPI_t</a>
-</li>
-<li>ESR
-: <a class="el" href="struct_c_a_n__t.html#aa9b98bc735b19b590001e82bdebdf1bf">CAN_t</a>
-</li>
-<li>ETF
-: <a class="el" href="struct_t_i_m1__t.html#a497b5006ea3c22be50d783e42674614f">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a497b5006ea3c22be50d783e42674614f">TIM2_3_t</a>
-</li>
-<li>ETP
-: <a class="el" href="struct_t_i_m1__t.html#a30ce6bdbe15a16e21c26b7dab053f30a">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a30ce6bdbe15a16e21c26b7dab053f30a">TIM2_3_t</a>
-</li>
-<li>ETPS
-: <a class="el" href="struct_t_i_m1__t.html#a5c5f113e7f9654de7d5eb889970ede41">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#a5c5f113e7f9654de7d5eb889970ede41">TIM2_3_t</a>
+: <a class="el" href="group___s_t_l_u_x___s_t_n_r_g.html#a5451b2aaec6c51073d23614ad223c32b">_SYSTIM_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#ae3cd45a9b806f705e569ba4468dc41fb">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#a6e530b96a9bb6a2c224763df87142210">_TIM2_3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a91df53c729c1e3e8756fca22d138c84a">_TIM2_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a7beab0e518fb9f04182940c840c95f22">_TIM3_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#afc7bc1f860711339c024c3ed1ee8b007">_TIM4_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a67d18dbb1c6c9c35a25534716a8257e2">_TIM5_t</a>
+, <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a0880d0a2fad9db9be63f177f54bdcfcc">_TIM6_t</a>
 </li>
 <li>ETR
-: <a class="el" href="struct_t_i_m1__t.html#a23e47c913d7174b5f7cccdf607aef35a">TIM1_t</a>
-, <a class="el" href="struct_t_i_m2__3__t.html#ad310c7b8477e89743f4cb42b151d03fb">TIM2_3_t</a>
-</li>
-<li>EWGF
-: <a class="el" href="struct_c_a_n__t.html#ac00280cc7707bcd22bce6d7a498d9df4">CAN_t</a>
-</li>
-<li>EWGIE
-: <a class="el" href="struct_c_a_n__t.html#ad0827f113e2de2b8d7cb28d5ebf5ffe1">CAN_t</a>
-</li>
-<li>EXID
-: <a class="el" href="struct_c_a_n__t.html#ac10447a3bdba55e4be978d6e4eea2456">CAN_t</a>
-</li>
-<li>EXTI_EV0
-: <a class="el" href="struct_w_f_e__t.html#aed4247a1fd2710ea03c990fc1b8f88ae">WFE_t</a>
-</li>
-<li>EXTI_EV1
-: <a class="el" href="struct_w_f_e__t.html#a63f9abe13e23dbf5f690c0b1ab848f8d">WFE_t</a>
-</li>
-<li>EXTI_EV2
-: <a class="el" href="struct_w_f_e__t.html#a2ba66fb8fd13a3cd0a2da1693fe91e4c">WFE_t</a>
-</li>
-<li>EXTI_EV3
-: <a class="el" href="struct_w_f_e__t.html#ae394ad2fa1cd37c5b959bd3438d12ccc">WFE_t</a>
-</li>
-<li>EXTI_EV4
-: <a class="el" href="struct_w_f_e__t.html#a14eed59b285db2cb98d5a53e56a35b20">WFE_t</a>
-</li>
-<li>EXTI_EV5
-: <a class="el" href="struct_w_f_e__t.html#a40a67fb1fb5ae4b770694da869a39bf9">WFE_t</a>
-</li>
-<li>EXTI_EV6
-: <a class="el" href="struct_w_f_e__t.html#ab698cc59ab87584eebd65a520911d204">WFE_t</a>
-</li>
-<li>EXTI_EV7
-: <a class="el" href="struct_w_f_e__t.html#a090dee49891cfdd870dd797d6278013d">WFE_t</a>
-</li>
-<li>EXTI_EVB
-: <a class="el" href="struct_w_f_e__t.html#a5c4ba15560194081f4a709f1e180a224">WFE_t</a>
-</li>
-<li>EXTI_EVD
-: <a class="el" href="struct_w_f_e__t.html#afa59c31469778d525267196e56e302f9">WFE_t</a>
-</li>
-<li>EXTSEL
-: <a class="el" href="struct_a_d_c1__t.html#ab92e1ef686ca9207baf8a39cbad47e1e">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#ab92e1ef686ca9207baf8a39cbad47e1e">ADC2_t</a>
-</li>
-<li>EXTTRIG
-: <a class="el" href="struct_a_d_c1__t.html#a3a2fe9dbe6e898b7af4fd53d686736c3">ADC1_t</a>
-, <a class="el" href="struct_a_d_c2__t.html#a3a2fe9dbe6e898b7af4fd53d686736c3">ADC2_t</a>
+: <a class="el" href="group___s_t_m8_a_f___s_t_m8_s.html#a441ccb661692ce06c4e1fd48454dfd36">_TIM1_t</a>
+, <a class="el" href="group___s_t_m8_l10_x.html#af61aaf25d83ce60433ecaa4e3666c4bf">_TIM2_3_t</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>
