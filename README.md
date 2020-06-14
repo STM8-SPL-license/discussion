@@ -1,3 +1,12 @@
+# WE ARE CLOSED
+
+This discussion is obsolete due to the availability of FOSS STM8 device headers under 
+[https://github.com/gicking/STM8_headers](https://github.com/gicking/STM8_headers).
+Therefore I close this repo/discussion.
+
+Thanks for your valuable input! Have a great day  :-)
+
+
 # discussion
 Discussion of STM8 SPL license status and next steps
 
@@ -24,7 +33,7 @@ Changes
 - fixed minor bugs in other headers
 - updated reference for STLUX & STNRG
 
-New status: of the 145 devices with STM8 core, 88 are implemented and 57 are pending. For details see [Readme](https://github.com/STM8-SPL-license/discussion/tree/master/Header)
+New status: of the 145 devices with STM8 core, 88 are implemented, 56 are pending and 1 is n/a. For details see [Readme](https://github.com/STM8-SPL-license/discussion/tree/master/Header)
 
 
 ## Update 2019-03-27:

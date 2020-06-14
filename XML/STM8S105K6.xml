@@ -1,0 +1,2712 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE model SYSTEM "embsysregview.dtd">
+<model chipname="STM8S105K6">
+	<chip_description>
+		Access line, 16 MHz STM8S 8-bit MCU, up to 32 Kbyte Flash, integrated EEPROM, 10-bit ADC, timers, UART, SPI, I2C
+		Core
+			- 16 MHz advanced STM8 core with Harvard architecture and 3-stage pipeline
+			- Extended instruction set
+		Memories
+			- Program memory: 32 Kbyte Flash; data retention 20 years at 55 °C after 10 kcycle
+			- Data memory: 1 Kbyte true data EEPROM; endurance 300 kcycle
+			- RAM: 2 Kbyte
+		Clock, reset and supply management
+			- 2.95 to 5.5 V operating voltage
+			- Flexible clock control, 4 master clock sources
+				- Low power crystal resonator oscillator
+				- External clock input
+				- Internal, user-trimmable 16 MHz RC
+				- Internal low-power 128 kHz RC
+			- Clock security system with clock monitor
+			- Power management:
+			 	- Low-power modes (wait, active-halt, halt)
+			 	- Switch-off peripheral clocks individually
+			- Permanently active, low-consumption power-on and power-down reset
+			- Interrupt management
+				- Nested interrupt controller with 32 interrupts
+				- Up to 37 external interrupts on 6 vectors
+		Timers
+			- Advanced control timer: 16-bit, 4 CAPCOM channels, 3 complementary outputs, dead-time insertion and flexible synchronization
+			- 2x16-bit general purpose timer, with 2+3 CAPCOM channels (IC, OC or PWM)
+			- 8-bit basic timer with 8-bit prescaler
+			- Auto wake-up timer
+			- Window watchdog and independent watchdog timers
+		Communication interfaces
+			- UART with clock output for synchronous operation, SmartCard, IrDA, LIN master mode
+			- SPI interface up to 8 Mbit/s
+			- I2C interface up to 400 kbit/s
+		Analog to digital converter (ADC)
+			-  10-bit, ±1 LSB ADC with up to 10 multiplexed channels, scan mode and analog watchdog
+		I/Os
+			- Up to 38 I/Os on a 48-pin package including 16 high sink outputs
+			- Highly robust I/O design, immune against current injection
+		Unique ID
+			- 96-bit unique key for each device
+		Debug mode:
+			- SWIM)
+	</chip_description>
+	<datasheet>
+		https://www.st.com/resource/en/datasheet/stm8s105k6.pdf
+		DocID14771 Rev 15
+	</datasheet>
+	<reference_manual>
+		https://www.st.com/resource/en/reference_manual/cd00190271.pdf
+		DocID14587 Rev 14
+	</reference_manual>
+	<boards>
+		sduino_uno  https://github.com/roybaer/sduino_uno
+	</boards>
+	<group name="GPIOs" description="General Purpose Inputs-Outputs">
+		<registergroup name="PORTA" description="Port A">
+			<register name="PA_ODR" description="Output Register" address="0x5000" resetvalue="0x00" access="rw" size="1">
+				<note>
+					Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+					Reading the ODR returns the previously latched value in the register.
+					In Input mode, writing in the ODR register, latches the value in the register but does not change the
+					pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+					BRST) can be used on the DR register to drive an individual pin without affecting the others.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PA_ODR0" description="Logic output state for PA0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PA_ODR1" description="Logic output state for PA1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PA_ODR2" description="Logic output state for PA2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PA_ODR3" description="Logic output state for PA3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PA_ODR4" description="Logic output state for PA4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PA_ODR5" description="Logic output state for PA5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PA_ODR6" description="Logic output state for PA6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PA_ODR7" description="Logic output state for PA7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PA_IDR" description="Input Register" address="0x5001" access="r" size="1">
+				<note>
+					The pin register can be used to read the pin value irrespective of whether port is in input or output
+					mode. This register is read-only.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PA_IDR0" description="Logic input level of PA0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PA_IDR1" description="Logic input level of PA1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PA_IDR2" description="Logic input level of PA2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PA_IDR3" description="Logic input level of PA3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PA_IDR4" description="Logic input level of PA4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PA_IDR5" description="Logic input level of PA5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PA_IDR6" description="Logic input level of PA6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PA_IDR7" description="Logic input level of PA7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PA_DDR" description="Data Direction Register" address="0x5002" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PA_DDR0" description="Pin direction for PA0 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PA_DDR1" description="Pin direction for PA1 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PA_DDR2" description="Pin direction for PA2 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PA_DDR3" description="Pin direction for PA3 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PA_DDR4" description="Pin direction for PA4 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PA_DDR5" description="Pin direction for PA5 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PA_DDR6" description="Pin direction for PA6 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PA_DDR7" description="Pin direction for PA7 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+			</register>
+			<register name="PA_CR1" description="Control register 1" address="0x5003" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PA_C10" description="Control bit 1 for PA0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PA_C11" description="Control bit 1 for PA1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PA_C12" description="Control bit 1 for PA2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PA_C13" description="Control bit 1 for PA3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PA_C14" description="Control bit 1 for PA4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PA_C15" description="Control bit 1 for PA5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PA_C16" description="Control bit 1 for PA6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PA_C17" description="Control bit 1 for PA7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+			</register>
+			<register name="PA_CR2" description="Control register 2" address="0x5004" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+					In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+					interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+					speed of the I/O.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PA_C20" description="Control bit 2 for PA0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PA_C21" description="Control bit 2 for PA1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PA_C22" description="Control bit 2 for PA2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PA_C23" description="Control bit 2 for PA3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PA_C24" description="Control bit 2 for PA4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PA_C25" description="Control bit 2 for PA5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PA_C26" description="Control bit 2 for PA6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PA_C27" description="Control bit 2 for PA7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+			</register>
+		</registergroup>
+		<registergroup name="PORTB" description="Port B">
+			<register name="PB_ODR" description="Output Register" address="0x5005" resetvalue="0x00" access="rw" size="1">
+				<note>
+					Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+					Reading the ODR returns the previously latched value in the register.
+					In Input mode, writing in the ODR register, latches the value in the register but does not change the
+					pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+					BRST) can be used on the DR register to drive an individual pin without affecting the others.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PB_ODR0" description="Logic output state for PB0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PB_ODR1" description="Logic output state for PB1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PB_ODR2" description="Logic output state for PB2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PB_ODR3" description="Logic output state for PB3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PB_ODR4" description="Logic output state for PB4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PB_ODR5" description="Logic output state for PB5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PB_ODR6" description="Logic output state for PB6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PB_ODR7" description="Logic output state for PB7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PB_IDR" description="Input Register" address="0x5006" access="r" size="1">
+				<note>
+					The pin register can be used to read the pin value irrespective of whether port is in input or output
+					mode. This register is read-only.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PB_IDR0" description="Logic input level of PB0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PB_IDR1" description="Logic input level of PB1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PB_IDR2" description="Logic input level of PB2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PB_IDR3" description="Logic input level of PB3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PB_IDR4" description="Logic input level of PB4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PB_IDR5" description="Logic input level of PB5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PB_IDR6" description="Logic input level of PB6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PB_IDR7" description="Logic input level of PB7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PB_DDR" description="Data Direction Register" address="0x5007" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PB_DDR0" description="Pin direction for PB0 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PB_DDR1" description="Pin direction for PB1 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PB_DDR2" description="Pin direction for PB2 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PB_DDR3" description="Pin direction for PB3 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PB_DDR4" description="Pin direction for PB4 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PB_DDR5" description="Pin direction for PB5 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PB_DDR6" description="Pin direction for PB6 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PB_DDR7" description="Pin direction for PB7 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+			</register>
+			<register name="PB_CR1" description="Control register 1" address="0x5008" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PB_C10" description="Control bit 1 for PB0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PB_C11" description="Control bit 1 for PB1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PB_C12" description="Control bit 1 for PB2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PB_C13" description="Control bit 1 for PB3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PB_C14" description="Control bit 1 for PB4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PB_C15" description="Control bit 1 for PB5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PB_C16" description="Control bit 1 for PB6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PB_C17" description="Control bit 1 for PB7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+			</register>
+			<register name="PB_CR2" description="Control register 2" address="0x5009" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+					In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+					interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+					speed of the I/O.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PB_C20" description="Control bit 2 for PB0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PB_C21" description="Control bit 2 for PB1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PB_C22" description="Control bit 2 for PB2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PB_C23" description="Control bit 2 for PB3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PB_C24" description="Control bit 2 for PB4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PB_C25" description="Control bit 2 for PB5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PB_C26" description="Control bit 2 for PB6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PB_C27" description="Control bit 2 for PB7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+			</register>
+		</registergroup>
+		<registergroup name="PORTC" description="Port C">
+		  <register name="PC_ODR" description="Output Register" address="0x500A" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PC_ODR0" description="Logic output state for PC0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PC_ODR1" description="Logic output state for PC1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PC_ODR2" description="Logic output state for PC2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PC_ODR3" description="Logic output state for PC3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PC_ODR4" description="Logic output state for PC4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PC_ODR5" description="Logic output state for PC5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PC_ODR6" description="Logic output state for PC6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PC_ODR7" description="Logic output state for PC7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PC_IDR" description="Input Register" address="0x500B" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PC_IDR0" description="Logic input level of PC0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PC_IDR1" description="Logic input level of PC1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PC_IDR2" description="Logic input level of PC2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PC_IDR3" description="Logic input level of PC3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PC_IDR4" description="Logic input level of PC4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PC_IDR5" description="Logic input level of PC5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PC_IDR6" description="Logic input level of PC6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PC_IDR7" description="Logic input level of PC7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PC_DDR" description="Data Direction Register" address="0x500C" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PC_DDR0" description="Pin direction for PC0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PC_DDR1" description="Pin direction for PC1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PC_DDR2" description="Pin direction for PC2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PC_DDR3" description="Pin direction for PC3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PC_DDR4" description="Pin direction for PC4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PC_DDR5" description="Pin direction for PC5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PC_DDR6" description="Pin direction for PC6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PC_DDR7" description="Pin direction for PC7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PC_CR1" description="Control register 1" address="0x500D" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PC_C10" description="Control bit 1 for PC0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PC_C11" description="Control bit 1 for PC1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PC_C12" description="Control bit 1 for PC2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PC_C13" description="Control bit 1 for PC3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PC_C14" description="Control bit 1 for PC4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PC_C15" description="Control bit 1 for PC5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PC_C16" description="Control bit 1 for PC6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PC_C17" description="Control bit 1 for PC7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PC_CR2" description="Control register 2" address="0x500E" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PC_C20" description="Control bit 2 for PC0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PC_C21" description="Control bit 2 for PC1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PC_C22" description="Control bit 2 for PC2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PC_C23" description="Control bit 2 for PC3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PC_C24" description="Control bit 2 for PC4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PC_C25" description="Control bit 2 for PC5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PC_C26" description="Control bit 2 for PC6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PC_C27" description="Control bit 2 for PC7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+		<registergroup name="PORTD" description="Port D">
+			<register name="PD_ODR" description="Output Register" address="0x500F" resetvalue="0x00" access="rw" size="1">
+				<note>
+					Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+					Reading the ODR returns the previously latched value in the register.
+					In Input mode, writing in the ODR register, latches the value in the register but does not change the
+					pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+					BRST) can be used on the DR register to drive an individual pin without affecting the others.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PD_ODR0" description="Logic output state for PD0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PD_ODR1" description="Logic output state for PD1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PD_ODR2" description="Logic output state for PD2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PD_ODR3" description="Logic output state for PD3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PD_ODR4" description="Logic output state for PD4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PD_ODR5" description="Logic output state for PD5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PD_ODR6" description="Logic output state for PD6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PD_ODR7" description="Logic output state for PD7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PD_IDR" description="Input Register" address="0x5010" access="r" size="1">
+				<note>
+					The pin register can be used to read the pin value irrespective of whether port is in input or output
+					mode. This register is read-only.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PD_IDR0" description="Logic input level of PD0 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PD_IDR1" description="Logic input level of PD1 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PD_IDR2" description="Logic input level of PD2 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PD_IDR3" description="Logic input level of PD3 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PD_IDR4" description="Logic input level of PD4 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PD_IDR5" description="Logic input level of PD5 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PD_IDR6" description="Logic input level of PD6 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PD_IDR7" description="Logic input level of PD7 pin">
+					<interpretation key="0x0" text="IO low"/>
+					<interpretation key="0x1" text="IO high"/>
+				</field>
+			</register>
+			<register name="PD_DDR" description="Data Direction Register" address="0x5011" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PD_DDR0" description="Pin direction for PD0 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PD_DDR1" description="Pin direction for PD1 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PD_DDR2" description="Pin direction for PD2 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PD_DDR3" description="Pin direction for PD3 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PD_DDR4" description="Pin direction for PD4 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PD_DDR5" description="Pin direction for PD5 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PD_DDR6" description="Pin direction for PD6 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PD_DDR7" description="Pin direction for PD7 pin">
+					<interpretation key="0x0" text="Input mode"/>
+					<interpretation key="0x1" text="Output mode"/>
+				</field>
+			</register>
+			<register name="PD_CR1" description="Control register 1" address="0x5012" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PD_C10" description="Control bit 1 for PD0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PD_C11" description="Control bit 1 for PD1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PD_C12" description="Control bit 1 for PD2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PD_C13" description="Control bit 1 for PD3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PD_C14" description="Control bit 1 for PD4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PD_C15" description="Control bit 1 for PD5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PD_C16" description="Control bit 1 for PD6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PD_C17" description="Control bit 1 for PD7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): Floating input
+						Output mode (DDR = 1): Pseudo open drain"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): Input with pull-up
+						Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+					/>
+				</field>
+			</register>
+			<register name="PD_CR2" description="Control register 2" address="0x5013" resetvalue="0x00" access="rw" size="1">
+				<note>
+					These bits are set and cleared by software. They select different functions in input mode and output mode.
+					In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+					interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+					speed of the I/O.
+				</note>
+				<field bitoffset="0" bitlength="1" name="PD_C20" description="Control bit 2 for PD0 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="1" bitlength="1" name="PD_C21" description="Control bit 2 for PD1 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="2" bitlength="1" name="PD_C22" description="Control bit 2 for PD2 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="3" bitlength="1" name="PD_C23" description="Control bit 2 for PD3 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="4" bitlength="1" name="PD_C24" description="Control bit 2 for PD4 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="5" bitlength="1" name="PD_C25" description="Control bit 2 for PD5 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="6" bitlength="1" name="PD_C26" description="Control bit 2 for PD6 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+				<field bitoffset="7" bitlength="1" name="PD_C27" description="Control bit 2 for PD7 pin">
+					<interpretation key="0x0" text="
+						Input mode (DDR = 0): External interrupt disabled
+						Output mode (DDR = 1): Output speed up to 2 MHz"
+					/>
+					<interpretation key="0x1" text="
+						Input mode (DDR = 0): External interrupt enabled
+						Output mode (DDR = 1): Output speed up to 10 MHz"
+					/>
+				</field>
+			</register>
+		</registergroup>
+		<registergroup name="PORTE" description="Port E">
+		  <register name="PE_ODR" description="Output Register" address="0x5014" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PE_ODR0" description="Logic output state for PE0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PE_ODR1" description="Logic output state for PE1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PE_ODR2" description="Logic output state for PE2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PE_ODR3" description="Logic output state for PE3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PE_ODR4" description="Logic output state for PE4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PE_ODR5" description="Logic output state for PE5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PE_ODR6" description="Logic output state for PE6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PE_ODR7" description="Logic output state for PE7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PE_IDR" description="Input Register" address="0x5015" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PE_IDR0" description="Logic input level of PE0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PE_IDR1" description="Logic input level of PE1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PE_IDR2" description="Logic input level of PE2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PE_IDR3" description="Logic input level of PE3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PE_IDR4" description="Logic input level of PE4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PE_IDR5" description="Logic input level of PE5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PE_IDR6" description="Logic input level of PE6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PE_IDR7" description="Logic input level of PE7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PE_DDR" description="Data Direction Register" address="0x5016" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PE_DDR0" description="Pin direction for PE0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PE_DDR1" description="Pin direction for PE1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PE_DDR2" description="Pin direction for PE2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PE_DDR3" description="Pin direction for PE3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PE_DDR4" description="Pin direction for PE4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PE_DDR5" description="Pin direction for PE5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PE_DDR6" description="Pin direction for PE6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PE_DDR7" description="Pin direction for PE7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PE_CR1" description="Control register 1" address="0x5017" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PE_C10" description="Control bit 1 for PE0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PE_C11" description="Control bit 1 for PE1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PE_C12" description="Control bit 1 for PE2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PE_C13" description="Control bit 1 for PE3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PE_C14" description="Control bit 1 for PE4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PE_C15" description="Control bit 1 for PE5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PE_C16" description="Control bit 1 for PE6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PE_C17" description="Control bit 1 for PE7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PE_CR2" description="Control register 2" address="0x5018" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PE_C20" description="Control bit 2 for PE0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PE_C21" description="Control bit 2 for PE1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PE_C22" description="Control bit 2 for PE2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PE_C23" description="Control bit 2 for PE3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PE_C24" description="Control bit 2 for PE4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PE_C25" description="Control bit 2 for PE5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PE_C26" description="Control bit 2 for PE6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PE_C27" description="Control bit 2 for PE7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+		<registergroup name="PORTF" description="Port F">
+		  <register name="PF_ODR" description="Output Register" address="0x5019" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PF_ODR0" description="Logic output state for PF0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PF_ODR1" description="Logic output state for PF1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PF_ODR2" description="Logic output state for PF2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PF_ODR3" description="Logic output state for PF3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PF_ODR4" description="Logic output state for PF4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PF_ODR5" description="Logic output state for PF5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PF_ODR6" description="Logic output state for PF6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PF_ODR7" description="Logic output state for PF7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PF_IDR" description="Input Register" address="0x501A" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PF_IDR0" description="Logic input level of PF0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PF_IDR1" description="Logic input level of PF1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PF_IDR2" description="Logic input level of PF2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PF_IDR3" description="Logic input level of PF3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PF_IDR4" description="Logic input level of PF4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PF_IDR5" description="Logic input level of PF5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PF_IDR6" description="Logic input level of PF6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PF_IDR7" description="Logic input level of PF7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PF_DDR" description="Data Direction Register" address="0x501B" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PF_DDR0" description="Pin direction for PF0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PF_DDR1" description="Pin direction for PF1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PF_DDR2" description="Pin direction for PF2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PF_DDR3" description="Pin direction for PF3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PF_DDR4" description="Pin direction for PF4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PF_DDR5" description="Pin direction for PF5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PF_DDR6" description="Pin direction for PF6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PF_DDR7" description="Pin direction for PF7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PF_CR1" description="Control register 1" address="0x501C" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PF_C10" description="Control bit 1 for PF0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PF_C11" description="Control bit 1 for PF1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PF_C12" description="Control bit 1 for PF2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PF_C13" description="Control bit 1 for PF3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PF_C14" description="Control bit 1 for PF4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PF_C15" description="Control bit 1 for PF5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PF_C16" description="Control bit 1 for PF6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PF_C17" description="Control bit 1 for PF7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PF_CR2" description="Control register 2" address="0x501D" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PF_C20" description="Control bit 2 for PF0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PF_C21" description="Control bit 2 for PF1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PF_C22" description="Control bit 2 for PF2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PF_C23" description="Control bit 2 for PF3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PF_C24" description="Control bit 2 for PF4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PF_C25" description="Control bit 2 for PF5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PF_C26" description="Control bit 2 for PF6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PF_C27" description="Control bit 2 for PF7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+		<registergroup name="PORTG" description="Port G">
+		  <register name="PG_ODR" description="Output Register" address="0x501E" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PG_ODR0" description="Logic output state for PG0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PG_ODR1" description="Logic output state for PG1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PG_ODR2" description="Logic output state for PG2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PG_ODR3" description="Logic output state for PG3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PG_ODR4" description="Logic output state for PG4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PG_ODR5" description="Logic output state for PG5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PG_ODR6" description="Logic output state for PG6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PG_ODR7" description="Logic output state for PG7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PG_IDR" description="Input Register" address="0x501F" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PG_IDR0" description="Logic input level of PG0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PG_IDR1" description="Logic input level of PG1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PG_IDR2" description="Logic input level of PG2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PG_IDR3" description="Logic input level of PG3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PG_IDR4" description="Logic input level of PG4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PG_IDR5" description="Logic input level of PG5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PG_IDR6" description="Logic input level of PG6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PG_IDR7" description="Logic input level of PG7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PG_DDR" description="Data Direction Register" address="0x5020" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PG_DDR0" description="Pin direction for PG0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PG_DDR1" description="Pin direction for PG1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PG_DDR2" description="Pin direction for PG2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PG_DDR3" description="Pin direction for PG3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PG_DDR4" description="Pin direction for PG4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PG_DDR5" description="Pin direction for PG5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PG_DDR6" description="Pin direction for PG6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PG_DDR7" description="Pin direction for PG7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PG_CR1" description="Control register 1" address="0x5021" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PG_C10" description="Control bit 1 for PG0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PG_C11" description="Control bit 1 for PG1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PG_C12" description="Control bit 1 for PG2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PG_C13" description="Control bit 1 for PG3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PG_C14" description="Control bit 1 for PG4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PG_C15" description="Control bit 1 for PG5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PG_C16" description="Control bit 1 for PG6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PG_C17" description="Control bit 1 for PG7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PG_CR2" description="Control register 2" address="0x5022" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PG_C20" description="Control bit 2 for PG0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PG_C21" description="Control bit 2 for PG1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PG_C22" description="Control bit 2 for PG2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PG_C23" description="Control bit 2 for PG3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PG_C24" description="Control bit 2 for PG4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PG_C25" description="Control bit 2 for PG5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PG_C26" description="Control bit 2 for PG6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PG_C27" description="Control bit 2 for PG7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+		<registergroup name="PORTH" description="Port H">
+		  <register name="PH_ODR" description="Output Register" address="0x5023" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PH_ODR0" description="Logic output state for PH0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PH_ODR1" description="Logic output state for PH1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PH_ODR2" description="Logic output state for PH2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PH_ODR3" description="Logic output state for PH3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PH_ODR4" description="Logic output state for PH4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PH_ODR5" description="Logic output state for PH5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PH_ODR6" description="Logic output state for PH6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PH_ODR7" description="Logic output state for PH7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PH_IDR" description="Input Register" address="0x5024" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PH_IDR0" description="Logic input level of PH0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PH_IDR1" description="Logic input level of PH1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PH_IDR2" description="Logic input level of PH2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PH_IDR3" description="Logic input level of PH3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PH_IDR4" description="Logic input level of PH4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PH_IDR5" description="Logic input level of PH5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PH_IDR6" description="Logic input level of PH6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PH_IDR7" description="Logic input level of PH7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PH_DDR" description="Data Direction Register" address="0x5025" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PH_DDR0" description="Pin direction for PH0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PH_DDR1" description="Pin direction for PH1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PH_DDR2" description="Pin direction for PH2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PH_DDR3" description="Pin direction for PH3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PH_DDR4" description="Pin direction for PH4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PH_DDR5" description="Pin direction for PH5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PH_DDR6" description="Pin direction for PH6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PH_DDR7" description="Pin direction for PH7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PH_CR1" description="Control register 1" address="0x5026" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PH_C10" description="Control bit 1 for PH0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PH_C11" description="Control bit 1 for PH1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PH_C12" description="Control bit 1 for PH2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PH_C13" description="Control bit 1 for PH3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PH_C14" description="Control bit 1 for PH4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PH_C15" description="Control bit 1 for PH5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PH_C16" description="Control bit 1 for PH6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PH_C17" description="Control bit 1 for PH7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PH_CR2" description="Control register 2" address="0x5027" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PH_C20" description="Control bit 2 for PH0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PH_C21" description="Control bit 2 for PH1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PH_C22" description="Control bit 2 for PH2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PH_C23" description="Control bit 2 for PH3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PH_C24" description="Control bit 2 for PH4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PH_C25" description="Control bit 2 for PH5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PH_C26" description="Control bit 2 for PH6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PH_C27" description="Control bit 2 for PH7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+		<registergroup name="PORTI" description="Port I">
+		  <register name="PI_ODR" description="Output Register" address="0x5028" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      Writing to the ODR register when in output mode applies a digital value to the I/O through the latch.
+		      Reading the ODR returns the previously latched value in the register.
+		      In Input mode, writing in the ODR register, latches the value in the register but does not change the
+		      pin state. The ODR register is always cleared after reset. Bit read-modify-write instructions (BSET,
+		      BRST) can be used on the DR register to drive an individual pin without affecting the others.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PI_ODR0" description="Logic output state for PI0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PI_ODR1" description="Logic output state for PI1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PI_ODR2" description="Logic output state for PI2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PI_ODR3" description="Logic output state for PI3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PI_ODR4" description="Logic output state for PI4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PI_ODR5" description="Logic output state for PI5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PI_ODR6" description="Logic output state for PI6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PI_ODR7" description="Logic output state for PI7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PI_IDR" description="Input Register" address="0x5029" access="r" size="1">
+		    <note>
+		      The pin register can be used to read the pin value irrespective of whether port is in input or output
+		      mode. This register is read-only.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PI_IDR0" description="Logic input level of PI0 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PI_IDR1" description="Logic input level of PI1 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PI_IDR2" description="Logic input level of PI2 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PI_IDR3" description="Logic input level of PI3 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PI_IDR4" description="Logic input level of PI4 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PI_IDR5" description="Logic input level of PI5 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PI_IDR6" description="Logic input level of PI6 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PI_IDR7" description="Logic input level of PI7 pin">
+		      <interpretation key="0x0" text="IO low"/>
+		      <interpretation key="0x1" text="IO high"/>
+		    </field>
+		  </register>
+		  <register name="PI_DDR" description="Data Direction Register" address="0x502A" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software to select input or output mode for a particular pin of a port.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PI_DDR0" description="Pin direction for PI0 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PI_DDR1" description="Pin direction for PI1 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PI_DDR2" description="Pin direction for PI2 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PI_DDR3" description="Pin direction for PI3 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PI_DDR4" description="Pin direction for PI4 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PI_DDR5" description="Pin direction for PI5 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PI_DDR6" description="Pin direction for PI6 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PI_DDR7" description="Pin direction for PI7 pin">
+		      <interpretation key="0x0" text="Input mode"/>
+		      <interpretation key="0x1" text="Output mode"/>
+		    </field>
+		  </register>
+		  <register name="PI_CR1" description="Control register 1" address="0x502B" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PI_C10" description="Control bit 1 for PI0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PI_C11" description="Control bit 1 for PI1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PI_C12" description="Control bit 1 for PI2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PI_C13" description="Control bit 1 for PI3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PI_C14" description="Control bit 1 for PI4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PI_C15" description="Control bit 1 for PI5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PI_C16" description="Control bit 1 for PI6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PI_C17" description="Control bit 1 for PI7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): Floating input
+		        Output mode (DDR = 1): Pseudo open drain"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): Input with pull-up
+		        Output mode (DDR = 1): Push-pull, speed depends CR2 bit"
+		      />
+		    </field>
+		  </register>
+		  <register name="PI_CR2" description="Control register 2" address="0x502C" resetvalue="0x00" access="rw" size="1">
+		    <note>
+		      These bits are set and cleared by software. They select different functions in input mode and output mode.
+		      In input mode, the CR2 bit enables the interrupt capability if available. If the I/O does not have
+		      interrupt capability, setting the CR2 bit has no effect. In output mode, setting the bit increases the
+		      speed of the I/O.
+		    </note>
+		    <field bitoffset="0" bitlength="1" name="PI_C20" description="Control bit 2 for PI0 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="1" bitlength="1" name="PI_C21" description="Control bit 2 for PI1 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="2" bitlength="1" name="PI_C22" description="Control bit 2 for PI2 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="3" bitlength="1" name="PI_C23" description="Control bit 2 for PI3 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="4" bitlength="1" name="PI_C24" description="Control bit 2 for PI4 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="5" bitlength="1" name="PI_C25" description="Control bit 2 for PI5 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="6" bitlength="1" name="PI_C26" description="Control bit 2 for PI6 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		    <field bitoffset="7" bitlength="1" name="PI_C27" description="Control bit 2 for PI7 pin">
+		      <interpretation key="0x0" text="
+		        Input mode (DDR = 0): External interrupt disabled
+		        Output mode (DDR = 1): Output speed up to 2 MHz"
+		      />
+		      <interpretation key="0x1" text="
+		        Input mode (DDR = 0): External interrupt enabled
+		        Output mode (DDR = 1): Output speed up to 10 MHz"
+		      />
+		    </field>
+		  </register>
+		</registergroup>
+	</group>
+
+
+	<!--
+		Coarse example (~guideline) for creating regsister entries.
+		-Use original manucaturer's names and descriptions if these do not collide with convention or unique regsiter names.
+		-Descriptions start from capitals.
+		-Group/Registergroup/Register/field names in CAPITALS?
+		-Descriptions (not names) of multibit field should include bits' numbers used in original documentation.
+			This sometimes does not match physical location (like ",bits 0-2" below, even though this bitfield is located at bits 1-3 in this register).
+		-Interpretation key hould be in hex, not decimal.
+		-Use TABs not SPACEs for indentation
+
+		<group name="EXAMPLE" description="Template Group Name">
+			<registergroup name="Template register group name" description="Register group description">
+				<register name="SOMEREG" description="Controls some internals" address="0x80005F" resetvalue="0x00" access="rw" size="1">
+					<field bitoffset="0" bitlength="1" name="ENABLE" description="Rightmost location">
+						<interpretation key="0x0" text="Not active"/>
+						<interpretation key="0x1" text="Active"/>
+					</field>
+					<field bitoffset="1" bitlength="3" name="ROUND" description="Rounding arithmetics, bits 0-2">
+						<interpretation key="0x0" text="Half up"/>
+						<interpretation key="0x1" text="Half down"/>
+						<interpretation key="0x2" text="Half away from zero"/>
+						<interpretation key="0x3" text="Half towards zero"/>
+						<interpretation key="0x4" text="Stochastic"/>
+					</field>
+				</register>
+			</registergroup>
+		</group>
+
+	-->
+
+</model>

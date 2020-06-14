@@ -1,0 +1,1827 @@
+;;-------------------------------------------------------------------------
+;; Declarations of SFR registers, SFR groups and SFR reset values.
+;;
+;; Copyright 2017 IAR Systems AB.
+;;
+;;-------------------------------------------------------------------------
+
+;;-------------------------------------------------------------------------
+;; SFR registers
+;;
+;; Syntax:
+;; sfr = "name", "zone", address, size, base=<base>[, bitRange=bit[-bit]]
+;;       [, readOnly/writeOnly]
+;;-------------------------------------------------------------------------
+[Sfr]
+;; Port A data output latch register
+sfr = "PA_ODR",            "Memory", 0x5000, 1, base=16, tooltip="Port A data output latch register"
+sfr = "PA_ODR.ODR0",       "Memory", 0x5000, 1, base=16, bitRange=0
+sfr = "PA_ODR.ODR1",       "Memory", 0x5000, 1, base=16, bitRange=1
+sfr = "PA_ODR.ODR2",       "Memory", 0x5000, 1, base=16, bitRange=2
+sfr = "PA_ODR.ODR3",       "Memory", 0x5000, 1, base=16, bitRange=3
+sfr = "PA_ODR.ODR4",       "Memory", 0x5000, 1, base=16, bitRange=4
+sfr = "PA_ODR.ODR5",       "Memory", 0x5000, 1, base=16, bitRange=5
+sfr = "PA_ODR.ODR6",       "Memory", 0x5000, 1, base=16, bitRange=6
+sfr = "PA_ODR.ODR7",       "Memory", 0x5000, 1, base=16, bitRange=7
+
+;; Port A input pin value register
+sfr = "PA_IDR",            "Memory", 0x5001, 1, base=16, tooltip="Port A input pin value register"
+sfr = "PA_IDR.IDR0",       "Memory", 0x5001, 1, base=16, bitRange=0, readOnly
+sfr = "PA_IDR.IDR1",       "Memory", 0x5001, 1, base=16, bitRange=1, readOnly
+sfr = "PA_IDR.IDR2",       "Memory", 0x5001, 1, base=16, bitRange=2, readOnly
+sfr = "PA_IDR.IDR3",       "Memory", 0x5001, 1, base=16, bitRange=3, readOnly
+sfr = "PA_IDR.IDR4",       "Memory", 0x5001, 1, base=16, bitRange=4, readOnly
+sfr = "PA_IDR.IDR5",       "Memory", 0x5001, 1, base=16, bitRange=5, readOnly
+sfr = "PA_IDR.IDR6",       "Memory", 0x5001, 1, base=16, bitRange=6, readOnly
+sfr = "PA_IDR.IDR7",       "Memory", 0x5001, 1, base=16, bitRange=7, readOnly
+
+;; Port A data direction register
+sfr = "PA_DDR",            "Memory", 0x5002, 1, base=16, tooltip="Port A data direction register"
+sfr = "PA_DDR.DDR0",       "Memory", 0x5002, 1, base=16, bitRange=0
+sfr = "PA_DDR.DDR1",       "Memory", 0x5002, 1, base=16, bitRange=1
+sfr = "PA_DDR.DDR2",       "Memory", 0x5002, 1, base=16, bitRange=2
+sfr = "PA_DDR.DDR3",       "Memory", 0x5002, 1, base=16, bitRange=3
+sfr = "PA_DDR.DDR4",       "Memory", 0x5002, 1, base=16, bitRange=4
+sfr = "PA_DDR.DDR5",       "Memory", 0x5002, 1, base=16, bitRange=5
+sfr = "PA_DDR.DDR6",       "Memory", 0x5002, 1, base=16, bitRange=6
+sfr = "PA_DDR.DDR7",       "Memory", 0x5002, 1, base=16, bitRange=7
+
+;; Port A control register 1
+sfr = "PA_CR1",            "Memory", 0x5003, 1, base=16, tooltip="Port A control register 1"
+sfr = "PA_CR1.C10",        "Memory", 0x5003, 1, base=16, bitRange=0
+sfr = "PA_CR1.C11",        "Memory", 0x5003, 1, base=16, bitRange=1
+sfr = "PA_CR1.C12",        "Memory", 0x5003, 1, base=16, bitRange=2
+sfr = "PA_CR1.C13",        "Memory", 0x5003, 1, base=16, bitRange=3
+sfr = "PA_CR1.C14",        "Memory", 0x5003, 1, base=16, bitRange=4
+sfr = "PA_CR1.C15",        "Memory", 0x5003, 1, base=16, bitRange=5
+sfr = "PA_CR1.C16",        "Memory", 0x5003, 1, base=16, bitRange=6
+sfr = "PA_CR1.C17",        "Memory", 0x5003, 1, base=16, bitRange=7
+
+;; Port A control register 2
+sfr = "PA_CR2",            "Memory", 0x5004, 1, base=16, tooltip="Port A control register 2"
+sfr = "PA_CR2.C20",        "Memory", 0x5004, 1, base=16, bitRange=0
+sfr = "PA_CR2.C21",        "Memory", 0x5004, 1, base=16, bitRange=1
+sfr = "PA_CR2.C22",        "Memory", 0x5004, 1, base=16, bitRange=2
+sfr = "PA_CR2.C23",        "Memory", 0x5004, 1, base=16, bitRange=3
+sfr = "PA_CR2.C24",        "Memory", 0x5004, 1, base=16, bitRange=4
+sfr = "PA_CR2.C25",        "Memory", 0x5004, 1, base=16, bitRange=5
+sfr = "PA_CR2.C26",        "Memory", 0x5004, 1, base=16, bitRange=6
+sfr = "PA_CR2.C27",        "Memory", 0x5004, 1, base=16, bitRange=7
+
+;; Port B data output latch register
+sfr = "PB_ODR",            "Memory", 0x5005, 1, base=16, tooltip="Port B data output latch register"
+sfr = "PB_ODR.ODR0",       "Memory", 0x5005, 1, base=16, bitRange=0
+sfr = "PB_ODR.ODR1",       "Memory", 0x5005, 1, base=16, bitRange=1
+sfr = "PB_ODR.ODR2",       "Memory", 0x5005, 1, base=16, bitRange=2
+sfr = "PB_ODR.ODR3",       "Memory", 0x5005, 1, base=16, bitRange=3
+sfr = "PB_ODR.ODR4",       "Memory", 0x5005, 1, base=16, bitRange=4
+sfr = "PB_ODR.ODR5",       "Memory", 0x5005, 1, base=16, bitRange=5
+sfr = "PB_ODR.ODR6",       "Memory", 0x5005, 1, base=16, bitRange=6
+sfr = "PB_ODR.ODR7",       "Memory", 0x5005, 1, base=16, bitRange=7
+
+;; Port B input pin value register
+sfr = "PB_IDR",            "Memory", 0x5006, 1, base=16, tooltip="Port B input pin value register"
+sfr = "PB_IDR.IDR0",       "Memory", 0x5006, 1, base=16, bitRange=0, readOnly
+sfr = "PB_IDR.IDR1",       "Memory", 0x5006, 1, base=16, bitRange=1, readOnly
+sfr = "PB_IDR.IDR2",       "Memory", 0x5006, 1, base=16, bitRange=2, readOnly
+sfr = "PB_IDR.IDR3",       "Memory", 0x5006, 1, base=16, bitRange=3, readOnly
+sfr = "PB_IDR.IDR4",       "Memory", 0x5006, 1, base=16, bitRange=4, readOnly
+sfr = "PB_IDR.IDR5",       "Memory", 0x5006, 1, base=16, bitRange=5, readOnly
+sfr = "PB_IDR.IDR6",       "Memory", 0x5006, 1, base=16, bitRange=6, readOnly
+sfr = "PB_IDR.IDR7",       "Memory", 0x5006, 1, base=16, bitRange=7, readOnly
+
+;; Port B data direction register
+sfr = "PB_DDR",            "Memory", 0x5007, 1, base=16, tooltip="Port B data direction register"
+sfr = "PB_DDR.DDR0",       "Memory", 0x5007, 1, base=16, bitRange=0
+sfr = "PB_DDR.DDR1",       "Memory", 0x5007, 1, base=16, bitRange=1
+sfr = "PB_DDR.DDR2",       "Memory", 0x5007, 1, base=16, bitRange=2
+sfr = "PB_DDR.DDR3",       "Memory", 0x5007, 1, base=16, bitRange=3
+sfr = "PB_DDR.DDR4",       "Memory", 0x5007, 1, base=16, bitRange=4
+sfr = "PB_DDR.DDR5",       "Memory", 0x5007, 1, base=16, bitRange=5
+sfr = "PB_DDR.DDR6",       "Memory", 0x5007, 1, base=16, bitRange=6
+sfr = "PB_DDR.DDR7",       "Memory", 0x5007, 1, base=16, bitRange=7
+
+;; Port B control register 1
+sfr = "PB_CR1",            "Memory", 0x5008, 1, base=16, tooltip="Port B control register 1"
+sfr = "PB_CR1.C10",        "Memory", 0x5008, 1, base=16, bitRange=0
+sfr = "PB_CR1.C11",        "Memory", 0x5008, 1, base=16, bitRange=1
+sfr = "PB_CR1.C12",        "Memory", 0x5008, 1, base=16, bitRange=2
+sfr = "PB_CR1.C13",        "Memory", 0x5008, 1, base=16, bitRange=3
+sfr = "PB_CR1.C14",        "Memory", 0x5008, 1, base=16, bitRange=4
+sfr = "PB_CR1.C15",        "Memory", 0x5008, 1, base=16, bitRange=5
+sfr = "PB_CR1.C16",        "Memory", 0x5008, 1, base=16, bitRange=6
+sfr = "PB_CR1.C17",        "Memory", 0x5008, 1, base=16, bitRange=7
+
+;; Port B control register 2
+sfr = "PB_CR2",            "Memory", 0x5009, 1, base=16, tooltip="Port B control register 2"
+sfr = "PB_CR2.C20",        "Memory", 0x5009, 1, base=16, bitRange=0
+sfr = "PB_CR2.C21",        "Memory", 0x5009, 1, base=16, bitRange=1
+sfr = "PB_CR2.C22",        "Memory", 0x5009, 1, base=16, bitRange=2
+sfr = "PB_CR2.C23",        "Memory", 0x5009, 1, base=16, bitRange=3
+sfr = "PB_CR2.C24",        "Memory", 0x5009, 1, base=16, bitRange=4
+sfr = "PB_CR2.C25",        "Memory", 0x5009, 1, base=16, bitRange=5
+sfr = "PB_CR2.C26",        "Memory", 0x5009, 1, base=16, bitRange=6
+sfr = "PB_CR2.C27",        "Memory", 0x5009, 1, base=16, bitRange=7
+
+;; Port C data output latch register
+sfr = "PC_ODR",            "Memory", 0x500A, 1, base=16, tooltip="Port C data output latch register"
+sfr = "PC_ODR.ODR0",       "Memory", 0x500A, 1, base=16, bitRange=0
+sfr = "PC_ODR.ODR1",       "Memory", 0x500A, 1, base=16, bitRange=1
+sfr = "PC_ODR.ODR2",       "Memory", 0x500A, 1, base=16, bitRange=2
+sfr = "PC_ODR.ODR3",       "Memory", 0x500A, 1, base=16, bitRange=3
+sfr = "PC_ODR.ODR4",       "Memory", 0x500A, 1, base=16, bitRange=4
+sfr = "PC_ODR.ODR5",       "Memory", 0x500A, 1, base=16, bitRange=5
+sfr = "PC_ODR.ODR6",       "Memory", 0x500A, 1, base=16, bitRange=6
+sfr = "PC_ODR.ODR7",       "Memory", 0x500A, 1, base=16, bitRange=7
+
+;; Port C input pin value register
+sfr = "PC_IDR",            "Memory", 0x500B, 1, base=16, tooltip="Port C input pin value register"
+sfr = "PC_IDR.IDR0",       "Memory", 0x500B, 1, base=16, bitRange=0, readOnly
+sfr = "PC_IDR.IDR1",       "Memory", 0x500B, 1, base=16, bitRange=1, readOnly
+sfr = "PC_IDR.IDR2",       "Memory", 0x500B, 1, base=16, bitRange=2, readOnly
+sfr = "PC_IDR.IDR3",       "Memory", 0x500B, 1, base=16, bitRange=3, readOnly
+sfr = "PC_IDR.IDR4",       "Memory", 0x500B, 1, base=16, bitRange=4, readOnly
+sfr = "PC_IDR.IDR5",       "Memory", 0x500B, 1, base=16, bitRange=5, readOnly
+sfr = "PC_IDR.IDR6",       "Memory", 0x500B, 1, base=16, bitRange=6, readOnly
+sfr = "PC_IDR.IDR7",       "Memory", 0x500B, 1, base=16, bitRange=7, readOnly
+
+;; Port C data direction register
+sfr = "PC_DDR",            "Memory", 0x500C, 1, base=16, tooltip="Port C data direction register"
+sfr = "PC_DDR.DDR0",       "Memory", 0x500C, 1, base=16, bitRange=0
+sfr = "PC_DDR.DDR1",       "Memory", 0x500C, 1, base=16, bitRange=1
+sfr = "PC_DDR.DDR2",       "Memory", 0x500C, 1, base=16, bitRange=2
+sfr = "PC_DDR.DDR3",       "Memory", 0x500C, 1, base=16, bitRange=3
+sfr = "PC_DDR.DDR4",       "Memory", 0x500C, 1, base=16, bitRange=4
+sfr = "PC_DDR.DDR5",       "Memory", 0x500C, 1, base=16, bitRange=5
+sfr = "PC_DDR.DDR6",       "Memory", 0x500C, 1, base=16, bitRange=6
+sfr = "PC_DDR.DDR7",       "Memory", 0x500C, 1, base=16, bitRange=7
+
+;; Port C control register 1
+sfr = "PC_CR1",            "Memory", 0x500D, 1, base=16, tooltip="Port C control register 1"
+sfr = "PC_CR1.C10",        "Memory", 0x500D, 1, base=16, bitRange=0
+sfr = "PC_CR1.C11",        "Memory", 0x500D, 1, base=16, bitRange=1
+sfr = "PC_CR1.C12",        "Memory", 0x500D, 1, base=16, bitRange=2
+sfr = "PC_CR1.C13",        "Memory", 0x500D, 1, base=16, bitRange=3
+sfr = "PC_CR1.C14",        "Memory", 0x500D, 1, base=16, bitRange=4
+sfr = "PC_CR1.C15",        "Memory", 0x500D, 1, base=16, bitRange=5
+sfr = "PC_CR1.C16",        "Memory", 0x500D, 1, base=16, bitRange=6
+sfr = "PC_CR1.C17",        "Memory", 0x500D, 1, base=16, bitRange=7
+
+;; Port C control register 2
+sfr = "PC_CR2",            "Memory", 0x500E, 1, base=16, tooltip="Port C control register 2"
+sfr = "PC_CR2.C20",        "Memory", 0x500E, 1, base=16, bitRange=0
+sfr = "PC_CR2.C21",        "Memory", 0x500E, 1, base=16, bitRange=1
+sfr = "PC_CR2.C22",        "Memory", 0x500E, 1, base=16, bitRange=2
+sfr = "PC_CR2.C23",        "Memory", 0x500E, 1, base=16, bitRange=3
+sfr = "PC_CR2.C24",        "Memory", 0x500E, 1, base=16, bitRange=4
+sfr = "PC_CR2.C25",        "Memory", 0x500E, 1, base=16, bitRange=5
+sfr = "PC_CR2.C26",        "Memory", 0x500E, 1, base=16, bitRange=6
+sfr = "PC_CR2.C27",        "Memory", 0x500E, 1, base=16, bitRange=7
+
+;; Port D data output latch register
+sfr = "PD_ODR",            "Memory", 0x500F, 1, base=16, tooltip="Port D data output latch register"
+sfr = "PD_ODR.ODR0",       "Memory", 0x500F, 1, base=16, bitRange=0
+sfr = "PD_ODR.ODR1",       "Memory", 0x500F, 1, base=16, bitRange=1
+sfr = "PD_ODR.ODR2",       "Memory", 0x500F, 1, base=16, bitRange=2
+sfr = "PD_ODR.ODR3",       "Memory", 0x500F, 1, base=16, bitRange=3
+sfr = "PD_ODR.ODR4",       "Memory", 0x500F, 1, base=16, bitRange=4
+sfr = "PD_ODR.ODR5",       "Memory", 0x500F, 1, base=16, bitRange=5
+sfr = "PD_ODR.ODR6",       "Memory", 0x500F, 1, base=16, bitRange=6
+sfr = "PD_ODR.ODR7",       "Memory", 0x500F, 1, base=16, bitRange=7
+
+;; Port D input pin value register
+sfr = "PD_IDR",            "Memory", 0x5010, 1, base=16, tooltip="Port D input pin value register"
+sfr = "PD_IDR.IDR0",       "Memory", 0x5010, 1, base=16, bitRange=0, readOnly
+sfr = "PD_IDR.IDR1",       "Memory", 0x5010, 1, base=16, bitRange=1, readOnly
+sfr = "PD_IDR.IDR2",       "Memory", 0x5010, 1, base=16, bitRange=2, readOnly
+sfr = "PD_IDR.IDR3",       "Memory", 0x5010, 1, base=16, bitRange=3, readOnly
+sfr = "PD_IDR.IDR4",       "Memory", 0x5010, 1, base=16, bitRange=4, readOnly
+sfr = "PD_IDR.IDR5",       "Memory", 0x5010, 1, base=16, bitRange=5, readOnly
+sfr = "PD_IDR.IDR6",       "Memory", 0x5010, 1, base=16, bitRange=6, readOnly
+sfr = "PD_IDR.IDR7",       "Memory", 0x5010, 1, base=16, bitRange=7, readOnly
+
+;; Port D data direction register
+sfr = "PD_DDR",            "Memory", 0x5011, 1, base=16, tooltip="Port D data direction register"
+sfr = "PD_DDR.DDR0",       "Memory", 0x5011, 1, base=16, bitRange=0
+sfr = "PD_DDR.DDR1",       "Memory", 0x5011, 1, base=16, bitRange=1
+sfr = "PD_DDR.DDR2",       "Memory", 0x5011, 1, base=16, bitRange=2
+sfr = "PD_DDR.DDR3",       "Memory", 0x5011, 1, base=16, bitRange=3
+sfr = "PD_DDR.DDR4",       "Memory", 0x5011, 1, base=16, bitRange=4
+sfr = "PD_DDR.DDR5",       "Memory", 0x5011, 1, base=16, bitRange=5
+sfr = "PD_DDR.DDR6",       "Memory", 0x5011, 1, base=16, bitRange=6
+sfr = "PD_DDR.DDR7",       "Memory", 0x5011, 1, base=16, bitRange=7
+
+;; Port D control register 1
+sfr = "PD_CR1",            "Memory", 0x5012, 1, base=16, tooltip="Port D control register 1"
+sfr = "PD_CR1.C10",        "Memory", 0x5012, 1, base=16, bitRange=0
+sfr = "PD_CR1.C11",        "Memory", 0x5012, 1, base=16, bitRange=1
+sfr = "PD_CR1.C12",        "Memory", 0x5012, 1, base=16, bitRange=2
+sfr = "PD_CR1.C13",        "Memory", 0x5012, 1, base=16, bitRange=3
+sfr = "PD_CR1.C14",        "Memory", 0x5012, 1, base=16, bitRange=4
+sfr = "PD_CR1.C15",        "Memory", 0x5012, 1, base=16, bitRange=5
+sfr = "PD_CR1.C16",        "Memory", 0x5012, 1, base=16, bitRange=6
+sfr = "PD_CR1.C17",        "Memory", 0x5012, 1, base=16, bitRange=7
+
+;; Port D control register 2
+sfr = "PD_CR2",            "Memory", 0x5013, 1, base=16, tooltip="Port D control register 2"
+sfr = "PD_CR2.C20",        "Memory", 0x5013, 1, base=16, bitRange=0
+sfr = "PD_CR2.C21",        "Memory", 0x5013, 1, base=16, bitRange=1
+sfr = "PD_CR2.C22",        "Memory", 0x5013, 1, base=16, bitRange=2
+sfr = "PD_CR2.C23",        "Memory", 0x5013, 1, base=16, bitRange=3
+sfr = "PD_CR2.C24",        "Memory", 0x5013, 1, base=16, bitRange=4
+sfr = "PD_CR2.C25",        "Memory", 0x5013, 1, base=16, bitRange=5
+sfr = "PD_CR2.C26",        "Memory", 0x5013, 1, base=16, bitRange=6
+sfr = "PD_CR2.C27",        "Memory", 0x5013, 1, base=16, bitRange=7
+
+;; Port E data output latch register
+sfr = "PE_ODR",            "Memory", 0x5014, 1, base=16, tooltip="Port E data output latch register"
+sfr = "PE_ODR.ODR0",       "Memory", 0x5014, 1, base=16, bitRange=0
+sfr = "PE_ODR.ODR1",       "Memory", 0x5014, 1, base=16, bitRange=1
+sfr = "PE_ODR.ODR2",       "Memory", 0x5014, 1, base=16, bitRange=2
+sfr = "PE_ODR.ODR3",       "Memory", 0x5014, 1, base=16, bitRange=3
+sfr = "PE_ODR.ODR4",       "Memory", 0x5014, 1, base=16, bitRange=4
+sfr = "PE_ODR.ODR5",       "Memory", 0x5014, 1, base=16, bitRange=5
+sfr = "PE_ODR.ODR6",       "Memory", 0x5014, 1, base=16, bitRange=6
+sfr = "PE_ODR.ODR7",       "Memory", 0x5014, 1, base=16, bitRange=7
+
+;; Port E input pin value register
+sfr = "PE_IDR",            "Memory", 0x5015, 1, base=16, tooltip="Port E input pin value register"
+sfr = "PE_IDR.IDR0",       "Memory", 0x5015, 1, base=16, bitRange=0, readOnly
+sfr = "PE_IDR.IDR1",       "Memory", 0x5015, 1, base=16, bitRange=1, readOnly
+sfr = "PE_IDR.IDR2",       "Memory", 0x5015, 1, base=16, bitRange=2, readOnly
+sfr = "PE_IDR.IDR3",       "Memory", 0x5015, 1, base=16, bitRange=3, readOnly
+sfr = "PE_IDR.IDR4",       "Memory", 0x5015, 1, base=16, bitRange=4, readOnly
+sfr = "PE_IDR.IDR5",       "Memory", 0x5015, 1, base=16, bitRange=5, readOnly
+sfr = "PE_IDR.IDR6",       "Memory", 0x5015, 1, base=16, bitRange=6, readOnly
+sfr = "PE_IDR.IDR7",       "Memory", 0x5015, 1, base=16, bitRange=7, readOnly
+
+;; Port E data direction register
+sfr = "PE_DDR",            "Memory", 0x5016, 1, base=16, tooltip="Port E data direction register"
+sfr = "PE_DDR.DDR0",       "Memory", 0x5016, 1, base=16, bitRange=0
+sfr = "PE_DDR.DDR1",       "Memory", 0x5016, 1, base=16, bitRange=1
+sfr = "PE_DDR.DDR2",       "Memory", 0x5016, 1, base=16, bitRange=2
+sfr = "PE_DDR.DDR3",       "Memory", 0x5016, 1, base=16, bitRange=3
+sfr = "PE_DDR.DDR4",       "Memory", 0x5016, 1, base=16, bitRange=4
+sfr = "PE_DDR.DDR5",       "Memory", 0x5016, 1, base=16, bitRange=5
+sfr = "PE_DDR.DDR6",       "Memory", 0x5016, 1, base=16, bitRange=6
+sfr = "PE_DDR.DDR7",       "Memory", 0x5016, 1, base=16, bitRange=7
+
+;; Port E control register 1
+sfr = "PE_CR1",            "Memory", 0x5017, 1, base=16, tooltip="Port E control register 1"
+sfr = "PE_CR1.C10",        "Memory", 0x5017, 1, base=16, bitRange=0
+sfr = "PE_CR1.C11",        "Memory", 0x5017, 1, base=16, bitRange=1
+sfr = "PE_CR1.C12",        "Memory", 0x5017, 1, base=16, bitRange=2
+sfr = "PE_CR1.C13",        "Memory", 0x5017, 1, base=16, bitRange=3
+sfr = "PE_CR1.C14",        "Memory", 0x5017, 1, base=16, bitRange=4
+sfr = "PE_CR1.C15",        "Memory", 0x5017, 1, base=16, bitRange=5
+sfr = "PE_CR1.C16",        "Memory", 0x5017, 1, base=16, bitRange=6
+sfr = "PE_CR1.C17",        "Memory", 0x5017, 1, base=16, bitRange=7
+
+;; Port E control register 2
+sfr = "PE_CR2",            "Memory", 0x5018, 1, base=16, tooltip="Port E control register 2"
+sfr = "PE_CR2.C20",        "Memory", 0x5018, 1, base=16, bitRange=0
+sfr = "PE_CR2.C21",        "Memory", 0x5018, 1, base=16, bitRange=1
+sfr = "PE_CR2.C22",        "Memory", 0x5018, 1, base=16, bitRange=2
+sfr = "PE_CR2.C23",        "Memory", 0x5018, 1, base=16, bitRange=3
+sfr = "PE_CR2.C24",        "Memory", 0x5018, 1, base=16, bitRange=4
+sfr = "PE_CR2.C25",        "Memory", 0x5018, 1, base=16, bitRange=5
+sfr = "PE_CR2.C26",        "Memory", 0x5018, 1, base=16, bitRange=6
+sfr = "PE_CR2.C27",        "Memory", 0x5018, 1, base=16, bitRange=7
+
+;; Port G data output latch register
+sfr = "PG_ODR",            "Memory", 0x501E, 1, base=16, tooltip="Port G data output latch register"
+sfr = "PG_ODR.ODR0",       "Memory", 0x501E, 1, base=16, bitRange=0
+sfr = "PG_ODR.ODR1",       "Memory", 0x501E, 1, base=16, bitRange=1
+sfr = "PG_ODR.ODR2",       "Memory", 0x501E, 1, base=16, bitRange=2
+sfr = "PG_ODR.ODR3",       "Memory", 0x501E, 1, base=16, bitRange=3
+sfr = "PG_ODR.ODR4",       "Memory", 0x501E, 1, base=16, bitRange=4
+sfr = "PG_ODR.ODR5",       "Memory", 0x501E, 1, base=16, bitRange=5
+sfr = "PG_ODR.ODR6",       "Memory", 0x501E, 1, base=16, bitRange=6
+sfr = "PG_ODR.ODR7",       "Memory", 0x501E, 1, base=16, bitRange=7
+
+;; Port G input pin value register
+sfr = "PG_IDR",            "Memory", 0x501F, 1, base=16, tooltip="Port G input pin value register"
+sfr = "PG_IDR.IDR0",       "Memory", 0x501F, 1, base=16, bitRange=0, readOnly
+sfr = "PG_IDR.IDR1",       "Memory", 0x501F, 1, base=16, bitRange=1, readOnly
+sfr = "PG_IDR.IDR2",       "Memory", 0x501F, 1, base=16, bitRange=2, readOnly
+sfr = "PG_IDR.IDR3",       "Memory", 0x501F, 1, base=16, bitRange=3, readOnly
+sfr = "PG_IDR.IDR4",       "Memory", 0x501F, 1, base=16, bitRange=4, readOnly
+sfr = "PG_IDR.IDR5",       "Memory", 0x501F, 1, base=16, bitRange=5, readOnly
+sfr = "PG_IDR.IDR6",       "Memory", 0x501F, 1, base=16, bitRange=6, readOnly
+sfr = "PG_IDR.IDR7",       "Memory", 0x501F, 1, base=16, bitRange=7, readOnly
+
+;; Port G data direction register
+sfr = "PG_DDR",            "Memory", 0x5020, 1, base=16, tooltip="Port G data direction register"
+sfr = "PG_DDR.DDR0",       "Memory", 0x5020, 1, base=16, bitRange=0
+sfr = "PG_DDR.DDR1",       "Memory", 0x5020, 1, base=16, bitRange=1
+sfr = "PG_DDR.DDR2",       "Memory", 0x5020, 1, base=16, bitRange=2
+sfr = "PG_DDR.DDR3",       "Memory", 0x5020, 1, base=16, bitRange=3
+sfr = "PG_DDR.DDR4",       "Memory", 0x5020, 1, base=16, bitRange=4
+sfr = "PG_DDR.DDR5",       "Memory", 0x5020, 1, base=16, bitRange=5
+sfr = "PG_DDR.DDR6",       "Memory", 0x5020, 1, base=16, bitRange=6
+sfr = "PG_DDR.DDR7",       "Memory", 0x5020, 1, base=16, bitRange=7
+
+;; Port G control register 1
+sfr = "PG_CR1",            "Memory", 0x5021, 1, base=16, tooltip="Port G control register 1"
+sfr = "PG_CR1.C10",        "Memory", 0x5021, 1, base=16, bitRange=0
+sfr = "PG_CR1.C11",        "Memory", 0x5021, 1, base=16, bitRange=1
+sfr = "PG_CR1.C12",        "Memory", 0x5021, 1, base=16, bitRange=2
+sfr = "PG_CR1.C13",        "Memory", 0x5021, 1, base=16, bitRange=3
+sfr = "PG_CR1.C14",        "Memory", 0x5021, 1, base=16, bitRange=4
+sfr = "PG_CR1.C15",        "Memory", 0x5021, 1, base=16, bitRange=5
+sfr = "PG_CR1.C16",        "Memory", 0x5021, 1, base=16, bitRange=6
+sfr = "PG_CR1.C17",        "Memory", 0x5021, 1, base=16, bitRange=7
+
+;; Port G control register 2
+sfr = "PG_CR2",            "Memory", 0x5022, 1, base=16, tooltip="Port G control register 2"
+sfr = "PG_CR2.C20",        "Memory", 0x5022, 1, base=16, bitRange=0
+sfr = "PG_CR2.C21",        "Memory", 0x5022, 1, base=16, bitRange=1
+sfr = "PG_CR2.C22",        "Memory", 0x5022, 1, base=16, bitRange=2
+sfr = "PG_CR2.C23",        "Memory", 0x5022, 1, base=16, bitRange=3
+sfr = "PG_CR2.C24",        "Memory", 0x5022, 1, base=16, bitRange=4
+sfr = "PG_CR2.C25",        "Memory", 0x5022, 1, base=16, bitRange=5
+sfr = "PG_CR2.C26",        "Memory", 0x5022, 1, base=16, bitRange=6
+sfr = "PG_CR2.C27",        "Memory", 0x5022, 1, base=16, bitRange=7
+
+;; Flash control register 1
+sfr = "FLASH_CR1",         "Memory", 0x505A, 1, base=16, tooltip="Flash control register 1"
+sfr = "FLASH_CR1.FIX",     "Memory", 0x505A, 1, base=16, bitRange=0
+sfr = "FLASH_CR1.IE",      "Memory", 0x505A, 1, base=16, bitRange=1
+sfr = "FLASH_CR1.AHALT",   "Memory", 0x505A, 1, base=16, bitRange=2
+sfr = "FLASH_CR1.HALT",    "Memory", 0x505A, 1, base=16, bitRange=3
+
+;; Flash control register 2
+sfr = "FLASH_CR2",         "Memory", 0x505B, 1, base=16, tooltip="Flash control register 2"
+sfr = "FLASH_CR2.PRG",     "Memory", 0x505B, 1, base=16, bitRange=0
+sfr = "FLASH_CR2.FPRG",    "Memory", 0x505B, 1, base=16, bitRange=4
+sfr = "FLASH_CR2.ERASE",   "Memory", 0x505B, 1, base=16, bitRange=5
+sfr = "FLASH_CR2.WPRG",    "Memory", 0x505B, 1, base=16, bitRange=6
+sfr = "FLASH_CR2.OPT",     "Memory", 0x505B, 1, base=16, bitRange=7
+
+;; Flash complementary control register 2
+sfr = "FLASH_NCR2",        "Memory", 0x505C, 1, base=16, tooltip="Flash complementary control register 2"
+sfr = "FLASH_NCR2.NPRG",   "Memory", 0x505C, 1, base=16, bitRange=0
+sfr = "FLASH_NCR2.NFPRG",  "Memory", 0x505C, 1, base=16, bitRange=4
+sfr = "FLASH_NCR2.NERASE", "Memory", 0x505C, 1, base=16, bitRange=5
+sfr = "FLASH_NCR2.NWPRG",  "Memory", 0x505C, 1, base=16, bitRange=6
+sfr = "FLASH_NCR2.NOPT",   "Memory", 0x505C, 1, base=16, bitRange=7
+
+;; Flash protection register
+sfr = "FLASH_FPR",         "Memory", 0x505D, 1, base=16, tooltip="Flash protection register"
+sfr = "FLASH_FPR.WPB0",    "Memory", 0x505D, 1, base=16, bitRange=0, readOnly
+sfr = "FLASH_FPR.WPB1",    "Memory", 0x505D, 1, base=16, bitRange=1, readOnly
+sfr = "FLASH_FPR.WPB2",    "Memory", 0x505D, 1, base=16, bitRange=2, readOnly
+sfr = "FLASH_FPR.WPB3",    "Memory", 0x505D, 1, base=16, bitRange=3, readOnly
+sfr = "FLASH_FPR.WPB4",    "Memory", 0x505D, 1, base=16, bitRange=4, readOnly
+sfr = "FLASH_FPR.WPB5",    "Memory", 0x505D, 1, base=16, bitRange=5, readOnly
+
+;; Flash complementary protection register
+sfr = "FLASH_NFPR",        "Memory", 0x505E, 1, base=16, tooltip="Flash complementary protection register"
+sfr = "FLASH_NFPR.NWPB0",  "Memory", 0x505E, 1, base=16, bitRange=0, readOnly
+sfr = "FLASH_NFPR.NWPB1",  "Memory", 0x505E, 1, base=16, bitRange=1, readOnly
+sfr = "FLASH_NFPR.NWPB2",  "Memory", 0x505E, 1, base=16, bitRange=2, readOnly
+sfr = "FLASH_NFPR.NWPB3",  "Memory", 0x505E, 1, base=16, bitRange=3, readOnly
+sfr = "FLASH_NFPR.NWPB4",  "Memory", 0x505E, 1, base=16, bitRange=4, readOnly
+sfr = "FLASH_NFPR.NWPB5",  "Memory", 0x505E, 1, base=16, bitRange=5, readOnly
+
+;; Flash in-application programming status register
+sfr = "FLASH_IAPSR",       "Memory", 0x505F, 1, base=16, tooltip="Flash in-application programming status register"
+sfr = "FLASH_IAPSR.WR_PG_DIS", "Memory", 0x505F, 1, base=16, bitRange=0, readOnly
+sfr = "FLASH_IAPSR.PUL",   "Memory", 0x505F, 1, base=16, bitRange=1
+sfr = "FLASH_IAPSR.EOP",   "Memory", 0x505F, 1, base=16, bitRange=2, readOnly
+sfr = "FLASH_IAPSR.DUL",   "Memory", 0x505F, 1, base=16, bitRange=3
+sfr = "FLASH_IAPSR.HVOFF", "Memory", 0x505F, 1, base=16, bitRange=6, readOnly
+
+;; Flash program memory unprotection register
+sfr = "FLASH_PUKR",        "Memory", 0x5062, 1, base=16, tooltip="Flash program memory unprotection register"
+sfr = "FLASH_PUKR.PUK",    "Memory", 0x5062, 1, base=16, bitRange=0-7
+
+;; Data EEPROM unprotection register
+sfr = "FLASH_DUKR",        "Memory", 0x5064, 1, base=16, tooltip="Data EEPROM unprotection register"
+sfr = "FLASH_DUKR.DUK",    "Memory", 0x5064, 1, base=16, bitRange=0-7
+
+;; External interrupt control register 1
+sfr = "EXTI_CR1",          "Memory", 0x50A0, 1, base=16, tooltip="External interrupt control register 1"
+sfr = "EXTI_CR1.PAIS",     "Memory", 0x50A0, 1, base=16, bitRange=0-1
+sfr = "EXTI_CR1.PBIS",     "Memory", 0x50A0, 1, base=16, bitRange=2-3
+sfr = "EXTI_CR1.PCIS",     "Memory", 0x50A0, 1, base=16, bitRange=4-5
+sfr = "EXTI_CR1.PDIS",     "Memory", 0x50A0, 1, base=16, bitRange=6-7
+
+;; External interrupt control register 2
+sfr = "EXTI_CR2",          "Memory", 0x50A1, 1, base=16, tooltip="External interrupt control register 2"
+sfr = "EXTI_CR2.PEIS",     "Memory", 0x50A1, 1, base=16, bitRange=0-1
+sfr = "EXTI_CR2.TLIS",     "Memory", 0x50A1, 1, base=16, bitRange=2
+sfr = "EXTI_CR2.PGKIS",    "Memory", 0x50A1, 1, base=16, bitRange=3-4
+
+;; Reset status register
+sfr = "RST_SR",            "Memory", 0x50B3, 1, base=16, tooltip="Reset status register"
+sfr = "RST_SR.WWDGF",      "Memory", 0x50B3, 1, base=16, bitRange=0
+sfr = "RST_SR.IWDGF",      "Memory", 0x50B3, 1, base=16, bitRange=1
+sfr = "RST_SR.ILLOPF",     "Memory", 0x50B3, 1, base=16, bitRange=2
+sfr = "RST_SR.SWIMF",      "Memory", 0x50B3, 1, base=16, bitRange=3
+sfr = "RST_SR.EMCF",       "Memory", 0x50B3, 1, base=16, bitRange=4
+
+;; Internal clock control register
+sfr = "CLK_ICKR",          "Memory", 0x50C0, 1, base=16, tooltip="Internal clock control register"
+sfr = "CLK_ICKR.HSIEN",    "Memory", 0x50C0, 1, base=16, bitRange=0
+sfr = "CLK_ICKR.HSIRDY",   "Memory", 0x50C0, 1, base=16, bitRange=1, readOnly
+sfr = "CLK_ICKR.FHW",      "Memory", 0x50C0, 1, base=16, bitRange=2
+sfr = "CLK_ICKR.LSIEN",    "Memory", 0x50C0, 1, base=16, bitRange=3
+sfr = "CLK_ICKR.LSIRDY",   "Memory", 0x50C0, 1, base=16, bitRange=4, readOnly
+sfr = "CLK_ICKR.SWUAH",    "Memory", 0x50C0, 1, base=16, bitRange=5
+
+;; External clock control register
+sfr = "CLK_ECKR",          "Memory", 0x50C1, 1, base=16, tooltip="External clock control register"
+sfr = "CLK_ECKR.HSEEN",    "Memory", 0x50C1, 1, base=16, bitRange=0
+sfr = "CLK_ECKR.HSERDY",   "Memory", 0x50C1, 1, base=16, bitRange=1, readOnly
+
+;; Clock master status register
+sfr = "CLK_CMSR",          "Memory", 0x50C3, 1, base=16, tooltip="Clock master status register"
+sfr = "CLK_CMSR.CKM",      "Memory", 0x50C3, 1, base=16, bitRange=0-7, readOnly
+
+;; Clock master switch register
+sfr = "CLK_SWR",           "Memory", 0x50C4, 1, base=16, tooltip="Clock master switch register"
+sfr = "CLK_SWR.SWI",       "Memory", 0x50C4, 1, base=16, bitRange=0-7
+
+;; Clock switch control register
+sfr = "CLK_SWCR",          "Memory", 0x50C5, 1, base=16, tooltip="Clock switch control register"
+sfr = "CLK_SWCR.SWBSY",    "Memory", 0x50C5, 1, base=16, bitRange=0
+sfr = "CLK_SWCR.SWEN",     "Memory", 0x50C5, 1, base=16, bitRange=1
+sfr = "CLK_SWCR.SWIEN",    "Memory", 0x50C5, 1, base=16, bitRange=2
+sfr = "CLK_SWCR.SWIF",     "Memory", 0x50C5, 1, base=16, bitRange=3
+
+;; Clock divider register
+sfr = "CLK_CKDIVR",        "Memory", 0x50C6, 1, base=16, tooltip="Clock divider register"
+sfr = "CLK_CKDIVR.CPUDIV", "Memory", 0x50C6, 1, base=16, bitRange=0-2
+sfr = "CLK_CKDIVR.HSIDIV", "Memory", 0x50C6, 1, base=16, bitRange=3-4
+
+;; Peripheral clock gating register 1
+sfr = "CLK_PCKENR1",       "Memory", 0x50C7, 1, base=16, tooltip="Peripheral clock gating register 1"
+sfr = "CLK_PCKENR1.PCKEN1", "Memory", 0x50C7, 1, base=16, bitRange=0-7
+
+;; Clock security system register
+sfr = "CLK_CSSR",          "Memory", 0x50C8, 1, base=16, tooltip="Clock security system register"
+sfr = "CLK_CSSR.CSSEN",    "Memory", 0x50C8, 1, base=16, bitRange=0
+sfr = "CLK_CSSR.AUX",      "Memory", 0x50C8, 1, base=16, bitRange=1, readOnly
+sfr = "CLK_CSSR.CSSDIE",   "Memory", 0x50C8, 1, base=16, bitRange=2
+sfr = "CLK_CSSR.CSSD",     "Memory", 0x50C8, 1, base=16, bitRange=3
+
+;; Configurable clock control register
+sfr = "CLK_CCOR",          "Memory", 0x50C9, 1, base=16, tooltip="Configurable clock control register"
+sfr = "CLK_CCOR.CCOEN",    "Memory", 0x50C9, 1, base=16, bitRange=0
+sfr = "CLK_CCOR.CCOSEL",   "Memory", 0x50C9, 1, base=16, bitRange=1-4
+sfr = "CLK_CCOR.CCORDY",   "Memory", 0x50C9, 1, base=16, bitRange=5
+sfr = "CLK_CCOR.CCOBSY",   "Memory", 0x50C9, 1, base=16, bitRange=6
+
+;; Peripheral clock gating register 2
+sfr = "CLK_PCKENR2",       "Memory", 0x50CA, 1, base=16, tooltip="Peripheral clock gating register 2"
+sfr = "CLK_PCKENR2.PCKEN2", "Memory", 0x50CA, 1, base=16, bitRange=0-7
+
+;; HSI clock calibration trimming register
+sfr = "CLK_HSITRIMR",      "Memory", 0x50CC, 1, base=16, tooltip="HSI clock calibration trimming register"
+sfr = "CLK_HSITRIMR.HSITRIM", "Memory", 0x50CC, 1, base=16, bitRange=0-3
+
+;; SWIM clock control register
+sfr = "CLK_SWIMCCR",       "Memory", 0x50CD, 1, base=16, tooltip="SWIM clock control register"
+sfr = "CLK_SWIMCCR.SWIMCLK", "Memory", 0x50CD, 1, base=16, bitRange=0
+
+;; WWDG control register
+sfr = "WWDG_CR",           "Memory", 0x50D1, 1, base=16, tooltip="WWDG control register"
+sfr = "WWDG_CR.T0",        "Memory", 0x50D1, 1, base=16, bitRange=0
+sfr = "WWDG_CR.T1",        "Memory", 0x50D1, 1, base=16, bitRange=1
+sfr = "WWDG_CR.T2",        "Memory", 0x50D1, 1, base=16, bitRange=2
+sfr = "WWDG_CR.T3",        "Memory", 0x50D1, 1, base=16, bitRange=3
+sfr = "WWDG_CR.T4",        "Memory", 0x50D1, 1, base=16, bitRange=4
+sfr = "WWDG_CR.T5",        "Memory", 0x50D1, 1, base=16, bitRange=5
+sfr = "WWDG_CR.T6",        "Memory", 0x50D1, 1, base=16, bitRange=6
+sfr = "WWDG_CR.WDGA",      "Memory", 0x50D1, 1, base=16, bitRange=7
+
+;; WWDR window register
+sfr = "WWDG_WR",           "Memory", 0x50D2, 1, base=16, tooltip="WWDR window register"
+sfr = "WWDG_WR.W0",        "Memory", 0x50D2, 1, base=16, bitRange=0
+sfr = "WWDG_WR.W1",        "Memory", 0x50D2, 1, base=16, bitRange=1
+sfr = "WWDG_WR.W2",        "Memory", 0x50D2, 1, base=16, bitRange=2
+sfr = "WWDG_WR.W3",        "Memory", 0x50D2, 1, base=16, bitRange=3
+sfr = "WWDG_WR.W4",        "Memory", 0x50D2, 1, base=16, bitRange=4
+sfr = "WWDG_WR.W5",        "Memory", 0x50D2, 1, base=16, bitRange=5
+sfr = "WWDG_WR.W6",        "Memory", 0x50D2, 1, base=16, bitRange=6
+
+;; IWDG key register
+sfr = "IWDG_KR",           "Memory", 0x50E0, 1, base=16, tooltip="IWDG key register"
+
+;; IWDG prescaler register
+sfr = "IWDG_PR",           "Memory", 0x50E1, 1, base=16, tooltip="IWDG prescaler register"
+sfr = "IWDG_PR.PR",        "Memory", 0x50E1, 1, base=16, bitRange=0-2
+
+;; IWDG reload register
+sfr = "IWDG_RLR",          "Memory", 0x50E2, 1, base=16, tooltip="IWDG reload register"
+sfr = "IWDG_RLR.RL",       "Memory", 0x50E2, 1, base=16, bitRange=0-7
+
+;; AWU control/status register 1
+sfr = "AWU_CSR",           "Memory", 0x50F0, 1, base=16, tooltip="AWU control/status register 1"
+sfr = "AWU_CSR.MSR",       "Memory", 0x50F0, 1, base=16, bitRange=0
+sfr = "AWU_CSR.AWUEN",     "Memory", 0x50F0, 1, base=16, bitRange=4
+sfr = "AWU_CSR.AWUF",      "Memory", 0x50F0, 1, base=16, bitRange=5, readOnly
+
+;; AWU asynchronous prescaler buffer register
+sfr = "AWU_APR",           "Memory", 0x50F1, 1, base=16, tooltip="AWU asynchronous prescaler buffer register"
+sfr = "AWU_APR.APR",       "Memory", 0x50F1, 1, base=16, bitRange=0-5
+
+;; AWU timebase selection register
+sfr = "AWU_TBR",           "Memory", 0x50F2, 1, base=16, tooltip="AWU timebase selection register"
+sfr = "AWU_TBR.AWUTB",     "Memory", 0x50F2, 1, base=16, bitRange=0-3
+
+;; BEEP control/status register
+sfr = "BEEP_CSR",          "Memory", 0x50F3, 1, base=16, tooltip="BEEP control/status register"
+sfr = "BEEP_CSR.BEEPDIV",  "Memory", 0x50F3, 1, base=16, bitRange=0-4
+sfr = "BEEP_CSR.BEEPEN",   "Memory", 0x50F3, 1, base=16, bitRange=5
+sfr = "BEEP_CSR.BEEPSEL",  "Memory", 0x50F3, 1, base=16, bitRange=6-7
+
+;; SPI control register 1
+sfr = "SPI_CR1",           "Memory", 0x5200, 1, base=16, tooltip="SPI control register 1"
+sfr = "SPI_CR1.CPHA",      "Memory", 0x5200, 1, base=16, bitRange=0
+sfr = "SPI_CR1.CPOL",      "Memory", 0x5200, 1, base=16, bitRange=1
+sfr = "SPI_CR1.MSTR",      "Memory", 0x5200, 1, base=16, bitRange=2
+sfr = "SPI_CR1.BR",        "Memory", 0x5200, 1, base=16, bitRange=3-5
+sfr = "SPI_CR1.SPE",       "Memory", 0x5200, 1, base=16, bitRange=6
+sfr = "SPI_CR1.LSBFIRST",  "Memory", 0x5200, 1, base=16, bitRange=7
+
+;; SPI control register 2
+sfr = "SPI_CR2",           "Memory", 0x5201, 1, base=16, tooltip="SPI control register 2"
+sfr = "SPI_CR2.SSI",       "Memory", 0x5201, 1, base=16, bitRange=0
+sfr = "SPI_CR2.SSM",       "Memory", 0x5201, 1, base=16, bitRange=1
+sfr = "SPI_CR2.RXONLY",    "Memory", 0x5201, 1, base=16, bitRange=2
+sfr = "SPI_CR2.CRCNEXT",   "Memory", 0x5201, 1, base=16, bitRange=4
+sfr = "SPI_CR2.CRCEN",     "Memory", 0x5201, 1, base=16, bitRange=5
+sfr = "SPI_CR2.BDOE",      "Memory", 0x5201, 1, base=16, bitRange=6
+sfr = "SPI_CR2.BDM",       "Memory", 0x5201, 1, base=16, bitRange=7
+
+;; SPI interrupt control register
+sfr = "SPI_ICR",           "Memory", 0x5202, 1, base=16, tooltip="SPI interrupt control register"
+sfr = "SPI_ICR.WKIE",      "Memory", 0x5202, 1, base=16, bitRange=4
+sfr = "SPI_ICR.ERRIE",     "Memory", 0x5202, 1, base=16, bitRange=5
+sfr = "SPI_ICR.RXIE",      "Memory", 0x5202, 1, base=16, bitRange=6
+sfr = "SPI_ICR.TXIE",      "Memory", 0x5202, 1, base=16, bitRange=7
+
+;; SPI status register
+sfr = "SPI_SR",            "Memory", 0x5203, 1, base=16, tooltip="SPI status register"
+sfr = "SPI_SR.RXNE",       "Memory", 0x5203, 1, base=16, bitRange=0, readOnly
+sfr = "SPI_SR.TXE",        "Memory", 0x5203, 1, base=16, bitRange=1, readOnly
+sfr = "SPI_SR.WKUP",       "Memory", 0x5203, 1, base=16, bitRange=3
+sfr = "SPI_SR.CRCERR",     "Memory", 0x5203, 1, base=16, bitRange=4
+sfr = "SPI_SR.MODF",       "Memory", 0x5203, 1, base=16, bitRange=5
+sfr = "SPI_SR.OVR",        "Memory", 0x5203, 1, base=16, bitRange=6
+sfr = "SPI_SR.BSY",        "Memory", 0x5203, 1, base=16, bitRange=7, readOnly
+
+;; SPI data register
+sfr = "SPI_DR",            "Memory", 0x5204, 1, base=16, tooltip="SPI data register"
+sfr = "SPI_DR.DR",         "Memory", 0x5204, 1, base=16, bitRange=0-7
+
+;; SPI CRC polynomial register
+sfr = "SPI_CRCPR",         "Memory", 0x5205, 1, base=16, tooltip="SPI CRC polynomial register"
+sfr = "SPI_CRCPR.CRCPOLY", "Memory", 0x5205, 1, base=16, bitRange=0-7
+
+;; SPI Rx CRC register
+sfr = "SPI_RXCRCR",        "Memory", 0x5206, 1, base=16, tooltip="SPI Rx CRC register"
+sfr = "SPI_RXCRCR.RXCRC",  "Memory", 0x5206, 1, base=16, bitRange=0-7, readOnly
+
+;; SPI Tx CRC register
+sfr = "SPI_TXCRCR",        "Memory", 0x5207, 1, base=16, tooltip="SPI Tx CRC register"
+sfr = "SPI_TXCRCR.TXCRC",  "Memory", 0x5207, 1, base=16, bitRange=0-7, readOnly
+
+;; I2C control register 1
+sfr = "I2C_CR1",           "Memory", 0x5210, 1, base=16, tooltip="I2C control register 1"
+sfr = "I2C_CR1.PE",        "Memory", 0x5210, 1, base=16, bitRange=0
+sfr = "I2C_CR1.ENGC",      "Memory", 0x5210, 1, base=16, bitRange=6
+sfr = "I2C_CR1.NOSTRETCH", "Memory", 0x5210, 1, base=16, bitRange=7
+
+;; I2C control register 2
+sfr = "I2C_CR2",           "Memory", 0x5211, 1, base=16, tooltip="I2C control register 2"
+sfr = "I2C_CR2.START",     "Memory", 0x5211, 1, base=16, bitRange=0
+sfr = "I2C_CR2.STOP",      "Memory", 0x5211, 1, base=16, bitRange=1
+sfr = "I2C_CR2.ACK",       "Memory", 0x5211, 1, base=16, bitRange=2
+sfr = "I2C_CR2.POS",       "Memory", 0x5211, 1, base=16, bitRange=3
+sfr = "I2C_CR2.SWRST",     "Memory", 0x5211, 1, base=16, bitRange=7
+
+;; I2C frequency register
+sfr = "I2C_FREQR",         "Memory", 0x5212, 1, base=16, tooltip="I2C frequency register"
+sfr = "I2C_FREQR.FREQ",    "Memory", 0x5212, 1, base=16, bitRange=0-5
+
+;; I2C Own address register low
+sfr = "I2C_OARL",          "Memory", 0x5213, 1, base=16, tooltip="I2C Own address register low"
+sfr = "I2C_OARL.ADD0",     "Memory", 0x5213, 1, base=16, bitRange=0
+sfr = "I2C_OARL.ADD",      "Memory", 0x5213, 1, base=16, bitRange=1-7
+
+;; I2C Own address register high
+sfr = "I2C_OARH",          "Memory", 0x5214, 1, base=16, tooltip="I2C Own address register high"
+sfr = "I2C_OARH.ADD",      "Memory", 0x5214, 1, base=16, bitRange=1-2
+sfr = "I2C_OARH.ADDCONF",  "Memory", 0x5214, 1, base=16, bitRange=6
+sfr = "I2C_OARH.ADDMODE",  "Memory", 0x5214, 1, base=16, bitRange=7
+
+;; I2C data register
+sfr = "I2C_DR",            "Memory", 0x5216, 1, base=16, tooltip="I2C data register"
+sfr = "I2C_DR.DR",         "Memory", 0x5216, 1, base=16, bitRange=0-7
+
+;; I2C status register 1
+sfr = "I2C_SR1",           "Memory", 0x5217, 1, base=16, tooltip="I2C status register 1"
+sfr = "I2C_SR1.SB",        "Memory", 0x5217, 1, base=16, bitRange=0, readOnly
+sfr = "I2C_SR1.ADDR",      "Memory", 0x5217, 1, base=16, bitRange=1, readOnly
+sfr = "I2C_SR1.BTF",       "Memory", 0x5217, 1, base=16, bitRange=2, readOnly
+sfr = "I2C_SR1.ADD10",     "Memory", 0x5217, 1, base=16, bitRange=3, readOnly
+sfr = "I2C_SR1.STOPF",     "Memory", 0x5217, 1, base=16, bitRange=4, readOnly
+sfr = "I2C_SR1.RXNE",      "Memory", 0x5217, 1, base=16, bitRange=6, readOnly
+sfr = "I2C_SR1.TXE",       "Memory", 0x5217, 1, base=16, bitRange=7, readOnly
+
+;; I2C status register 2
+sfr = "I2C_SR2",           "Memory", 0x5218, 1, base=16, tooltip="I2C status register 2"
+sfr = "I2C_SR2.BERR",      "Memory", 0x5218, 1, base=16, bitRange=0, readOnly
+sfr = "I2C_SR2.ARLO",      "Memory", 0x5218, 1, base=16, bitRange=1, readOnly
+sfr = "I2C_SR2.AF",        "Memory", 0x5218, 1, base=16, bitRange=2, readOnly
+sfr = "I2C_SR2.OVR",       "Memory", 0x5218, 1, base=16, bitRange=3, readOnly
+sfr = "I2C_SR2.WUFH",      "Memory", 0x5218, 1, base=16, bitRange=5, readOnly
+
+;; I2C status register 3
+sfr = "I2C_SR3",           "Memory", 0x5219, 1, base=16, tooltip="I2C status register 3"
+sfr = "I2C_SR3.MSL",       "Memory", 0x5219, 1, base=16, bitRange=0, readOnly
+sfr = "I2C_SR3.BUSY",      "Memory", 0x5219, 1, base=16, bitRange=1, readOnly
+sfr = "I2C_SR3.TRA",       "Memory", 0x5219, 1, base=16, bitRange=2, readOnly
+sfr = "I2C_SR3.GENCALL",   "Memory", 0x5219, 1, base=16, bitRange=4, readOnly
+
+;; I2C interrupt control register
+sfr = "I2C_ITR",           "Memory", 0x521A, 1, base=16, tooltip="I2C interrupt control register"
+sfr = "I2C_ITR.ITERREN",   "Memory", 0x521A, 1, base=16, bitRange=0
+sfr = "I2C_ITR.ITEVTEN",   "Memory", 0x521A, 1, base=16, bitRange=1
+sfr = "I2C_ITR.ITBUFEN",   "Memory", 0x521A, 1, base=16, bitRange=2
+
+;; I2C clock control register low
+sfr = "I2C_CCRL",          "Memory", 0x521B, 1, base=16, tooltip="I2C clock control register low"
+sfr = "I2C_CCRL.CCR",      "Memory", 0x521B, 1, base=16, bitRange=0-7
+
+;; I2C clock control register high
+sfr = "I2C_CCRH",          "Memory", 0x521C, 1, base=16, tooltip="I2C clock control register high"
+sfr = "I2C_CCRH.CCR",      "Memory", 0x521C, 1, base=16, bitRange=0-3
+sfr = "I2C_CCRH.DUTY",     "Memory", 0x521C, 1, base=16, bitRange=6
+sfr = "I2C_CCRH.F_S",      "Memory", 0x521C, 1, base=16, bitRange=7
+
+;; I2C TRISE register
+sfr = "I2C_TRISER",        "Memory", 0x521D, 1, base=16, tooltip="I2C TRISE register"
+sfr = "I2C_TRISER.TRISE",  "Memory", 0x521D, 1, base=16, bitRange=0-5
+
+;; USART status register
+sfr = "USART_SR",          "Memory", 0x5230, 1, base=16, tooltip="USART status register"
+sfr = "USART_SR.PE",       "Memory", 0x5230, 1, base=16, bitRange=0, readOnly
+sfr = "USART_SR.FE",       "Memory", 0x5230, 1, base=16, bitRange=1, readOnly
+sfr = "USART_SR.NF",       "Memory", 0x5230, 1, base=16, bitRange=2, readOnly
+sfr = "USART_SR.OR",       "Memory", 0x5230, 1, base=16, bitRange=3, readOnly
+sfr = "USART_SR.IDLE",     "Memory", 0x5230, 1, base=16, bitRange=4, readOnly
+sfr = "USART_SR.RXNE",     "Memory", 0x5230, 1, base=16, bitRange=5, readOnly
+sfr = "USART_SR.TC",       "Memory", 0x5230, 1, base=16, bitRange=6, readOnly
+sfr = "USART_SR.TXE",      "Memory", 0x5230, 1, base=16, bitRange=7, readOnly
+
+;; USART data register
+sfr = "USART_DR",          "Memory", 0x5231, 1, base=16, tooltip="USART data register"
+sfr = "USART_DR.DR",       "Memory", 0x5231, 1, base=16, bitRange=0-7
+
+;; USART baud rate register 1
+sfr = "USART_BRR1",        "Memory", 0x5232, 1, base=16, tooltip="USART baud rate register 1"
+sfr = "USART_BRR1.USART_DIV", "Memory", 0x5232, 1, base=16, bitRange=0-7
+
+;; USART baud rate register 2
+sfr = "USART_BRR2",        "Memory", 0x5233, 1, base=16, tooltip="USART baud rate register 2"
+sfr = "USART_BRR2.USART_DIV", "Memory", 0x5233, 1, base=16, bitRange=0-7
+
+;; USART control register 1
+sfr = "USART_CR1",         "Memory", 0x5234, 1, base=16, tooltip="USART control register 1"
+sfr = "USART_CR1.PIEN",    "Memory", 0x5234, 1, base=16, bitRange=0
+sfr = "USART_CR1.PS",      "Memory", 0x5234, 1, base=16, bitRange=1
+sfr = "USART_CR1.PCEN",    "Memory", 0x5234, 1, base=16, bitRange=2
+sfr = "USART_CR1.M",       "Memory", 0x5234, 1, base=16, bitRange=4
+sfr = "USART_CR1.USARTD",  "Memory", 0x5234, 1, base=16, bitRange=5
+sfr = "USART_CR1.T8",      "Memory", 0x5234, 1, base=16, bitRange=6
+sfr = "USART_CR1.R8",      "Memory", 0x5234, 1, base=16, bitRange=7
+
+;; USART control register 2
+sfr = "USART_CR2",         "Memory", 0x5235, 1, base=16, tooltip="USART control register 2"
+sfr = "USART_CR2.SBK",     "Memory", 0x5235, 1, base=16, bitRange=0
+sfr = "USART_CR2.RWU",     "Memory", 0x5235, 1, base=16, bitRange=1
+sfr = "USART_CR2.REN",     "Memory", 0x5235, 1, base=16, bitRange=2
+sfr = "USART_CR2.TEN",     "Memory", 0x5235, 1, base=16, bitRange=3
+sfr = "USART_CR2.ILIEN",   "Memory", 0x5235, 1, base=16, bitRange=4
+sfr = "USART_CR2.RIEN",    "Memory", 0x5235, 1, base=16, bitRange=5
+sfr = "USART_CR2.TCIEN",   "Memory", 0x5235, 1, base=16, bitRange=6
+sfr = "USART_CR2.TIEN",    "Memory", 0x5235, 1, base=16, bitRange=7
+
+;; USART control register 3
+sfr = "USART_CR3",         "Memory", 0x5236, 1, base=16, tooltip="USART control register 3"
+sfr = "USART_CR3.LBCL",    "Memory", 0x5236, 1, base=16, bitRange=0
+sfr = "USART_CR3.CPHA",    "Memory", 0x5236, 1, base=16, bitRange=1
+sfr = "USART_CR3.CPOL",    "Memory", 0x5236, 1, base=16, bitRange=2
+sfr = "USART_CR3.CLKEN",   "Memory", 0x5236, 1, base=16, bitRange=3
+sfr = "USART_CR3.STOP",    "Memory", 0x5236, 1, base=16, bitRange=4-5
+sfr = "USART_CR3.LINEN",   "Memory", 0x5236, 1, base=16, bitRange=6
+
+;; USART control register 4
+sfr = "USART_CR4",         "Memory", 0x5237, 1, base=16, tooltip="USART control register 4"
+sfr = "USART_CR4.LBDF",    "Memory", 0x5237, 1, base=16, bitRange=4
+sfr = "USART_CR4.LBDL",    "Memory", 0x5237, 1, base=16, bitRange=5
+sfr = "USART_CR4.LBDIEN",  "Memory", 0x5237, 1, base=16, bitRange=6
+
+;; LINUART status register
+sfr = "LINUART_SR",        "Memory", 0x5240, 1, base=16, tooltip="LINUART status register"
+sfr = "LINUART_SR.PE",     "Memory", 0x5240, 1, base=16, bitRange=0, readOnly
+sfr = "LINUART_SR.FE",     "Memory", 0x5240, 1, base=16, bitRange=1, readOnly
+sfr = "LINUART_SR.NF",     "Memory", 0x5240, 1, base=16, bitRange=2, readOnly
+sfr = "LINUART_SR.LHE",    "Memory", 0x5240, 1, base=16, bitRange=3, readOnly
+sfr = "LINUART_SR.IDLE",   "Memory", 0x5240, 1, base=16, bitRange=4, readOnly
+sfr = "LINUART_SR.RXNE",   "Memory", 0x5240, 1, base=16, bitRange=5
+sfr = "LINUART_SR.TC",     "Memory", 0x5240, 1, base=16, bitRange=6
+sfr = "LINUART_SR.TXE",    "Memory", 0x5240, 1, base=16, bitRange=7, readOnly
+
+;; LINUART data register
+sfr = "LINUART_DR",        "Memory", 0x5241, 1, base=16, tooltip="LINUART data register"
+sfr = "LINUART_DR.DR",     "Memory", 0x5241, 1, base=16, bitRange=0-7
+
+;; LINUART baud rate register 1
+sfr = "LINUART_BRR1",      "Memory", 0x5242, 1, base=16, tooltip="LINUART baud rate register 1"
+sfr = "LINUART_BRR1.LDIV", "Memory", 0x5242, 1, base=16, bitRange=0-7
+
+;; LINUART baud rate register 2
+sfr = "LINUART_BRR2",      "Memory", 0x5243, 1, base=16, tooltip="LINUART baud rate register 2"
+sfr = "LINUART_BRR2.LDIV", "Memory", 0x5243, 1, base=16, bitRange=0-7
+
+;; LINUART control register 1
+sfr = "LINUART_CR1",       "Memory", 0x5244, 1, base=16, tooltip="LINUART control register 1"
+sfr = "LINUART_CR1.PIEN",  "Memory", 0x5244, 1, base=16, bitRange=0
+sfr = "LINUART_CR1.PS",    "Memory", 0x5244, 1, base=16, bitRange=1
+sfr = "LINUART_CR1.PCEN",  "Memory", 0x5244, 1, base=16, bitRange=2
+sfr = "LINUART_CR1.WAKE",  "Memory", 0x5244, 1, base=16, bitRange=3
+sfr = "LINUART_CR1.M",     "Memory", 0x5244, 1, base=16, bitRange=4
+sfr = "LINUART_CR1.UARTD", "Memory", 0x5244, 1, base=16, bitRange=5
+sfr = "LINUART_CR1.T8",    "Memory", 0x5244, 1, base=16, bitRange=6
+sfr = "LINUART_CR1.R8",    "Memory", 0x5244, 1, base=16, bitRange=7
+
+;; LINUART control register 2
+sfr = "LINUART_CR2",       "Memory", 0x5245, 1, base=16, tooltip="LINUART control register 2"
+sfr = "LINUART_CR2.SBK",   "Memory", 0x5245, 1, base=16, bitRange=0
+sfr = "LINUART_CR2.RWU",   "Memory", 0x5245, 1, base=16, bitRange=1
+sfr = "LINUART_CR2.REN",   "Memory", 0x5245, 1, base=16, bitRange=2
+sfr = "LINUART_CR2.TEN",   "Memory", 0x5245, 1, base=16, bitRange=3
+sfr = "LINUART_CR2.ILIEN", "Memory", 0x5245, 1, base=16, bitRange=4
+sfr = "LINUART_CR2.RIEN",  "Memory", 0x5245, 1, base=16, bitRange=5
+sfr = "LINUART_CR2.TCIEN", "Memory", 0x5245, 1, base=16, bitRange=6
+sfr = "LINUART_CR2.TIEN",  "Memory", 0x5245, 1, base=16, bitRange=7
+
+;; LINUART control register 3
+sfr = "LINUART_CR3",       "Memory", 0x5246, 1, base=16, tooltip="LINUART control register 3"
+sfr = "LINUART_CR3.STOP",  "Memory", 0x5246, 1, base=16, bitRange=4-5
+sfr = "LINUART_CR3.LINEN", "Memory", 0x5246, 1, base=16, bitRange=6
+
+;; LINUART control register 4
+sfr = "LINUART_CR4",       "Memory", 0x5247, 1, base=16, tooltip="LINUART control register 4"
+sfr = "LINUART_CR4.ADD",   "Memory", 0x5247, 1, base=16, bitRange=0-3
+sfr = "LINUART_CR4.LBDF",  "Memory", 0x5247, 1, base=16, bitRange=4
+sfr = "LINUART_CR4.LBDL",  "Memory", 0x5247, 1, base=16, bitRange=5
+sfr = "LINUART_CR4.LBDIEN", "Memory", 0x5247, 1, base=16, bitRange=6
+
+;; LINUART control register 6
+sfr = "LINUART_CR6",       "Memory", 0x5249, 1, base=16, tooltip="LINUART control register 6"
+sfr = "LINUART_CR6.LSF",   "Memory", 0x5249, 1, base=16, bitRange=0
+sfr = "LINUART_CR6.LHDF",  "Memory", 0x5249, 1, base=16, bitRange=1
+sfr = "LINUART_CR6.LHDIEN", "Memory", 0x5249, 1, base=16, bitRange=2
+sfr = "LINUART_CR6.LASE",  "Memory", 0x5249, 1, base=16, bitRange=4
+sfr = "LINUART_CR6.LSLV",  "Memory", 0x5249, 1, base=16, bitRange=5
+sfr = "LINUART_CR6.LDUM",  "Memory", 0x5249, 1, base=16, bitRange=7
+
+;; TIM1 control register 1
+sfr = "TIM1_CR1",          "Memory", 0x5250, 1, base=16, tooltip="TIM1 control register 1"
+sfr = "TIM1_CR1.CEN",      "Memory", 0x5250, 1, base=16, bitRange=0
+sfr = "TIM1_CR1.UDIS",     "Memory", 0x5250, 1, base=16, bitRange=1
+sfr = "TIM1_CR1.URS",      "Memory", 0x5250, 1, base=16, bitRange=2
+sfr = "TIM1_CR1.OPM",      "Memory", 0x5250, 1, base=16, bitRange=3
+sfr = "TIM1_CR1.DIR",      "Memory", 0x5250, 1, base=16, bitRange=4
+sfr = "TIM1_CR1.CMS",      "Memory", 0x5250, 1, base=16, bitRange=5-6
+sfr = "TIM1_CR1.ARPE",     "Memory", 0x5250, 1, base=16, bitRange=7
+
+;; TIM1 control register 2
+sfr = "TIM1_CR2",          "Memory", 0x5251, 1, base=16, tooltip="TIM1 control register 2"
+sfr = "TIM1_CR2.CCPC",     "Memory", 0x5251, 1, base=16, bitRange=0
+sfr = "TIM1_CR2.COMS",     "Memory", 0x5251, 1, base=16, bitRange=2
+sfr = "TIM1_CR2.MMS",      "Memory", 0x5251, 1, base=16, bitRange=4-6
+sfr = "TIM1_CR2.TI1S",     "Memory", 0x5251, 1, base=16, bitRange=7
+
+;; TIM1 slave mode control register
+sfr = "TIM1_SMCR",         "Memory", 0x5252, 1, base=16, tooltip="TIM1 slave mode control register"
+sfr = "TIM1_SMCR.SMS",     "Memory", 0x5252, 1, base=16, bitRange=0-2
+sfr = "TIM1_SMCR.TS",      "Memory", 0x5252, 1, base=16, bitRange=4-6
+sfr = "TIM1_SMCR.MSM",     "Memory", 0x5252, 1, base=16, bitRange=7
+
+;; TIM1 external trigger register
+sfr = "TIM1_ETR",          "Memory", 0x5253, 1, base=16, tooltip="TIM1 external trigger register"
+sfr = "TIM1_ETR.ETF",      "Memory", 0x5253, 1, base=16, bitRange=0-3
+sfr = "TIM1_ETR.ETPS",     "Memory", 0x5253, 1, base=16, bitRange=4-5
+sfr = "TIM1_ETR.ECE",      "Memory", 0x5253, 1, base=16, bitRange=6
+sfr = "TIM1_ETR.ETP",      "Memory", 0x5253, 1, base=16, bitRange=7
+
+;; TIM1 interrupt enable register
+sfr = "TIM1_IER",          "Memory", 0x5254, 1, base=16, tooltip="TIM1 interrupt enable register"
+sfr = "TIM1_IER.UIE",      "Memory", 0x5254, 1, base=16, bitRange=0
+sfr = "TIM1_IER.CC1IE",    "Memory", 0x5254, 1, base=16, bitRange=1
+sfr = "TIM1_IER.CC2IE",    "Memory", 0x5254, 1, base=16, bitRange=2
+sfr = "TIM1_IER.CC3IE",    "Memory", 0x5254, 1, base=16, bitRange=3
+sfr = "TIM1_IER.CC4IE",    "Memory", 0x5254, 1, base=16, bitRange=4
+sfr = "TIM1_IER.COMIE",    "Memory", 0x5254, 1, base=16, bitRange=5
+sfr = "TIM1_IER.TIE",      "Memory", 0x5254, 1, base=16, bitRange=6
+sfr = "TIM1_IER.BIE",      "Memory", 0x5254, 1, base=16, bitRange=7
+
+;; TIM1 status register 1
+sfr = "TIM1_SR1",          "Memory", 0x5255, 1, base=16, tooltip="TIM1 status register 1"
+sfr = "TIM1_SR1.UIF",      "Memory", 0x5255, 1, base=16, bitRange=0
+sfr = "TIM1_SR1.CC1IF",    "Memory", 0x5255, 1, base=16, bitRange=1
+sfr = "TIM1_SR1.CC2IF",    "Memory", 0x5255, 1, base=16, bitRange=2
+sfr = "TIM1_SR1.CC3IF",    "Memory", 0x5255, 1, base=16, bitRange=3
+sfr = "TIM1_SR1.CC4IF",    "Memory", 0x5255, 1, base=16, bitRange=4
+sfr = "TIM1_SR1.COMIF",    "Memory", 0x5255, 1, base=16, bitRange=5
+sfr = "TIM1_SR1.TIF",      "Memory", 0x5255, 1, base=16, bitRange=6
+sfr = "TIM1_SR1.BIF",      "Memory", 0x5255, 1, base=16, bitRange=7
+
+;; TIM1 status register 2
+sfr = "TIM1_SR2",          "Memory", 0x5256, 1, base=16, tooltip="TIM1 status register 2"
+sfr = "TIM1_SR2.CC1OF",    "Memory", 0x5256, 1, base=16, bitRange=1
+sfr = "TIM1_SR2.CC2OF",    "Memory", 0x5256, 1, base=16, bitRange=2
+sfr = "TIM1_SR2.CC3OF",    "Memory", 0x5256, 1, base=16, bitRange=3
+sfr = "TIM1_SR2.CC4OF",    "Memory", 0x5256, 1, base=16, bitRange=4
+
+;; TIM1 event generation register
+sfr = "TIM1_EGR",          "Memory", 0x5257, 1, base=16, tooltip="TIM1 event generation register"
+sfr = "TIM1_EGR.UG",       "Memory", 0x5257, 1, base=16, bitRange=0, writeOnly
+sfr = "TIM1_EGR.CC1G",     "Memory", 0x5257, 1, base=16, bitRange=1, writeOnly
+sfr = "TIM1_EGR.CC2G",     "Memory", 0x5257, 1, base=16, bitRange=2, writeOnly
+sfr = "TIM1_EGR.CC3G",     "Memory", 0x5257, 1, base=16, bitRange=3, writeOnly
+sfr = "TIM1_EGR.CC4G",     "Memory", 0x5257, 1, base=16, bitRange=4, writeOnly
+sfr = "TIM1_EGR.COMG",     "Memory", 0x5257, 1, base=16, bitRange=5, writeOnly
+sfr = "TIM1_EGR.TG",       "Memory", 0x5257, 1, base=16, bitRange=6, writeOnly
+sfr = "TIM1_EGR.BG",       "Memory", 0x5257, 1, base=16, bitRange=7, writeOnly
+
+;; TIM1 capture/compare mode register 1
+sfr = "TIM1_CCMR1",        "Memory", 0x5258, 1, base=16, tooltip="TIM1 capture/compare mode register 1"
+sfr = "TIM1_CCMR1.CC1S",   "Memory", 0x5258, 1, base=16, bitRange=0-1
+sfr = "TIM1_CCMR1.OC1FE",  "Memory", 0x5258, 1, base=16, bitRange=2
+sfr = "TIM1_CCMR1.OC1PE",  "Memory", 0x5258, 1, base=16, bitRange=3
+sfr = "TIM1_CCMR1.OC1M",   "Memory", 0x5258, 1, base=16, bitRange=4-6
+sfr = "TIM1_CCMR1.OC1CE",  "Memory", 0x5258, 1, base=16, bitRange=7
+
+;; TIM1 capture/compare mode register 2
+sfr = "TIM1_CCMR2",        "Memory", 0x5259, 1, base=16, tooltip="TIM1 capture/compare mode register 2"
+sfr = "TIM1_CCMR2.CC2S",   "Memory", 0x5259, 1, base=16, bitRange=0-1
+sfr = "TIM1_CCMR2.OC2FE",  "Memory", 0x5259, 1, base=16, bitRange=2
+sfr = "TIM1_CCMR2.OC2PE",  "Memory", 0x5259, 1, base=16, bitRange=3
+sfr = "TIM1_CCMR2.OC2M",   "Memory", 0x5259, 1, base=16, bitRange=4-6
+sfr = "TIM1_CCMR2.OC2CE",  "Memory", 0x5259, 1, base=16, bitRange=7
+
+;; TIM1 capture/compare mode register 3
+sfr = "TIM1_CCMR3",        "Memory", 0x525A, 1, base=16, tooltip="TIM1 capture/compare mode register 3"
+sfr = "TIM1_CCMR3.CC3S",   "Memory", 0x525A, 1, base=16, bitRange=0-1
+sfr = "TIM1_CCMR3.OC3FE",  "Memory", 0x525A, 1, base=16, bitRange=2
+sfr = "TIM1_CCMR3.OC3PE",  "Memory", 0x525A, 1, base=16, bitRange=3
+sfr = "TIM1_CCMR3.OC3M",   "Memory", 0x525A, 1, base=16, bitRange=4-6
+sfr = "TIM1_CCMR3.OC3CE",  "Memory", 0x525A, 1, base=16, bitRange=7
+
+;; TIM1 capture/compare mode register 4
+sfr = "TIM1_CCMR4",        "Memory", 0x525B, 1, base=16, tooltip="TIM1 capture/compare mode register 4"
+sfr = "TIM1_CCMR4.CC4S",   "Memory", 0x525B, 1, base=16, bitRange=0-1
+sfr = "TIM1_CCMR4.OC4FE",  "Memory", 0x525B, 1, base=16, bitRange=2
+sfr = "TIM1_CCMR4.OC4PE",  "Memory", 0x525B, 1, base=16, bitRange=3
+sfr = "TIM1_CCMR4.OC4M",   "Memory", 0x525B, 1, base=16, bitRange=4-6
+sfr = "TIM1_CCMR4.OC4CE",  "Memory", 0x525B, 1, base=16, bitRange=7
+
+;; TIM1 capture/compare enable register 1
+sfr = "TIM1_CCER1",        "Memory", 0x525C, 1, base=16, tooltip="TIM1 capture/compare enable register 1"
+sfr = "TIM1_CCER1.CC1E",   "Memory", 0x525C, 1, base=16, bitRange=0
+sfr = "TIM1_CCER1.CC1P",   "Memory", 0x525C, 1, base=16, bitRange=1
+sfr = "TIM1_CCER1.CC1NE",  "Memory", 0x525C, 1, base=16, bitRange=2
+sfr = "TIM1_CCER1.CC1NP",  "Memory", 0x525C, 1, base=16, bitRange=3
+sfr = "TIM1_CCER1.CC2E",   "Memory", 0x525C, 1, base=16, bitRange=4
+sfr = "TIM1_CCER1.CC2P",   "Memory", 0x525C, 1, base=16, bitRange=5
+sfr = "TIM1_CCER1.CC2NE",  "Memory", 0x525C, 1, base=16, bitRange=6
+sfr = "TIM1_CCER1.CC2NP",  "Memory", 0x525C, 1, base=16, bitRange=7
+
+;; TIM1 capture/compare enable register 2
+sfr = "TIM1_CCER2",        "Memory", 0x525D, 1, base=16, tooltip="TIM1 capture/compare enable register 2"
+sfr = "TIM1_CCER2.CC3E",   "Memory", 0x525D, 1, base=16, bitRange=0
+sfr = "TIM1_CCER2.CC3P",   "Memory", 0x525D, 1, base=16, bitRange=1
+sfr = "TIM1_CCER2.CC3NE",  "Memory", 0x525D, 1, base=16, bitRange=2
+sfr = "TIM1_CCER2.CC3NP",  "Memory", 0x525D, 1, base=16, bitRange=3
+sfr = "TIM1_CCER2.CC4E",   "Memory", 0x525D, 1, base=16, bitRange=4
+sfr = "TIM1_CCER2.CC4P",   "Memory", 0x525D, 1, base=16, bitRange=5
+
+;; TIM1 counter high
+sfr = "TIM1_CNTRH",        "Memory", 0x525E, 1, base=16, tooltip="TIM1 counter high"
+sfr = "TIM1_CNTRH.CNT",    "Memory", 0x525E, 1, base=16, bitRange=0-7
+
+;; TIM1 counter Low
+sfr = "TIM1_CNTRL",        "Memory", 0x525F, 1, base=16, tooltip="TIM1 counter Low"
+sfr = "TIM1_CNTRL.CNT",    "Memory", 0x525F, 1, base=16, bitRange=0-7
+
+;; TIM1 prescaler register high
+sfr = "TIM1_PSCRH",        "Memory", 0x5260, 1, base=16, tooltip="TIM1 prescaler register high"
+sfr = "TIM1_PSCRH.PSC",    "Memory", 0x5260, 1, base=16, bitRange=0-7
+
+;; TIM1 prescaler register low
+sfr = "TIM1_PSCRL",        "Memory", 0x5261, 1, base=16, tooltip="TIM1 prescaler register low"
+sfr = "TIM1_PSCRL.PSC",    "Memory", 0x5261, 1, base=16, bitRange=0-7
+
+;; TIM1 auto-reload register high
+sfr = "TIM1_ARRH",         "Memory", 0x5262, 1, base=16, tooltip="TIM1 auto-reload register high"
+sfr = "TIM1_ARRH.ARR",     "Memory", 0x5262, 1, base=16, bitRange=0-7
+
+;; TIM1 auto-reload register low
+sfr = "TIM1_ARRL",         "Memory", 0x5263, 1, base=16, tooltip="TIM1 auto-reload register low"
+sfr = "TIM1_ARRL.ARR",     "Memory", 0x5263, 1, base=16, bitRange=0-7
+
+;; TIM1 repetition counter register
+sfr = "TIM1_RCR",          "Memory", 0x5264, 1, base=16, tooltip="TIM1 repetition counter register"
+sfr = "TIM1_RCR.REP",      "Memory", 0x5264, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 1 high
+sfr = "TIM1_CCR1H",        "Memory", 0x5265, 1, base=16, tooltip="TIM1 capture/compare register 1 high"
+sfr = "TIM1_CCR1H.CCR",    "Memory", 0x5265, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 1 low
+sfr = "TIM1_CCR1L",        "Memory", 0x5266, 1, base=16, tooltip="TIM1 capture/compare register 1 low"
+sfr = "TIM1_CCR1L.CCR",    "Memory", 0x5266, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 2 high
+sfr = "TIM1_CCR2H",        "Memory", 0x5267, 1, base=16, tooltip="TIM1 capture/compare register 2 high"
+sfr = "TIM1_CCR2H.CCR2",   "Memory", 0x5267, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 2 low
+sfr = "TIM1_CCR2L",        "Memory", 0x5268, 1, base=16, tooltip="TIM1 capture/compare register 2 low"
+sfr = "TIM1_CCR2L.CCR2",   "Memory", 0x5268, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 3 high
+sfr = "TIM1_CCR3H",        "Memory", 0x5269, 1, base=16, tooltip="TIM1 capture/compare register 3 high"
+sfr = "TIM1_CCR3H.CCR3",   "Memory", 0x5269, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 3 low
+sfr = "TIM1_CCR3L",        "Memory", 0x526A, 1, base=16, tooltip="TIM1 capture/compare register 3 low"
+sfr = "TIM1_CCR3L.CCR3",   "Memory", 0x526A, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 4 high
+sfr = "TIM1_CCR4H",        "Memory", 0x526B, 1, base=16, tooltip="TIM1 capture/compare register 4 high"
+sfr = "TIM1_CCR4H.CCR4",   "Memory", 0x526B, 1, base=16, bitRange=0-7
+
+;; TIM1 capture/compare register 4 low
+sfr = "TIM1_CCR4L",        "Memory", 0x526C, 1, base=16, tooltip="TIM1 capture/compare register 4 low"
+sfr = "TIM1_CCR4L.CCR4",   "Memory", 0x526C, 1, base=16, bitRange=0-7
+
+;; TIM1 break register
+sfr = "TIM1_BKR",          "Memory", 0x526D, 1, base=16, tooltip="TIM1 break register"
+sfr = "TIM1_BKR.LOCK",     "Memory", 0x526D, 1, base=16, bitRange=0-1
+sfr = "TIM1_BKR.OSSI",     "Memory", 0x526D, 1, base=16, bitRange=2
+sfr = "TIM1_BKR.OSSR",     "Memory", 0x526D, 1, base=16, bitRange=3
+sfr = "TIM1_BKR.BKE",      "Memory", 0x526D, 1, base=16, bitRange=4
+sfr = "TIM1_BKR.BKP",      "Memory", 0x526D, 1, base=16, bitRange=5
+sfr = "TIM1_BKR.AOE",      "Memory", 0x526D, 1, base=16, bitRange=6
+sfr = "TIM1_BKR.MOE",      "Memory", 0x526D, 1, base=16, bitRange=7
+
+;; TIM1 deadtime register
+sfr = "TIM1_DTR",          "Memory", 0x526E, 1, base=16, tooltip="TIM1 deadtime register"
+sfr = "TIM1_DTR.DTG",      "Memory", 0x526E, 1, base=16, bitRange=0-7
+
+;; TIM1 output idle state register
+sfr = "TIM1_OISR",         "Memory", 0x526F, 1, base=16, tooltip="TIM1 output idle state register"
+sfr = "TIM1_OISR.OIS1",    "Memory", 0x526F, 1, base=16, bitRange=0
+sfr = "TIM1_OISR.OIS1N",   "Memory", 0x526F, 1, base=16, bitRange=1
+sfr = "TIM1_OISR.OIS2",    "Memory", 0x526F, 1, base=16, bitRange=2
+sfr = "TIM1_OISR.OIS2N",   "Memory", 0x526F, 1, base=16, bitRange=3
+sfr = "TIM1_OISR.OIS3",    "Memory", 0x526F, 1, base=16, bitRange=4
+sfr = "TIM1_OISR.OIS3N",   "Memory", 0x526F, 1, base=16, bitRange=5
+sfr = "TIM1_OISR.OIS4",    "Memory", 0x526F, 1, base=16, bitRange=6
+
+;; TIM2 control register 1
+sfr = "TIM2_CR1",          "Memory", 0x5300, 1, base=16, tooltip="TIM2 control register 1"
+sfr = "TIM2_CR1.CEN",      "Memory", 0x5300, 1, base=16, bitRange=0
+sfr = "TIM2_CR1.UDIS",     "Memory", 0x5300, 1, base=16, bitRange=1
+sfr = "TIM2_CR1.URS",      "Memory", 0x5300, 1, base=16, bitRange=2
+sfr = "TIM2_CR1.OPM",      "Memory", 0x5300, 1, base=16, bitRange=3
+sfr = "TIM2_CR1.ARPE",     "Memory", 0x5300, 1, base=16, bitRange=7
+
+;; TIM2 interrupt enable register
+sfr = "TIM2_IER",          "Memory", 0x5301, 1, base=16, tooltip="TIM2 interrupt enable register"
+sfr = "TIM2_IER.UIE",      "Memory", 0x5301, 1, base=16, bitRange=0
+sfr = "TIM2_IER.CC1IE",    "Memory", 0x5301, 1, base=16, bitRange=1
+sfr = "TIM2_IER.CC2IE",    "Memory", 0x5301, 1, base=16, bitRange=2
+sfr = "TIM2_IER.CC3IE",    "Memory", 0x5301, 1, base=16, bitRange=3
+sfr = "TIM2_IER.TIE",      "Memory", 0x5301, 1, base=16, bitRange=6
+
+;; TIM2 status register 1
+sfr = "TIM2_SR1",          "Memory", 0x5302, 1, base=16, tooltip="TIM2 status register 1"
+sfr = "TIM2_SR1.UIF",      "Memory", 0x5302, 1, base=16, bitRange=0
+sfr = "TIM2_SR1.CC1IF",    "Memory", 0x5302, 1, base=16, bitRange=1
+sfr = "TIM2_SR1.CC2IF",    "Memory", 0x5302, 1, base=16, bitRange=2
+sfr = "TIM2_SR1.CC3IF",    "Memory", 0x5302, 1, base=16, bitRange=3
+sfr = "TIM2_SR1.TIF",      "Memory", 0x5302, 1, base=16, bitRange=6
+
+;; TIM2 status register 2
+sfr = "TIM2_SR2",          "Memory", 0x5303, 1, base=16, tooltip="TIM2 status register 2"
+sfr = "TIM2_SR2.CC10F",    "Memory", 0x5303, 1, base=16, bitRange=1
+sfr = "TIM2_SR2.CC20F",    "Memory", 0x5303, 1, base=16, bitRange=2
+sfr = "TIM2_SR2.CC30F",    "Memory", 0x5303, 1, base=16, bitRange=3
+
+;; TIM2 event generation register
+sfr = "TIM2_EGR",          "Memory", 0x5304, 1, base=16, tooltip="TIM2 event generation register"
+sfr = "TIM2_EGR.UG",       "Memory", 0x5304, 1, base=16, bitRange=0
+sfr = "TIM2_EGR.CC1G",     "Memory", 0x5304, 1, base=16, bitRange=1
+sfr = "TIM2_EGR.CC2G",     "Memory", 0x5304, 1, base=16, bitRange=2
+sfr = "TIM2_EGR.CC3G",     "Memory", 0x5304, 1, base=16, bitRange=3
+sfr = "TIM2_EGR.TG",       "Memory", 0x5304, 1, base=16, bitRange=6
+
+;; TIM2 capture/compare mode register 1
+sfr = "TIM2_CCMR1",        "Memory", 0x5305, 1, base=16, tooltip="TIM2 capture/compare mode register 1"
+sfr = "TIM2_CCMR1.CC1S0",  "Memory", 0x5305, 1, base=16, bitRange=0
+sfr = "TIM2_CCMR1.CC1S1",  "Memory", 0x5305, 1, base=16, bitRange=1
+sfr = "TIM2_CCMR1.OC1PE",  "Memory", 0x5305, 1, base=16, bitRange=3
+sfr = "TIM2_CCMR1.OC1M0",  "Memory", 0x5305, 1, base=16, bitRange=4
+sfr = "TIM2_CCMR1.OC1M1",  "Memory", 0x5305, 1, base=16, bitRange=5
+sfr = "TIM2_CCMR1.OC1M2",  "Memory", 0x5305, 1, base=16, bitRange=6
+
+;; TIM2 capture/compare mode register 2
+sfr = "TIM2_CCMR2",        "Memory", 0x5306, 1, base=16, tooltip="TIM2 capture/compare mode register 2"
+sfr = "TIM2_CCMR2.CC2S0",  "Memory", 0x5306, 1, base=16, bitRange=0
+sfr = "TIM2_CCMR2.CC2S1",  "Memory", 0x5306, 1, base=16, bitRange=1
+sfr = "TIM2_CCMR2.OC2PE",  "Memory", 0x5306, 1, base=16, bitRange=3
+sfr = "TIM2_CCMR2.OC2M0",  "Memory", 0x5306, 1, base=16, bitRange=4
+sfr = "TIM2_CCMR2.OC2M1",  "Memory", 0x5306, 1, base=16, bitRange=5
+sfr = "TIM2_CCMR2.OC2M2",  "Memory", 0x5306, 1, base=16, bitRange=6
+
+;; TIM2 capture/compare mode register 3
+sfr = "TIM2_CCMR3",        "Memory", 0x5307, 1, base=16, tooltip="TIM2 capture/compare mode register 3"
+sfr = "TIM2_CCMR3.CC3S0",  "Memory", 0x5307, 1, base=16, bitRange=0
+sfr = "TIM2_CCMR3.CC3S1",  "Memory", 0x5307, 1, base=16, bitRange=1
+sfr = "TIM2_CCMR3.OC3PE",  "Memory", 0x5307, 1, base=16, bitRange=3
+sfr = "TIM2_CCMR3.OC3M0",  "Memory", 0x5307, 1, base=16, bitRange=4
+sfr = "TIM2_CCMR3.OC3M1",  "Memory", 0x5307, 1, base=16, bitRange=5
+sfr = "TIM2_CCMR3.OC3M2",  "Memory", 0x5307, 1, base=16, bitRange=6
+
+;; TIM2 capture/compare enable register 1
+sfr = "TIM2_CCER1",        "Memory", 0x5308, 1, base=16, tooltip="TIM2 capture/compare enable register 1"
+sfr = "TIM2_CCER1.CC1E",   "Memory", 0x5308, 1, base=16, bitRange=0
+sfr = "TIM2_CCER1.CC1P",   "Memory", 0x5308, 1, base=16, bitRange=1
+sfr = "TIM2_CCER1.CC2E",   "Memory", 0x5308, 1, base=16, bitRange=4
+sfr = "TIM2_CCER1.CC2P",   "Memory", 0x5308, 1, base=16, bitRange=5
+
+;; TIM2 capture/compare enable register 2
+sfr = "TIM2_CCER2",        "Memory", 0x5309, 1, base=16, tooltip="TIM2 capture/compare enable register 2"
+sfr = "TIM2_CCER2.CC3E",   "Memory", 0x5309, 1, base=16, bitRange=0
+sfr = "TIM2_CCER2.CC3P",   "Memory", 0x5309, 1, base=16, bitRange=1
+
+;; TIM2 counter high
+sfr = "TIM2_CNTRH",        "Memory", 0x530A, 1, base=16, tooltip="TIM2 counter high"
+sfr = "TIM2_CNTRH.CNT",    "Memory", 0x530A, 1, base=16, bitRange=0-7
+
+;; TIM2 counter low
+sfr = "TIM2_CNTRL",        "Memory", 0x530B, 1, base=16, tooltip="TIM2 counter low"
+sfr = "TIM2_CNTRL.CNT",    "Memory", 0x530B, 1, base=16, bitRange=0-7
+
+;; TIM2 prescaler register
+sfr = "TIM2_PSCR",         "Memory", 0x530C, 1, base=16, tooltip="TIM2 prescaler register"
+sfr = "TIM2_PSCR.PSC",     "Memory", 0x530C, 1, base=16, bitRange=0-3
+
+;; TIM2 auto-reload register high
+sfr = "TIM2_ARRH",         "Memory", 0x530D, 1, base=16, tooltip="TIM2 auto-reload register high"
+sfr = "TIM2_ARRH.ARR",     "Memory", 0x530D, 1, base=16, bitRange=0-7
+
+;; TIM2 auto-reload register low
+sfr = "TIM2_ARRL",         "Memory", 0x530E, 1, base=16, tooltip="TIM2 auto-reload register low"
+sfr = "TIM2_ARRL.ARR",     "Memory", 0x530E, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 1 high
+sfr = "TIM2_CCR1H",        "Memory", 0x530F, 1, base=16, tooltip="TIM2 capture/compare register 1 high"
+sfr = "TIM2_CCR1H.CCR",    "Memory", 0x530F, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 1 low
+sfr = "TIM2_CCR1L",        "Memory", 0x5310, 1, base=16, tooltip="TIM2 capture/compare register 1 low"
+sfr = "TIM2_CCR1L.CCR",    "Memory", 0x5310, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 2 high
+sfr = "TIM2_CCR2H",        "Memory", 0x5311, 1, base=16, tooltip="TIM2 capture/compare register 2 high"
+sfr = "TIM2_CCR2H.CCR2",   "Memory", 0x5311, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 2 low
+sfr = "TIM2_CCR2L",        "Memory", 0x5312, 1, base=16, tooltip="TIM2 capture/compare register 2 low"
+sfr = "TIM2_CCR2L.CCR2",   "Memory", 0x5312, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 3 high
+sfr = "TIM2_CCR3H",        "Memory", 0x5313, 1, base=16, tooltip="TIM2 capture/compare register 3 high"
+sfr = "TIM2_CCR3H.CCR3",   "Memory", 0x5313, 1, base=16, bitRange=0-7
+
+;; TIM2 capture/compare register 3 low
+sfr = "TIM2_CCR3L",        "Memory", 0x5314, 1, base=16, tooltip="TIM2 capture/compare register 3 low"
+sfr = "TIM2_CCR3L.CCR3",   "Memory", 0x5314, 1, base=16, bitRange=0-7
+
+;; TIM3 control register 1
+sfr = "TIM3_CR1",          "Memory", 0x5320, 1, base=16, tooltip="TIM3 control register 1"
+sfr = "TIM3_CR1.CEN",      "Memory", 0x5320, 1, base=16, bitRange=0
+sfr = "TIM3_CR1.UDIS",     "Memory", 0x5320, 1, base=16, bitRange=1
+sfr = "TIM3_CR1.URS",      "Memory", 0x5320, 1, base=16, bitRange=2
+sfr = "TIM3_CR1.OPM",      "Memory", 0x5320, 1, base=16, bitRange=3
+sfr = "TIM3_CR1.ARPE",     "Memory", 0x5320, 1, base=16, bitRange=7
+
+;; TIM3 interrupt enable register
+sfr = "TIM3_IER",          "Memory", 0x5321, 1, base=16, tooltip="TIM3 interrupt enable register"
+sfr = "TIM3_IER.UIE",      "Memory", 0x5321, 1, base=16, bitRange=0
+sfr = "TIM3_IER.CC1IE",    "Memory", 0x5321, 1, base=16, bitRange=1
+sfr = "TIM3_IER.CC2IE",    "Memory", 0x5321, 1, base=16, bitRange=2
+sfr = "TIM3_IER.CC3IE",    "Memory", 0x5321, 1, base=16, bitRange=3
+
+;; TIM3 status register 1
+sfr = "TIM3_SR1",          "Memory", 0x5322, 1, base=16, tooltip="TIM3 status register 1"
+sfr = "TIM3_SR1.UIF",      "Memory", 0x5322, 1, base=16, bitRange=0
+sfr = "TIM3_SR1.CC1IF",    "Memory", 0x5322, 1, base=16, bitRange=1
+sfr = "TIM3_SR1.CC2IF",    "Memory", 0x5322, 1, base=16, bitRange=2
+sfr = "TIM3_SR1.CC3IF",    "Memory", 0x5322, 1, base=16, bitRange=3
+
+;; TIM3 status register 2
+sfr = "TIM3_SR2",          "Memory", 0x5323, 1, base=16, tooltip="TIM3 status register 2"
+sfr = "TIM3_SR2.CC10F",    "Memory", 0x5323, 1, base=16, bitRange=1
+sfr = "TIM3_SR2.CC20F",    "Memory", 0x5323, 1, base=16, bitRange=2
+
+;; TIM3 event generation register
+sfr = "TIM3_EGR",          "Memory", 0x5324, 1, base=16, tooltip="TIM3 event generation register"
+sfr = "TIM3_EGR.UG",       "Memory", 0x5324, 1, base=16, bitRange=0
+sfr = "TIM3_EGR.CC1G",     "Memory", 0x5324, 1, base=16, bitRange=1
+sfr = "TIM3_EGR.CC2G",     "Memory", 0x5324, 1, base=16, bitRange=2
+
+;; TIM3 capture/compare mode register 1
+sfr = "TIM3_CCMR1",        "Memory", 0x5325, 1, base=16, tooltip="TIM3 capture/compare mode register 1"
+sfr = "TIM3_CCMR1.CC1S0",  "Memory", 0x5325, 1, base=16, bitRange=0
+sfr = "TIM3_CCMR1.CC1S1",  "Memory", 0x5325, 1, base=16, bitRange=1
+sfr = "TIM3_CCMR1.OC1PE",  "Memory", 0x5325, 1, base=16, bitRange=3
+sfr = "TIM3_CCMR1.OC1M0",  "Memory", 0x5325, 1, base=16, bitRange=4
+sfr = "TIM3_CCMR1.OC1M1",  "Memory", 0x5325, 1, base=16, bitRange=5
+sfr = "TIM3_CCMR1.OC1M2",  "Memory", 0x5325, 1, base=16, bitRange=6
+
+;; TIM3 capture/compare mode register 2
+sfr = "TIM3_CCMR2",        "Memory", 0x5326, 1, base=16, tooltip="TIM3 capture/compare mode register 2"
+sfr = "TIM3_CCMR2.CC2S0",  "Memory", 0x5326, 1, base=16, bitRange=0
+sfr = "TIM3_CCMR2.CC2S1",  "Memory", 0x5326, 1, base=16, bitRange=1
+sfr = "TIM3_CCMR2.OC2PE",  "Memory", 0x5326, 1, base=16, bitRange=3
+sfr = "TIM3_CCMR2.OC2M0",  "Memory", 0x5326, 1, base=16, bitRange=4
+sfr = "TIM3_CCMR2.OC2M1",  "Memory", 0x5326, 1, base=16, bitRange=5
+sfr = "TIM3_CCMR2.OC2M2",  "Memory", 0x5326, 1, base=16, bitRange=6
+
+;; TIM3 capture/compare enable register 1
+sfr = "TIM3_CCER1",        "Memory", 0x5327, 1, base=16, tooltip="TIM3 capture/compare enable register 1"
+sfr = "TIM3_CCER1.CC1E",   "Memory", 0x5327, 1, base=16, bitRange=0
+sfr = "TIM3_CCER1.CC1P",   "Memory", 0x5327, 1, base=16, bitRange=1
+sfr = "TIM3_CCER1.CC2E",   "Memory", 0x5327, 1, base=16, bitRange=4
+sfr = "TIM3_CCER1.CC2P",   "Memory", 0x5327, 1, base=16, bitRange=5
+
+;; TIM3 counter high
+sfr = "TIM3_CNTRH",        "Memory", 0x5328, 1, base=16, tooltip="TIM3 counter high"
+sfr = "TIM3_CNTRH.CNT",    "Memory", 0x5328, 1, base=16, bitRange=0-7
+
+;; TIM3 counter low
+sfr = "TIM3_CNTRL",        "Memory", 0x5329, 1, base=16, tooltip="TIM3 counter low"
+sfr = "TIM3_CNTRL.CNT",    "Memory", 0x5329, 1, base=16, bitRange=0-7
+
+;; TIM3 prescaler register
+sfr = "TIM3_PSCR",         "Memory", 0x532A, 1, base=16, tooltip="TIM3 prescaler register"
+sfr = "TIM3_PSCR.PSC",     "Memory", 0x532A, 1, base=16, bitRange=0-3
+
+;; TIM3 auto-reload register high
+sfr = "TIM3_ARRH",         "Memory", 0x532B, 1, base=16, tooltip="TIM3 auto-reload register high"
+sfr = "TIM3_ARRH.ARR",     "Memory", 0x532B, 1, base=16, bitRange=0-7
+
+;; TIM3 auto-reload register low
+sfr = "TIM3_ARRL",         "Memory", 0x532C, 1, base=16, tooltip="TIM3 auto-reload register low"
+sfr = "TIM3_ARRL.ARR",     "Memory", 0x532C, 1, base=16, bitRange=0-7
+
+;; TIM3 capture/compare register 1 high
+sfr = "TIM3_CCR1H",        "Memory", 0x532D, 1, base=16, tooltip="TIM3 capture/compare register 1 high"
+sfr = "TIM3_CCR1H.CCR",    "Memory", 0x532D, 1, base=16, bitRange=0-7
+
+;; TIM3 capture/compare register 1 low
+sfr = "TIM3_CCR1L",        "Memory", 0x532E, 1, base=16, tooltip="TIM3 capture/compare register 1 low"
+sfr = "TIM3_CCR1L.CCR",    "Memory", 0x532E, 1, base=16, bitRange=0-7
+
+;; TIM3 capture/compare register 2 high
+sfr = "TIM3_CCR2H",        "Memory", 0x532F, 1, base=16, tooltip="TIM3 capture/compare register 2 high"
+sfr = "TIM3_CCR2H.CCR2",   "Memory", 0x532F, 1, base=16, bitRange=0-7
+
+;; TIM3 capture/compare register 2 low
+sfr = "TIM3_CCR2L",        "Memory", 0x5330, 1, base=16, tooltip="TIM3 capture/compare register 2 low"
+sfr = "TIM3_CCR2L.CCR2",   "Memory", 0x5330, 1, base=16, bitRange=0-7
+
+;; TIM4 control register 1
+sfr = "TIM4_CR1",          "Memory", 0x5340, 1, base=16, tooltip="TIM4 control register 1"
+sfr = "TIM4_CR1.CEN",      "Memory", 0x5340, 1, base=16, bitRange=0
+sfr = "TIM4_CR1.UDIS",     "Memory", 0x5340, 1, base=16, bitRange=1
+sfr = "TIM4_CR1.URS",      "Memory", 0x5340, 1, base=16, bitRange=2
+sfr = "TIM4_CR1.OPM",      "Memory", 0x5340, 1, base=16, bitRange=3
+sfr = "TIM4_CR1.ARPE",     "Memory", 0x5340, 1, base=16, bitRange=7
+
+;; TIM4 interrupt enable register
+sfr = "TIM4_IER",          "Memory", 0x5341, 1, base=16, tooltip="TIM4 interrupt enable register"
+sfr = "TIM4_IER.UIE",      "Memory", 0x5341, 1, base=16, bitRange=0
+
+;; TIM4 status register
+sfr = "TIM4_SR1",          "Memory", 0x5342, 1, base=16, tooltip="TIM4 status register"
+sfr = "TIM4_SR1.UIF",      "Memory", 0x5342, 1, base=16, bitRange=0
+
+;; TIM4 event generation register
+sfr = "TIM4_EGR",          "Memory", 0x5343, 1, base=16, tooltip="TIM4 event generation register"
+sfr = "TIM4_EGR.UG",       "Memory", 0x5343, 1, base=16, bitRange=0, writeOnly
+
+;; TIM4 counter
+sfr = "TIM4_CNTR",         "Memory", 0x5344, 1, base=16, tooltip="TIM4 counter"
+sfr = "TIM4_CNTR.CNT",     "Memory", 0x5344, 1, base=16, bitRange=0-7
+
+;; TIM4 prescaler register
+sfr = "TIM4_PSCR",         "Memory", 0x5345, 1, base=16, tooltip="TIM4 prescaler register"
+sfr = "TIM4_PSCR.PSC",     "Memory", 0x5345, 1, base=16, bitRange=0-2
+
+;; TIM4 auto-reload register
+sfr = "TIM4_ARR",          "Memory", 0x5346, 1, base=16, tooltip="TIM4 auto-reload register"
+sfr = "TIM4_ARR.ARR",      "Memory", 0x5346, 1, base=16, bitRange=0-7
+
+;; ADC control/status register
+sfr = "ADC_CSR",           "Memory", 0x5400, 1, base=16, tooltip="ADC control/status register"
+sfr = "ADC_CSR.CH",        "Memory", 0x5400, 1, base=16, bitRange=0-3
+sfr = "ADC_CSR.AWDIE",     "Memory", 0x5400, 1, base=16, bitRange=4
+sfr = "ADC_CSR.EOCIE",     "Memory", 0x5400, 1, base=16, bitRange=5
+sfr = "ADC_CSR.AWD",       "Memory", 0x5400, 1, base=16, bitRange=6
+sfr = "ADC_CSR.EOC",       "Memory", 0x5400, 1, base=16, bitRange=7
+
+;; ADC configuration register 1
+sfr = "ADC_CR1",           "Memory", 0x5401, 1, base=16, tooltip="ADC configuration register 1"
+sfr = "ADC_CR1.ADON",      "Memory", 0x5401, 1, base=16, bitRange=0
+sfr = "ADC_CR1.CONT",      "Memory", 0x5401, 1, base=16, bitRange=1
+sfr = "ADC_CR1.SPSEL",     "Memory", 0x5401, 1, base=16, bitRange=4-6
+
+;; ADC configuration register 2
+sfr = "ADC_CR2",           "Memory", 0x5402, 1, base=16, tooltip="ADC configuration register 2"
+sfr = "ADC_CR2.SCAN",      "Memory", 0x5402, 1, base=16, bitRange=0
+sfr = "ADC_CR2.ALIGN",     "Memory", 0x5402, 1, base=16, bitRange=1
+sfr = "ADC_CR2.EXTSEL",    "Memory", 0x5402, 1, base=16, bitRange=4-5
+sfr = "ADC_CR2.EXTRIG",    "Memory", 0x5402, 1, base=16, bitRange=6
+
+;; ADC data register high
+sfr = "ADC_DRH",           "Memory", 0x5404, 1, base=16, tooltip="ADC data register high"
+sfr = "ADC_DRH.DATA",      "Memory", 0x5404, 1, base=16, bitRange=0-7
+
+;; ADC data register low
+sfr = "ADC_DRL",           "Memory", 0x5405, 1, base=16, tooltip="ADC data register low"
+sfr = "ADC_DRL.DATA",      "Memory", 0x5405, 1, base=16, bitRange=6-7
+
+;; ADC schmitt trigger disable register high
+sfr = "ADC_TDRH",          "Memory", 0x5406, 1, base=16, tooltip="ADC schmitt trigger disable register high"
+sfr = "ADC_TDRH.TD",       "Memory", 0x5406, 1, base=16, bitRange=0-7
+
+;; ADC schmitt trigger disable register low
+sfr = "ADC_TDRL",          "Memory", 0x5407, 1, base=16, tooltip="ADC schmitt trigger disable register low"
+sfr = "ADC_TDRL.TD",       "Memory", 0x5407, 1, base=16, bitRange=0-7
+
+;; TMU key 1
+sfr = "TMU_K1",            "Memory", 0x5800, 1, base=16, tooltip="TMU key 1"
+sfr = "TMU_K1.K",          "Memory", 0x5800, 1, base=16, bitRange=0-7
+
+;; TMU key 2
+sfr = "TMU_K2",            "Memory", 0x5801, 1, base=16, tooltip="TMU key 2"
+sfr = "TMU_K2.K",          "Memory", 0x5801, 1, base=16, bitRange=0-7
+
+;; TMU key 3
+sfr = "TMU_K3",            "Memory", 0x5802, 1, base=16, tooltip="TMU key 3"
+sfr = "TMU_K3.K",          "Memory", 0x5802, 1, base=16, bitRange=0-7
+
+;; TMU key 4
+sfr = "TMU_K4",            "Memory", 0x5803, 1, base=16, tooltip="TMU key 4"
+sfr = "TMU_K4.K",          "Memory", 0x5803, 1, base=16, bitRange=0-7
+
+;; TMU key 5
+sfr = "TMU_K5",            "Memory", 0x5804, 1, base=16, tooltip="TMU key 5"
+sfr = "TMU_K5.K",          "Memory", 0x5804, 1, base=16, bitRange=0-7
+
+;; TMU key 6
+sfr = "TMU_K6",            "Memory", 0x5805, 1, base=16, tooltip="TMU key 6"
+sfr = "TMU_K6.K",          "Memory", 0x5805, 1, base=16, bitRange=0-7
+
+;; TMU key 7
+sfr = "TMU_K7",            "Memory", 0x5806, 1, base=16, tooltip="TMU key 7"
+sfr = "TMU_K7.K",          "Memory", 0x5806, 1, base=16, bitRange=0-7
+
+;; TMU key 8
+sfr = "TMU_K8",            "Memory", 0x5807, 1, base=16, tooltip="TMU key 8"
+sfr = "TMU_K8.K",          "Memory", 0x5807, 1, base=16, bitRange=0-7
+
+;; TMU status register
+sfr = "TMU_CSR",           "Memory", 0x5808, 1, base=16, tooltip="TMU status register"
+sfr = "TMU_CSR.TMUS",      "Memory", 0x5808, 1, base=16, bitRange=0, readOnly
+sfr = "TMU_CSR.TMUB",      "Memory", 0x5808, 1, base=16, bitRange=1, readOnly
+sfr = "TMU_CSR.TMUE",      "Memory", 0x5808, 1, base=16, bitRange=2, readOnly
+sfr = "TMU_CSR.ROPS",      "Memory", 0x5808, 1, base=16, bitRange=3, readOnly
+
+;; Accumulator
+sfr = "CPU_A",             "Memory", 0x7F00, 1, base=16, tooltip="Accumulator"
+
+;; Program counter extended
+sfr = "CPU_PCE",           "Memory", 0x7F01, 1, base=16, tooltip="Program counter extended"
+
+;; Program counter high
+sfr = "CPU_PCH",           "Memory", 0x7F02, 1, base=16, tooltip="Program counter high"
+
+;; Program counter low
+sfr = "CPU_PCL",           "Memory", 0x7F03, 1, base=16, tooltip="Program counter low"
+
+;; X index register high
+sfr = "CPU_XH",            "Memory", 0x7F04, 1, base=16, tooltip="X index register high"
+
+;; X index register low
+sfr = "CPU_XL",            "Memory", 0x7F05, 1, base=16, tooltip="X index register low"
+
+;; Y index register high
+sfr = "CPU_YH",            "Memory", 0x7F06, 1, base=16, tooltip="Y index register high"
+
+;; Y index register low
+sfr = "CPU_YL",            "Memory", 0x7F07, 1, base=16, tooltip="Y index register low"
+
+;; Stack pointer high 17h(2)
+sfr = "CPU_SPH",           "Memory", 0x7F08, 1, base=16, tooltip="Stack pointer high 17h(2)"
+
+;; Stack pointer low
+sfr = "CPU_SPL",           "Memory", 0x7F09, 1, base=16, tooltip="Stack pointer low"
+
+;; Condition code register
+sfr = "CPU_CCR",           "Memory", 0x7F0A, 1, base=16, tooltip="Condition code register"
+sfr = "CPU_CCR.C",         "Memory", 0x7F0A, 1, base=16, bitRange=0
+sfr = "CPU_CCR.Z",         "Memory", 0x7F0A, 1, base=16, bitRange=1
+sfr = "CPU_CCR.NF",        "Memory", 0x7F0A, 1, base=16, bitRange=2
+sfr = "CPU_CCR.I0",        "Memory", 0x7F0A, 1, base=16, bitRange=3
+sfr = "CPU_CCR.H",         "Memory", 0x7F0A, 1, base=16, bitRange=4
+sfr = "CPU_CCR.I1",        "Memory", 0x7F0A, 1, base=16, bitRange=5
+sfr = "CPU_CCR.V",         "Memory", 0x7F0A, 1, base=16, bitRange=7
+
+;; Global configuration register
+sfr = "CPU_CFG_GCR",       "Memory", 0x7F60, 1, base=16, tooltip="Global configuration register"
+sfr = "CPU_CFG_GCR.SWO",   "Memory", 0x7F60, 1, base=16, bitRange=0
+sfr = "CPU_CFG_GCR.AL",    "Memory", 0x7F60, 1, base=16, bitRange=1
+
+;; Interrupt software priority register 1
+sfr = "ITC_SPR1",          "Memory", 0x7F70, 1, base=16, tooltip="Interrupt software priority register 1"
+sfr = "ITC_SPR1.VECT0SPR", "Memory", 0x7F70, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR1.VECT1SPR", "Memory", 0x7F70, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR1.VECT2SPR", "Memory", 0x7F70, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR1.VECT3SPR", "Memory", 0x7F70, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 2
+sfr = "ITC_SPR2",          "Memory", 0x7F71, 1, base=16, tooltip="Interrupt software priority register 2"
+sfr = "ITC_SPR2.VECT4SPR", "Memory", 0x7F71, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR2.VECT5SPR", "Memory", 0x7F71, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR2.VECT6SPR", "Memory", 0x7F71, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR2.VECT7SPR", "Memory", 0x7F71, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 3
+sfr = "ITC_SPR3",          "Memory", 0x7F72, 1, base=16, tooltip="Interrupt software priority register 3"
+sfr = "ITC_SPR3.VECT8SPR", "Memory", 0x7F72, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR3.VECT9SPR", "Memory", 0x7F72, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR3.VECT10SPR", "Memory", 0x7F72, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR3.VECT11SPR", "Memory", 0x7F72, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 4
+sfr = "ITC_SPR4",          "Memory", 0x7F73, 1, base=16, tooltip="Interrupt software priority register 4"
+sfr = "ITC_SPR4.VECT12SPR", "Memory", 0x7F73, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR4.VECT13SPR", "Memory", 0x7F73, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR4.VECT14SPR", "Memory", 0x7F73, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR4.VECT15SPR", "Memory", 0x7F73, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 5
+sfr = "ITC_SPR5",          "Memory", 0x7F74, 1, base=16, tooltip="Interrupt software priority register 5"
+sfr = "ITC_SPR5.VECT16SPR", "Memory", 0x7F74, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR5.VECT17SPR", "Memory", 0x7F74, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR5.VECT18SPR", "Memory", 0x7F74, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR5.VECT19SPR", "Memory", 0x7F74, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 6
+sfr = "ITC_SPR6",          "Memory", 0x7F75, 1, base=16, tooltip="Interrupt software priority register 6"
+sfr = "ITC_SPR6.VECT20SPR", "Memory", 0x7F75, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR6.VECT21SPR", "Memory", 0x7F75, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR6.VECT22SPR", "Memory", 0x7F75, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR6.VECT23SPR", "Memory", 0x7F75, 1, base=16, bitRange=6-7
+
+;; Interrupt software priority register 7
+sfr = "ITC_SPR7",          "Memory", 0x7F76, 1, base=16, tooltip="Interrupt software priority register 7"
+sfr = "ITC_SPR7.VECT24SPR", "Memory", 0x7F76, 1, base=16, bitRange=0-1
+sfr = "ITC_SPR7.VECT25SPR", "Memory", 0x7F76, 1, base=16, bitRange=2-3
+sfr = "ITC_SPR7.VECT26SPR", "Memory", 0x7F76, 1, base=16, bitRange=4-5
+sfr = "ITC_SPR7.VECT27SPR", "Memory", 0x7F76, 1, base=16, bitRange=6-7
+
+;; SWIM control status register
+sfr = "SWIM_CSR",          "Memory", 0x7F80, 1, base=16, tooltip="SWIM control status register"
+
+;; DM breakpoint 1 register extended byte
+sfr = "DM_BK1RE",          "Memory", 0x7F90, 1, base=16, tooltip="DM breakpoint 1 register extended byte"
+
+;; DM breakpoint 1 register high byte
+sfr = "DM_BK1RH",          "Memory", 0x7F91, 1, base=16, tooltip="DM breakpoint 1 register high byte"
+
+;; DM breakpoint 1 register low byte
+sfr = "DM_BK1RL",          "Memory", 0x7F92, 1, base=16, tooltip="DM breakpoint 1 register low byte"
+
+;; DM breakpoint 2 register extended byte
+sfr = "DM_BK2RE",          "Memory", 0x7F93, 1, base=16, tooltip="DM breakpoint 2 register extended byte"
+
+;; DM breakpoint 2 register high byte
+sfr = "DM_BK2RH",          "Memory", 0x7F94, 1, base=16, tooltip="DM breakpoint 2 register high byte"
+
+;; DM breakpoint 2 register low byte
+sfr = "DM_BK2RL",          "Memory", 0x7F95, 1, base=16, tooltip="DM breakpoint 2 register low byte"
+
+;; Debug module control register 1
+sfr = "DM_CR1",            "Memory", 0x7F96, 1, base=16, tooltip="Debug module control register 1"
+
+;; Debug module control register 2
+sfr = "DM_CR2",            "Memory", 0x7F97, 1, base=16, tooltip="Debug module control register 2"
+
+;; Debug module control/status register 1
+sfr = "DM_CSR1",           "Memory", 0x7F98, 1, base=16, tooltip="Debug module control/status register 1"
+
+;; Debug module control/status register 2
+sfr = "DM_CSR2",           "Memory", 0x7F99, 1, base=16, tooltip="Debug module control/status register 2"
+
+;; DM enable function register
+sfr = "DM_ENFCTR",         "Memory", 0x7F9A, 1, base=16, tooltip="DM enable function register"
+
+;; Read-out protection (ROP)
+sfr = "OPT0",              "Memory", 0x4800, 1, base=16, tooltip="Read-out protection (ROP)"
+
+;; User boot code (UBC)
+sfr = "OPT1",              "Memory", 0x4801, 1, base=16, tooltip="User boot code (UBC)"
+
+;; User boot code (UBC) (complementary byte)
+sfr = "NOPT1",             "Memory", 0x4802, 1, base=16, tooltip="User boot code (UBC) (complementary byte)"
+
+;; Alternate function remapping (AFR)
+sfr = "OPT2",              "Memory", 0x4803, 1, base=16, tooltip="Alternate function remapping (AFR)"
+
+;; Alternate function remapping (AFR) (complementary byte)
+sfr = "NOPT2",             "Memory", 0x4804, 1, base=16, tooltip="Alternate function remapping (AFR) (complementary byte)"
+
+;; Watchdog option
+sfr = "OPT3",              "Memory", 0x4805, 1, base=16, tooltip="Watchdog option"
+
+;; Watchdog option (complementary byte)
+sfr = "NOPT3",             "Memory", 0x4806, 1, base=16, tooltip="Watchdog option (complementary byte)"
+
+;; Clock option
+sfr = "OPT4",              "Memory", 0x4807, 1, base=16, tooltip="Clock option"
+
+;; Clock option (complementary byte)
+sfr = "NOPT4",             "Memory", 0x4808, 1, base=16, tooltip="Clock option (complementary byte)"
+
+;; HSE clock startup
+sfr = "OPT5",              "Memory", 0x4809, 1, base=16, tooltip="HSE clock startup"
+
+;; HSE clock startup (complementary byte)
+sfr = "NOPT5",             "Memory", 0x480A, 1, base=16, tooltip="HSE clock startup (complementary byte)"
+
+;; TMU
+sfr = "OPT6",              "Memory", 0x480B, 1, base=16, tooltip="TMU"
+
+;; TMU (complementary byte)
+sfr = "NOPT6",             "Memory", 0x480C, 1, base=16, tooltip="TMU (complementary byte)"
+
+;; Flash wait states
+sfr = "OPT7",              "Memory", 0x480D, 1, base=16, tooltip="Flash wait states"
+
+;; Flash wait states (complementary byte)
+sfr = "NOPT7",             "Memory", 0x480E, 1, base=16, tooltip="Flash wait states (complementary byte)"
+
+;; TMU_KEY 1
+sfr = "OPT8",              "Memory", 0x4810, 1, base=16, tooltip="TMU_KEY 1"
+
+;; TMU_KEY 2
+sfr = "OPT9",              "Memory", 0x4811, 1, base=16, tooltip="TMU_KEY 2"
+
+;; TMU_KEY 3
+sfr = "OPT10",             "Memory", 0x4812, 1, base=16, tooltip="TMU_KEY 3"
+
+;; TMU_KEY 4
+sfr = "OPT11",             "Memory", 0x4813, 1, base=16, tooltip="TMU_KEY 4"
+
+;; TMU_KEY 5
+sfr = "OPT12",             "Memory", 0x4814, 1, base=16, tooltip="TMU_KEY 5"
+
+;; TMU_KEY 6
+sfr = "OPT13",             "Memory", 0x4815, 1, base=16, tooltip="TMU_KEY 6"
+
+;; TMU_KEY 7
+sfr = "OPT14",             "Memory", 0x4816, 1, base=16, tooltip="TMU_KEY 7"
+
+;; TMU_KEY 8
+sfr = "OPT15",             "Memory", 0x4817, 1, base=16, tooltip="TMU_KEY 8"
+
+;; TMU_MAXATT
+sfr = "OPT16",             "Memory", 0x4818, 1, base=16, tooltip="TMU_MAXATT"
+
+;; Bootloader
+sfr = "OPT17",             "Memory", 0x487E, 1, base=16, tooltip="Bootloader"
+
+;; Bootloader (complementary byte)
+sfr = "NOPT17",            "Memory", 0x487F, 1, base=16, tooltip="Bootloader (complementary byte)"
+
+;;-------------------------------------------------------------------------
+;; SFR groups
+;;
+;; Syntax:
+;; group = "group", "name"[, "name"[, ...]]
+;;-------------------------------------------------------------------------
+[SfrGroupInfo]
+group = "ADC", "ADC_CSR", "ADC_CR1", "ADC_CR2", "ADC_DRH", "ADC_DRL", "ADC_TDRH", "ADC_TDRL"
+group = "AWU", "AWU_CSR", "AWU_APR", "AWU_TBR"
+group = "BEEP", "BEEP_CSR"
+group = "CLK", "CLK_ICKR", "CLK_ECKR", "CLK_CMSR", "CLK_SWR", "CLK_SWCR", "CLK_CKDIVR", "CLK_PCKENR1", "CLK_CSSR", "CLK_CCOR", "CLK_PCKENR2", "CLK_HSITRIMR", "CLK_SWIMCCR"
+group = "CPU", "CPU_A", "CPU_PCE", "CPU_PCH", "CPU_PCL", "CPU_XH", "CPU_XL", "CPU_YH", "CPU_YL", "CPU_SPH", "CPU_SPL", "CPU_CCR", "CPU_CFG_GCR"
+group = "DM", "DM_BK1RE", "DM_BK1RH", "DM_BK1RL", "DM_BK2RE", "DM_BK2RH", "DM_BK2RL", "DM_CR1", "DM_CR2", "DM_CSR1", "DM_CSR2", "DM_ENFCTR"
+group = "Flash", "FLASH_CR1", "FLASH_CR2", "FLASH_NCR2", "FLASH_FPR", "FLASH_NFPR", "FLASH_IAPSR", "FLASH_PUKR", "FLASH_DUKR"
+group = "I2C", "I2C_CR1", "I2C_CR2", "I2C_FREQR", "I2C_OARL", "I2C_OARH", "I2C_DR", "I2C_SR1", "I2C_SR2", "I2C_SR3", "I2C_ITR", "I2C_CCRL", "I2C_CCRH", "I2C_TRISER"
+group = "ITC", "EXTI_CR1", "EXTI_CR2", "RST_SR", "ITC_SPR1", "ITC_SPR2", "ITC_SPR3", "ITC_SPR4", "ITC_SPR5", "ITC_SPR6", "ITC_SPR7"
+group = "IWDG", "IWDG_KR", "IWDG_PR", "IWDG_RLR"
+group = "LINUART", "LINUART_SR", "LINUART_DR", "LINUART_BRR1", "LINUART_BRR2", "LINUART_CR1", "LINUART_CR2", "LINUART_CR3", "LINUART_CR4", "LINUART_CR6"
+group = "Option bytes", "OPT0", "OPT1", "NOPT1", "OPT2", "NOPT2", "OPT3", "NOPT3", "OPT4", "NOPT4", "OPT5", "NOPT5", "OPT6", "NOPT6", "OPT7", "NOPT7", "OPT8", "OPT9", "OPT10", "OPT11", "OPT12", "OPT13", "OPT14", "OPT15", "OPT16", "OPT17", "NOPT17"
+group = "Port A", "PA_ODR", "PA_IDR", "PA_DDR", "PA_CR1", "PA_CR2"
+group = "Port B", "PB_ODR", "PB_IDR", "PB_DDR", "PB_CR1", "PB_CR2"
+group = "Port C", "PC_ODR", "PC_IDR", "PC_DDR", "PC_CR1", "PC_CR2"
+group = "Port D", "PD_ODR", "PD_IDR", "PD_DDR", "PD_CR1", "PD_CR2"
+group = "Port E", "PE_ODR", "PE_IDR", "PE_DDR", "PE_CR1", "PE_CR2"
+group = "Port G", "PG_ODR", "PG_IDR", "PG_DDR", "PG_CR1", "PG_CR2"
+group = "SPI", "SPI_CR1", "SPI_CR2", "SPI_ICR", "SPI_SR", "SPI_DR", "SPI_CRCPR", "SPI_RXCRCR", "SPI_TXCRCR"
+group = "SWIM", "SWIM_CSR"
+group = "TIM1", "TIM1_CR1", "TIM1_CR2", "TIM1_SMCR", "TIM1_ETR", "TIM1_IER", "TIM1_SR1", "TIM1_SR2", "TIM1_EGR", "TIM1_CCMR1", "TIM1_CCMR2", "TIM1_CCMR3", "TIM1_CCMR4", "TIM1_CCER1", "TIM1_CCER2", "TIM1_CNTRH", "TIM1_CNTRL", "TIM1_PSCRH", "TIM1_PSCRL", "TIM1_ARRH", "TIM1_ARRL", "TIM1_RCR", "TIM1_CCR1H", "TIM1_CCR1L", "TIM1_CCR2H", "TIM1_CCR2L", "TIM1_CCR3H", "TIM1_CCR3L", "TIM1_CCR4H", "TIM1_CCR4L", "TIM1_BKR", "TIM1_DTR", "TIM1_OISR"
+group = "TIM2", "TIM2_CR1", "TIM2_IER", "TIM2_SR1", "TIM2_SR2", "TIM2_EGR", "TIM2_CCMR1", "TIM2_CCMR2", "TIM2_CCMR3", "TIM2_CCER1", "TIM2_CCER2", "TIM2_CNTRH", "TIM2_CNTRL", "TIM2_PSCR", "TIM2_ARRH", "TIM2_ARRL", "TIM2_CCR1H", "TIM2_CCR1L", "TIM2_CCR2H", "TIM2_CCR2L", "TIM2_CCR3H", "TIM2_CCR3L"
+group = "TIM3", "TIM3_CR1", "TIM3_IER", "TIM3_SR1", "TIM3_SR2", "TIM3_EGR", "TIM3_CCMR1", "TIM3_CCMR2", "TIM3_CCER1", "TIM3_CNTRH", "TIM3_CNTRL", "TIM3_PSCR", "TIM3_ARRH", "TIM3_ARRL", "TIM3_CCR1H", "TIM3_CCR1L", "TIM3_CCR2H", "TIM3_CCR2L"
+group = "TIM4", "TIM4_CR1", "TIM4_IER", "TIM4_SR1", "TIM4_EGR", "TIM4_CNTR", "TIM4_PSCR", "TIM4_ARR"
+group = "TMU", "TMU_K1", "TMU_K2", "TMU_K3", "TMU_K4", "TMU_K5", "TMU_K6", "TMU_K7", "TMU_K8", "TMU_CSR"
+group = "USART", "USART_SR", "USART_DR", "USART_BRR1", "USART_BRR2", "USART_CR1", "USART_CR2", "USART_CR3", "USART_CR4"
+group = "WWDG", "WWDG_CR", "WWDG_WR"
+
+;;-------------------------------------------------------------------------
+;; SFR reset values
+;;
+;; Syntax:
+;; Reset = address size value
+;;-------------------------------------------------------------------------
+[SfrReset]
+Reset = 0x4800 1 0x00
+Reset = 0x4801 1 0x00
+Reset = 0x4802 1 0xFF
+Reset = 0x4803 1 0x00
+Reset = 0x4804 1 0xFF
+Reset = 0x4805 1 0x00
+Reset = 0x4806 1 0xFF
+Reset = 0x4807 1 0x00
+Reset = 0x4808 1 0xFF
+Reset = 0x4809 1 0x00
+Reset = 0x480A 1 0xFF
+Reset = 0x480B 1 0x00
+Reset = 0x480C 1 0xFF
+Reset = 0x480D 1 0x00
+Reset = 0x480E 1 0xFF
+Reset = 0x4810 1 0x00
+Reset = 0x4811 1 0x00
+Reset = 0x4812 1 0x00
+Reset = 0x4813 1 0x00
+Reset = 0x4814 1 0x00
+Reset = 0x4815 1 0x00
+Reset = 0x4816 1 0x00
+Reset = 0x4817 1 0x00
+Reset = 0x4818 1 0xC7
+Reset = 0x487E 1 0x00
+Reset = 0x487F 1 0xFF
+Reset = 0x5000 1 0x00
+Reset = 0x5001 1 0x00
+Reset = 0x5002 1 0x00
+Reset = 0x5003 1 0x00
+Reset = 0x5004 1 0x00
+Reset = 0x5005 1 0x00
+Reset = 0x5006 1 0x00
+Reset = 0x5007 1 0x00
+Reset = 0x5008 1 0x00
+Reset = 0x5009 1 0x00
+Reset = 0x500A 1 0x00
+Reset = 0x500B 1 0x00
+Reset = 0x500C 1 0x00
+Reset = 0x500D 1 0x00
+Reset = 0x500E 1 0x00
+Reset = 0x500F 1 0x00
+Reset = 0x5010 1 0x00
+Reset = 0x5011 1 0x00
+Reset = 0x5012 1 0x00
+Reset = 0x5013 1 0x00
+Reset = 0x5014 1 0x00
+Reset = 0x5015 1 0x00
+Reset = 0x5016 1 0x00
+Reset = 0x5017 1 0x00
+Reset = 0x5018 1 0x00
+Reset = 0x501E 1 0x00
+Reset = 0x501F 1 0x00
+Reset = 0x5020 1 0x00
+Reset = 0x5021 1 0x00
+Reset = 0x5022 1 0x00
+Reset = 0x505A 1 0x00
+Reset = 0x505B 1 0x00
+Reset = 0x505C 1 0xFF
+Reset = 0x505D 1 0x00
+Reset = 0x505E 1 0xFF
+Reset = 0x505F 1 0x40
+Reset = 0x5062 1 0x00
+Reset = 0x5064 1 0x00
+Reset = 0x50A0 1 0x00
+Reset = 0x50A1 1 0x00
+Reset = 0x50B3 1 0x00
+Reset = 0x50C0 1 0x01
+Reset = 0x50C1 1 0x00
+Reset = 0x50C3 1 0xE1
+Reset = 0x50C4 1 0xE1
+Reset = 0x50C5 1 0x00
+Reset = 0x50C6 1 0x14
+Reset = 0x50C7 1 0xFF
+Reset = 0x50C8 1 0x00
+Reset = 0x50C9 1 0x00
+Reset = 0x50CA 1 0xFF
+Reset = 0x50CC 1 0x00
+Reset = 0x50CD 1 0x00
+Reset = 0x50D1 1 0xFF
+Reset = 0x50D2 1 0xFF
+Reset = 0x50E0 1 0x00
+Reset = 0x50E1 1 0x00
+Reset = 0x50E2 1 0xFF
+Reset = 0x50F0 1 0x00
+Reset = 0x50F1 1 0x3F
+Reset = 0x50F2 1 0x00
+Reset = 0x50F3 1 0x00
+Reset = 0x5200 1 0x00
+Reset = 0x5201 1 0x00
+Reset = 0x5202 1 0x00
+Reset = 0x5203 1 0x02
+Reset = 0x5204 1 0x00
+Reset = 0x5205 1 0x07
+Reset = 0x5206 1 0x00
+Reset = 0x5207 1 0x00
+Reset = 0x5210 1 0x00
+Reset = 0x5211 1 0x00
+Reset = 0x5212 1 0x00
+Reset = 0x5213 1 0x00
+Reset = 0x5214 1 0x00
+Reset = 0x5216 1 0x00
+Reset = 0x5217 1 0x00
+Reset = 0x5218 1 0x00
+Reset = 0x5219 1 0x00
+Reset = 0x521A 1 0x00
+Reset = 0x521B 1 0x00
+Reset = 0x521C 1 0x00
+Reset = 0x521D 1 0x00
+Reset = 0x5230 1 0xC0
+Reset = 0x5231 1 0x00
+Reset = 0x5232 1 0x00
+Reset = 0x5233 1 0x00
+Reset = 0x5234 1 0x00
+Reset = 0x5235 1 0x00
+Reset = 0x5236 1 0x00
+Reset = 0x5237 1 0x00
+Reset = 0x5240 1 0xC0
+Reset = 0x5241 1 0x00
+Reset = 0x5242 1 0x00
+Reset = 0x5243 1 0x00
+Reset = 0x5244 1 0x00
+Reset = 0x5245 1 0x00
+Reset = 0x5246 1 0x00
+Reset = 0x5247 1 0x00
+Reset = 0x5249 1 0x00
+Reset = 0x5250 1 0x00
+Reset = 0x5251 1 0x00
+Reset = 0x5252 1 0x00
+Reset = 0x5253 1 0x00
+Reset = 0x5254 1 0x00
+Reset = 0x5255 1 0x00
+Reset = 0x5256 1 0x00
+Reset = 0x5257 1 0x00
+Reset = 0x5258 1 0x00
+Reset = 0x5259 1 0x00
+Reset = 0x525A 1 0x00
+Reset = 0x525B 1 0x00
+Reset = 0x525C 1 0x00
+Reset = 0x525D 1 0x00
+Reset = 0x525E 1 0x00
+Reset = 0x525F 1 0x00
+Reset = 0x5260 1 0x00
+Reset = 0x5261 1 0x00
+Reset = 0x5262 1 0xFF
+Reset = 0x5263 1 0xFF
+Reset = 0x5264 1 0x00
+Reset = 0x5265 1 0x00
+Reset = 0x5266 1 0x00
+Reset = 0x5267 1 0x00
+Reset = 0x5268 1 0x00
+Reset = 0x5269 1 0x00
+Reset = 0x526A 1 0x00
+Reset = 0x526B 1 0x00
+Reset = 0x526C 1 0x00
+Reset = 0x526D 1 0x00
+Reset = 0x526E 1 0x00
+Reset = 0x526F 1 0x00
+Reset = 0x5300 1 0x00
+Reset = 0x5301 1 0x00
+Reset = 0x5302 1 0x00
+Reset = 0x5303 1 0x00
+Reset = 0x5304 1 0x00
+Reset = 0x5305 1 0x00
+Reset = 0x5306 1 0x00
+Reset = 0x5307 1 0x00
+Reset = 0x5308 1 0x00
+Reset = 0x5309 1 0x00
+Reset = 0x530A 1 0x00
+Reset = 0x530B 1 0x00
+Reset = 0x530C 1 0x00
+Reset = 0x530D 1 0xFF
+Reset = 0x530E 1 0xFF
+Reset = 0x530F 1 0x00
+Reset = 0x5310 1 0x00
+Reset = 0x5311 1 0x00
+Reset = 0x5312 1 0x00
+Reset = 0x5313 1 0x00
+Reset = 0x5314 1 0x00
+Reset = 0x5320 1 0x00
+Reset = 0x5321 1 0x00
+Reset = 0x5322 1 0x00
+Reset = 0x5323 1 0x00
+Reset = 0x5324 1 0x00
+Reset = 0x5325 1 0x00
+Reset = 0x5326 1 0x00
+Reset = 0x5327 1 0x00
+Reset = 0x5328 1 0x00
+Reset = 0x5329 1 0x00
+Reset = 0x532A 1 0x00
+Reset = 0x532B 1 0xFF
+Reset = 0x532C 1 0xFF
+Reset = 0x532D 1 0x00
+Reset = 0x532E 1 0x00
+Reset = 0x532F 1 0x00
+Reset = 0x5330 1 0x00
+Reset = 0x5340 1 0x00
+Reset = 0x5341 1 0x00
+Reset = 0x5342 1 0x00
+Reset = 0x5343 1 0x00
+Reset = 0x5344 1 0x00
+Reset = 0x5345 1 0x00
+Reset = 0x5346 1 0xFF
+Reset = 0x5400 1 0x00
+Reset = 0x5401 1 0x00
+Reset = 0x5402 1 0x00
+Reset = 0x5404 1 0x00
+Reset = 0x5405 1 0x00
+Reset = 0x5406 1 0x00
+Reset = 0x5407 1 0x00
+Reset = 0x5800 1 0x00
+Reset = 0x5801 1 0x00
+Reset = 0x5802 1 0x00
+Reset = 0x5803 1 0x00
+Reset = 0x5804 1 0x00
+Reset = 0x5805 1 0x00
+Reset = 0x5806 1 0x00
+Reset = 0x5807 1 0x00
+Reset = 0x5808 1 0x00
+Reset = 0x7F00 1 0x00
+Reset = 0x7F01 1 0x00
+Reset = 0x7F02 1 0x00
+Reset = 0x7F03 1 0x00
+Reset = 0x7F04 1 0x00
+Reset = 0x7F05 1 0x00
+Reset = 0x7F06 1 0x00
+Reset = 0x7F07 1 0x00
+Reset = 0x7F08 1 0x17
+Reset = 0x7F09 1 0xFF
+Reset = 0x7F0A 1 0x28
+Reset = 0x7F60 1 0x00
+Reset = 0x7F70 1 0xFF
+Reset = 0x7F71 1 0xFF
+Reset = 0x7F72 1 0xFF
+Reset = 0x7F73 1 0xFF
+Reset = 0x7F74 1 0xFF
+Reset = 0x7F75 1 0xFF
+Reset = 0x7F76 1 0xFF
+Reset = 0x7F80 1 0x00
+Reset = 0x7F90 1 0x00
+Reset = 0x7F91 1 0x00
+Reset = 0x7F92 1 0x00
+Reset = 0x7F93 1 0x00
+Reset = 0x7F94 1 0x00
+Reset = 0x7F95 1 0x00
+Reset = 0x7F96 1 0x00
+Reset = 0x7F97 1 0x00
+Reset = 0x7F98 1 0x00
+Reset = 0x7F99 1 0x00
+Reset = 0x7F9A 1 0x00
+
+;;-------------------------------------------------------------------------
+;; End of file
+;;-------------------------------------------------------------------------

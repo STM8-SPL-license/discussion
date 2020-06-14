@@ -44,8 +44,8 @@ Practically I combined my existing headers from [STM8_templates](https://github.
   - STM8L001x: 0 supported, 1 pending
   - STLUXxx: 4 implemented, 0 pending
   - STNRGxx: 3 implemented, 0 pending
-  - STM8SPLNB: 0 implemented, 1 pending
-  - Overall: 88 implemented, 57 pending
+  - STM8SPLNB: n/a, as only parameter configurable via EEPROM
+  - Overall: 88 implemented, 56 pending, 1 n/a
 - My Raisonance demo license has expired, and cannot be "refreshed" by re-installing. Therefore testing with Ride is currently not possible
 - This is currently only a proposal with minimal testing, namely via the above examples 
 

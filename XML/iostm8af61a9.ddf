@@ -1,0 +1,159 @@
+;;-------------------------------------------------------------------------
+;; Declarations of SFR registers, interrupt vectors, interrupt control
+;; registers and memory map information.
+;;
+;; This file can be used by the IAR C-SPY debugger for STM8,
+;; all flavors (simulator and emulators).
+;;
+;; Copyright 2017 IAR Systems AB.
+;;
+;;-------------------------------------------------------------------------
+
+;;-------------------------------------------------------------------------
+;; Program start address
+;;
+;; Syntax: Start = Address
+;;
+;;   Address    Label or Address
+;;-------------------------------------------------------------------------
+[ProgramStartAddress]
+Start = __iar_program_start
+
+;;-------------------------------------------------------------------------
+;; SFR file
+;;
+;; Syntax: File = Filename
+;;
+;;   Filename   Name of SFR declaration file
+;;-------------------------------------------------------------------------
+[SfrInclude]
+File = $TOOLKIT_DIR$\config\ddf\iostm8af61a9.sfr
+
+;;-------------------------------------------------------------------------
+;; Memory information
+;;
+;; Syntax for zone definitions:
+;;   Memory = Name AdrSpace StartAdr EndAdr AccType
+;;
+;;   Name       Name of zone (legal characters: A-Z, a-z, 0-9, _)
+;;   AdrSpace   Must be "Memory"
+;;   StartAdr   Start address of memory block
+;;   EndAdr     End address of memory block
+;;   AccType    Type of access, read-only (R) or read-write (RW)
+;;
+;; Syntax for read access protection:
+;;   Protect = AdrSpace StartAdr NrOfBytes
+;;
+;;   AdrSpace   Must be "Memory"
+;;   StartAdr   Start address of memory to be protected from reading
+;;   NrOfBytes  Number of bytes from and including StartAdr
+;;
+;;   The read access protection mechanism should not be used for larger
+;;   blocks of memory for efficiency reasons.
+;;-------------------------------------------------------------------------
+[Memory]
+;;       Name            AdrSpace   StartAdr   EndAdr     AccType
+Memory = RAM             Memory     0x000000   0x0017FF   RW
+Memory = EEPROM          Memory     0x004000   0x0047FF   R
+Memory = FLASH           Memory     0x008000   0x027FFF   R
+Memory = SFR1            Memory     0x005000   0x0057FF   RW
+Memory = SFR2            Memory     0x007F00   0x007FFF   RW
+Memory = OPTION          Memory     0x004800   0x0048FF   R
+Memory = BOOTROM         Memory     0x006000   0x0067FF   R
+
+;;        AdrSpace        StartAdr   NrOfBytes
+Protect = Memory          0x005204   1         
+Protect = Memory          0x005216   1         
+Protect = Memory          0x005231   1         
+Protect = Memory          0x005241   1         
+
+;;-------------------------------------------------------------------------
+;; Interrupts
+;;
+;; Syntax: Interrupt = Id Vector Enable Pending Priority
+;;
+;;   Id         Interupt 'name'
+;;   Address    Interrupt vector address
+;;   No         Interrupt request number,  '-' indicates non-maskable
+;;              interrupt (NMI),
+;;   Enable     The SFR register and enable bit
+;;   Request    The SFR register and request bit
+;;   Priority   The SFR register and priority bit
+;;
+;; The non-maskable interrupt (NMI, Prio = '-') description has a simpler
+;; syntax, just name and vector.
+;;
+;; The SFR register and bit description follows the standard syntax for bits,
+;; that is SFRNAME.BITNAME as defined in the SFR file (*.sfr). During the
+;; interrupt description syntax check the system will verify that the given
+;; SFRNAME.BITNAME exists, which means that the *.sfr file must be loaded
+;; without syntax errors into the debugger.
+;;-------------------------------------------------------------------------
+[InterruptList]
+;;          Id                    Address  No  Enable               Pending               Priority
+Interrupt = AWU                   0x800C   3  AWU_CSR.AWUEN         AWU_CSR.AWUF          ITC_SPR1.VECT1SPR
+Interrupt = CLK_CSS               0x8010   4  CLK_CSSR.CSSDIE       CLK_CSSR.CSSD         ITC_SPR1.VECT2SPR
+Interrupt = CLK_SWITCH            0x8010   4  CLK_SWCR.SWIEN        CLK_SWCR.SWIF         ITC_SPR1.VECT2SPR
+Interrupt = EXTI0                 0x8014   5  PA_CR2.C20            PA_IDR.IDR0           ITC_SPR1.VECT3SPR
+Interrupt = EXTI1                 0x8018   6  PB_CR2.C20            PB_IDR.IDR0           ITC_SPR2.VECT4SPR
+Interrupt = EXTI2                 0x801C   7  PC_CR2.C20            PC_IDR.IDR0           ITC_SPR2.VECT5SPR
+Interrupt = EXTI3                 0x8020   8  PD_CR2.C20            PD_IDR.IDR0           ITC_SPR2.VECT6SPR
+Interrupt = EXTI4                 0x8024   9  PE_CR2.C20            PE_IDR.IDR0           ITC_SPR2.VECT7SPR
+Interrupt = SPI_CRCERR            0x8030  12  SPI_ICR.ERRIE         SPI_SR.CRCERR         ITC_SPR3.VECT10SPR
+Interrupt = SPI_MODF              0x8030  12  SPI_ICR.ERRIE         SPI_SR.MODF           ITC_SPR3.VECT10SPR
+Interrupt = SPI_OVR               0x8030  12  SPI_ICR.ERRIE         SPI_SR.OVR            ITC_SPR3.VECT10SPR
+Interrupt = SPI_RXNE              0x8030  12  SPI_ICR.RXIE          SPI_SR.RXNE           ITC_SPR3.VECT10SPR
+Interrupt = SPI_TXE               0x8030  12  SPI_ICR.TXIE          SPI_SR.TXE            ITC_SPR3.VECT10SPR
+Interrupt = SPI_WKUP              0x8030  12  SPI_ICR.WKIE          SPI_SR.WKUP           ITC_SPR3.VECT10SPR
+Interrupt = TIM1_CAPCOM_BIF       0x8034  13  TIM1_IER.BIE          TIM1_SR1.BIF          ITC_SPR3.VECT11SPR
+Interrupt = TIM1_CAPCOM_TIF       0x8034  13  TIM1_IER.TIE          TIM1_SR1.TIF          ITC_SPR3.VECT11SPR
+Interrupt = TIM1_OVR_UIF          0x8034  13  TIM1_IER.UIE          TIM1_SR1.UIF          ITC_SPR3.VECT11SPR
+Interrupt = TIM1_CAPCOM_CC1IF     0x8038  14  TIM1_IER.CC1IE        TIM1_SR1.CC1IF        ITC_SPR4.VECT12SPR
+Interrupt = TIM1_CAPCOM_CC2IF     0x8038  14  TIM1_IER.CC2IE        TIM1_SR1.CC2IF        ITC_SPR4.VECT12SPR
+Interrupt = TIM1_CAPCOM_CC3IF     0x8038  14  TIM1_IER.CC3IE        TIM1_SR1.CC3IF        ITC_SPR4.VECT12SPR
+Interrupt = TIM1_CAPCOM_CC4IF     0x8038  14  TIM1_IER.CC4IE        TIM1_SR1.CC4IF        ITC_SPR4.VECT12SPR
+Interrupt = TIM1_CAPCOM_COMIF     0x8038  14  TIM1_IER.COMIE        TIM1_SR1.COMIF        ITC_SPR4.VECT12SPR
+Interrupt = TIM2_OVR_UIF          0x803C  15  TIM2_IER.UIE          TIM2_SR1.UIF          ITC_SPR4.VECT13SPR
+Interrupt = TIM2_CAPCOM_CC1IF     0x8040  16  TIM2_IER.CC1IE        TIM2_SR1.CC1IF        ITC_SPR4.VECT14SPR
+Interrupt = TIM2_CAPCOM_CC2IF     0x8040  16  TIM2_IER.CC2IE        TIM2_SR1.CC2IF        ITC_SPR4.VECT14SPR
+Interrupt = TIM2_CAPCOM_CC3IF     0x8040  16  TIM2_IER.CC3IE        TIM2_SR1.CC3IF        ITC_SPR4.VECT14SPR
+Interrupt = TIM2_CAPCOM_TIF       0x8040  16  TIM2_IER.TIE          TIM2_SR1.TIF          ITC_SPR4.VECT14SPR
+Interrupt = TIM3_OVR_UIF          0x8044  17  TIM3_IER.UIE          TIM3_SR1.UIF          ITC_SPR4.VECT15SPR
+Interrupt = TIM3_CAPCOM_CC1IF     0x8048  18  TIM3_IER.CC1IE        TIM3_SR1.CC1IF        ITC_SPR5.VECT16SPR
+Interrupt = TIM3_CAPCOM_CC2IF     0x8048  18  TIM3_IER.CC2IE        TIM3_SR1.CC2IF        ITC_SPR5.VECT16SPR
+Interrupt = TIM3_CAPCOM_CC3IF     0x8048  18  TIM3_IER.CC3IE        TIM3_SR1.CC3IF        ITC_SPR5.VECT16SPR
+Interrupt = USART_T_TC            0x804C  19  USART_CR2.TCIEN       USART_SR.TC           ITC_SPR5.VECT17SPR
+Interrupt = USART_T_TXE           0x804C  19  USART_CR2.TIEN        USART_SR.TXE          ITC_SPR5.VECT17SPR
+Interrupt = USART_R_IDLE          0x8050  20  USART_CR2.ILIEN       USART_SR.IDLE         ITC_SPR5.VECT18SPR
+Interrupt = USART_R_LBDF          0x8050  20  USART_CR4.LBDIEN      USART_CR4.LBDF        ITC_SPR5.VECT18SPR
+Interrupt = USART_R_PE            0x8050  20  USART_CR1.PIEN        USART_SR.PE           ITC_SPR5.VECT18SPR
+Interrupt = USART_R_RXNE          0x8050  20  USART_CR2.RIEN        USART_SR.RXNE         ITC_SPR5.VECT18SPR
+Interrupt = I2C_ADD10             0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.ADD10         ITC_SPR5.VECT19SPR
+Interrupt = I2C_ADDR              0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.ADDR          ITC_SPR5.VECT19SPR
+Interrupt = I2C_AF                0x8054  21  I2C_ITR.ITERREN       I2C_SR2.AF            ITC_SPR5.VECT19SPR
+Interrupt = I2C_ARLO              0x8054  21  I2C_ITR.ITERREN       I2C_SR2.ARLO          ITC_SPR5.VECT19SPR
+Interrupt = I2C_BERR              0x8054  21  I2C_ITR.ITERREN       I2C_SR2.BERR          ITC_SPR5.VECT19SPR
+Interrupt = I2C_BTF               0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.BTF           ITC_SPR5.VECT19SPR
+Interrupt = I2C_OVR               0x8054  21  I2C_ITR.ITERREN       I2C_SR2.OVR           ITC_SPR5.VECT19SPR
+Interrupt = I2C_RXNE              0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.RXNE          ITC_SPR5.VECT19SPR
+Interrupt = I2C_SB                0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.SB            ITC_SPR5.VECT19SPR
+Interrupt = I2C_STOPF             0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.STOPF         ITC_SPR5.VECT19SPR
+Interrupt = I2C_TXE               0x8054  21  I2C_ITR.ITEVTEN       I2C_SR1.TXE           ITC_SPR5.VECT19SPR
+Interrupt = I2C_WUFH              0x8054  21  I2C_ITR.ITEVTEN       I2C_SR2.WUFH          ITC_SPR5.VECT19SPR
+Interrupt = LINUART_TC            0x8058  22  LINUART_CR2.TCIEN     LINUART_SR.TC         ITC_SPR6.VECT20SPR
+Interrupt = LINUART_TXE           0x8058  22  LINUART_CR2.TIEN      LINUART_SR.TXE        ITC_SPR6.VECT20SPR
+Interrupt = LINUART_IDLE          0x805C  23  LINUART_CR2.ILIEN     LINUART_SR.IDLE       ITC_SPR6.VECT21SPR
+Interrupt = LINUART_LBDF          0x805C  23  LINUART_CR4.LBDIEN    LINUART_CR4.LBDF      ITC_SPR6.VECT21SPR
+Interrupt = LINUART_LHDF          0x805C  23  LINUART_CR6.LHDIEN    LINUART_CR6.LHDF      ITC_SPR6.VECT21SPR
+Interrupt = LINUART_OR            0x805C  23  LINUART_CR2.RIEN      LINUART_SR.LHE        ITC_SPR6.VECT21SPR
+Interrupt = LINUART_PE            0x805C  23  LINUART_CR1.PIEN      LINUART_SR.PE         ITC_SPR6.VECT21SPR
+Interrupt = LINUART_RXNE          0x805C  23  LINUART_CR2.RIEN      LINUART_SR.RXNE       ITC_SPR6.VECT21SPR
+Interrupt = ADC_AWD               0x8060  24  ADC_CSR.AWDIE         ADC_CSR.AWD           ITC_SPR6.VECT22SPR
+Interrupt = ADC_EOC               0x8060  24  ADC_CSR.EOCIE         ADC_CSR.EOC           ITC_SPR6.VECT22SPR
+Interrupt = TIM4_OVR_UIF          0x8064  25  TIM4_IER.UIE          TIM4_SR1.UIF          ITC_SPR6.VECT23SPR
+Interrupt = FLASH_EOP             0x8068  26  FLASH_CR1.IE          FLASH_IAPSR.EOP       ITC_SPR7.VECT24SPR
+Interrupt = FLASH_WR_PG_DIS       0x8068  26  FLASH_CR1.IE          FLASH_IAPSR.WR_PG_DIS  ITC_SPR7.VECT24SPR
+
+;;-------------------------------------------------------------------------
+;; End of file
+;;-------------------------------------------------------------------------
